@@ -94,17 +94,21 @@ else
 	{
 		//we assume all these items except the two passwords are trimed before sent here
 		//under normal condition mysql_real_escape_string won't affect anything
-		$username = mysql_real_escape_string($_POST['username']);
-		$nickname = mysql_real_escape_string($_POST['nickname']);
+		$username = $_POST['username'];
+		$nickname = $_POST['nickname'];
 		$pswd1 = $_POST['password1'];//reserve blank characters
 		$pswd2 = $_POST['password2'];
 		$gender = (int)$_POST['gender'];
-		$school = mysql_real_escape_string($_POST['school']);
-		$email = mysql_real_escape_string($_POST['email']);
+		$school = $_POST['school'];
+		$email = $_POST['email'];
 		if(verify_username($username) && verify_nickname($nickname)
 			&& verify_password($pswd1, $pswd2) && verify_gender($gender)
 			&& verify_school($school) && verify_email($email))
 		{
+			$username = $conn->escape_string($username);
+			$nickname = $conn->escape_string($nickname);
+			$school = $conn->escape_string($school);
+			$email = $conn->escape_string($email);
 			$tm = date('Y-m-d H:i:s');
 			$pswd = md5($pswd1);
 			$sql = "insert into user (username, nickname, password, email, school, gender, registerTime)
@@ -160,7 +164,7 @@ else
 </tr>
 <tr>
 <td>Gender</td>
-<td><select size = "1">
+<td><select name="gender" size = "1">
 <option value = "2">--</option>
 <option value = "1">Male</option>
 <option value = "0"/>Female</option>
