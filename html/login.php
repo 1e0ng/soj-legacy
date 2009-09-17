@@ -27,7 +27,7 @@ function verify_user($conn, $username, $password)
 
 if(isset($_POST['username']) && isset($_POST['password']))
 {
-	if(verify_user($conn, mysql_real_escape_string($_POST['username']), $_POST['password']))
+	if(verify_user($conn, $conn->escape_string($_POST['username']), $_POST['password']))
 	{
 		if(isset($_GET['view']) && $_GET['view'] == 'login')
 		{

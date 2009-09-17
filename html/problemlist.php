@@ -50,11 +50,11 @@ else
 	$sql = "select pid, problemName, accepted, submitted from problem ";
 	 if(trim($_POST['pid']) != "")
 	{
-		$sql .= "where pid = ".mysql_real_escape_string(trim($_POST['pid']));
+		$sql .= "where pid = ".$conn->escape_string(trim($_POST['pid']));
 	}
 	else if(trim($_POST['title']) != "")
 	{
-		$sql .= "where problemName like '%".mysql_real_escape_string(trim($_POST['title']))."%'";
+		$sql .= "where problemName like '%".$conn->escape_string(trim($_POST['title']))."%'";
 	}
 }
 if($result = $conn->query($sql))

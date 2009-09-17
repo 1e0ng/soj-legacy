@@ -98,7 +98,7 @@ else
 		$tm = date('Y-m-d H:i:s');
 		//no need for escape
 		$sql = "insert into status (pid, uid, language, submitTime,sourceCode) 
-			values ($pid,{$_SESSION['uid']}, $lan, '$tm','".mysql_real_escape_string($_POST['source'])."')";
+			values ($pid,{$_SESSION['uid']}, $lan, '$tm','".$conn->escape_string($_POST['source'])."')";
 		//actually we need transaction here, but MyIASM doesn't support it yet
 		if($result = $conn->query($sql))
 		{

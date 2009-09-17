@@ -6,13 +6,13 @@ $sql_condition = "";
 if(isset($_GET['pid']) && ($pid = trim($_GET['pid'])) != "")
 {
 	$query_string .= "&pid=$pid";
-	$pid = mysql_real_escape_string($pid);
+	$pid = $conn->escape_string($pid);
 	$sql_condition .= "and pid=$pid ";
 }
 if(isset($_GET['username']) && ($username = trim($_GET['pid'])) != "")
 {
 	$query_string .= "&username=$username";
-	$username = mysql_real_escape_string($username);
+	$username = $conn->escape_string($username);
 	$sql_condition .= "and nickname=$username ";
 }
 if(isset($_GET['judgeStatus']) && $_GET['judgeStatus'] != "")
