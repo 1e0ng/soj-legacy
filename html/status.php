@@ -1,48 +1,59 @@
 <?php
+if(!isset($MAGICAL))
+{
+	$view = "status.php";
+	include("index.php");
+}
+else
+{
+include("conn.php");
 include("common.php");
 
-$query_string = "";
-$sql_condition = "";
+$pid = "";
+$username = "";
+$judgeStatus = 0;
+$language = 0;
+
+$querys = array();
+$conds = array();
 if(isset($_GET['pid']) && ($pid = trim($_GET['pid'])) != "")
 {
-	$query_string .= "&pid=$pid";
+	$querys[] = "pid=$pid";
 	$pid = $conn->escape_string($pid);
-	$sql_condition .= "and pid=$pid ";
+	$conds[] = "pid=$pid";
 }
 if(isset($_GET['username']) && ($username = trim($_GET['pid'])) != "")
 {
-	$query_string .= "&username=$username";
+	$querys[] = "username=".urlencode($username);
 	$username = $conn->escape_string($username);
-	$sql_condition .= "and nickname=$username ";
+	$conds[] = "nickname=$username";
 }
 if(isset($_GET['judgeStatus']) && $_GET['judgeStatus'] != "")
 {
-	if(is_numeric($_GET['judgeStatus']) && $_GET['judgeStatus'] > 0 
-		&& $_GET['judgeStatus'] < count($judgeStatus))
+	$judgeStatus = (int)$_GET['judgeStatus'];
+	if($judgeStatus > 0 && $judgeStatus < count($judgeStatus))
 	{
-		$query_string .= "&judgeStatus={$_GET['judgeStatus']}";
-		$sql_condition .= "and judgeStatus = {$_GET['judgeStatus']} ";
+		$query[] = "judgeStatus={$judgeStatus}";
+		$conds[] = "judgeStatus = {$judgeStatus}";
 	}
 	else
 	{
-		alert_and_go_back("JudgeStatus Invalid!");
+		//alert_and_go_back("JudgeStatus Invalid!");
 	}
 }
 if(isset($_GET['language']) && $_GET['language'] != "")
 {
-	if(is_numeric($_GET['judgeStatus']) && $_GET['language'] > 0 
-		&& $_GET['language'] < count($LANGUAGE))
+	$language = (int)$_GET['language'];
+	if($language > 0 && $language < count($LANGUAGE))
 	{
-		$query_string .= "&language={$_GET['language']}";
-		$sql_condition .= "and language = {$_GET['language']} ";
+		$querys[] = "language={$language}";
+		$conds[] = "language = {$language}";
 	}
 	else
 	{
-		alert_and_go_back("Language Invalid!");
+		//alert_and_go_back("Language Invalid!");
 	}
 }
-
-include("conn.php");
 
 $pagesize = 20;
 $top = 1;
@@ -50,38 +61,33 @@ $top = 1;
 if(isset($_GET['top']) && $_GET['top'] > 0)
 	$top = $_GET['top'];
 
-$table = "status";
 $condition = "";
-if($sql_condition)
+$table = "status";
+if($conds)
 {
 	$table .= ", user";
-	$condition = "user.uid = status.uid ".$sql_condition;
+	$condition = "user.uid = status.uid ".join(" and ", $conds);
 }
-$page_string = paged_disp($conn, $table, $condition, $top, $pagesize, "index.php?view=status".$query_string, true);
+$page_string = paged_disp($conn, $table, $condition, $top, $pagesize, 
+	"status.php".($querys? "?".join("&", $querys) : ""), true);
 ?>
 <div align = "center">
-<form action = "index.php?view=status" method = "get">
+<form action = "status.php" method = "get">
 	<p>
 	ProblemID
-	<input type = "text" name = "pid" size = "8"  maxlength = "8"/>
+	<input type = "text" name = "pid" value="<?php echo $pid;?>" size = "8"  maxlength = "8"/>
 	Username
-	<input type = "text" name = "username" size = "10" maxlength = "32"/>
+	<input type = "text" name = "username" value = "<?php echo $username;?>" size = "10" maxlength = "32"/>
 	JudgeStatus
 	<select name = "judgeStatus" size = "1" width = "10">
 <?php
-for($i = 0; $i < count($JUDGE_STATUS); $i++)
-{
-	echo "<option value = \"$i\">{$JUDGE_STATUS[$i]}\n";
-}
+	gen_options($JUDGE_STATUS, null, $judgeStatus);
 ?>
 	</select>
 	Language
 	<select name = "language" size = "1">
 <?php
-for($i = 0; $i < count($LANGUAGE); $i++)
-{
-	echo "<option value = \"$i\">{$LANGUAGE[$i]}</option>\n";
-}
+	gen_options($LANGUAGE, null, $language);
 ?>
 	</select>
 	<input type = "submit" name = "submit" value = "Go"/>
@@ -108,7 +114,7 @@ $top--;
 $sql = "select rid, pid, user.uid, user.nickname, judgeStatus, 
 	language, rtime, rmemory, submitTime
 	from status, user where status.uid = user.uid ";
-$sql .= $sql_condition . " order by rid desc limit $top, $pagesize";
+$sql .= join(" and ", $conds) . " order by rid desc limit $top, $pagesize";
 $top++;
 if($result = $conn->query($sql))
 {
@@ -120,15 +126,15 @@ if($result = $conn->query($sql))
 
 			gen_cell($status->rid);
 
-			gen_cell("<a href=\"index.php?view=problem&pid=$status->pid\">$status->pid</a>");
+			gen_cell("<a href=\"problem.php?pid=$status->pid\">$status->pid</a>");
 
-			gen_cell("<a href=\"index.php?view=user&uid=$status->uid\">
+			gen_cell("<a href=\"user.php?uid=$status->uid\">
 				$status->nickname</a>");
 
 			gen_cell($JUDGE_STATUS[$status->judgeStatus]);
 
 			if(isset($_SESSION['uid']) && $_SESSION['uid'] == $status->uid)
-				gen_cell("<a href=\"index.php?view=viewsource&sid={$status->rid}\">{$LANGUAGE[$status->language]}</a>");
+				gen_cell("<a href=\"viewsource.php&sid={$status->rid}\">{$LANGUAGE[$status->language]}</a>");
 			else
 				gen_cell($LANGUAGE[$status->language]);
 
@@ -164,3 +170,4 @@ else
 echo $page_string;
 ?>
 </div>
+<?php } ?>

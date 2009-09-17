@@ -10,33 +10,34 @@ echo "<div align = \"right\">";
 if(!isset($_SESSION['uid']))
 {
 ?>
-	<a href=index.php?view=login>Login</a>
+	<a href=login.php>Login</a>
 	&nbsp;&nbsp;
-	<a href=index.php?view=register>Register</a>
+	<a href=register.php>Register</a>
 <?php
 }
 //else display the user link
 else
 {
 	$nickname = $_SESSION['nickname'];
-	echo "<a href=index.php?view=user&uid=".$_SESSION['uid'].">$nickname</a>";
+	echo "<a href=\"user.php?uid=".$_SESSION['uid']."\">$nickname</a>";
+	if(!isset($_POST['submit']))
 	echo "&nbsp;&nbsp;";
-	echo "<a href=index.php?view=logout>Logout</a>";
+	echo "<a href=\"logout.php\">Logout</a>";
 }
 echo "</div>\n";
 ?>
 <h1><center>SDU Online Judge</center></h1>
 <hr width = "80%">
 <div align = "center">
-	<a href="index.php?view=home">Home</a>
+	<a href="home.php">Home</a>
 	&nbsp;&nbsp;&nbsp;&nbsp;
-	<a href="index.php?view=problemlist">Problems</a>
+	<a href="problemlist.php">Problems</a>
 	&nbsp;&nbsp;&nbsp;&nbsp;
-	<a href="index.php?view=submitproblem">Submit</a>
+	<a href="submitproblem.php">Submit</a>
 	&nbsp;&nbsp;&nbsp;&nbsp;
-	<a href="index.php?view=status">Status</a>
+	<a href="status.php">Status</a>
 	&nbsp;&nbsp;&nbsp;&nbsp;
-	<a href="index.php?view=rank">Rank</a>
+	<a href="rank.php">Rank</a>
 </div>
 <hr width = "40%">
 <?php

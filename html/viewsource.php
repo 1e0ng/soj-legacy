@@ -1,6 +1,9 @@
 <?php
 if(!isset($MAGICAL))
+{
+	$view = "viewsource.php";
 	include("index.php");
+}
 else
 {
 ?>
@@ -25,7 +28,7 @@ if(!isset($_GET['sid']))
 }
 else if(!is_numeric($_GET['sid']))
 {
-	alert_and_go_back("Bad source code id format");
+	alert_and_go_back("Source code not found!");
 }
 else
 {

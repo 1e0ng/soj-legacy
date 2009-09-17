@@ -1,6 +1,9 @@
 <?php
 if(!isset($MAGICAL))
+{
+	$view = "problem.php";
 	include("index.php");
+}
 else
 {
 include("conn.php");
@@ -16,7 +19,7 @@ function gen_section($title, $content)
 //pid must be numeric
 if(isset($_GET['pid']) && is_numeric($_GET['pid']) && $_GET['pid'] > 0)
 {
-	$pid = $_GET['pid'];
+	$pid = (int)$_GET['pid'];
 }
 else
 	alert_and_go_back("Problem not existed!");
@@ -36,7 +39,7 @@ if($result = $conn->query($sql))
 else
 {
 	error_log($conn->error." File:".__FILE__."; Line: ".__LINE__."; Sql string: $sql");
-	alert_and_go_back("Problem Not Existed!");
+	die("Database Error.");
 }
 //title area
 echo "<center><h1>$problem->problemName</h1></center>\n";
@@ -56,9 +59,9 @@ gen_section("INPUT CASE", my_htmlentities($problem->inputCase));
 gen_section("OUTPUT CASE", my_htmlentities($problem->outputCase));
 echo "</div>";
 echo "<div align = \"center\">\n";
-echo "<a href=\"index.php?view=submitproblem&pid=$pid\">submit</a>";
+echo "<a href=\"submitproblem.php?pid=$pid\">submit</a>";
 echo "&nbsp;&nbsp;&nbsp;&nbsp;";
-echo "<a href=\"index.php?view=statistics&pid=$pid\">statistics</a>";
+echo "<a href=\"statistics?pid=$pid\">statistics</a>";
 echo "</div>\n";
 ?>
 </div>

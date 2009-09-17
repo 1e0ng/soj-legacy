@@ -1,6 +1,9 @@
 <?php
 if(!isset($MAGICAL))
+{
+	$view = "statistics.php";
 	include("index.php");
+}
 else
 {
 ?>
@@ -94,6 +97,7 @@ else
 		else
 		{
 			error_log($conn->error." File:".__FILE__."; Line: ".__LINE__."; Sql string: $sql");
+			die("Database Error.");
 		}
 ?>
 </table>
@@ -102,6 +106,7 @@ else
 	else
 	{
 		error_log($conn->error." File:".__FILE__."; Line: ".__LINE__."; Sql string: $sql");
+		die("Database Error.");
 	}
 }
 ?>

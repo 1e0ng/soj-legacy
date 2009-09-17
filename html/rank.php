@@ -1,6 +1,9 @@
 <?php
 if(!isset($MAGICAL))
+{
+	$view = "rank.php";
 	include("index.php");
+}
 else
 {
 include("common.php");
@@ -12,7 +15,7 @@ $top = 1;
 if(isset($_GET['top']) && $_GET['top'] > 0)
 	$top = $_GET['top'];
 
-$page_string = paged_disp($conn, "user", null, $top, $pagesize, "index.php?view=user");
+$page_string = paged_disp($conn, "user", null, $top, $pagesize, "user.php");
 echo $page_string;
 ?>
 <div align = "center">
@@ -53,6 +56,7 @@ if($result = $conn->query($sql))
 else
 {
 	error_log($conn->error." File:".__FILE__."; Line: ".__LINE__."; Sql string: $sql");
+	die("Database Error.");
 }
 ?>
 </table>

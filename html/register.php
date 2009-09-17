@@ -1,6 +1,9 @@
 <?php
 if(!isset($MAGICAL))
+{
+	$view = "register.php";
 	include("index.php");
+}
 else
 {
 	include("common.php");
@@ -109,6 +112,7 @@ else
 			$nickname = $conn->escape_string($nickname);
 			$school = $conn->escape_string($school);
 			$email = $conn->escape_string($email);
+			date_default_timezone_set("Asia/Shanghai");
 			$tm = date('Y-m-d H:i:s');
 			$pswd = md5($pswd1);
 			$sql = "insert into user (username, nickname, password, email, school, gender, registerTime)
@@ -143,24 +147,24 @@ else
 	else
 	{
 ?>
-<form name = "formRegister" method = "post" action = "index.php?view=register" onsubmit = "return checkRegisterItems()">
+<form name = "formRegister" method = "post" action = "register.php" onsubmit = "return checkRegisterItems()">
 <div align = "center">
 <table cellpadding = "20">
 <tr>
 <td width = "300"><font color = "red">*</font>Username.Valid characters are alphabet, digits and underscore(_).</td>
-<td width = "200"><input type = "text" name = "username" maxlength = "32" size = "25"/></td>
+<td width = "200"><input type = "text" name = "username" value = "" maxlength = "32" size = "25"/></td>
 </tr>
 <tr>
 <td><font color = "red">*</font>Nickname.Punctuations other than underscore(_) are invalid.</td>
-<td><input type = "text" name = "nickname" maxlength = "64" size = "25"/></td>
+<td><input type = "text" name = "nickname" value = "" maxlength = "64" size = "25"/></td>
 </tr>
 <tr>
 <td><font color = "red">*</font>Password.Length should be between 6 and 16.</td>
-<td><input type = "password" name = "password1" maxlength = "16" size = "25"/></td>
+<td><input type = "password" name = "password1" value = "" maxlength = "16" size = "25"/></td>
 </tr>
 <tr>
 <td><font color = "red">*</font>Confirm your password</td>
-<td><input type = "password" name = "password2" maxlength = "16" size = "25"/></td>
+<td><input type = "password" name = "password2" value=""  maxlength = "16" size = "25"/></td>
 </tr>
 <tr>
 <td>Gender</td>
@@ -172,11 +176,11 @@ else
 </tr>
 <tr>
 <td>Email</td>
-<td><input type = "text" name = "email" maxlength = "128" size = "25"/></td>
+<td><input type = "text" name = "email" value = "" maxlength = "128" size = "25"/></td>
 </tr>
 <tr>
 <td>School</td>
-<td><input type = "text" name = "school" maxlength = "32" size = "25"/></td>
+<td><input type = "text" name = "school" value = "" maxlength = "32" size = "25"/></td>
 </tr>
 <tr><td colspan = "2" align = "center"><i>Items marked with a '*' are necessary.</i></td></tr>
 <tr><td colspan = "2" align = "center" >

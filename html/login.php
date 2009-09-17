@@ -1,14 +1,19 @@
 <?php
 if(!isset($MAGICAL))
+{
+	$view = "login.php";
 	include("index.php");
+}
 else
 {
 	include_once("common.php");
 	include_once("conn.php");
 function verify_user($conn, $username, $password)
 {
-	if($result = $conn->query(\
-		"select uid, username, nickname, password from user where username = '$username'"))
+	$username = $conn->escape_string($username);
+	if($result = $conn->query(
+		"select uid, username, nickname, password from user where username = '$username'")
+		&& $result->num_rows > 0)
 	{
 		$user = $result->fetch_object();
 		if($user->password == md5($password))
@@ -27,7 +32,7 @@ function verify_user($conn, $username, $password)
 
 if(isset($_POST['username']) && isset($_POST['password']))
 {
-	if(verify_user($conn, $conn->escape_string($_POST['username']), $_POST['password']))
+	if(verify_user($conn, $_POST['username'], $_POST['password']))
 	{
 		if(isset($_GET['view']) && $_GET['view'] == 'login')
 		{

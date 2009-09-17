@@ -1,6 +1,9 @@
 <?php
 if(!isset($MAGICAL))
+{
+	$view = "submitproblem.php";
 	include_once("index.php");
+}
 else
 {
 include_once("common.php");
@@ -37,7 +40,7 @@ function verify_pid($conn, $pid)
 		alert_and_go_back("Please select a problem!");
 		return false;
 	}
-	else if(!is_numeric($pid))
+	else if(($pid = (int)$pid) <= 0)
 	{
 		alert_and_go_back("Problem ID invalid!");
 		return false;
@@ -112,7 +115,7 @@ else
 			{
 				error_log($conn->error." File:".__FILE__."; Line: ".__LINE__);
 			}
-			redirect("index.php?view=status");
+			redirect("status.php");
 			if(!$result)
 			{
 				//something wrong occured and the database is in inconsistent state
@@ -123,7 +126,7 @@ else
 		else
 		{
 			error_log($conn->error." File:".__FILE__."; Line: ".__LINE__."; Sql string: $sql");
-			alert_and_go_back("Error occured, please try again later.");
+			die("Error occured, please try again later.");
 		}
 	}
 	else
@@ -150,13 +153,7 @@ if(isset($_SESSION['pref_lan']))
 {
 	$preferred_lan = $_SESSION['pref_lan'];
 }
-for($i = 0; $i < count($LANGUAGE); $i++)
-{
-	if($i == $preferred_lan)
-		echo "<option value = \"$i\" selected>{$LANGUAGE[$i]}</option>\n";
-	else
-		echo "<option value = \"$i\">{$LANGUAGE[$i]}</option>\n";
-}
+gen_options($LANGUAGE, null, $preferred_lan);
 ?>
 </td></tr>
 <tr><td colspan = "4">

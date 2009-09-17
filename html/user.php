@@ -1,6 +1,9 @@
 <?php
 if(!isset($MAGICAL))
+{
+	$view = "user.php";
 	include("index.php");
+}
 else
 {
 include("conn.php");
@@ -16,7 +19,7 @@ echo "<div align = \"center\">\n<table>\n\n";
 if(isset($_GET['uid']))
 {
 	if($_GET['uid'] > 0)
-		$uid = $_GET['uid'];
+		$uid = (int)$_GET['uid'];
 	else
 		alert_and_go_back("User not found!");
 }
@@ -26,7 +29,7 @@ else if(isset($_SESSION['uid']))
 }
 else
 {
-	alert_and_go_back("Something bad occured");
+	die("Something goes wrong.");
 }
 $sql = "select nickname, email, gender, accepted, submitted, registerTime
    	from user where uid = $uid";
@@ -44,7 +47,7 @@ if($result = $conn->query($sql))
 		{
 			while($pros = $result->fetch_object())
 			{
-				echo "<a href=\"index.php?view=problem&pid=$pros->pid\">$pros->pid</a>";
+				echo "<a href=\"problem.php?pid=$pros->pid\">$pros->pid</a>";
 			}
 		}
 		echo "</td></tr>\n";
@@ -61,6 +64,7 @@ if($result = $conn->query($sql))
 else
 {
 	error_log($conn->error." File:".__FILE__."; Line: ".__LINE__."; Sql string: $sql");
+	die("Database Error.");
 }
 echo "</table></div>\n";
 }

@@ -1,18 +1,27 @@
 <?php
 if(!isset($MAGICAL))
+{
+	$view = "problemlist.php";
 	include("index.php");
+}
 else
 {
+	$pid = 0;
+	$title = "";
+	if(isset($_GET['pid']) && $_GET['pid'])
+		$pid = (int)$_GET['pid'];
+	if(isset($_GET['title']))
+		$title = trim($_GET['title']);
 ?>
 <!--Search Division-->
 <div align = "center">
-<form name = "formSearchProblem" action = "index.php?view=problemlist" 
+<form name = "formSearchProblem" action = "problemlist.php" 
 			method = "post" onsubmit = "return checkSearchProblemItems()" align = "center">
 	<p>
 	ID
-	<input type = "text" name = "pid" size = "8" maxlength = "8">
+	<input type="text" name="pid" value="<?php echo $pid == 0? "": $pid; ?>" size="8" maxlength="8">
 	Title
-	<input type = "text" name = "title" size = "20" maxlength = "50">
+	<input type="text" name="title" value="<?php echo $title; ?>" size="20" maxlength="50">
 	<input type = "submit" name = "submit" value = "Go">
 	</p>
 </form>
@@ -24,10 +33,23 @@ if(!isset($_POST['submit']))
 	$pagesize = 20;
 	$top = 1;
 
+	$href_prefix = "problemlist.php";
+	$sql_condition = "";
+	if($pid !=  0)
+	{
+		$href_prefix .= "?pid=$pid";
+		$sql_condition = "pid=$pid";
+	}
+	else if($title != "")
+	{
+		$href_prefix .= "?title=".urlencode($title);
+		$sql_condition = "title like '%".$conn->escape_string($title)."%'";
+	}
+
 	if(isset($_GET['top']) && $_GET['top'] > 0)
-		$top = $_GET['top'];
+		$top = (int)$_GET['top'];
 	
-	$page_string = paged_disp($conn, 'problem', null, $top, $pagesize, 'index.php?view=problemlist');
+	$page_string = paged_disp($conn, 'problem', $sql_condition, $top, $pagesize, $href_prefix);
 	echo $page_string;
 }
 ?>
@@ -39,24 +61,11 @@ if(!isset($_POST['submit']))
 			<th align = "center" width = "80">AC Ratio</th>
 		</tr>
 <?php
-if(!isset($_POST['submit']))
-{
-	$top--;
-	$sql = "select pid, problemName, accepted, submitted from problem limit $top, $pagesize";
-	$top++;
-}
-else
-{
-	$sql = "select pid, problemName, accepted, submitted from problem ";
-	 if(trim($_POST['pid']) != "")
-	{
-		$sql .= "where pid = ".$conn->escape_string(trim($_POST['pid']));
-	}
-	else if(trim($_POST['title']) != "")
-	{
-		$sql .= "where problemName like '%".$conn->escape_string(trim($_POST['title']))."%'";
-	}
-}
+$top--;
+$sql = "select pid, problemName, accepted, submitted from problem "
+	.($sql_condition? "and $sql_condition": "")." limit $top, $pagesize";
+$top++;
+
 if($result = $conn->query($sql))
 {
 	if($result->num_rows > 0)
@@ -67,7 +76,7 @@ if($result = $conn->query($sql))
 			echo "<tr>";
 			echo "<td>$problem->pid</td>";
 			echo "<td align = \"left\">
-				<a href=\"index.php?view=problem&pid=$problem->pid\">
+				<a href=\"problem.php?pid=$problem->pid\">
 				$problem->problemName</a></td>";
 			echo "<td>";
 			if($problem->submitted > 0)
@@ -87,6 +96,7 @@ if($result = $conn->query($sql))
 else
 {
 	error_log($conn->error." File:".__FILE__."; Line: ".__LINE__."; Sql string: $sql");	
+	die("Database Error.");
 }
 ?>
 	</table>
