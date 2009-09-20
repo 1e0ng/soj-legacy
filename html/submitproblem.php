@@ -78,7 +78,7 @@ if(!isset($_SESSION['uid']))
 {
 	if(!isset($_GET['noalert']) || !$_GET['noalert'])
 		alert("You haven't logged in yet!");
-	include("login.php");
+	header("location:login.php?from=".urlencode($_SERVER['REQUEST_URI']));
 }
 else
 {

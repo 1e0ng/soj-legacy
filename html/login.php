@@ -11,8 +11,8 @@ else
 function verify_user($conn, $username, $password)
 {
 	$username = $conn->escape_string($username);
-	if($result = $conn->query(
-		"select uid, username, nickname, password from user where username = '$username'")
+	if(($result = $conn->query(
+		"select uid, username, nickname, password from user where username = '$username'"))
 		&& $result->num_rows > 0)
 	{
 		$user = $result->fetch_object();
@@ -34,13 +34,13 @@ if(isset($_POST['username']) && isset($_POST['password']))
 {
 	if(verify_user($conn, $_POST['username'], $_POST['password']))
 	{
-		if(isset($_GET['view']) && $_GET['view'] == 'login')
+		if(isset($_GET['from']) && $_GET['from'] != "")
 		{
-			redirect("index.php");;	
+			header("location:{$_GET['from']}");
 		}
 		else
 		{
-			go_back();
+			header("location:index.php");
 		}
 	}
 	else
@@ -52,7 +52,15 @@ else
 {
 ?>
 <div align = "center">
-<form name = "formLogin" action = "<?php echo $_SERVER['REQUEST_URI'].'&noalert=1';?>" method = "post" onsubmit = "return checkLoginItems()">
+<form name = "formLogin" action = "
+<?php 
+	echo "login.php?noalert=1";
+	if(isset($_GET['from']) && $_GET['from'] != "")
+	{
+		echo "&from=".urlencode($_GET['from']);
+	}
+?> 
+		" method = "post" onsubmit = "return checkLoginItems()">
 	<table>
 		<tr>
 			<td align = "right">Username&nbsp;&nbsp;</td>

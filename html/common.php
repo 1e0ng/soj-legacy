@@ -69,7 +69,7 @@ function paged_disp($conn, $tables, $condition, $top, $pagesize, $href,  $bNextP
 {
 	$page_string = "";
 	$sql = "select count(*) from $tables " . ($condition? "where $condition": "");
-	$sep = $href[strlen($href) - 1] == '?' ? '?' : '&';
+	$sep = strpos($href, '?') === false ? '?' : '&';
 	if($result = $conn->query($sql))
 	{
 		list($size) = $result->fetch_row();
