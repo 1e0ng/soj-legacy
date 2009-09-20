@@ -77,8 +77,10 @@ function verify_source($source)
 if(!isset($_SESSION['uid']))
 {
 	if(!isset($_GET['noalert']) || !$_GET['noalert'])
-		alert("You haven't logged in yet!");
-	header("location:login.php?from=".urlencode($_SERVER['REQUEST_URI']));
+	{
+		alert_and_redirect("You haven't logged in yet!", 
+			"login.php?from=".urlencode($_SERVER['REQUEST_URI']));
+	}
 }
 else
 {

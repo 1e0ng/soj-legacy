@@ -79,7 +79,7 @@ else
 		</tr>
 		<tr><td></td><td></td></tr>
 		<tr>
-			<td align = "center" colspan = "2"><a href="index.php?view=register">
+			<td align = "center" colspan = "2"><a href="register.php">
 				<i>Not registerred yet?Click here to register immediately!</i></a></td>
 		</tr>
 	</table>
