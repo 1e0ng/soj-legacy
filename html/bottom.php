@@ -10,7 +10,7 @@ else
 	<center>
 	<a href=mailto:powerx1202@gmail.com>powerx1202</a>
 	&nbsp;&nbsp;
-	<a href=mailto:alazyrabbit@gmail.com>alazyrabbit</a>
+	<a href="http://sites.google.com/site/liangsportfolio">alazyrabbit</a>
 </div>
 <?php
 }
