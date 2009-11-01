@@ -1,4 +1,5 @@
 #include "util.h"
+#include "RunStruts.h"
 
 #include <cstdio>
 #include <cstring>
@@ -73,7 +74,7 @@ bool GetCurrentRunUsage(pid_t pid, RunUsage &ru)
 	if(ru.time < 0)
 		return false;
 	ru.memory = ReadMemoryConsumption(pid);
-	if(ru.memoty < 0)
+	if(ru.memory < 0)
 		return false;
 	return true;
 }
