@@ -1,0 +1,110 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AllowSyscall	SyscallWatcher.cpp	/^int SyscallWatcher::AllowSyscall(int syscallNum)$/;"	f	class:SyscallWatcher
+AllowedSyscallRule	SyscallRule.h	/^class AllowedSyscallRule: public SyscallRule$/;"	c
+BanSyscall	SyscallWatcher.cpp	/^int SyscallWatcher::BanSyscall(int syscallNum)$/;"	f	class:SyscallWatcher
+BannedSyscallRule	SyscallRule.h	/^class BannedSyscallRule: public SyscallRule$/;"	c
+BeginOneLog	Log.cpp	/^void Log::BeginOneLog()$/;"	f	class:Log
+CC	Makefile	/^CC=g++$/;"	m
+CFLAGS	Makefile	/^CFLAGS=-g -O2 -Wall -m32$/;"	m
+COMMON_H	Common.h	2;"	d
+CXXFLAGS	Makefile	/^CXXFLAGS=$(CFLAGS)$/;"	m
+EndLog	Log.h	/^class EndLog{};$/;"	c
+EndOneLog	Log.cpp	/^void Log::EndOneLog()$/;"	f	class:Log
+ExecveSyscallRule	SyscallRule.h	/^	ExecveSyscallRule(){bFirstCalled = true;}$/;"	f	class:ExecveSyscallRule
+ExecveSyscallRule	SyscallRule.h	/^class ExecveSyscallRule: public SyscallRule$/;"	c
+GetExitStatus	NativeSandbox.h	/^	int GetExitStatus()const{return status;}$/;"	f	class:NativeSandbox
+GetFlagsInString	SyscallRule.cpp	/^string OpenSyscallRule::GetFlagsInString(int flags)$/;"	f	class:OpenSyscallRule
+GetLogStream	Log.cpp	/^ostringstream &Log::GetLogStream()$/;"	f	class:Log
+GetRunUsage	NativeSandbox.h	/^	const RunUsage *GetRunUsage()const{return &ru;}$/;"	f	class:NativeSandbox
+GetSyscallName	SyscallWatcher.cpp	/^const char * SyscallWatcher::GetSyscallName(int syscallNum)const$/;"	f	class:SyscallWatcher
+GetTimeInString	Common.cpp	/^string GetTimeInString(const char *fmt)$/;"	f
+InitRules	SyscallWatcher.cpp	/^void SyscallWatcher::InitRules()$/;"	f	class:SyscallWatcher
+IsAllowed	SyscallRule.cpp	/^bool ExecveSyscallRule::IsAllowed(int pid, struct user_regs_struct *regs)$/;"	f	class:ExecveSyscallRule
+IsAllowed	SyscallRule.cpp	/^bool OpenSyscallRule::IsAllowed(int pid, struct user_regs_struct *regs)$/;"	f	class:OpenSyscallRule
+IsAllowed	SyscallRule.h	/^	virtual bool IsAllowed(int pid, struct user_regs_struct *regs)$/;"	f	class:AllowedSyscallRule
+IsAllowed	SyscallRule.h	/^	virtual bool IsAllowed(int pid, struct user_regs_struct *regs)$/;"	f	class:BannedSyscallRule
+IsNormalExit	NativeSandbox.h	/^	bool IsNormalExit()const{return bNormalExit;}$/;"	f	class:NativeSandbox
+IsRestrictedSyscall	SyscallRule.h	/^	virtual bool IsRestrictedSyscall()const$/;"	f	class:AllowedSyscallRule
+IsRestrictedSyscall	SyscallRule.h	/^	virtual bool IsRestrictedSyscall()const$/;"	f	class:BannedSyscallRule
+IsRestrictedSyscall	SyscallRule.h	/^	virtual bool IsRestrictedSyscall()const{return true;}$/;"	f	class:ExecveSyscallRule
+IsRestrictedSyscall	SyscallRule.h	/^	virtual bool IsRestrictedSyscall()const{return true;}$/;"	f	class:OpenSyscallRule
+IsRestrictedSyscall	SyscallWatcher.cpp	/^bool SyscallWatcher::IsRestrictedSyscall(int syscallNum)const$/;"	f	class:SyscallWatcher
+IsRunning	NativeSandbox.h	/^	bool IsRunning()const{return bRunning;}$/;"	f	class:NativeSandbox
+IsSyscallAllowed	SyscallWatcher.cpp	/^bool SyscallWatcher::IsSyscallAllowed(int syscallNum, struct user_regs_struct *regs)const$/;"	f	class:SyscallWatcher
+IsValidSyscallNum	SyscallWatcher.cpp	/^bool SyscallWatcher::IsValidSyscallNum(int syscallNum)const$/;"	f	class:SyscallWatcher
+LOG_H	Log.h	2;"	d
+LOG_TIME_FORMAT	Common.h	8;"	d
+Log	Log.cpp	/^Log::Log(bool flag)$/;"	f	class:Log
+Log	Log.h	/^class Log$/;"	c
+MAX_PATH	SyscallRule.cpp	75;"	d	file:
+NATIVESANDBOX_H	NativeSandbox.h	19;"	d
+NativeSandbox	NativeSandbox.cpp	/^NativeSandbox::NativeSandbox()$/;"	f	class:NativeSandbox
+NativeSandbox	NativeSandbox.h	/^class NativeSandbox: Sandbox$/;"	c
+OBJS	Makefile	/^OBJS:=$(patsubst %.cpp, %.o, $(SOURCES))$/;"	m
+ORIG_EAX	NativeSandbox.cpp	14;"	d	file:
+ORIG_EAX	NativeSandbox.cpp	16;"	d	file:
+OpenSyscallRule	SyscallRule.h	/^class OpenSyscallRule: public SyscallRule$/;"	c
+PeekStringFromProc	SyscallRule.cpp	/^int PeekStringFromProc(int pid, unsigned long address, char *buf, size_t size)$/;"	f
+RUNSTRUTS_H	RunStruts.h	2;"	d
+RunLimits	RunStruts.h	/^struct RunLimits$/;"	s
+RunUsage	RunStruts.h	/^struct RunUsage$/;"	s
+SANDBOX_H	Sandbox.h	19;"	d
+SOURCES	Makefile	/^SOURCES:=$(wildcard *.cpp)$/;"	m
+SYSCALLRULE_H	SyscallRule.h	2;"	d
+SYSCALLWATCHER_H	SyscallWatcher.h	19;"	d
+Sandbox	Sandbox.h	/^class Sandbox$/;"	c
+SetChildPid	NativeSandbox.h	/^	void SetChildPid(int pid)$/;"	f	class:NativeSandbox
+SetChildPid	SyscallWatcher.h	/^	void SetChildPid(int pid){this->pid = pid;}$/;"	f	class:SyscallWatcher
+SetSyscallName	SyscallRule.h	/^	virtual void SetSyscallName(const char *name){syscallName = name;}$/;"	f	class:SyscallRule
+SetSyscallNum	SyscallRule.h	/^	virtual void SetSyscallNum(int num){syscallNum = num;} $/;"	f	class:SyscallRule
+SetSyscallRule	SyscallWatcher.cpp	/^int SyscallWatcher::SetSyscallRule(int syscallNum, SyscallRule *rule)$/;"	f	class:SyscallWatcher
+Start	NativeSandbox.cpp	/^void NativeSandbox::Start()$/;"	f	class:NativeSandbox
+SyscallRule	SyscallRule.h	/^	SyscallRule(){syscallName = NULL;bEnterCall = false;}$/;"	f	class:SyscallRule
+SyscallRule	SyscallRule.h	/^class SyscallRule$/;"	c
+SyscallWatcher	SyscallWatcher.cpp	/^SyscallWatcher::SyscallWatcher()$/;"	f	class:SyscallWatcher
+SyscallWatcher	SyscallWatcher.h	/^class SyscallWatcher$/;"	c
+UpdateRunUsage	NativeSandbox.cpp	/^void NativeSandbox::UpdateRunUsage()$/;"	f	class:NativeSandbox
+array_size	SyscallWatcher.cpp	371;"	d	file:
+bEnterCall	SyscallRule.h	/^	bool bEnterCall;\/\/each syscall will cause IsAllowed executing twice$/;"	m	class:SyscallRule
+bFirstCalled	SyscallRule.h	/^	bool bFirstCalled;\/\/whether the execve call is called the first time$/;"	m	class:ExecveSyscallRule
+bLogToStderr	Log.h	/^	bool bLogToStderr;$/;"	m	class:Log
+bLogging	Log.h	/^	bool bLogging;		\/\/whether we are writing a log $/;"	m	class:Log
+bNormalExit	NativeSandbox.h	/^	bool bNormalExit;$/;"	m	class:NativeSandbox
+bRunning	NativeSandbox.h	/^	bool bRunning;$/;"	m	class:NativeSandbox
+bTermByRistrictedSyscall	NativeSandbox.h	/^	bool bTermByRistrictedSyscall;$/;"	m	class:NativeSandbox
+endlog	Log.cpp	/^EndLog endlog;$/;"	v
+fd	Log.h	/^	int fd; \/\/the fileno of the log file$/;"	m	class:Log
+fork_judgee	main.cpp	/^pid_t fork_judgee(const char *judgee_name)$/;"	f
+fsize	RunStruts.h	/^	int fsize;\/\/output file size limit in bytes$/;"	m	struct:RunLimits
+log	Log.h	28;"	d
+logStream	Log.h	/^	std::ostringstream logStream;$/;"	m	class:Log
+main	main.cpp	/^int main(int argc, char *argv[])$/;"	f
+main	testee.cpp	/^int main(int argc, char *argv[], char* envp[])$/;"	f
+memory	RunStruts.h	/^	int memory;\/\/memory limit in bytes $/;"	m	struct:RunLimits
+memory	RunStruts.h	/^	int memory;\/\/memory usage in KiB$/;"	m	struct:RunUsage
+nproc	RunStruts.h	/^	int nproc;\/\/number of processes limit$/;"	m	struct:RunLimits
+operator <<	Log.cpp	/^ostream &operator<<(ostream &out, const EndLog &endLog)$/;"	f
+path	Log.h	/^	std::string path; \/\/path of the log file$/;"	m	class:Log
+pid	NativeSandbox.h	/^	int pid;$/;"	m	class:NativeSandbox
+pid	SyscallWatcher.h	/^	int pid;$/;"	m	class:SyscallWatcher
+ru	NativeSandbox.h	/^	RunUsage ru;$/;"	m	class:NativeSandbox
+rules	SyscallWatcher.h	/^	std::vector<SyscallRule *> rules;$/;"	m	class:SyscallWatcher
+setup_judgee	main.cpp	/^int setup_judgee()$/;"	f
+signal_name	Common.cpp	/^const char *signal_name[] =$/;"	v
+stack	RunStruts.h	/^	int stack;\/\/stack size limit in bytes$/;"	m	struct:RunLimits
+status	NativeSandbox.h	/^	int status;$/;"	m	class:NativeSandbox
+syscallName	SyscallRule.h	/^	const char *syscallName;$/;"	m	class:SyscallRule
+syscallNames	SyscallWatcher.cpp	/^const char *SyscallWatcher::syscallNames[] = {$/;"	m	class:SyscallWatcher	file:
+syscallNames	SyscallWatcher.h	/^	static const char *syscallNames[];$/;"	m	class:SyscallWatcher
+syscallNum	SyscallRule.h	/^	int syscallNum;$/;"	m	class:SyscallRule
+time	RunStruts.h	/^	int time;\/\/run time in ms$/;"	m	struct:RunUsage
+time	RunStruts.h	/^	int time;\/\/run time limit in ms$/;"	m	struct:RunLimits
+vm	RunStruts.h	/^	int vm;\/\/virutal memory limit in bytes$/;"	m	struct:RunLimits
+watcher	NativeSandbox.h	/^	SyscallWatcher watcher;$/;"	m	class:NativeSandbox
+~Log	Log.cpp	/^Log::~Log()$/;"	f	class:Log
+~SyscallWatcher	SyscallWatcher.cpp	/^SyscallWatcher::~SyscallWatcher()$/;"	f	class:SyscallWatcher

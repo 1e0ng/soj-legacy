@@ -1,0 +1,920 @@
+cscope 15 $HOME/Desktop/lab -q 0000000104 0000004353
+	@Common.h
+
+1 #iâdeà
+COMMON_H
+
+
+2 
+	#COMMON_H
+
+
+	)
+
+4 
+	~<¡ršg
+>
+
+6 cÚ¡ *
+sigÇl_Çme
+[];
+
+8 
+	#LOG_TIME_FORMAT
+ "%Y-%m-%d %H:%M:%S"
+
+	)
+
+11 
+	g¡d
+::
+¡ršg
+ 
+G‘TimeInSŒšg
+(cÚ¡ *
+fmt
+);
+
+	@Log.h
+
+1 #iâdeà
+LOG_H
+
+
+2 
+	#LOG_H
+
+
+	)
+
+4 
+	~<¡ršg
+>
+
+5 
+	~<s¡»am
+>
+
+7 şas 
+	cLog
+
+
+9 
+	mpublic
+:
+
+10 
+Log
+(
+boŞ
+ 
+æag
+ = 
+Œue
+);
+
+11 ~
+Log
+();
+
+13 
+	m¡d
+::
+o¡ršg¡»am
+ &
+G‘LogSŒ—m
+();
+
+14 
+BegšOÃLog
+();
+
+15 
+EndOÃLog
+();
+
+16 
+	m´iv©e
+:
+
+17 
+fd
+;
+
+18 
+	m¡d
+::
+¡ršg
+ 
+·th
+;
+
+19 
+boŞ
+ 
+	mbLogToStd”r
+;
+
+20 
+boŞ
+ 
+	mbLoggšg
+;
+
+21 
+	m¡d
+::
+o¡ršg¡»am
+ 
+logSŒ—m
+;
+
+24 şas 
+	cEndLog
+{};
+
+27 
+Log
+ 
+_log
+;
+
+28 
+	#log
+ 
+_log
+.
+	`G‘LogSŒ—m
+()
+
+	)
+
+29 
+EndLog
+ 
+’dlog
+;
+
+31 
+	g¡d
+::
+o¡»am
+ &
+İ”©Ü
+<<(
+¡d
+::o¡»am &
+out
+, cÚ¡ 
+	gEndLog
+ &
+	g’dLog
+);
+
+	@NativeSandbox.h
+
+18 #iâdeà
+NATIVESANDBOX_H
+
+
+19 
+	#NATIVESANDBOX_H
+
+
+	)
+
+21 
+	~"Sªdbox.h
+"
+
+22 
+	~"SysÿÎW©ch”.h
+"
+
+24 şas 
+	cN©iveSªdbox
+: 
+Sªdbox
+
+
+26 
+public
+:
+
+27 
+N©iveSªdbox
+();
+
+29 
+	$S‘ChdPid
+(
+pid
+)
+
+31 
+this
+->
+pid
+ =…id;
+
+32 
+w©ch”
+.
+	`S‘ChdPid
+(
+pid
+);
+
+35 
+	`S¹
+();
+
+37 
+boŞ
+ 
+	$IsNÜm®Ex™
+()cÚ¡{ 
+bNÜm®Ex™
+;
+	}
+}
+
+38 
+boŞ
+ 
+	$IsRuÂšg
+()cÚ¡{ 
+bRuÂšg
+;
+	}
+}
+
+39 
+	$G‘Ex™Stus
+()cÚ¡{ 
+¡©us
+;
+	}
+}
+
+40 cÚ¡ 
+RunU§ge
+ *
+	$G‘RunU§ge
+()cÚ¡{ &
+ru
+;
+	}
+}
+
+41 
+	g´iv©e
+:
+
+42 
+Upd©eRunU§ge
+();
+
+43 
+KlChd
+();
+
+45 
+	gpid
+;
+
+46 
+	g¡©us
+;
+
+47 
+boŞ
+ 
+	gbNÜm®Ex™
+;
+
+48 
+boŞ
+ 
+	gbRuÂšg
+;
+
+49 
+boŞ
+ 
+	gbT”mByRi¡riùedSysÿÎ
+;
+
+50 
+RunU§ge
+ 
+	gru
+;
+
+51 
+SysÿÎW©ch”
+ 
+	gw©ch”
+;
+
+	@RunStruts.h
+
+1 #iâdeà
+RUNSTRUTS_H
+
+
+2 
+	#RUNSTRUTS_H
+
+
+	)
+
+4 
+	sRunU§ge
+
+
+6 
+	mtime
+;
+
+7 
+	mmemÜy
+;
+
+10 
+	sRunLim™s
+
+
+13 
+	mtime
+;
+
+14 
+	mmemÜy
+;
+
+15 
+	mvm
+;
+
+16 
+	mfsize
+;
+
+17 
+	m¡ack
+;
+
+18 
+	mÅroc
+;
+
+	@Sandbox.h
+
+18 #iâdeà
+SANDBOX_H
+
+
+19 
+	#SANDBOX_H
+
+
+	)
+
+21 
+	~"RunSŒuts.h
+"
+
+23 şas 
+	cSªdbox
+
+
+25 
+	mpublic
+:
+
+26 
+vœtu®
+ 
+S¹
+() = 0;
+
+28 
+vœtu®
+ 
+S‘ChdPid
+(
+pid
+) = 0;
+
+30 
+vœtu®
+ 
+boŞ
+ 
+	$IsNÜm®Ex™
+() const = 0;
+
+31 
+vœtu®
+ 
+boŞ
+ 
+	$IsRuÂšg
+() const = 0;
+
+32 
+vœtu®
+ 
+	$G‘Ex™Stus
+() const = 0;
+
+33 
+vœtu®
+ cÚ¡ 
+RunU§ge
+ *
+	$G‘RunU§ge
+()const = 0;
+
+	@SyscallRule.h
+
+1 #iâdeà
+SYSCALLRULE_H
+
+
+2 
+	#SYSCALLRULE_H
+
+
+	)
+
+4 
+	~"Log.h
+"
+
+5 
+	~<¡ršg
+>
+
+7 
+	gu£r_»gs_¡ruù
+;
+
+9 şas 
+	cSysÿÎRuË
+
+
+11 
+	mpublic
+:
+
+12 
+	$SysÿÎRuË
+(){
+sysÿÎName
+ = 
+NULL
+;
+bEÁ”C®l
+ = 
+çl£
+;}
+
+13 
+vœtu®
+ 
+boŞ
+ 
+	`IsAÎowed
+(
+pid
+, 
+u£r_»gs_¡ruù
+ *
+»gs
+) = 0;
+
+14 
+vœtu®
+ 
+boŞ
+ 
+	$IsRe¡riùedSysÿÎ
+()const = 0;
+
+15 
+vœtu®
+ 
+	$S‘SysÿÎNum
+(
+num
+){
+sysÿÎNum
+ =‚um;
+	}
+}
+
+16 
+vœtu®
+ 
+	$S‘SysÿÎName
+(cÚ¡ *
+Çme
+){
+sysÿÎName
+ =‚ame;
+	}
+}
+
+17 
+	g´Ùeùed
+:
+
+18 
+sysÿÎNum
+;
+
+19 cÚ¡ *
+	gsysÿÎName
+;
+
+20 
+boŞ
+ 
+	gbEÁ”C®l
+;
+
+23 şas 
+	cBªÃdSysÿÎRuË
+: 
+public
+ 
+SysÿÎRuË
+
+
+25 
+public
+:
+
+26 
+vœtu®
+ 
+boŞ
+ 
+	$IsAÎowed
+(
+pid
+, 
+u£r_»gs_¡ruù
+ *
+»gs
+)
+
+28 if(
+bEÁ”C®l
+)
+
+30 
+log
+<<"SysÿÎ "<<
+sysÿÎNum
+<<":"<<
+sysÿÎName
+<<" d’›d"<<
+’dlog
+;
+
+31 
+bEÁ”C®l
+ = 
+çl£
+;
+
+35 
+bEÁ”C®l
+ = 
+Œue
+;
+
+37  
+çl£
+;
+
+39 
+vœtu®
+ 
+boŞ
+ 
+	$IsRe¡riùedSysÿÎ
+()const
+
+41  
+Œue
+;
+
+42 
+	}
+}
+
+45 şas 
+	cAÎowedSysÿÎRuË
+: 
+public
+ 
+SysÿÎRuË
+
+
+47 
+public
+:
+
+48 
+vœtu®
+ 
+boŞ
+ 
+	$IsAÎowed
+(
+pid
+, 
+u£r_»gs_¡ruù
+ *
+»gs
+)
+
+50  
+Œue
+;
+
+52 
+vœtu®
+ 
+boŞ
+ 
+	$IsRe¡riùedSysÿÎ
+()const
+
+54  
+çl£
+;
+
+55 
+	}
+}
+
+58 şas 
+	cExecveSysÿÎRuË
+: 
+public
+ 
+SysÿÎRuË
+
+
+60 
+public
+:
+
+61 
+	$ExecveSysÿÎRuË
+(){
+bFœ¡C®Ëd
+ = 
+Œue
+;}
+
+62 
+vœtu®
+ 
+boŞ
+ 
+	`IsAÎowed
+(
+pid
+, 
+u£r_»gs_¡ruù
+ *
+»gs
+);
+
+65 
+vœtu®
+ 
+boŞ
+ 
+	$IsRe¡riùedSysÿÎ
+()cÚ¡{ 
+Œue
+;
+	}
+}
+
+66 
+	g´iv©e
+:
+
+67 
+boŞ
+ 
+bFœ¡C®Ëd
+;
+
+70 şas 
+	cO³nSysÿÎRuË
+: 
+public
+ 
+SysÿÎRuË
+
+
+72 
+public
+:
+
+73 
+vœtu®
+ 
+boŞ
+ 
+IsAÎowed
+(
+pid
+, 
+u£r_»gs_¡ruù
+ *
+»gs
+);
+
+74 
+vœtu®
+ 
+boŞ
+ 
+	$IsRe¡riùedSysÿÎ
+()cÚ¡{ 
+Œue
+;}
+
+75 
+´iv©e
+:
+
+76 
+¡d
+::
+¡ršg
+ 
+	`G‘FÏgsInSŒšg
+(
+æags
+);
+
+77 
+	}
+};
+
+	@SyscallWatcher.h
+
+18 #iâdeà
+SYSCALLWATCHER_H
+
+
+19 
+	#SYSCALLWATCHER_H
+
+
+	)
+
+21 
+	~<veùÜ
+>
+
+22 
+	~"SysÿÎRuË.h
+"
+
+28 şas 
+	cSysÿÎW©ch”
+
+
+30 
+	mpublic
+:
+
+31 
+SysÿÎW©ch”
+();
+
+32 ~
+SysÿÎW©ch”
+();
+
+34 
+	$S‘ChdPid
+(
+pid
+){
+this
+->pid =…id;}
+
+36 cÚ¡ *
+sysÿÎNames
+[];
+
+38 cÚ¡ *
+	$G‘SysÿÎName
+(
+sysÿÎNum
+)const;
+
+39 
+boŞ
+ 
+	$IsSysÿÎAÎowed
+(
+sysÿÎNum
+, 
+u£r_»gs_¡ruù
+ *
+»gs
+)const;
+
+40 
+boŞ
+ 
+	$IsRe¡riùedSysÿÎ
+(
+sysÿÎNum
+)const;
+
+42 
+	`BªSysÿÎ
+(
+sysÿÎNum
+);
+
+43 
+	`AÎowSysÿÎ
+(
+sysÿÎNum
+);
+
+44 
+	`S‘SysÿÎRuË
+(
+sysÿÎNum
+, 
+SysÿÎRuË
+ *
+ruË
+);
+
+46 
+šlše
+ 
+boŞ
+ 
+	$IsV®idSysÿÎNum
+(
+sysÿÎNum
+)const;
+
+47 
+´iv©e
+:
+
+48 
+	`In™RuËs
+();
+
+50 
+pid
+;
+
+51 
+¡d
+::
+veùÜ
+<
+SysÿÎRuË
+ *> 
+ruËs
+;
+
+52 
+	}
+};
+
+	@
+1
+.
+0
+7
+84
+Common.h
+Log.h
+NativeSandbox.h
+RunStruts.h
+Sandbox.h
+SyscallRule.h
+SyscallWatcher.h

@@ -1,0 +1,12 @@
+#ifndef JUDGER_H
+#define JUDGER_H
+
+#define ACCEPTED				1
+#define COMPILER_ERROR			2
+#define TIME_LIMIT_EXCEEDED		3
+#define MEMORY_LIMIT_EXCEEDED	4
+#define WRONG_ANSWER			5
+#define RUNTIME_ERROR			6
+#define OUTPUT_LIMIT_EXCEEDED	7
+
+#endif
