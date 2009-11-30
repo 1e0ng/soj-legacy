@@ -125,6 +125,8 @@ public:
 	int Initialize();
 
 	Compiler *GetCompiler(const std::string &lan);
+	static void SetupCompiler(const Compiler &compiler, const std::string &srcPath, const std::string &destPath,
+			const std::string &logPath);
 private:
 	CompilerFactory();
 	~CompilerFactory();

@@ -63,3 +63,11 @@ Compiler *CompilerFactory::GetCompiler(const string &lan)
 	else
 		return NULL;
 }
+
+void CompilerFactory::SetupCompiler(const Compiler &compiler, const std::string &srcPath, const std::string &destPath,
+			const std::string &logPath)
+{
+	compiler.SetSrcPath(srcPath);
+	compiler.SetDestPath(destPath);
+	compiler.SetLogPath(logPath);
+}
