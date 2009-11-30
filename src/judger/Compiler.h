@@ -7,10 +7,6 @@
 class Compiler
 {
 public:
-	Compiler()
-	{
-		bLogOutput = true;
-	}
 	virtual std::string GetName()const
 	{
 		return "";
@@ -19,54 +15,25 @@ public:
 	{
 		this->cc = cc;
 	}
+	//all path should not ends with slash
 	void SetSrcPath(const std::string &path)
 	{
 		srcPath = path;
 	}
-	void SetSrcFilename(const std::string &filename)
-	{
-		srcFilename = filename;
-	}
 	void SetDestPath(const std::string &path)
 	{
 		destPath = path;
-	}
-	void SetDestFilename(const std::string &filename)
-	{
-		destFilename = filename;
-	}
-	void LogOutput(bool flag){bLogOutput = flag;}
-	void SetLogPath(const std::string &path)
-	{
-		logPath = path;
-	}
-	void SetLogFilename(const std::string &filename)
-	{
-		logFilename = filename;
 	}
 	void SetOptions(const std::string &opts)
 	{
 		options = opts;
 	}
 
-	virtual bool Compile() const;
-
-	virtual std::string GetSrcPathname() const{return ComposePathname(srcPath, srcFilename);}
-	virtual std::string GetDestPathname() const{return ComposePathname(destPath, destFilename);}
-	virtual std::string GetLogPathname() const{return ComposePathname(logPath, logFilename);}
-	virtual std::string GetCC() const{return cc;}
-	virtual std::string GetOptions() const{return options;}
-private:
-	static std::string ComposePathname(const std::string &path, const std::string &filename);
+	virtual bool Compile(int id) const = 0;
 protected:
 	std::string cc;
 	std::string srcPath;
-	std::string srcFilename;
 	std::string destPath;
-	std::string destFilename;
-	bool bLogOutput;
-	std::string logPath;
-	std::string logFilename;
 	std::string options;
 };
 
@@ -82,6 +49,7 @@ public:
 	{
 		return "GCC";
 	}
+	virtual bool Compile(int id)const;
 };
 
 class GPPCompiler : public Compiler
@@ -96,6 +64,7 @@ public:
 	{
 		return "G++";
 	}
+	virtual bool Compile(int id)const;
 };
 
 class JavaCompiler : public Compiler
@@ -109,7 +78,7 @@ public:
 	{
 		return "Javac";
 	}
-	//virtual bool Compile()const{}
+	virtual bool Compile(int id)const{return false;}
 };
 
 
@@ -125,8 +94,7 @@ public:
 	int Initialize();
 
 	Compiler *GetCompiler(const std::string &lan);
-	static void SetupCompiler(const Compiler &compiler, const std::string &srcPath, const std::string &destPath,
-			const std::string &logPath);
+	static void SetupCompiler(Compiler &compiler, const std::string &srcPath, const std::string &destPath);
 private:
 	CompilerFactory();
 	~CompilerFactory();

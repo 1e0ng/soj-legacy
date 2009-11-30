@@ -14,6 +14,7 @@ SandboxFactory::~SandboxFactory()
 {
 	for(vector<Sandbox *>::iterator it = sandboxes.begin(); it != sandboxes.end(); ++it)
 		delete *it;
+	sandboxes.clear();
 }
 
 int SandboxFactory::Initialize()

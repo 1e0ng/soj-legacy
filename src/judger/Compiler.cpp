@@ -1,36 +1,25 @@
 #include "Compiler.h"
 #include "Log.h"
+#include "Configuration.h"
+
 #include <stdio.h>
 #include <string>
 #include <stdlib.h>
 using namespace std;
 
-string Compiler::ComposePathname(const string &path, const string &filename)
-{
-	if(path.empty())
-		return filename;
-	else
-	{
-		if(path[path.length() - 1] != '/')//does the srcPath ends with a '/'?
-			return path + "/" + filename;
-		else
-			return path + filename;
-	}
-}
-
-bool Compiler::Compile()const
+bool GCCCompiler::Compile(int id)const
 {
 	char cmd[512] = {0};
-	if(bLogOutput)
-	{
-		sprintf(cmd, "%s %s -o %s %s > %s", 
-				GetCC().c_str(), GetSrcPathname().c_str(), GetDestPathname().c_str(), GetOptions().c_str(), GetLogPathname().c_str());
-	}
-	else
-	{
-		sprintf(cmd, "%s %s -o %s %s",
-				GetCC().c_str(), GetSrcPathname().c_str(), GetDestPathname().c_str(), GetOptions().c_str());
-	}
+	sprintf(cmd, "%s %s/%d.c -o %s/%d %s > /dev/null", 
+			cc.c_str(), srcPath.c_str(), id, destPath.c_str(), id, options.c_str());
+	return system(cmd) == 0;
+}
+
+bool GPPCompiler::Compile(int id)const
+{
+	char cmd[512] = {0};
+	sprintf(cmd, "%s %s/%d.cpp -o %s/%d %s > /dev/null", 
+			cc.c_str(), srcPath.c_str(), id, destPath.c_str(), id, options.c_str());
 	return system(cmd) == 0;
 }
 
@@ -43,6 +32,11 @@ CompilerFactory::CompilerFactory()
 
 int CompilerFactory::Initialize()
 {
+	for(vector<Compiler *>::iterator it = compilers.begin(); it != compilers.end(); ++it)
+	{
+		SetupCompiler(**it, Configuration::GetInstance().GetSrcFilePath(),
+				Configuration::GetInstance().GetDestFilePath());
+	}
 	return 0;
 }
 
@@ -50,6 +44,7 @@ CompilerFactory::~CompilerFactory()
 {
 	for(vector<Compiler *>::iterator it = compilers.begin(); it != compilers.end(); ++it)
 		delete *it;
+	compilers.clear();
 }
 
 Compiler *CompilerFactory::GetCompiler(const string &lan)
@@ -64,10 +59,8 @@ Compiler *CompilerFactory::GetCompiler(const string &lan)
 		return NULL;
 }
 
-void CompilerFactory::SetupCompiler(const Compiler &compiler, const std::string &srcPath, const std::string &destPath,
-			const std::string &logPath)
+void CompilerFactory::SetupCompiler(Compiler &compiler, const std::string &srcPath, const std::string &destPath)
 {
 	compiler.SetSrcPath(srcPath);
 	compiler.SetDestPath(destPath);
-	compiler.SetLogPath(logPath);
 }

@@ -7,7 +7,7 @@
 class Log
 {
 public:
-	enum{DEBUG, INFO, WARNING, CRITICAL};
+	enum{DEBUG, INFO, WARNING, ERROR, CRITICAL};
 
 	Log(bool flag = true);
 	~Log();

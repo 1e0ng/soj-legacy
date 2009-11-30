@@ -16,9 +16,9 @@ public:
 
 	std::string GetSrcFilePath()const;
 	std::string GetDestFilePath()const;
-	std::string GetCompilerOutputPath()const;
 	std::string GetStandardOutputPath()const;
 	std::string GetProgramOutputPath()const;
+	std::string GetProgramInputPath()const;
 
 	std::string GetConfigurationPath()const;
 private:
@@ -26,6 +26,12 @@ private:
 	~Configuration(){}
 	Configuration(const Configuration &);
 	Configuration &operator=(const Configuration &);
+
+	std::string srcFilePath;
+	std::string destFilePath;
+	std::string standardOutputPath;
+	std::string programOutputPath;
+	std::string programInputPath;
 };
 
 #endif
