@@ -18,14 +18,18 @@ Log::Log(bool flag)
 {
 	bLogToStderr = flag;
 	bLogging = false;
+}
 
+int Log::Initialize()
+{
 	path = "soj.log";
 	fd = open(path.c_str(), O_CREAT|O_RDWR|O_APPEND, 0644);
 	if(fd < 0)
 	{
 		fprintf(stderr, "log failed to open");
-		exit(1);
+		return -1;
 	}
+	return 0;
 }
 
 Log::~Log()

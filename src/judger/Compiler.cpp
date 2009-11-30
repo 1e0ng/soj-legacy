@@ -1,5 +1,5 @@
 #include "Compiler.h"
-//#include "Log.h"
+#include "Log.h"
 #include <stdio.h>
 #include <string>
 #include <stdlib.h>
@@ -41,13 +41,16 @@ CompilerFactory::CompilerFactory()
 	compilers.push_back(new JavaCompiler());
 }
 
+int CompilerFactory::Initialize()
+{
+	return 0;
+}
+
 CompilerFactory::~CompilerFactory()
 {
 	for(vector<Compiler *>::iterator it = compilers.begin(); it != compilers.end(); ++it)
 		delete *it;
 }
-
-CompilerFactory *CompilerFactory::instance = NULL;
 
 Compiler *CompilerFactory::GetCompiler(const string &lan)
 {

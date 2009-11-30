@@ -117,23 +117,20 @@ public:
 class CompilerFactory
 {
 public:
-	static CompilerFactory *GetInstance()
+	static CompilerFactory &GetInstance()
 	{
-		if(instance == NULL)
-			instance = new CompilerFactory();
+		static CompilerFactory instance;
 		return instance;
 	}
-	static void DestroyInstance()
-	{
-		delete instance;
-		instance = NULL;
-	}
+	int Initialize();
 
 	Compiler *GetCompiler(const std::string &lan);
-
-	~CompilerFactory();
 private:
 	CompilerFactory();
+	~CompilerFactory();
+	CompilerFactory(const CompilerFactory &);
+	CompilerFactory &operator=(const CompilerFactory &);
+
 	static CompilerFactory *instance;
 	std::vector<Compiler *> compilers;
 };

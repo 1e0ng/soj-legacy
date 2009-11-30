@@ -11,6 +11,7 @@ public:
 
 	Log(bool flag = true);
 	~Log();
+	int Initialize();
 
 	std::ostringstream &GetLogStream(int level = DEBUG);
 	void BeginOneLog();
