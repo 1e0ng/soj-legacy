@@ -39,7 +39,7 @@ public:
 class SandboxFactory
 {
 public:
-	SandboxFactory &GetInstance()
+	static SandboxFactory &GetInstance()
 	{
 		static SandboxFactory instance;
 		return instance;
@@ -48,6 +48,7 @@ public:
 	int Initialize();
 
 	Sandbox *GetSandbox(const std::string &type)const;
+	void DisposeSandbox(Sandbox *sandbox){}
 private:
 	SandboxFactory();
 	~SandboxFactory();

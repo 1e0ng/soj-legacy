@@ -5,14 +5,10 @@ using namespace std;
 
 RunnerFactory::RunnerFactory()
 {
-	runners.push_back(new NativeRunner());
 }
 
 RunnerFactory::~RunnerFactory()
 {
-	for(size_t i = 0; i < runners.size(); i++)
-		delete runners[i];
-	runners.clear();
 }
 
 int RunnerFactory::Initialize()
@@ -23,6 +19,13 @@ int RunnerFactory::Initialize()
 Runner *RunnerFactory::GetRunner(const string &lan)
 {
 	if(lan == "c" || lan == "c++")
-		return runners[0];
+	{
+		return new NativeRunner();
+	}
 	return NULL;
+}
+
+void RunnerFactory::DisposeRunner(Runner *runner)
+{
+	delete runner;
 }

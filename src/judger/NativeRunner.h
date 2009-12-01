@@ -10,8 +10,8 @@
 class NativeRunner :public Runner
 {
 public:
-	NativeRunner(){}
-	~NativeRunner(){}
+	NativeRunner(){sandbox = SandboxFactory::GetInstance().GetSandbox("native");}
+	~NativeRunner(){SandboxFactory::GetInstance().DisposeSandbox(sandbox);sandbox = NULL;}
 
 	virtual bool Run();
 	virtual int GetResult()const{return result;}

@@ -94,6 +94,7 @@ public:
 	int Initialize();
 
 	Compiler *GetCompiler(const std::string &lan);
+	void DisposeCompiler(Compiler *compiler){}
 	static void SetupCompiler(Compiler &compiler, const std::string &srcPath, const std::string &destPath);
 private:
 	CompilerFactory();

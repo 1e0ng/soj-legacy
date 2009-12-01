@@ -1,7 +1,6 @@
 #ifndef RUNNER_H
 #define RUNNER_H
 #include <string>
-#include <vector>
 struct RunInfo;
 struct RunUsage;
 
@@ -29,12 +28,12 @@ class RunnerFactory
 	int Initialize();
 
 	Runner *GetRunner(const std::string &lan);
+	void DisposeRunner(Runner *runner);
 private:
 	RunnerFactory();
 	~RunnerFactory();
 	RunnerFactory(const RunnerFactory &);
 	RunnerFactory &operator = (const RunnerFactory &);
-	std::vector<Runner *> runners;
 };
 
 #endif
