@@ -7,6 +7,7 @@
 class Compiler
 {
 public:
+	virtual ~Compiler(){}
 	virtual std::string GetName()const
 	{
 		return "";

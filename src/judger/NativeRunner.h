@@ -11,15 +11,17 @@ class NativeRunner :public Runner
 {
 public:
 	NativeRunner(){sandbox = SandboxFactory::GetInstance().GetSandbox("native");}
-	~NativeRunner(){SandboxFactory::GetInstance().DisposeSandbox(sandbox);sandbox = NULL;}
+	virtual ~NativeRunner(){SandboxFactory::GetInstance().DisposeSandbox(sandbox);sandbox = NULL;}
 
-	virtual bool Run();
+	virtual bool Run(int rid);
 	virtual int GetResult()const{return result;}
-	virtual const RunUsage *GetRunUsage()const{return sandbox->GetRunUsage();}
+	virtual const RunUsage *GetRunUsage()const;
 
 	virtual void SetRunInfo(const RunInfo &info);
+	virtual void SetTimeLimit(long time);
+	virtual void SetMemoryLimit(long memory);
 private:
-	bool SetupChild();
+	bool SetupChild(int rid);
 
 	Sandbox *sandbox;
 	RunInfo runInfo;

@@ -10,6 +10,15 @@ int Configuration::Initialize()
 	standardOutputPath = "sout";
 	programOutputPath = "pout";
 	programInputPath = "pin";
+	programWorkDir = ".";
+	sandboxEnabled = true;
+
+	fsizeLimit = 0;
+	stackLimit = 8192;
+	nprocLimit = 1;
+	nofileLimit = 5;
+	javaTimeFactor = 5;
+	javaMemoryFactor = 5;
 	return 0;
 }
 
@@ -36,4 +45,9 @@ string Configuration::GetProgramOutputPath()const
 string Configuration::GetProgramInputPath()const
 {
 	return programInputPath;
+}
+
+string Configuration::GetProgramWorkDir()const
+{
+	return programWorkDir;
 }

@@ -13,14 +13,14 @@ int OutputChecker::Check(int id)const
 	sout = fopen(tmp, "r");
 	if(sout == NULL)
 	{
-		log(Log::ERROR)<<"OutputChecker:Can't open file \""<<tmp<<"\" for read"<<endlog;
+		log(Log::WARNING)<<"OutputChecker:Can't open file \""<<tmp<<"\" for read"<<endlog;
 		return FILE_ERROR;
 	}
 	sprintf(tmp, "%s/%d", programOutputPath.c_str(), id);
 	pout = fopen(tmp, "r");
 	if(pout == NULL)
 	{
-		log(Log::ERROR)<<"OutputChecker:Can't open file \""<<tmp<<"\" for read"<<endlog;
+		log(Log::WARNING)<<"OutputChecker:Can't open file \""<<tmp<<"\" for read"<<endlog;
 		fclose(sout);
 		return FILE_ERROR;
 	}

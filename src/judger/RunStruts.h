@@ -19,15 +19,34 @@ struct RunLimits
 	rlim_t fsize;//output file size limit in bytes
 	rlim_t stack;//stack size limit in bytes
 	rlim_t nproc;//number of processes limit
+	rlim_t nofile;//number of files
 };
 
 struct RunInfo
 {
 //information about the program to be run
-	std::string pathname;
-	std::string inputFilename;
-	std::string outputFilename;
-	std::string errFilename;
+	RunInfo()
+		:filePath(), inputPath(), outputPath(), workdir(), bTrace(true), runLimits()
+	{}
+	RunInfo(const RunInfo &rhs)
+		:filePath(rhs.filePath), inputPath(rhs.inputPath), outputPath(rhs.outputPath),
+		workdir(rhs.workdir), bTrace(rhs.bTrace), runLimits(rhs.runLimits)
+	{}
+	RunInfo &operator = (const RunInfo &rhs)
+	{
+		filePath = rhs.filePath;
+		inputPath = rhs.inputPath;
+		outputPath = rhs.outputPath;
+		workdir = rhs.workdir;
+		bTrace = rhs.bTrace;
+		runLimits = rhs.runLimits;
+		return *this;
+	}
+	std::string filePath;
+	std::string inputPath;
+	std::string outputPath;
+	std::string workdir;
+	bool bTrace;
 	RunLimits runLimits;
 };
 

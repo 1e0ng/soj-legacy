@@ -19,6 +19,27 @@ public:
 	std::string GetStandardOutputPath()const;
 	std::string GetProgramOutputPath()const;
 	std::string GetProgramInputPath()const;
+	std::string GetProgramWorkDir()const;
+	bool IsSandboxEnabled()const
+	{
+		return sandboxEnabled;
+	}
+	long GetFsizeLimit()const
+	{
+		return fsizeLimit;
+	}
+	long GetStackLimit()const
+	{
+		return stackLimit;
+	}
+	long GetNprocLimit()const
+	{
+		return nprocLimit;
+	}
+	long GetNofileLimit()const
+	{
+		return nofileLimit;
+	}
 
 	std::string GetConfigurationPath()const;
 private:
@@ -32,6 +53,14 @@ private:
 	std::string standardOutputPath;
 	std::string programOutputPath;
 	std::string programInputPath;
+	std::string programWorkDir;
+	bool sandboxEnabled;
+	long fsizeLimit;
+	long stackLimit;
+	long nprocLimit;
+	long nofileLimit;
+	long javaTimeFactor;
+	long javaMemoryFactor;
 };
 
 #endif

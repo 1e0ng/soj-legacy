@@ -25,6 +25,7 @@
 class Sandbox
 {
 public:
+	virtual ~Sandbox(){}
 	virtual void Watch() = 0;
 
 	virtual void SetChildPid(int pid) = 0;

@@ -5,6 +5,7 @@
 
 class OutputChecker
 {
+public:
 	enum{OK, WA, PE, FILE_ERROR};
 	void SetStdOutputPath(const std::string &path)
 	{
