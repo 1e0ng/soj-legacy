@@ -66,24 +66,19 @@ int Judger::Run()
 		string lan = GetLanName(lanid);
 
 		Compiler *compiler = CompilerFactory::GetInstance().GetCompiler(lan);
-		for(i = 0; i < RETRY_TIME; i++)
+		if(!compiler->Compile(rid))
 		{
-			if(!compiler->Compile(rid))
-			{
-				log(Log::WARNING)<<"Failed to compile "<<rid<<" .Retry."<<endlog;
-				continue;//retry
-			}
+			//mard ce
+			cout<<"CE"<<endl;
+			continue;//retry
 		}
 		CompilerFactory::GetInstance().DisposeCompiler(compiler);
-		if(i == RETRY_TIME)
-		{
-			log(Log::ERROR)<<"Can't compile source file "<<rid<<".Skip."<<endlog;
-			//add skip-this-run code here
-			continue;
-		}
 
 		Runner *runner = RunnerFactory::GetInstance().GetRunner(lan);
 		int result = Runner::OK;
+		long timeLimit = 60000/*in ms */, memoryLimit = 64 * 1024 * 1024/* in bytes */;
+		runner->SetTimeLimit(timeLimit);
+		runner->SetMemoryLimit(memoryLimit);
 		for(i = 0; i < RETRY_TIME; i++)
 		{
 			if(!runner->Run(rid))
@@ -109,6 +104,22 @@ int Judger::Run()
 		else if(result != Runner::OK)
 		{
 			//mark this run as re, tle, mle or etc here
+			switch(result)
+			{
+			case Runner::RUNTIME_ERROR:
+			case Runner::OUTPUT_LIMIT_EXCEEDED:
+			case Runner::RESTRICTED_SYSCALL:
+				cout<<"RE"<<endl;
+				break;
+			case Runner::MEMORY_LIMIT_EXCEEDED:
+				cout<<"MLE"<<endl;
+				break;
+			case Runner::TIME_LIMIT_EXCEEDED:
+				cout<<"TLE"<<endl;
+				break;
+			default:
+				log(Log::WARNING)<<"Unknown run result!"<<endlog;
+			}
 			continue;
 		}
 		RunUsage ru = *runner->GetRunUsage();
@@ -121,6 +132,20 @@ int Judger::Run()
 			continue;
 		}
 		//mark this run as AC, WA, PE
+		switch(result)
+		{
+		case OutputChecker::OK:
+			cout<<"AC"<<endl;
+			break;
+		case OutputChecker::PE:
+			cout<<"PE"<<endl;
+			break;
+		case OutputChecker::WA:
+			cout<<"WA"<<endl;
+			break;
+		default:
+			log(Log::WARNING)<<"unknown check result."<<endlog;
+		}
 	}
 	return 0;
 }
