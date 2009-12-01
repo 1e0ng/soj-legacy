@@ -25,7 +25,7 @@
 class Sandbox
 {
 public:
-	virtual void Start() = 0;
+	virtual void Watch() = 0;
 
 	virtual void SetChildPid(int pid) = 0;
 
@@ -47,7 +47,7 @@ public:
 
 	int Initialize();
 
-	Sandbox *GetSandbox(const std::string &lan)const;//0:native sandbox 1:java sandbox
+	Sandbox *GetSandbox(const std::string &type)const;
 private:
 	SandboxFactory();
 	~SandboxFactory();

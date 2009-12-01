@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
 	}
 	NativeSandbox sandbox;
 	sandbox.SetChildPid(pid);
-	sandbox.Start();
+	sandbox.Watch();
 	
 	return 0;
 }

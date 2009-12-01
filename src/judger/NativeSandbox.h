@@ -27,16 +27,16 @@ public:
 	NativeSandbox();
 
 	//usually this mean the beginning of a new child
-	void SetChildPid(int pid);
+	virtual void SetChildPid(int pid);
 
-	void Start();//start trace the child;must be called after SetChildPid
+	virtual void Watch();//start trace the child;must be called after SetChildPid
 
-	bool IsNormalExit()const{return bNormalExit;}
-	bool IsRunning()const{return bRunning;}
-	int GetExitStatus()const{return status;}
-	bool IsTermByRestrictedSyscall()const{return bTermByRestrictedSyscall;}
+	virtual bool IsNormalExit()const{return bNormalExit;}
+	virtual bool IsRunning()const{return bRunning;}
+	virtual int GetExitStatus()const{return status;}
+	virtual bool IsTermByRestrictedSyscall()const{return bTermByRestrictedSyscall;}
 
-	const RunUsage *GetRunUsage()const{return &ru;}
+	virtual const RunUsage *GetRunUsage()const{return &ru;}
 private:
 	void KillChild();
 	bool UpdateRunUsage();

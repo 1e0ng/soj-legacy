@@ -24,7 +24,7 @@ NativeSandbox::NativeSandbox()
 	bTermByRestrictedSyscall = false;
 }
 
-void NativeSandbox::Start()
+void NativeSandbox::Watch()
 {
 	bRunning = true;
 	while(true)

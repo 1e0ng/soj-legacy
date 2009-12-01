@@ -10,8 +10,8 @@
 class NativeRunner :public Runner
 {
 public:
-	NativeRunner(){sandbox = new NativeSandbox();}
-	~NativeRunner(){delete sandbox;};
+	NativeRunner(){}
+	~NativeRunner(){}
 
 	virtual bool Run();
 	virtual int GetResult()const{return result;}
@@ -21,10 +21,10 @@ public:
 private:
 	bool SetupChild();
 
+	Sandbox *sandbox;
 	RunInfo runInfo;
 	int result;
 	pid_t pid;	
-	Sandbox *sandbox;
 };
 
 

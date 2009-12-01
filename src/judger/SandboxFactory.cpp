@@ -22,9 +22,9 @@ int SandboxFactory::Initialize()
 	return 0;
 }
 
-Sandbox *SandboxFactory::GetSandbox(const string &lan)const
+Sandbox *SandboxFactory::GetSandbox(const string &type)const
 {
-	if(lan == "c" || lan == "c++")
+	if(type == "native")
 		return sandboxes[0];
 	else
 		return NULL;

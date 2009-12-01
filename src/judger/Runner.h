@@ -7,8 +7,10 @@ struct RunUsage;
 
 class Runner
 {
-
 public:
+	enum {OK, RUNTIME_ERROR, MEMORY_LIMIT_EXCEEDED, TIME_LIMIT_EXCEEDED,
+		OUTPUT_LIMIT_EXCEEDED, RESTRICTED_SYSCALL};
+
 	virtual bool Run() = 0;//whether terminated normally
 	virtual int GetResult()const = 0;
 	virtual const RunUsage *GetRunUsage()const  = 0;

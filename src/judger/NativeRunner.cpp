@@ -14,6 +14,20 @@
 
 using namespace std;
 
+void sigalrm_handler(int) {
+}
+
+int IgnoreSIGALRM() {
+    struct sigaction act;
+    act.sa_handler = sigalrm_handler;
+    sigemptyset(&act.sa_mask);
+    act.sa_flags = 0;
+    sigaction(SIGALRM, &act, NULL);
+    return 0;
+}
+
+int __install_ignore_sigalrm_handler = IgnoreSIGALRM();
+
 void NativeRunner::SetRunInfo(const RunInfo &info)
 {
 	runInfo.pathname = info.pathname;
@@ -41,7 +55,7 @@ bool NativeRunner::Run()
 	else
 	{
 		sandbox->SetChildPid(pid);
-		sandbox->Start();
+		sandbox->Watch();
 		if(sandbox->IsNormalExit())
 		{
 			return true;
