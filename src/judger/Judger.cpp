@@ -8,6 +8,7 @@
 #include "RunStruts.h"
 #include "cake.h"
 #include "connection.h"
+#include "util.h"
 
 #include <iostream>
 #include <string>
@@ -53,24 +54,13 @@ void Judger::CleanUp()
 	conn.close();
 }
 
-string Judger::GetLanName(int lanid)
-{
-	switch(lanid)
-	{
-	case 1:return "c++";
-	case 2:return "c";
-	case 3:return "java";
-	default:return "";
-	}
-}
-
 #define RETRY_TIME 3
 int Judger::Run()
 {
 	struct timespec interval;
 	interval.tv_sec = 0;
 	interval.tv_nsec = POLL_INTERVAL / 1000;
-	do
+	while(!bStopped)	
 	{
 		int rid;
 		int i = 0;
@@ -100,6 +90,7 @@ int Judger::Run()
 			cake.setJudgeStatus(CE);
 			conn.updateCake(cake);
 			CompilerFactory::GetInstance().DisposeCompiler(compiler);
+			log(Log::INFO)<<"Run "<<rid<<": compilation error."<<endlog;
 			continue;
 		}
 		CompilerFactory::GetInstance().DisposeCompiler(compiler);
@@ -132,6 +123,7 @@ int Judger::Run()
 			cake.setJudgeStatus(RE);
 			conn.updateCake(cake);
 			RunnerFactory::GetInstance().DisposeRunner(runner);
+			log(Log::INFO)<<"Run "<<rid<<": runtime error."<<endlog;
 			continue;
 		}
 		else if(result != Runner::OK)
@@ -143,18 +135,22 @@ int Judger::Run()
 			case Runner::OUTPUT_LIMIT_EXCEEDED:
 			case Runner::RESTRICTED_SYSCALL:
 				cake.setJudgeStatus(RE);
+				log(Log::INFO)<<"Run "<<rid<<": RE."<<endlog;
 				break;
 			case Runner::MEMORY_LIMIT_EXCEEDED:
 				cake.setJudgeStatus(MLE);
+				log(Log::INFO)<<"Run "<<rid<<": MLE."<<endlog;
 				break;
 			case Runner::TIME_LIMIT_EXCEEDED:
 				cake.setJudgeStatus(TLE);
+				log(Log::INFO)<<"Run "<<rid<<": TLE."<<endlog;
 				break;
 			default:
 				log(Log::WARNING)<<"Unknown run result!"<<endlog;
 			}
 			conn.updateCake(cake);
 			RunnerFactory::GetInstance().DisposeRunner(runner);
+			
 			continue;
 		}
 		RunUsage ru = *runner->GetRunUsage();
@@ -166,6 +162,7 @@ int Judger::Run()
 			log(Log::ERROR)<<"Can't check output "<<rid<<" .Skip."<<endlog;
 			cake.setJudgeStatus(WA);
 			conn.updateCake(cake);
+			log(Log::INFO)<<"Run "<<rid<<": WA."<<endlog;
 			continue;
 		}
 		//mark this run as AC, WA, PE
@@ -173,12 +170,15 @@ int Judger::Run()
 		{
 		case OutputChecker::OK:
 			cake.setJudgeStatus(AC);
+			log(Log::INFO)<<"Run "<<rid<<": AC."<<endlog;
 			break;
 		case OutputChecker::PE:
 			cake.setJudgeStatus(PE);
+			log(Log::INFO)<<"Run "<<rid<<": PE."<<endlog;
 			break;
 		case OutputChecker::WA:
 			cake.setJudgeStatus(WA);
+			log(Log::INFO)<<"Run "<<rid<<": WA."<<endlog;
 			break;
 		default:
 			log(Log::WARNING)<<"unknown check result."<<endlog;
@@ -187,6 +187,6 @@ int Judger::Run()
 
 		log(Log::INFO)<<"Finished processing run "<<rid<<endlog;
 
-	}while(0);
+	}
 	return 0;
 }

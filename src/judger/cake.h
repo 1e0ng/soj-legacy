@@ -11,6 +11,9 @@ public:
 	void setSourceCode(char* x);
 	void setTimeLimit(int x);
 	void setMemoryLimit(int x);
+	void setUid(int x);
+	void setProblemAccepted(int x);
+	void setUserAccepted(int x);
 	
 	int getRid()const;
 	int getPid()const;
@@ -21,6 +24,9 @@ public:
 	void getSourceCode(char x[])const;
 	int getTimeLimit()const;
 	int getMemoryLimit()const;
+	int getUid()const;
+	int getProblemAccepted()const;
+	int getUserAccepted()const;
 
 	int storeSourceCode(const char *path);
 private:
@@ -33,6 +39,9 @@ private:
 	char sourceCode[65536];
 	int timeLimit;
 	int memoryLimit;
+	int uid;
+	int problemAccepted;
+	int userAccepted;
 };
 /*
 $LANGUAGE[] = "All";

@@ -229,3 +229,26 @@ int InstallSignalHandler(int signum, sighandler_t handler)
     sa.sa_flags = 0;
     return sigaction(signum, &sa, NULL);
 }
+
+
+string GetLanName(int lan)
+{
+	switch(lan)
+	{
+	case 1:return "c++";
+	case 2:return "c";
+	case 3:return "java";
+	default:return "";
+	}
+}
+
+string GetLanExt(int lan)
+{
+	switch(lan)
+	{
+	case 1:return "cpp";
+	case 2:return "c";
+	case 3:return "java";
+	default:return "";
+	}
+}

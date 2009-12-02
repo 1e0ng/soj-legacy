@@ -25,6 +25,7 @@
 #include <vector>
 #include <algorithm>
 #include <unistd.h>
+#include <fcntl.h>
 #include <sys/types.h>
 #include <sys/user.h>
 #include <sys/syscall.h>
@@ -355,6 +356,28 @@ static const bool IsSyscallDisabled[512] = {
 	1, /*317, move_pages*/
 };
 
+bool AllowedToOpen(const string& path, int flags) {
+    if ((flags & O_WRONLY) == O_WRONLY ||
+        (flags & O_RDWR) == O_RDWR ||
+        (flags & O_CREAT) == O_CREAT ||
+        (flags & O_APPEND) == O_APPEND) {
+        log(Log::INFO)<<"Opening "<<path<<" with flags "<<flags<<" is not allowed";
+        return false;
+    }
+    if (path.empty()) {
+        log(Log::INFO)<<"Can not open an empty file";
+        return false;
+    }
+    if (path[0] == '/' || path[0] == '.') {
+        if (!(path.substr(0, 6) == "/proc/" || path.substr(path.length() - 3, 3) == ".so" 
+				|| path.substr(path.length() - 2, 2) == ".a" || path == "/dev/urandom")) {
+            log(Log::INFO)<<"Opening "<<path<<" with flags "<<flags<<" is not allowed";
+            return false;
+        }
+    }
+    return true;
+}
+
 const char * SyscallWatcher::GetSyscallName(int syscallNum)const
 {
 	if(!IsValidSyscallNum(syscallNum))
@@ -385,7 +408,17 @@ bool SyscallWatcher::IsSyscallAllowed(int syscallNum, struct user_regs_struct *r
 			}
 			break;
 		case SYS_open:
-			return true;
+			if(bEnterCall)
+			{
+				char path[512];
+				if(PeekStringFromProc(pid, regs->ebx, path, sizeof(path)) < 0)
+				{
+					log(Log::INFO)<<"Peek string from process "<<pid<<" failed"<<endlog;
+					return true;
+				}
+				dlog<<"Opening file "<<path<<" with flag "<<regs->ecx<<endlog;
+				return AllowedToOpen(path, regs->ecx);
+			}
 			break;
 		}
 		if(IsSyscallDisabled[syscallNum])

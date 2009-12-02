@@ -1,6 +1,7 @@
 #ifndef UTIL_H
 #define UTIL_H
 
+#include <string>
 #include <sys/types.h>
 #include <sys/resource.h>
 #include <signal.h>
@@ -25,4 +26,6 @@ bool Deamonize();
 
 bool AlreadyRunning();
 
+std::string GetLanName(int lan);
+std::string GetLanExt(int lan);
 #endif

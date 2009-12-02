@@ -30,8 +30,6 @@ public:
 	void CleanUp();
 	int Run();
 
-	std::string GetLanName(int lanid);
-
 	bool bStopped;
 private:
 	Judger(){bStopped = false;}

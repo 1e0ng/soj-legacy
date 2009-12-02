@@ -13,7 +13,7 @@ int s2n(char x[]){
 }
 int Connection::fetchCake(Cake& x){
 	if(!initialed)return 1;
-	if(mysql_query(conn,"select rid,pid,judgeStatus,language,sourceCode from status where judgeStatus=1 order by rid")){
+	if(mysql_query(conn,"select rid,pid,judgeStatus,language,sourceCode,uid from status where judgeStatus=1 order by rid")){
 		fprintf(stderr,"%s\n",mysql_error(conn));
 		return 1;
 	}
@@ -26,37 +26,52 @@ int Connection::fetchCake(Cake& x){
 	x.setJudgeStatus(s2n(row[2]));
 	x.setLanguage(s2n(row[3]));
 	x.setSourceCode(row[4]);
+	x.setUid(s2n(row[5]));
 	mysql_free_result(res);
 	char tmp[100];
-	sprintf(tmp,"select timeLimit,memoryLimit from problem where pid=%d",x.getPid());
+	sprintf(tmp,"select timeLimit,memoryLimit,accepted from problem where pid=%d",x.getPid());
 	//printf("%s\n",tmp);
 	if(mysql_query(conn,tmp)){
-		fprintf(stderr,"%s\n",mysql_error(conn));
+		log(Log::WARNING)<<mysql_error(conn)<<endlog;
 		return 1;
 	}
 	res=mysql_use_result(conn);
 	if((row=mysql_fetch_row(res))==NULL){
-		log(Log::ERROR)<<"The problem " <<x.getPid()<<" doesn't exit!\n"<<endlog;
+		log(Log::WARNING)<<"The problem doesn't exist!"<<endlog;
 		return 3;
 	}
 	x.setTimeLimit(s2n(row[0]));
 	x.setMemoryLimit(s2n(row[1]));
+	x.setProblemAccepted(s2n(row[2]));
+	mysql_free_result(res);
+	sprintf(tmp,"select accepted from user where uid=%d",x.getUid());
+	if(mysql_query(conn,tmp)){
+		log(Log::WARNING)<<mysql_error(conn)<<endlog;
+		return 1;
+	}
+	res=mysql_use_result(conn);
+	if((row=mysql_fetch_row(res))==NULL){
+		log(Log::WARNING)<<"The user doesn't exist!"<<endlog;
+		return 4;
+	}
+	x.setUserAccepted(s2n(row[0]));
 	mysql_free_result(res);
 	return 0;
 }
 int Connection::init(){
-	if(mysql_server_init(0,0,0)){
-		log(Log::ERROR)<<"Database initialisation error.\n"<<endlog;
+if(mysql_server_init(0,0,0)){
+		fprintf(stderr,"Database initialisation error.\n");
 		return 1;
 	}
 	conn=mysql_init(NULL);
 	Configuration &conf = Configuration::GetInstance();
-	if(!mysql_real_connect(conn,conf.GetDbHost().c_str(),conf.GetDbUsername().c_str(),conf.GetDbPassword().c_str(),conf.GetDbDatabase().c_str(),0,NULL,0)){
-		log(Log::ERROR)<<mysql_error(conn)<<endlog;
+	if(!mysql_real_connect(conn,conf.GetDbHost().c_str(),conf.GetDbUsername().c_str()
+				,conf.GetDbPassword().c_str(),conf.GetDbDatabase().c_str(),0,NULL,0)){
+		fprintf(stderr,"%s\n",mysql_error(conn));
 		return 1;
 	}
 	initialed=1;
-	return 0;
+	return 0;	
 }
 void Connection::close(){
 	mysql_close(conn);
@@ -70,11 +85,34 @@ int Connection::updateCake(const Cake &x)
 	sprintf(tmp,"update status set judgeStatus=%d where rid=%d",x.getJudgeStatus(),x.getRid());
 	if(mysql_query(conn,tmp)){
 	}
-	if(x.getJudgeStatus()==3){
+	int acceptedPro,submittedPro;
+	if(x.getJudgeStatus()==3){//The code has been accpeted!
 		sprintf(tmp,"update status set rtime=%d,rmemory=%d where rid=%d",x.getRtime(),x.getRmemory(),x.getRid());
 		//printf("%s\n",tmp);
 		if(mysql_query(conn,tmp)){
-			fprintf(stderr,"%s\n",mysql_error(conn));
+			log(Log::WARNING)<<mysql_error(conn)<<endlog;
+			return 1;
+		}
+		sprintf(tmp,"update problem set accepted=%d where pid=%d",x.getProblemAccepted()+1,x.getPid());
+		if(mysql_query(conn,tmp)){
+			log(Log::WARNING)<<mysql_error(conn)<<endlog;
+			return 1;
+		}
+		sprintf(tmp,"update user set accepted=%d where uid=%d",x.getUserAccepted()+1,x.getUid());
+		if(mysql_query(conn,tmp)){
+			log(Log::WARNING)<<mysql_error(conn)<<endlog;
+			return 1;
+		}
+	}
+	else{//The code has been rejected!
+		sprintf(tmp,"update problem set accepted=%d where pid=%d",x.getProblemAccepted(),x.getPid());
+		if(mysql_query(conn,tmp)){
+			log(Log::WARNING)<<mysql_error(conn)<<endlog;
+			return 1;
+		}
+		sprintf(tmp,"update user set accepted=%d where uid=%d",x.getUserAccepted(),x.getUid());
+		if(mysql_query(conn,tmp)){
+			log(Log::WARNING)<<mysql_error(conn)<<endlog;
 			return 1;
 		}
 	}

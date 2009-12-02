@@ -1,5 +1,6 @@
 #include "cake.h"
 #include "stdio.h"
+#include "util.h"
 #include <memory.h>
 void Cake::setRid(int x){
 	rid=x;
@@ -27,6 +28,15 @@ void Cake::setTimeLimit(int x){
 }
 void Cake::setMemoryLimit(int x){
 	memoryLimit=x;
+}
+void Cake::setUid(int x){
+	uid=x;
+}
+void Cake::setProblemAccepted(int x){
+	problemAccepted=x;
+}
+void Cake::setUserAccepted(int x){
+	userAccepted=x;
 }
 
 int Cake::getRid()const{
@@ -56,13 +66,22 @@ int Cake::getTimeLimit()const{
 int Cake::getMemoryLimit()const{
 	return memoryLimit;
 }
+int Cake::getUid()const{
+	return uid;
+}
+int Cake::getProblemAccepted()const{
+	return problemAccepted;
+}
+int Cake::getUserAccepted()const{
+	return userAccepted;
+}
 
 
 int Cake::storeSourceCode(const char *path)
 {
 	char buf[512];
 	if(path)
-		sprintf(buf, "%s/%d", path, pid);
+		sprintf(buf, "%s/%d.%s", path, rid, GetLanExt(language).c_str());
 	else
 		sprintf(buf, "%d", pid);
 	FILE *f = fopen(buf, "w+");
