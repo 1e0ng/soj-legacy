@@ -134,7 +134,7 @@ if($result = $conn->query($sql))
 			gen_cell($JUDGE_STATUS[$status->judgeStatus]);
 
 			if(isset($_SESSION['uid']) && $_SESSION['uid'] == $status->uid)
-				gen_cell("<a href=\"viewsource.php&sid={$status->rid}\">{$LANGUAGE[$status->language]}</a>");
+				gen_cell("<a href=\"viewsource.php?sid={$status->rid}\">{$LANGUAGE[$status->language]}</a>");
 			else
 				gen_cell($LANGUAGE[$status->language]);
 

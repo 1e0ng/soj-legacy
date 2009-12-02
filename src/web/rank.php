@@ -37,7 +37,7 @@ if($result = $conn->query($sql))
 	{
 		echo "<tr>\n";
 		gen_cell($top + $i++);
-		gen_cell("<a href=\"index.php?view=user&uid=$user->uid\">$user->nickname</a>");
+		gen_cell("<a href=\"user.php?uid=$user->uid\">$user->nickname</a>");
 		echo "<td>";
 		if($user->submitted > 0)
 			$ratio = ($user->accepted / $user->submitted) * 100;

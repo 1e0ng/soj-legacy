@@ -134,7 +134,7 @@ else
 	else
 	{
 ?>
-<form name = "formSubmitProblem" method = "post" action = "index.php?view=submitproblem"
+<form name = "formSubmitProblem" method = "post" action = "submitproblem.php"
 onsubmit = "return checkSubmitProblemItems()">
 <table align = "center"><tr>
 <td>ProblemID</td>
