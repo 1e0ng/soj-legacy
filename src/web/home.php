@@ -4,7 +4,7 @@ if(!isset($MAGICAL))
 else
 {
 ?>
-<h1><center>Hello!This is SDU Online Judge's home!<center></h1>
+<h4><center>Hello! Welcome to Shandong University Online Judge!<center></h4>
 <?php
 }
 ?>
