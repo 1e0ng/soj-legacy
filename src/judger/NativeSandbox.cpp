@@ -1,6 +1,7 @@
 #include "NativeSandbox.h"
 #include "Log.h"
 #include "Common.h"
+#include "util.h"
 
 #include <string.h>
 #include <cstdlib>
@@ -36,6 +37,7 @@ void NativeSandbox::Watch()
 			bRunning = false;
 			break;
 		}
+		UpdateRunUsage();
 		if(WIFEXITED(status))
 		{
 			bNormalExit = true;
@@ -94,5 +96,11 @@ void NativeSandbox::SetChildPid(int pid)
 
 bool NativeSandbox::UpdateRunUsage()
 {
-	return false;
+	if(!GetCurrentRunUsage(pid, ru))
+	{
+		log(Log::ERROR)<<"Update run usage failed."<<endlog;
+		return false;
+	}
+	dlog<<ru.time<<" "<<ru.memory<<endl;
+	return true;
 }

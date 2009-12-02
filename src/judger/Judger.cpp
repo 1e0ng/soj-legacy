@@ -6,13 +6,13 @@
 #include "OutputChecker.h"
 #include "Log.h"
 #include "RunStruts.h"
+#include "cake.h"
+#include "connection.h"
 
 #include <iostream>
 #include <string>
 
 using namespace std;
-
-bool Judger::bStopped = false;
 
 int Judger::StartUp()
 {
@@ -28,16 +28,21 @@ int Judger::StartUp()
 	}
 	if(CompilerFactory::GetInstance().Initialize() != 0)
 	{
-		log(Log::ERROR)<<"Compilers initialization failed."<<endlog;
+		cerr<<"Compilers initialization failed."<<endl;
 		return -1;
 	}
 	if(RunnerFactory::GetInstance().Initialize() != 0)
 	{
-		log(Log::ERROR)<<"Compilers initialization failed."<<endlog;
+		cerr<<"Compilers initialization failed."<<endl;
 	}
 	if(theChecker.Initialize() != 0)
 	{
-		log(Log::ERROR)<<"FileChecker initialization failed."<<endlog;
+		cerr<<"FileChecker initialization failed."<<endl;
+		return -1;
+	}
+	if(conn.init() != 0)
+	{
+		cerr<<"Database initialization failed."<<endl;
 		return -1;
 	}
 	return 0;
@@ -45,15 +50,15 @@ int Judger::StartUp()
 
 void Judger::CleanUp()
 {
-	
+	conn.close();
 }
 
 string Judger::GetLanName(int lanid)
 {
 	switch(lanid)
 	{
-	case 1:return "c";
-	case 2:return "c++";
+	case 1:return "c++";
+	case 2:return "c";
 	case 3:return "java";
 	default:return "";
 	}
@@ -62,25 +67,46 @@ string Judger::GetLanName(int lanid)
 #define RETRY_TIME 3
 int Judger::Run()
 {
+	struct timespec interval;
+	interval.tv_sec = 0;
+	interval.tv_nsec = POLL_INTERVAL / 1000;
 	do
 	{
-		int rid = 1, lanid = 1;
+		int rid;
 		int i = 0;
+		Cake cake;
 
-		string lan = GetLanName(lanid);
+		if(conn.fetchCake(cake) != 0)
+		{
+			nanosleep(&interval, NULL);
+			continue;
+		}
+		log(Log::INFO)<<"Begin processing run "<<cake.getRid()<<" "<<endlog;
+		if(cake.storeSourceCode(Configuration::GetInstance().GetSrcFilePath().c_str()))
+		{
+			log(Log::ERROR)<<"Store source code "<<cake.getPid()<<" failed."<<endlog;
+			cake.setJudgeStatus(CE);
+			conn.updateCake(cake);
+			continue;
+		}
+
+		rid = cake.getRid();
+		string lan = GetLanName(cake.getLanguage());
 
 		Compiler *compiler = CompilerFactory::GetInstance().GetCompiler(lan);
 		if(!compiler->Compile(rid))
 		{
-			//mard ce
-			cout<<"CE"<<endl;
-			continue;//retry
+			//mark ce
+			cake.setJudgeStatus(CE);
+			conn.updateCake(cake);
+			CompilerFactory::GetInstance().DisposeCompiler(compiler);
+			continue;
 		}
 		CompilerFactory::GetInstance().DisposeCompiler(compiler);
 
 		Runner *runner = RunnerFactory::GetInstance().GetRunner(lan);
 		int result = Runner::OK;
-		long timeLimit = 1000/*in ms */, memoryLimit = 64 * 1024 * 1024/* in bytes */;
+		long timeLimit = cake.getTimeLimit()/*in ms */, memoryLimit = cake.getMemoryLimit() * 1024/* in bytes */;
 		runner->SetTimeLimit(timeLimit);
 		runner->SetMemoryLimit(memoryLimit);
 		for(i = 0; i < RETRY_TIME; i++)
@@ -103,7 +129,9 @@ int Judger::Run()
 		if(i == RETRY_TIME)
 		{
 			log(Log::ERROR)<<"Can't run program "<<rid<<". Skip."<<endlog;
-			//add skip-run-this code here
+			cake.setJudgeStatus(RE);
+			conn.updateCake(cake);
+			RunnerFactory::GetInstance().DisposeRunner(runner);
 			continue;
 		}
 		else if(result != Runner::OK)
@@ -114,17 +142,19 @@ int Judger::Run()
 			case Runner::RUNTIME_ERROR:
 			case Runner::OUTPUT_LIMIT_EXCEEDED:
 			case Runner::RESTRICTED_SYSCALL:
-				cout<<"RE"<<endl;
+				cake.setJudgeStatus(RE);
 				break;
 			case Runner::MEMORY_LIMIT_EXCEEDED:
-				cout<<"MLE"<<endl;
+				cake.setJudgeStatus(MLE);
 				break;
 			case Runner::TIME_LIMIT_EXCEEDED:
-				cout<<"TLE"<<endl;
+				cake.setJudgeStatus(TLE);
 				break;
 			default:
 				log(Log::WARNING)<<"Unknown run result!"<<endlog;
 			}
+			conn.updateCake(cake);
+			RunnerFactory::GetInstance().DisposeRunner(runner);
 			continue;
 		}
 		RunUsage ru = *runner->GetRunUsage();
@@ -134,23 +164,28 @@ int Judger::Run()
 		if(result == OutputChecker::FILE_ERROR)
 		{
 			log(Log::ERROR)<<"Can't check output "<<rid<<" .Skip."<<endlog;
+			cake.setJudgeStatus(WA);
+			conn.updateCake(cake);
 			continue;
 		}
 		//mark this run as AC, WA, PE
 		switch(result)
 		{
 		case OutputChecker::OK:
-			cout<<"AC"<<endl;
+			cake.setJudgeStatus(AC);
 			break;
 		case OutputChecker::PE:
-			cout<<"PE"<<endl;
+			cake.setJudgeStatus(PE);
 			break;
 		case OutputChecker::WA:
-			cout<<"WA"<<endl;
+			cake.setJudgeStatus(WA);
 			break;
 		default:
 			log(Log::WARNING)<<"unknown check result."<<endlog;
 		}
+		conn.updateCake(cake);
+
+		log(Log::INFO)<<"Finished processing run "<<rid<<endlog;
 
 	}while(0);
 	return 0;

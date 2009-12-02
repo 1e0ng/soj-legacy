@@ -9,7 +9,7 @@ class Log
 public:
 	enum{DEBUG, INFO, WARNING, ERROR, CRITICAL};
 
-	Log(bool flag = true);
+	Log(bool flag = false);
 	~Log();
 	int Initialize();
 

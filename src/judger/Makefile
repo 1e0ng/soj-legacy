@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-g -O2 -Wall -m32 -D_DEBUG -DTRACE_SYSCALL
+CFLAGS=-g -O2 -Wall -m32 -D_DEBUG -DTRACE_SYSCALL -I/usr/include/mysql -L/usr/lib/mysql -lmysqlclient_r
 CXXFLAGS=$(CFLAGS)
 SOURCES:=$(wildcard *.cpp)
 OBJS:=$(patsubst %.cpp, %.o, $(SOURCES))

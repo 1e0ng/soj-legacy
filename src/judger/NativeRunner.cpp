@@ -4,6 +4,7 @@
 #include "Judger.h"
 #include "util.h"
 
+#include <time.h>
 #include <cstdlib>
 #include <cstdio>
 #include <cstring>
@@ -21,16 +22,7 @@ using namespace std;
 void sigalrm_handler(int) {
 }
 
-int IgnoreSIGALRM() {
-    struct sigaction act;
-    act.sa_handler = sigalrm_handler;
-    sigemptyset(&act.sa_mask);
-    act.sa_flags = 0;
-    sigaction(SIGALRM, &act, NULL);
-    return 0;
-}
-
-int __install_ignore_sigalrm_handler = IgnoreSIGALRM();
+int __install_ignore_sigalrm_handler = InstallSignalHandler(SIGALRM, sigalrm_handler);
 
 const RunUsage *NativeRunner::GetRunUsage()const
 {

@@ -1,6 +1,7 @@
 #include "Log.h"
 
 #include "Common.h"
+#include "Configuration.h"
 
 #include <cstdio>
 #include <cstdlib>
@@ -22,7 +23,7 @@ Log::Log(bool flag)
 
 int Log::Initialize()
 {
-	path = "soj.log";
+	path = Configuration::GetInstance().GetLogPathname();
 	fd = open(path.c_str(), O_CREAT|O_RDWR|O_APPEND, 0644);
 	if(fd < 0)
 	{

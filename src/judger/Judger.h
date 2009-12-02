@@ -2,26 +2,44 @@
 #define JUDGER_H
 
 #include <string>
+#include "connection.h"
 
 class Judger
 {
 public:
 	enum JudgeResult
 	{
+		QUEUEING = 1,
+		JUDGING,
 		AC,
-		CE,
-		RE,
+		WA,
 		TLE,
 		MLE,
+		CE,
 		PE,
+		RE
 	};
-	static int StartUp();
-	static void CleanUp();
-	static int Run();
+	const static int POLL_INTERVAL = 100;//in ms
 
-	static std::string GetLanName(int lanid);
+	static Judger &GetInstance()
+	{
+		static Judger instance;
+		return instance;
+	}
+	int StartUp();
+	void CleanUp();
+	int Run();
 
-	static bool bStopped;
+	std::string GetLanName(int lanid);
+
+	bool bStopped;
+private:
+	Judger(){bStopped = false;}
+	~Judger(){}
+	Judger(const Judger &);
+	Judger &operator = (const Judger &);
+
+	Connection conn;
 };
 
 #endif

@@ -219,3 +219,13 @@ bool AlreadyRunning()
 	write(fd, buf, strlen(buf + 1));
 	return true;
 }
+
+
+int InstallSignalHandler(int signum, sighandler_t handler)
+{
+	struct sigaction sa;
+    sa.sa_handler = handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;
+    return sigaction(signum, &sa, NULL);
+}

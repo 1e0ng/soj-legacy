@@ -3,7 +3,9 @@
 
 #include <sys/types.h>
 #include <sys/resource.h>
+#include <signal.h>
 
+int InstallSignalHandler(int signum, sighandler_t handler);
 //set both soft limit and hardlimit for resource resource
 //on success returns true
 bool SetRLimit(int resource, rlim_t limit);

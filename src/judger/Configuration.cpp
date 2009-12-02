@@ -7,6 +7,13 @@ int Configuration::Initialize()
 {
 	rootPath = "";
 	configPath = "";
+	logPathname = "soj.log";
+
+	dbHost = "211.87.227.89";
+	dbUsername = "soj";
+	dbPassword = "soj-001-soj";
+	dbDatabase = "soj";
+
 	srcFilePath = "src";
 	destFilePath = "dest";
 	standardOutputPath = "sout";
@@ -24,32 +31,3 @@ int Configuration::Initialize()
 	return 0;
 }
 
-string Configuration::GetSrcFilePath()const
-{
-	return srcFilePath;
-}
-
-string Configuration::GetDestFilePath()const
-{
-	return destFilePath;
-}
-
-string Configuration::GetStandardOutputPath()const
-{
-	return standardOutputPath;
-}
-
-string Configuration::GetProgramOutputPath()const
-{
-	return programOutputPath;
-}
-
-string Configuration::GetProgramInputPath()const
-{
-	return programInputPath;
-}
-
-string Configuration::GetProgramWorkDir()const
-{
-	return programWorkDir;
-}
