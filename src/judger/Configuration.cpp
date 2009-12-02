@@ -24,8 +24,8 @@ int Configuration::Initialize()
 
 	fsizeLimit = 0;
 	stackLimit = 8192;
-	nprocLimit = 1;
-	nofileLimit = 5;
+	nprocLimit = 0;
+	nofileLimit = 20;
 	javaTimeFactor = 5;
 	javaMemoryFactor = 5;
 	return 0;

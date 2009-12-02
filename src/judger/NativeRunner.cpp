@@ -192,6 +192,7 @@ bool NativeRunner::SetupChild(int pid, int rid)
 			return false;
 		}
 	}
+	/*
 	if(runInfo.runLimits.vm)
 	{
 		if(SetRLimit(RLIMIT_AS, runInfo.runLimits.vm) < 0)
@@ -248,9 +249,11 @@ bool NativeRunner::SetupChild(int pid, int rid)
 			log(Log::WARNING)<<"NativeRunner: Failed to trace child."<<endlog;
 			return false;
 		}
-	}
+	}*/
 
 	sprintf(tmp, "%s/%d", runInfo.filePath.c_str(), rid);
+	log(Log::WARNING)<<tmp<<endlog;
+	
 	ret = execl(tmp, NULL);
 	if(ret < 0)
 	{
