@@ -80,7 +80,7 @@ int Judger::Run()
 
 		Runner *runner = RunnerFactory::GetInstance().GetRunner(lan);
 		int result = Runner::OK;
-		long timeLimit = 60000/*in ms */, memoryLimit = 64 * 1024 * 1024/* in bytes */;
+		long timeLimit = 1000/*in ms */, memoryLimit = 64 * 1024 * 1024/* in bytes */;
 		runner->SetTimeLimit(timeLimit);
 		runner->SetMemoryLimit(memoryLimit);
 		for(i = 0; i < RETRY_TIME; i++)

@@ -48,6 +48,8 @@ private:
 	Configuration(const Configuration &);
 	Configuration &operator=(const Configuration &);
 
+	std::string rootPath;
+	std::string configPath;
 	std::string srcFilePath;
 	std::string destFilePath;
 	std::string standardOutputPath;

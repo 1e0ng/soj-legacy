@@ -1,11 +1,18 @@
 #include "util.h"
 #include "RunStruts.h"
+#include "Log.h"
 
 #include <cstdio>
 #include <cstring>
-
+#include <cstdlib>
 #include <sys/ptrace.h>
 #include <unistd.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <signal.h>
+#include <sys/stat.h>
+#include <sys/resource.h>
+
 using namespace std;
 
 bool SetRLimit(int resource, rlim_t limit)
@@ -119,3 +126,96 @@ done:
 	return i; 
 }
 
+bool Deamonize()
+{
+	int i, pid, fd0, fd1, fd2;
+	struct rlimit rl;
+	struct sigaction sa;
+
+	umask(0);
+
+	if(getrlimit(RLIMIT_NOFILE, &rl) < 0)
+	{
+		return false;
+	}
+
+	if((pid = fork()) < 0)
+	{
+		return false;
+	}
+	else if( pid != 0)
+	{
+		exit(0);//parent
+	}
+
+	setsid();//start new session
+
+	sa.sa_handler = SIG_IGN;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;
+	if(sigaction(SIGHUP, &sa, NULL) < 0)
+		return false;
+	if((pid = fork() ) < 0)
+		return false;
+	else if ( pid != 0)
+		exit(0);
+
+	//here we are
+	//if(chroot("/"))
+	//	return false;
+	
+	if(rl.rlim_max == RLIM_INFINITY)
+		rl.rlim_max = 1024;
+	for(i = 0; i < rl.rlim_max; i++)
+		close(i);
+
+	//attach file descriptors 0, 1 and 2 to /dev/null
+	fd0 = open("/dev/null", O_RDWR);
+	fd1 = dup(0);
+	fd2 = dup(0);
+
+	if(fd0 != 0 || fd1 != 1 || fd2 != 2)
+	{
+		return false;
+	}
+	return true;
+}
+
+#define LOCKFILE "/var/run/daemon.pid"
+#define LOCKMODE (S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH)
+
+int LockFile(int fd) {
+    struct flock lock;
+    lock.l_type = F_WRLCK;
+    lock.l_start = 0;
+    lock.l_whence = SEEK_SET;
+    lock.l_len = 0;
+    return fcntl(fd, F_SETLK, &lock);
+}
+
+bool AlreadyRunning()
+{
+	int fd;
+	char buf[16];
+
+	fd = open(LOCKFILE, O_RDWR|O_CREAT, LOCKMODE);
+	if(fd < 0)
+	{
+		log(Log::ERROR)<<"Can't open lock "<<LOCKFILE<<" "<<strerror(errno)<<endlog;
+		return false;
+	}
+	if(LockFile(fd) < 0)
+	{
+		if(errno == EACCES || errno == EAGAIN)
+		{
+			close(fd);
+			return false;
+		}
+		log(Log::ERROR)<<"Can't lock "<<LOCKFILE<<" "<<strerror(errno)<<endlog;
+		return false;
+	}
+	ftruncate(fd, 0);
+	sprintf(buf, "%ld", (long)getpid());
+	write(fd, buf, strlen(buf + 1));
+	return true;
+}

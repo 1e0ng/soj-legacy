@@ -77,15 +77,16 @@ bool NativeRunner::Run(int rid)
 		if(sandbox->IsNormalExit())
 		{
 			int status = sandbox->GetExitStatus();
-			if(WEXITSTATUS(status) == SYS_ERROR)
-			{
-				result = SYS_ERROR;
-				return false;
-			}
-			else
+			if(WEXITSTATUS(status) == 0)
 			{
 				result = OK;
 				return true;
+			}
+			else
+			{
+				result = SYS_ERROR;
+				log(Log::WARNING)<<"Child exited with "<<WEXITSTATUS(status)<<" ."<<endlog;
+				return false;
 			}
 		}
 		else
@@ -142,6 +143,7 @@ bool NativeRunner::SetupChild(int rid)
 {
 	//setup input and output
 	char tmp[512];
+	close(0);close(1);close(2);
 	sprintf(tmp, "%s/%d", runInfo.inputPath.c_str(), rid);
 	int fd_input = open(tmp, O_RDONLY);
 	if(fd_input < 0)
@@ -156,7 +158,7 @@ bool NativeRunner::SetupChild(int rid)
 		log(Log::WARNING)<<"NativeRunner: Failed to open output file "<< tmp << ". "<<endlog;
 		return false;
 	}
-	int fd_err = open("/dev/null", O_WRONLY);
+	int fd_err = open("/dev/null", O_RDWR);
 	if(fd_err < 0)
 	{
 		log(Log::WARNING)<<"NativeRunner: Failed to open error file."<<endlog;
@@ -257,7 +259,7 @@ bool NativeRunner::SetupChild(int rid)
 	}
 
 	sprintf(tmp, "%s/%d", runInfo.filePath.c_str(), rid);
-	ret = execl(tmp, NULL, NULL);
+	ret = execl(tmp, NULL);
 	if(ret < 0)
 	{
 		log(Log::WARNING)<<"NativeRunner: Failed to execl child."<<endlog;

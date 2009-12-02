@@ -32,7 +32,7 @@ void NativeSandbox::Watch()
 		int ret = waitpid(-1, &status, 0);
 		if(ret < 0)//wrong pid?
 		{
-			log(Log::WARNING)<<"Waitpid failed."<<strerror(errno)<<endlog;
+			log(Log::ERROR)<<"NativeSandbox:Waitpid failed."<<strerror(errno)<<endlog;
 			bRunning = false;
 			break;
 		}
@@ -40,14 +40,14 @@ void NativeSandbox::Watch()
 		{
 			bNormalExit = true;
 			bRunning = false;
-			log(Log::INFO)<<"Child terminated normally."<<endlog;
+			log(Log::INFO)<<"NativeSandbox:Child exited."<<endlog;
 			break;
 		}
 		else if(WIFSIGNALED(status))
 		{
 			bNormalExit = false;
 			bRunning = false;
-			log(Log::INFO)<<"Child was terminated by signal "<<WTERMSIG(status)<<endlog;
+			log(Log::INFO)<<"NativeSandbox:Child was terminated by signal "<<WTERMSIG(status)<<endlog;
 			break;
 		}
 		else if(WIFSTOPPED(status))

@@ -19,4 +19,8 @@ bool GetCurrentRunUsage(pid_t pid, RunUsage &ru);
 //return the bytes read or -1 if failed to peek data
 int PeekStringFromProc(int pid, unsigned long address, char *buf, size_t size);
 
+bool Deamonize();
+
+bool AlreadyRunning();
+
 #endif

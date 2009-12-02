@@ -5,13 +5,15 @@ using namespace std;
 
 int Configuration::Initialize()
 {
+	rootPath = "";
+	configPath = "";
 	srcFilePath = "src";
 	destFilePath = "dest";
 	standardOutputPath = "sout";
 	programOutputPath = "pout";
 	programInputPath = "pin";
 	programWorkDir = ".";
-	sandboxEnabled = false;
+	sandboxEnabled = true;
 
 	fsizeLimit = 0;
 	stackLimit = 8192;
