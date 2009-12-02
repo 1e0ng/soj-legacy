@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <cstring>
 
+#include <sys/ptrace.h>
 #include <unistd.h>
 using namespace std;
 
@@ -78,3 +79,43 @@ bool GetCurrentRunUsage(pid_t pid, RunUsage &ru)
 		return false;
 	return true;
 }
+
+
+int PeekStringFromProc(int pid, unsigned long address, char *buf, size_t size)
+{
+	long mask = -1<<2;//we use long as a word
+	long data = 0;
+	size_t i = 0;
+
+	if(address & mask)
+	{
+		int base = address & mask;
+		int offset = address & ~mask;
+		data = ptrace(PTRACE_PEEKDATA, pid, base, 0);
+		if(data < 0)
+			return -1;
+		for(i = 0; i < size && (offset + i < sizeof(long)) ; i++)
+		{
+			buf[i] = ((char *)&data)[offset + i];
+			if(buf[i] == '\0')
+				goto done;
+		}
+		address = base + ~mask + 1;
+	}
+	for(; i < size; address += sizeof(long))
+	{
+		data = ptrace(PTRACE_PEEKDATA, pid, address, 0);
+		if(data < 0)
+			return -1;
+		for(size_t j = 0; j < sizeof(long) && i < size; j++, i++)
+		{
+			buf[i] = ((char *)&data)[j];
+			if(buf[i] == '\0')
+				goto done;
+		}
+	}
+done:
+	buf[size] = '\0';
+	return i; 
+}
+

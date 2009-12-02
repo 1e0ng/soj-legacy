@@ -10,7 +10,7 @@ using namespace std;
 bool GCCCompiler::Compile(int id)const
 {
 	char cmd[512] = {0};
-	sprintf(cmd, "%s %s/%d.c -o %s/%d %s > /dev/null", 
+	sprintf(cmd, "%s %s/%d.c -o %s/%d %s 2>/dev/null", 
 			cc.c_str(), srcPath.c_str(), id, destPath.c_str(), id, options.c_str());
 	return system(cmd) == 0;
 }
@@ -18,7 +18,7 @@ bool GCCCompiler::Compile(int id)const
 bool GPPCompiler::Compile(int id)const
 {
 	char cmd[512] = {0};
-	sprintf(cmd, "%s %s/%d.cpp -o %s/%d %s > /dev/null", 
+	sprintf(cmd, "%s %s/%d.cpp -o %s/%d %s 2>/dev/null", 
 			cc.c_str(), srcPath.c_str(), id, destPath.c_str(), id, options.c_str());
 	return system(cmd) == 0;
 }

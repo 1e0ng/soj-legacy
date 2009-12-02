@@ -11,7 +11,7 @@ int Configuration::Initialize()
 	programOutputPath = "pout";
 	programInputPath = "pin";
 	programWorkDir = ".";
-	sandboxEnabled = true;
+	sandboxEnabled = false;
 
 	fsizeLimit = 0;
 	stackLimit = 8192;

@@ -3,7 +3,8 @@
 
 #include <string>
 
-extern const char *signal_name[];
+extern const char *SignalName[];
+extern const char *SyscallName[];
 
 #define LOG_TIME_FORMAT "%Y-%m-%d %H:%M:%S"
 

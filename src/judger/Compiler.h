@@ -44,9 +44,9 @@ public:
 	GCCCompiler()
 	{
 		cc = "gcc";
-		options = "-ansi -fno-asm -Wall -lm -DONLINE_JUDGE --static  2";
+		options = "-ansi -fno-asm -Wall -lm -DONLINE_JUDGE -m32";
 	}
-	virtual std::string getName()const
+	virtual std::string GetName()const
 	{
 		return "GCC";
 	}
@@ -59,9 +59,9 @@ public:
 	GPPCompiler()
 	{
 		cc = "g++";
-		options = "-ansi -fno-asm -Wall -lm -DONLINE_JUDGE --static  2";
+		options = "-ansi -fno-asm -Wall -lm -DONLINE_JUDGE -m32";
 	}
-	virtual std::string getName()const
+	virtual std::string GetName()const
 	{
 		return "G++";
 	}
@@ -75,7 +75,7 @@ public:
 	{
 		cc = "javac";
 	}
-	virtual std::string getName()const
+	virtual std::string GetName()const
 	{
 		return "Javac";
 	}

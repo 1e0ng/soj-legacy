@@ -146,39 +146,39 @@ bool NativeRunner::SetupChild(int rid)
 	int fd_input = open(tmp, O_RDONLY);
 	if(fd_input < 0)
 	{
-		log(Log::ERROR)<<"NativeRunner: Failed to open input file."<<endlog;
+		log(Log::WARNING)<<"NativeRunner: Failed to open input file "<< tmp <<" ."<<endlog;
 		return false;
 	}
 	sprintf(tmp, "%s/%d", runInfo.outputPath.c_str(), rid);
-	int fd_output = open(tmp, O_WRONLY);
+	int fd_output = open(tmp, O_WRONLY|O_CREAT|O_TRUNC, 0644);
 	if(fd_output < 0)
 	{
-		log(Log::ERROR)<<"NativeRunner: Failed to open output file."<<endlog;
+		log(Log::WARNING)<<"NativeRunner: Failed to open output file "<< tmp << ". "<<endlog;
 		return false;
 	}
 	int fd_err = open("/dev/null", O_WRONLY);
 	if(fd_err < 0)
 	{
-		log(Log::ERROR)<<"NativeRunner: Failed to open error file."<<endlog;
+		log(Log::WARNING)<<"NativeRunner: Failed to open error file."<<endlog;
 		return false;
 	}
 	int ret;
 	ret = dup2(fd_input, STDIN_FILENO);
 	if(ret < 0)
 	{
-		log(Log::ERROR)<<"NativeRunner: Failed to dup stdin"<<endlog;
+		log(Log::WARNING)<<"NativeRunner: Failed to dup stdin"<<endlog;
 		return false;
 	}
 	dup2(fd_output, STDOUT_FILENO);
 	if(ret < 0)
 	{
-		log(Log::ERROR)<<"NativeRunner: Failed to dup stdout"<<endlog;
+		log(Log::WARNING)<<"NativeRunner: Failed to dup stdout"<<endlog;
 		return false;
 	}
 	dup2(fd_output, STDERR_FILENO);
 	if(ret < 0)
 	{
-		log(Log::ERROR)<<"NativeRunner: Failed to dup stderr"<<endlog;
+		log(Log::WARNING)<<"NativeRunner: Failed to dup stderr"<<endlog;
 		return false;
 	}
 
@@ -186,7 +186,7 @@ bool NativeRunner::SetupChild(int rid)
 	{
 		if(SetRLimit(RLIMIT_CPU, runInfo.runLimits.time/1000) < 0)
 		{
-			log(Log::ERROR)<<"NativeRunner: Failed to set cpu limit to "<<runInfo.runLimits.time<<"."<<endlog;
+			log(Log::WARNING)<<"NativeRunner: Failed to set cpu limit to "<<runInfo.runLimits.time<<"."<<endlog;
 			return false;
 		}
 	}
@@ -194,7 +194,7 @@ bool NativeRunner::SetupChild(int rid)
 	{
 		if(SetRLimit(RLIMIT_DATA, runInfo.runLimits.memory) < 0)
 		{
-			log(Log::ERROR)<<"NativeRunner: Failed to set data limit to "<<runInfo.runLimits.memory<<"."<<endlog;
+			log(Log::WARNING)<<"NativeRunner: Failed to set data limit to "<<runInfo.runLimits.memory<<"."<<endlog;
 			return false;
 		}
 	}
@@ -202,7 +202,7 @@ bool NativeRunner::SetupChild(int rid)
 	{
 		if(SetRLimit(RLIMIT_AS, runInfo.runLimits.vm) < 0)
 		{
-			log(Log::ERROR)<<"NativeRunner: Failed to set as limit to "<<runInfo.runLimits.vm<<"."<<endlog;
+			log(Log::WARNING)<<"NativeRunner: Failed to set as limit to "<<runInfo.runLimits.vm<<"."<<endlog;
 			return false;
 		}
 	}
@@ -210,7 +210,7 @@ bool NativeRunner::SetupChild(int rid)
 	{
 		if(SetRLimit(RLIMIT_FSIZE, runInfo.runLimits.fsize) < 0)
 		{
-			log(Log::ERROR)<<"NativeRunner: Failed to set file size limit to "<<runInfo.runLimits.fsize<<"."<<endlog;
+			log(Log::WARNING)<<"NativeRunner: Failed to set file size limit to "<<runInfo.runLimits.fsize<<"."<<endlog;
 			return false;
 		}
 	}
@@ -218,7 +218,7 @@ bool NativeRunner::SetupChild(int rid)
 	{
 		if(SetRLimit(RLIMIT_STACK, runInfo.runLimits.stack) < 0)
 		{
-			log(Log::ERROR)<<"NativeRunner: Failed to set stack limit to "<<runInfo.runLimits.stack<<"."<<endlog;
+			log(Log::WARNING)<<"NativeRunner: Failed to set stack limit to "<<runInfo.runLimits.stack<<"."<<endlog;
 			return false;
 		}
 	}
@@ -226,7 +226,7 @@ bool NativeRunner::SetupChild(int rid)
 	{
 		if(SetRLimit(RLIMIT_NPROC, runInfo.runLimits.nproc) < 0)
 		{
-			log(Log::ERROR)<<"NativeRunner: Failed to set nproc limit to "<<runInfo.runLimits.nproc<<"."<<endlog;
+			log(Log::WARNING)<<"NativeRunner: Failed to set nproc limit to "<<runInfo.runLimits.nproc<<"."<<endlog;
 			return false;
 		}
 	}
@@ -234,7 +234,7 @@ bool NativeRunner::SetupChild(int rid)
 	{
 		if(SetRLimit(RLIMIT_NOFILE, runInfo.runLimits.nofile) < 0)
 		{
-			log(Log::ERROR)<<"NativeRunner: Failed to set file limit to "<<runInfo.runLimits.nofile<<"."<<endlog;
+			log(Log::WARNING)<<"NativeRunner: Failed to set file limit to "<<runInfo.runLimits.nofile<<"."<<endlog;
 			return false;
 		}
 	}
@@ -243,7 +243,7 @@ bool NativeRunner::SetupChild(int rid)
 	{
 		if(chdir(runInfo.workdir.c_str()) < 0)
 		{
-			log(Log::ERROR)<<"NativeRunner: Failed to set work dir to "<<runInfo.workdir<<"."<<endlog;
+			log(Log::WARNING)<<"NativeRunner: Failed to set work dir to "<<runInfo.workdir<<"."<<endlog;
 			return false;
 		}
 	}
@@ -251,7 +251,7 @@ bool NativeRunner::SetupChild(int rid)
 	{
 		if(ptrace(PTRACE_TRACEME, 0, 0, 0) < 0)
 		{
-			log(Log::ERROR)<<"NativeRunner: Failed to trace child."<<endlog;
+			log(Log::WARNING)<<"NativeRunner: Failed to trace child."<<endlog;
 			return false;
 		}
 	}
@@ -260,7 +260,7 @@ bool NativeRunner::SetupChild(int rid)
 	ret = execl(tmp, NULL, NULL);
 	if(ret < 0)
 	{
-		log(Log::ERROR)<<"NativeRunner: Failed to execl child."<<endlog;
+		log(Log::WARNING)<<"NativeRunner: Failed to execl child."<<endlog;
 		return false;
 	}
 

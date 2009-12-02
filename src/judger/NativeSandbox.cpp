@@ -62,7 +62,7 @@ void NativeSandbox::Watch()
 			ptrace(PTRACE_GETREGS, pid, 0, &regs);
 			if(regs.orig_eax == SYS_exit || regs.orig_eax == SYS_exit_group)
 			{
-				log(Log::INFO)<<"exit or exit_group called"<<endl;
+				//log(Log::INFO)<<"exit or exit_group called"<<endl;
 			}
 			if(!watcher.IsSyscallAllowed(regs.orig_eax, &regs))
 			{

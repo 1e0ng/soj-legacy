@@ -1,19 +1,16 @@
 CC=g++
-CFLAGS=-g -O2 -Wall -m32
+CFLAGS=-g -O2 -Wall -m32 -D_DEBUG -DTRACE_SYSCALL
 CXXFLAGS=$(CFLAGS)
 SOURCES:=$(wildcard *.cpp)
 OBJS:=$(patsubst %.cpp, %.o, $(SOURCES))
 #DEPS:=$(patsubst %.o, %.d, $(OBJS))
 
-all:soj testee
+all:soj
 
-testee:testee.o
-	$(CC) $(CXXFLAGS) testee.o -o testee
-
-soj:$(filter-out teste.o, $(OBJS))
-	$(CC) $(CXXFLAGS) $(filter-out testee.o, $(OBJS)) -o soj
+soj:$(OBJS)
+	$(CC) $(CXXFLAGS) $(OBJS) -o soj
 
 $(OBJS):$(SOURCES)
 
 clean:
-	rm -f *.o testee soj
+	rm -f *.o soj

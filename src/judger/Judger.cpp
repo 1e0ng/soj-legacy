@@ -16,24 +16,28 @@ bool Judger::bStopped = false;
 
 int Judger::StartUp()
 {
-	if(!Configuration::GetInstance().Initialize())
+	if(Configuration::GetInstance().Initialize() != 0)
 	{
 		cerr<<"Can't initialize configuration."<<endl;
 		return -1;
 	}
-	if(!_log.Initialize())
+	if(_log.Initialize() != 0)
 	{
 		cerr<<"Log initialization failed."<<endl;
 		return -1;
 	}
-	if(!CompilerFactory::GetInstance().Initialize())
+	if(CompilerFactory::GetInstance().Initialize() != 0)
 	{
-		cerr<<"Compilers initialization failed."<<endl;
+		log(Log::ERROR)<<"Compilers initialization failed."<<endlog;
 		return -1;
 	}
-	if(!theChecker.Initialize())
+	if(RunnerFactory::GetInstance().Initialize() != 0)
 	{
-		cerr<<"FileChecker initialization failed."<<endl;
+		log(Log::ERROR)<<"Compilers initialization failed."<<endlog;
+	}
+	if(theChecker.Initialize() != 0)
+	{
+		log(Log::ERROR)<<"FileChecker initialization failed."<<endlog;
 		return -1;
 	}
 	return 0;
@@ -51,14 +55,14 @@ string Judger::GetLanName(int lanid)
 	case 1:return "c";
 	case 2:return "c++";
 	case 3:return "java";
-	default:return "other";
+	default:return "";
 	}
 }
 
 #define RETRY_TIME 3
 int Judger::Run()
 {
-	while(!bStopped)
+	do
 	{
 		int rid = 1, lanid = 1;
 		int i = 0;
@@ -94,6 +98,7 @@ int Judger::Run()
 					break;
 				}
 			}
+			else break;
 		}
 		if(i == RETRY_TIME)
 		{
@@ -146,6 +151,7 @@ int Judger::Run()
 		default:
 			log(Log::WARNING)<<"unknown check result."<<endlog;
 		}
-	}
+
+	}while(0);
 	return 0;
 }
