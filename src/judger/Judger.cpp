@@ -51,7 +51,7 @@ string Judger::GetLanName(int lanid)
 	case 1:return "c";
 	case 2:return "c++";
 	case 3:return "java";
-	default:return "";
+	default:return "other";
 	}
 }
 
