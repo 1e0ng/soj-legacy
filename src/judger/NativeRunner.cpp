@@ -45,7 +45,7 @@ void NativeRunner::SetMemoryLimit(long memory)
 	runInfo.runLimits.vm = memory + 10 * 1024 * 1024;
 }
 
-bool NativeRunner::Run(int rid)
+bool NativeRunner::Run(int proid, int rid)
 {
 	pid = fork();
 	if(pid < 0)
@@ -55,7 +55,7 @@ bool NativeRunner::Run(int rid)
 	}
 	if(pid == 0)
 	{
-		if(!SetupChild(rid))
+		if(!SetupChild(proid, rid))
 		{
 			log(Log::WARNING)<<"NativeRunner::Run : Setup child failed. "<<strerror(errno)<<endlog;
 			exit(SYS_ERROR);
@@ -131,12 +131,12 @@ bool NativeRunner::Run(int rid)
 	}
 }
 
-bool NativeRunner::SetupChild(int rid)
+bool NativeRunner::SetupChild(int pid, int rid)
 {
 	//setup input and output
 	char tmp[512];
 	close(0);close(1);close(2);
-	sprintf(tmp, "%s/%d", runInfo.inputPath.c_str(), rid);
+	sprintf(tmp, "%s/%d", runInfo.inputPath.c_str(), pid);
 	int fd_input = open(tmp, O_RDONLY);
 	if(fd_input < 0)
 	{

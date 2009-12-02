@@ -62,7 +62,7 @@ int Judger::Run()
 	interval.tv_nsec = POLL_INTERVAL / 1000;
 	while(!bStopped)	
 	{
-		int rid;
+		int rid, pid;
 		int i = 0;
 		Cake cake;
 
@@ -81,6 +81,7 @@ int Judger::Run()
 		}
 
 		rid = cake.getRid();
+		pid = cake.getPid();
 		string lan = GetLanName(cake.getLanguage());
 
 		Compiler *compiler = CompilerFactory::GetInstance().GetCompiler(lan);
@@ -102,7 +103,7 @@ int Judger::Run()
 		runner->SetMemoryLimit(memoryLimit);
 		for(i = 0; i < RETRY_TIME; i++)
 		{
-			if(!runner->Run(rid))
+			if(!runner->Run(pid, rid))
 			{
 				result = runner->GetResult();
 				if(result == Runner::SYS_ERROR)
@@ -156,7 +157,7 @@ int Judger::Run()
 		RunUsage ru = *runner->GetRunUsage();
 		RunnerFactory::GetInstance().DisposeRunner(runner);
 
-		result = theChecker.Check(rid);
+		result = theChecker.Check(pid, rid);
 		if(result == OutputChecker::FILE_ERROR)
 		{
 			log(Log::ERROR)<<"Can't check output "<<rid<<" .Skip."<<endlog;

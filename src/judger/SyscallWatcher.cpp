@@ -387,6 +387,7 @@ const char * SyscallWatcher::GetSyscallName(int syscallNum)const
 
 bool SyscallWatcher::IsSyscallAllowed(int syscallNum, struct user_regs_struct *regs)const
 {
+	return true;
 	static bool bEnterCall = false;
 	if(IsValidSyscallNum(syscallNum))
 	{
@@ -426,9 +427,7 @@ bool SyscallWatcher::IsSyscallAllowed(int syscallNum, struct user_regs_struct *r
 		else
 			return true;
 
-#ifdef TRACE_SYSCALL
-		printf("%s called.\n", SyscallName[syscallNum]);
-#endif
+		dlog<<SyscallName[syscallNum]<<" called"<<endlog;
 	}
 	return true;
 }

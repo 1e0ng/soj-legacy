@@ -5,18 +5,18 @@
 
 OutputChecker theChecker;
 
-int OutputChecker::Check(int id)const
+int OutputChecker::Check(int pid, int rid)const
 {
 	char tmp[512] = {0};
 	FILE *sout, *pout;//standard output and program output
-	sprintf(tmp, "%s/%d", stdOutputPath.c_str(), id);
+	sprintf(tmp, "%s/%d", stdOutputPath.c_str(), pid);
 	sout = fopen(tmp, "r");
 	if(sout == NULL)
 	{
 		log(Log::WARNING)<<"OutputChecker:Can't open file \""<<tmp<<"\" for read"<<endlog;
 		return FILE_ERROR;
 	}
-	sprintf(tmp, "%s/%d", programOutputPath.c_str(), id);
+	sprintf(tmp, "%s/%d", programOutputPath.c_str(), rid);
 	pout = fopen(tmp, "r");
 	if(pout == NULL)
 	{

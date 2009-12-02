@@ -44,8 +44,8 @@ public:
 	GCCCompiler()
 	{
 		cc = "gcc";
-		//options = "-ansi -fno-asm -Wall -lm -DONLINE_JUDGE -m32";
-		options = "-m32";
+		options = "-ansi -fno-asm -Wall -lm -DONLINE_JUDGE -m32";
+		//options = "-m32";
 	}
 	virtual std::string GetName()const
 	{
@@ -61,6 +61,7 @@ public:
 	{
 		cc = "g++";
 		options = "-ansi -fno-asm -Wall -lm -DONLINE_JUDGE -m32";
+		//options = "-m32";
 	}
 	virtual std::string GetName()const
 	{

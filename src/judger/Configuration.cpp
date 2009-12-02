@@ -19,8 +19,8 @@ int Configuration::Initialize()
 	standardOutputPath = "sout";
 	programOutputPath = "pout";
 	programInputPath = "pin";
-	programWorkDir = ".";
-	sandboxEnabled = true;
+	programWorkDir = "";
+	sandboxEnabled = false;
 
 	fsizeLimit = 0;
 	stackLimit = 8192;

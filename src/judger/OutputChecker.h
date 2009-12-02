@@ -16,7 +16,7 @@ public:
 		programOutputPath = path;
 	}
 
-	int Check(int id)const;
+	int Check(int pid, int rid)const;
 
 	int Initialize();
 private:

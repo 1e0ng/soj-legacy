@@ -37,12 +37,12 @@ void NativeSandbox::Watch()
 			bRunning = false;
 			break;
 		}
-		UpdateRunUsage();
 		if(WIFEXITED(status))
 		{
 			bNormalExit = true;
 			bRunning = false;
 			log(Log::INFO)<<"NativeSandbox:Child exited."<<endlog;
+			UpdateRunUsage();
 			break;
 		}
 		else if(WIFSIGNALED(status))
@@ -72,6 +72,7 @@ void NativeSandbox::Watch()
 				bNormalExit = false;
 				bRunning = false;
 				bTermByRestrictedSyscall = true;
+				dlog<<"Child was killed because of restricted syscall."<<endlog;
 				break;
 			}
 			else
@@ -84,7 +85,6 @@ void NativeSandbox::Watch()
 			dlog<<"Unknown status "<< hex <<status<<endlog;
 		}
 	}
-	UpdateRunUsage();
 }
 
 void NativeSandbox::SetChildPid(int pid)
@@ -101,6 +101,6 @@ bool NativeSandbox::UpdateRunUsage()
 		log(Log::ERROR)<<"Update run usage failed."<<endlog;
 		return false;
 	}
-	dlog<<ru.time<<" "<<ru.memory<<endl;
+	dlog<<"RunUsage: time "<<ru.time<<" memory "<<ru.memory<<endl;
 	return true;
 }
