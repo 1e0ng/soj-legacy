@@ -16,6 +16,8 @@ $JUDGE_STATUS[] = "Wrong Answer";
 $JUDGE_STATUS[] = "Time Limit Exceeded";
 $JUDGE_STATUS[] = "Memory Limit Exceeded";
 $JUDGE_STATUS[] = "Compile Error";
+$JUDGE_STATUS[] = "Presentation Error";
+$JUDGE_STATUS[] = "Runtime Error";
 
 function alert($msg)
 {

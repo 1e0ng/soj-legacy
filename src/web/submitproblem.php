@@ -89,6 +89,11 @@ else
 		include_once("conn.php");
 		$lan = trim($_POST['language']);
 		$pid = trim($_POST['pid']);
+		set_magic_quotes_runtime(0);
+		if (!get_magic_quotes_gpc())
+			$pp=addslashes($_POST['source']);
+		else
+			$pp=$_POST['source'];
 		if(!verify_language($lan))
 			die();//if failed test, never reach here
 		if(!verify_pid($conn, $pid))
@@ -102,9 +107,9 @@ else
 
 		$tm = date('Y-m-d H:i:s');
 		//no need for escape
-		die($_POST['source']);
+		#die($_POST['source']);
 		$sql = "insert into status (pid, uid, language, submitTime,sourceCode) 
-			values ($pid,{$_SESSION['uid']}, $lan, '$tm','{$_POST['source']}')";
+			values ($pid,{$_SESSION['uid']}, $lan, '$tm','$pp')";
 		//actually we need transaction here, but MyIASM doesn't support it yet
 		if($result = $conn->query($sql))
 		{
