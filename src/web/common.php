@@ -53,6 +53,7 @@ function my_htmlentities($string)
 	$table = get_html_translation_table(HTML_SPECIALCHARS);
 	$table["\n"] = "<br/>";
 	$table["\t"] = "&nbsp;&nbsp;&nbsp;&nbsp;";
+	$table[" "] = "&nbsp;";
 	return strtr($string, $table);
 }
 /*

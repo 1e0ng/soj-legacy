@@ -102,8 +102,9 @@ else
 
 		$tm = date('Y-m-d H:i:s');
 		//no need for escape
+		#die($_POST['source']);
 		$sql = "insert into status (pid, uid, language, submitTime,sourceCode) 
-			values ($pid,{$_SESSION['uid']}, $lan, '$tm','".$conn->escape_string($_POST['source'])."')";
+			values ($pid,{$_SESSION['uid']}, $lan, '$tm','{$_POST['source']}')";
 		//actually we need transaction here, but MyIASM doesn't support it yet
 		if($result = $conn->query($sql))
 		{
@@ -134,7 +135,7 @@ else
 	else
 	{
 ?>
-<form name = "formSubmitProblem" method = "post" action = "submitproblem.php"
+<form name = "formSubmitProblem" method = "post" action = "index.php?view=submitproblem"
 onsubmit = "return checkSubmitProblemItems()">
 <table align = "center"><tr>
 <td>ProblemID</td>
