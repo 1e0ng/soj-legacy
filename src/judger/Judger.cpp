@@ -59,7 +59,7 @@ int Judger::Run()
 {
 	struct timespec interval;
 	interval.tv_sec = 0;
-	interval.tv_nsec = POLL_INTERVAL / 1000;
+	interval.tv_nsec = POLL_INTERVAL * 1000;
 	while(!bStopped)	
 	{
 		int rid, pid;

@@ -19,7 +19,7 @@ public:
 		PE,
 		RE
 	};
-	const static int POLL_INTERVAL = 100;//in ms
+	const static int POLL_INTERVAL = 500;//in ms
 
 	static Judger &GetInstance()
 	{
