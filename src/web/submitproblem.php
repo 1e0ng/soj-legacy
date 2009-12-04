@@ -107,9 +107,25 @@ else
 
 		$tm = date('Y-m-d H:i:s');
 		//no need for escape
+<<<<<<< .mine
+<<<<<<< .mine
+		alert_and_go_back($_POST['source']);
+=======
+		die($_POST['source']);
+=======
 		#die($_POST['source']);
+>>>>>>> .r49
+>>>>>>> .r48
 		$sql = "insert into status (pid, uid, language, submitTime,sourceCode) 
+<<<<<<< .mine
+<<<<<<< .mine
+			values ($pid,{$_SESSION['uid']}, $lan, '$tm','$_POST['source']')";
+=======
+			values ($pid,{$_SESSION['uid']}, $lan, '$tm','{$_POST['source']}')";
+=======
 			values ($pid,{$_SESSION['uid']}, $lan, '$tm','$pp')";
+>>>>>>> .r49
+>>>>>>> .r48
 		//actually we need transaction here, but MyIASM doesn't support it yet
 		if($result = $conn->query($sql))
 		{
