@@ -85,6 +85,8 @@ int Judger::Run()
 		string lan = GetLanName(cake.getLanguage());
 
 		Compiler *compiler = CompilerFactory::GetInstance().GetCompiler(lan);
+		log(Log::INFO)<<"The compiler name:"<<compiler->GetName()<<endlog;
+		
 		if(!compiler->Compile(rid))
 		{
 			//mark ce

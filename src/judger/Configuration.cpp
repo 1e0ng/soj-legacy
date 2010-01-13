@@ -9,7 +9,7 @@ int Configuration::Initialize()
 	configPath = "";
 	logPathname = "soj.log";
 
-	dbHost = "211.87.227.89";
+	dbHost = "localhost";
 	dbUsername = "soj";
 	dbPassword = "soj-001-soj";
 	dbDatabase = "soj";
