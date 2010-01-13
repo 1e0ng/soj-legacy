@@ -8,6 +8,7 @@ else
 {
 ?>
 <div align = "center">
+<font face="Courier">
 <table width = "600"><tr><td>
 <?php
 	include("conn.php");
@@ -61,6 +62,7 @@ else
 }
 ?>
 </td></tr></table>
+</font>
 </div>
 <?php
 }

@@ -6,7 +6,7 @@
 
 int s2n(char x[]){
 	int y=0;
-	for(int i=0;i<strlen(x);i++){
+	for(unsigned int i=0;i<strlen(x);i++){
 		y=y*10+x[i]-'0';
 	}
 	return y;

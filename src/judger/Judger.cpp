@@ -34,7 +34,7 @@ int Judger::StartUp()
 	}
 	if(RunnerFactory::GetInstance().Initialize() != 0)
 	{
-		cerr<<"Compilers initialization failed."<<endl;
+		cerr<<"Runner initialization failed."<<endl;
 	}
 	if(theChecker.Initialize() != 0)
 	{
@@ -60,6 +60,7 @@ int Judger::Run()
 	struct timespec interval;
 	interval.tv_sec = 0;
 	interval.tv_nsec = POLL_INTERVAL * 1000;
+	log(Log::INFO)<<"tv_nsec:"<<interval.tv_nsec<<endlog;
 	while(!bStopped)	
 	{
 		int rid, pid;
@@ -68,7 +69,8 @@ int Judger::Run()
 
 		if(conn.fetchCake(cake) != 0)
 		{
-			nanosleep(&interval, NULL);
+		    sleep(1);
+			//nanosleep(&interval, NULL);
 			continue;
 		}
 		log(Log::INFO)<<"Begin processing run "<<cake.getRid()<<" "<<endlog;
