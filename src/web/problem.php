@@ -46,7 +46,7 @@ echo "<center><h2>$problem->problemName</h2></center>\n";
 //limitations and statistics area
 echo "<div align = \"center\"><table>";
 echo "<tr><td width = \"140\">Time Limit:</td><td width = \"80\">{$problem->timeLimit}ms</td>";
-echo "<td width = \"140\">Memory Limit:</td><td width = \"80\">{$problem->memoryLimit}Kib</td></tr>";
+echo "<td width = \"140\">Memory Limit:</td><td width = \"80\">{$problem->memoryLimit}KB</td></tr>";
 echo "<tr><td width = \"140\">Accepted:</td><td width = \"80\">$problem->accepted</td>";
 echo "<td width = \"140\">Submitted:</td><td width = \"80\">$problem->submitted</td></tr>\n";
 echo "</table></div>\n";
