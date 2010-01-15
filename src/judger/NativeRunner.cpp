@@ -125,7 +125,7 @@ bool NativeRunner::Run(int proid, int rid)
 						result = RUNTIME_ERROR;
 						break;
 					case SIGSEGV://both access violation and memory limit exceeded with lead to this
-						if(ru.memory >= runInfo.runLimits.memory)
+						if((unsigned)ru.memory >= runInfo.runLimits.memory)
 							result = MEMORY_LIMIT_EXCEEDED;
 						else
 							result = RUNTIME_ERROR;
@@ -166,7 +166,7 @@ bool NativeRunner::Run(int proid, int rid)
 bool NativeRunner::SetupChild(int pid, int rid)
 {
 	//setup input and output
-	char tmp[512];
+	char tmp[512],tmp2[512];
 	close(0);close(1);close(2);
 	sprintf(tmp, "%s/%d", runInfo.inputPath.c_str(), pid);
 	int fd_input = open(tmp, O_RDONLY);
@@ -284,10 +284,11 @@ bool NativeRunner::SetupChild(int pid, int rid)
 	}*/
 
 	sprintf(tmp, "%s/%d", runInfo.filePath.c_str(), rid);
+	sprintf(tmp2, "%d", rid);
 	log(Log::WARNING)<<tmp<<endlog;
 
 	
-	ret = execl(tmp, NULL);
+	ret = execl(tmp, tmp2, NULL);
 	if(ret < 0)
 	{
 		log(Log::WARNING)<<"NativeRunner: Failed to execl child."<<endlog;

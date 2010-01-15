@@ -87,13 +87,13 @@ int Connection::updateCake(const Cake &x)
 		log(Log::WARNING)<<mysql_error(conn)<<endlog;
 		return 1;
 	}
-	sprintf(tmp,"update status set rtime=%d,rmemory=%d where rid=%d",x.getRtime(),x.getRmemory(),x.getRid());
-	if(mysql_query(conn,tmp)){
-		log(Log::WARNING)<<mysql_error(conn)<<endlog;
-		return 1;
-	}
-	int acceptedPro,submittedPro;
+	//int acceptedPro,submittedPro;
 	if(x.getJudgeStatus()==3){//The code has been accpeted!
+		sprintf(tmp,"update status set rtime=%d,rmemory=%d where rid=%d",x.getRtime(),x.getRmemory(),x.getRid());
+		if(mysql_query(conn,tmp)){
+			log(Log::WARNING)<<mysql_error(conn)<<endlog;
+			return 1;
+		}
 		sprintf(tmp,"update problem set accepted=%d where pid=%d",x.getProblemAccepted()+1,x.getPid());
 		if(mysql_query(conn,tmp)){
 			log(Log::WARNING)<<mysql_error(conn)<<endlog;

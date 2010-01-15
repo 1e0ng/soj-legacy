@@ -185,7 +185,7 @@ bool Deamonize()
 	
 	if(rl.rlim_max == RLIM_INFINITY)
 		rl.rlim_max = 1024;
-	for(i = 0; i < rl.rlim_max; i++)
+	for(i = 0; (unsigned)i < rl.rlim_max; i++)
 		close(i);
 
 	//attach file descriptors 0, 1 and 2 to /dev/null
