@@ -27,6 +27,7 @@ private:
 	RunInfo runInfo;
 	int result;
 	pid_t pid;	
+	RunUsage ru;
 };
 
 

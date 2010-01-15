@@ -26,7 +26,7 @@ int __install_ignore_sigalrm_handler = InstallSignalHandler(SIGALRM, sigalrm_han
 
 const RunUsage NativeRunner::GetRunUsage()const
 {
-	return sandbox->GetRunUsage();
+	return ru;
 }
 
 void NativeRunner::SetRunInfo(const RunInfo &info)
@@ -55,79 +55,111 @@ bool NativeRunner::Run(int proid, int rid)
 	}
 	if(pid == 0)
 	{
-		if(!SetupChild(proid, rid))
-		{
-			log(Log::WARNING)<<"NativeRunner::Run : Setup child failed. "<<strerror(errno)<<endlog;
-			exit(SYS_ERROR);
+		int pid2 = fork();
+		if(pid2 <0){
+			log(Log::WARNING)<<"NativeRunner::Run : fork failed."<<strerror(errno)<<endlog;
+			return false;
 		}
-		exit(0);
-	}
-	else
-	{
-		sandbox->SetChildPid(pid);
-		sandbox->Watch();
-		if(sandbox->IsNormalExit())
-		{
-			int status = sandbox->GetExitStatus();
-			if(WEXITSTATUS(status) == 0)
+		if(pid2==0){
+			if(!SetupChild(proid, rid))
 			{
-				result = OK;
-				return true;
-			}
-			else
-			{
-				result = SYS_ERROR;
-				log(Log::WARNING)<<"Child exited with "<<WEXITSTATUS(status)<<" ."<<endlog;
+				log(Log::WARNING)<<"NativeRunner::Run : Setup child failed. "<<strerror(errno)<<endlog;
 				return false;
 			}
+			return true;
 		}
-		else
-		{
-			if(sandbox->IsTermByRestrictedSyscall())
-			{
-				result = RESTRICTED_SYSCALL;
-				return false;
+		else{
+			sandbox->SetChildPid(pid);
+			sandbox->Watch();
+			
+			int status;
+			wait(&status);
+			log(Log::INFO)<<"stats: "<<status<<endlog;
+			struct rusage buf;
+			getrusage(RUSAGE_CHILDREN, &buf);
+			ru.time=buf.ru_utime.tv_sec*1000+buf.ru_stime.tv_sec*1000+buf.ru_stime.tv_usec/1000+buf.ru_utime.tv_usec/1000;
+			//the unit of ru.time is ms
+			ru.memory= buf.ru_minflt*(sysconf(_SC_PAGESIZE)/1024);
+			//divide 1024 to make the unit be KB
+			if(ru.time<0){
+				log(Log::INFO)<<"run time is less than 0: "<<ru.time<<endlog;
+				ru.time=0;
 			}
-			int status = sandbox->GetExitStatus();
-			if(WIFSIGNALED(status))
+			if(ru.memory<0){
+				log(Log::INFO)<<"run memory is less than 0: "<<ru.memory<<endlog;
+				ru.memory=0;
+			}
+			
+			if(sandbox->IsNormalExit())
 			{
-				switch(WTERMSIG(status))
+				int status = sandbox->GetExitStatus();
+				if(WEXITSTATUS(status) == 0)
 				{
-				case SIGABRT:
-				case SIGBUS:
-				case SIGFPE://float point exception
-				case SIGILL://invalid hardware instruction
-				case SIGSYS://invalid syscall
-					result = RUNTIME_ERROR;
-					break;
-				case SIGSEGV://both access violation and memory limit exceeded with lead to this
-					if(sandbox->GetRunUsage().memory >= runInfo.runLimits.memory)
-						result = MEMORY_LIMIT_EXCEEDED;
-					else
-						result = RUNTIME_ERROR;
-					break;
-				case SIGKILL:
-				case SIGTERM:
-					result = RUNTIME_ERROR;
-					dlog<<"NativeRunner::Run SIGKILL or SIGTERM cause child terminated."<<endlog;
-					break;
-				case SIGXCPU://cputime limit exceed
-					result = TIME_LIMIT_EXCEEDED;
-					break;
-				case SIGXFSZ://fsize limit exceeded
-					result = OUTPUT_LIMIT_EXCEEDED;
-					break;
-				default:
-					dlog<<"NativeRunner::Run Unexpected signal: "<<WTERMSIG(status)<<endlog;
+					result = OK;
+					return true;
+				}
+				else
+				{
+					result = SYS_ERROR;
+					log(Log::WARNING)<<"Child exited with "<<WEXITSTATUS(status)<<" ."<<endlog;
+					return false;
 				}
 			}
 			else
 			{
-				//how do we come here?
-				dlog<<"NativeRunner::Run Unexpected exit status: "<<status<<endlog;
+				if(sandbox->IsTermByRestrictedSyscall())
+				{
+					result = RESTRICTED_SYSCALL;
+					return false;
+				}
+				int status = sandbox->GetExitStatus();
+				if(WIFSIGNALED(status))
+				{
+					switch(WTERMSIG(status))
+					{
+					case SIGABRT:
+					case SIGBUS:
+					case SIGFPE://float point exception
+					case SIGILL://invalid hardware instruction
+					case SIGSYS://invalid syscall
+						result = RUNTIME_ERROR;
+						break;
+					case SIGSEGV://both access violation and memory limit exceeded with lead to this
+						if(ru.memory >= runInfo.runLimits.memory)
+							result = MEMORY_LIMIT_EXCEEDED;
+						else
+							result = RUNTIME_ERROR;
+						break;
+					case SIGKILL:
+					case SIGTERM:
+						result = RUNTIME_ERROR;
+						dlog<<"NativeRunner::Run SIGKILL or SIGTERM cause child terminated."<<endlog;
+						break;
+					case SIGXCPU://cputime limit exceed
+						result = TIME_LIMIT_EXCEEDED;
+						break;
+					case SIGXFSZ://fsize limit exceeded
+						result = OUTPUT_LIMIT_EXCEEDED;
+						break;
+					default:
+						dlog<<"NativeRunner::Run Unexpected signal: "<<WTERMSIG(status)<<endlog;
+					}
+				}
+				else
+				{
+					//how do we come here?
+					dlog<<"NativeRunner::Run Unexpected exit status: "<<status<<endlog;
+				}
+				return false;
 			}
-			return false;
 		}
+		return true;
+	}
+	else
+	{
+		int status;
+		wait(&status);
+		return true;
 	}
 }
 
@@ -253,6 +285,7 @@ bool NativeRunner::SetupChild(int pid, int rid)
 
 	sprintf(tmp, "%s/%d", runInfo.filePath.c_str(), rid);
 	log(Log::WARNING)<<tmp<<endlog;
+
 	
 	ret = execl(tmp, NULL);
 	if(ret < 0)
@@ -260,6 +293,7 @@ bool NativeRunner::SetupChild(int pid, int rid)
 		log(Log::WARNING)<<"NativeRunner: Failed to execl child."<<endlog;
 		return false;
 	}
+	
 
 	return true;
 }

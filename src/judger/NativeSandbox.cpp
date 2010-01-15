@@ -42,7 +42,7 @@ void NativeSandbox::Watch()
 			bNormalExit = true;
 			bRunning = false;
 			log(Log::INFO)<<"NativeSandbox:Child exited."<<endlog;
-			UpdateRunUsage();
+			//UpdateRunUsage();
 			break;
 		}
 		else if(WIFSIGNALED(status))
@@ -91,9 +91,9 @@ void NativeSandbox::SetChildPid(int pid)
 {
 	this->pid = pid;
 	watcher.SetChildPid(pid);
-	memset(&ru, 0, sizeof(ru));
+	//memset(&ru, 0, sizeof(ru));
 }
-
+/*
 bool NativeSandbox::UpdateRunUsage()
 {
 	if(!GetCurrentRunUsage(pid, ru))
@@ -103,4 +103,4 @@ bool NativeSandbox::UpdateRunUsage()
 	}
 	dlog<<"RunUsage: time "<<ru.time<<" memory "<<ru.memory<<endl;
 	return true;
-}
+}*/

@@ -80,7 +80,7 @@ int ReadMemoryConsumption(pid_t pid) {
     return vmSize - vmExe - vmLib - vmStack;
 */
 }
-
+/*
 bool GetCurrentRunUsage(pid_t pid, RunUsage &ru)
 {
 	struct rusage buf;
@@ -104,7 +104,7 @@ bool GetCurrentRunUsage(pid_t pid, RunUsage &ru)
 	}
 	return true;
 }
-
+*/
 
 int PeekStringFromProc(int pid, unsigned long address, char *buf, size_t size)
 {
