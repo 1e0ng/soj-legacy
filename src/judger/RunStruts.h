@@ -6,8 +6,8 @@
 
 struct RunUsage
 {
-	rlim_t time;//run time in ms
-	rlim_t memory;//memory usage in bytes
+	int time;//run time in ms
+	int memory;//memory usage in kilobytes
 };
 
 struct RunLimits

@@ -34,7 +34,7 @@ public:
 	virtual bool IsRunning() const = 0;
 	virtual int GetExitStatus() const = 0;
 	virtual bool IsTermByRestrictedSyscall()const = 0;
-	virtual const RunUsage *GetRunUsage() const = 0;
+	virtual const RunUsage GetRunUsage() const = 0;
 };
 
 class SandboxFactory

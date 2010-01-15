@@ -158,7 +158,7 @@ int Judger::Run()
 			
 			continue;
 		}
-		RunUsage ru = *runner->GetRunUsage();
+		RunUsage ru = runner->GetRunUsage();
 		RunnerFactory::GetInstance().DisposeRunner(runner);
 
 		result = theChecker.Check(pid, rid);
@@ -171,6 +171,8 @@ int Judger::Run()
 			continue;
 		}
 		//mark this run as AC, WA, PE
+		cake.setRtime(ru.time);
+		cake.setRmemory(ru.memory);
 		switch(result)
 		{
 		case OutputChecker::OK:

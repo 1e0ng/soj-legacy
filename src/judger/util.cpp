@@ -27,6 +27,8 @@ bool SetRLimit(int resource, rlim_t limit)
 //
 //returns the time consumed by process pid in ms
 int ReadTimeConsumption(pid_t pid) {
+
+/*
     char buffer[64];
     sprintf(buffer, "/proc/%d/stat", pid);
     FILE* fp = fopen(buffer, "r");
@@ -46,9 +48,11 @@ int ReadTimeConsumption(pid_t pid) {
         clktck = sysconf(_SC_CLK_TCK);
     }
     return int((utime + stime + 0.0) / clktck * 1000);
+*/
 }
 
 int ReadMemoryConsumption(pid_t pid) {
+/*
     char buffer[64];
     sprintf(buffer, "/proc/%d/status", pid);
     FILE* fp = fopen(buffer, "r");
@@ -74,16 +78,30 @@ int ReadMemoryConsumption(pid_t pid) {
         vmSize = vmPeak;
     }
     return vmSize - vmExe - vmLib - vmStack;
+*/
 }
 
 bool GetCurrentRunUsage(pid_t pid, RunUsage &ru)
 {
-	ru.time = ReadTimeConsumption(pid);
-	if(ru.time < 0)
+	struct rusage buf;
+	getrusage(RUSAGE_CHILDREN, &buf);
+	
+	ru.time=buf.ru_utime.tv_sec*1000+buf.ru_stime.tv_sec*1000+buf.ru_stime.tv_usec/1000+buf.ru_utime.tv_usec/1000;//the unit of ru.time is ms
+	
+	ru.memory= buf.ru_minflt*(sysconf(_SC_PAGESIZE)/1024);//divide 1024 to make the unit be KB
+	log(Log::INFO)<<"Run memory is: "<<ru.memory<<endlog;
+	log(Log::INFO)<<"Run memory is: "<<buf.ru_minflt<<endlog;
+	
+	//ru.time = ReadTimeConsumption(pid);
+	if(ru.time < 0){
+		ru.time=0;
 		return false;
-	ru.memory = ReadMemoryConsumption(pid);
-	if(ru.memory < 0)
+	}
+	//ru.memory = ReadMemoryConsumption(pid);
+	if(ru.memory < 0){
+		ru.memory=0;
 		return false;
+	}
 	return true;
 }
 

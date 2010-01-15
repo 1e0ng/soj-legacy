@@ -12,7 +12,7 @@ public:
 
 	virtual bool Run(int pid, int rid) = 0;//whether terminated normally
 	virtual int GetResult()const = 0;
-	virtual const RunUsage *GetRunUsage()const  = 0;
+	virtual const RunUsage GetRunUsage()const  = 0;
 
 	virtual void SetRunInfo(const RunInfo &info) = 0;
 	virtual void SetTimeLimit(long time) = 0;

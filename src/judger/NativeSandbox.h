@@ -36,7 +36,7 @@ public:
 	virtual int GetExitStatus()const{return status;}
 	virtual bool IsTermByRestrictedSyscall()const{return bTermByRestrictedSyscall;}
 
-	virtual const RunUsage *GetRunUsage()const{return &ru;}
+	virtual const RunUsage GetRunUsage()const{return ru;}
 private:
 	void KillChild();
 	bool UpdateRunUsage();

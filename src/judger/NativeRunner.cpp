@@ -24,7 +24,7 @@ void sigalrm_handler(int) {
 
 int __install_ignore_sigalrm_handler = InstallSignalHandler(SIGALRM, sigalrm_handler);
 
-const RunUsage *NativeRunner::GetRunUsage()const
+const RunUsage NativeRunner::GetRunUsage()const
 {
 	return sandbox->GetRunUsage();
 }
@@ -101,7 +101,7 @@ bool NativeRunner::Run(int proid, int rid)
 					result = RUNTIME_ERROR;
 					break;
 				case SIGSEGV://both access violation and memory limit exceeded with lead to this
-					if(sandbox->GetRunUsage()->memory >= runInfo.runLimits.memory)
+					if(sandbox->GetRunUsage().memory >= runInfo.runLimits.memory)
 						result = MEMORY_LIMIT_EXCEEDED;
 					else
 						result = RUNTIME_ERROR;

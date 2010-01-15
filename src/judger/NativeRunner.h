@@ -15,7 +15,7 @@ public:
 
 	virtual bool Run(int pid, int rid);
 	virtual int GetResult()const{return result;}
-	virtual const RunUsage *GetRunUsage()const;
+	virtual const RunUsage GetRunUsage()const;
 
 	virtual void SetRunInfo(const RunInfo &info);
 	virtual void SetTimeLimit(long time);
