@@ -26,9 +26,10 @@ bool SetRLimit(int resource, rlim_t limit)
 //the two functions below are copied from zoj with slight changes
 //
 //returns the time consumed by process pid in ms
+/*
 int ReadTimeConsumption(pid_t pid) {
 
-/*
+
     char buffer[64];
     sprintf(buffer, "/proc/%d/stat", pid);
     FILE* fp = fopen(buffer, "r");
@@ -48,11 +49,11 @@ int ReadTimeConsumption(pid_t pid) {
         clktck = sysconf(_SC_CLK_TCK);
     }
     return int((utime + stime + 0.0) / clktck * 1000);
-*/
+
 }
 
 int ReadMemoryConsumption(pid_t pid) {
-/*
+
     char buffer[64];
     sprintf(buffer, "/proc/%d/status", pid);
     FILE* fp = fopen(buffer, "r");
@@ -78,9 +79,9 @@ int ReadMemoryConsumption(pid_t pid) {
         vmSize = vmPeak;
     }
     return vmSize - vmExe - vmLib - vmStack;
-*/
+
 }
-/*
+
 bool GetCurrentRunUsage(pid_t pid, RunUsage &ru)
 {
 	struct rusage buf;
