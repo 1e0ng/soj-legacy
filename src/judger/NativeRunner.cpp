@@ -69,7 +69,7 @@ bool NativeRunner::Run(int proid, int rid)
 			return true;
 		}
 		else{
-			sandbox->SetChildPid(pid);
+			sandbox->SetChildPid(pid2);
 			sandbox->Watch();
 			
 			int status;
