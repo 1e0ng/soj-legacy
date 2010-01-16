@@ -79,7 +79,7 @@ bool NativeRunner::Run(int proid, int rid)
 			getrusage(RUSAGE_CHILDREN, &buf);
 			ru.time=buf.ru_utime.tv_sec*1000+buf.ru_stime.tv_sec*1000+buf.ru_stime.tv_usec/1000+buf.ru_utime.tv_usec/1000;
 			//the unit of ru.time is ms
-			ru.memory= buf.ru_minflt*(sysconf(_SC_PAGESIZE)/1024);
+			ru.memory=buf.ru_minflt*(sysconf(_SC_PAGESIZE)/1024);
 			//divide 1024 to make the unit be KB
 			if(ru.time<0){
 				log(Log::INFO)<<"run time is less than 0: "<<ru.time<<endlog;
@@ -273,7 +273,8 @@ bool NativeRunner::SetupChild(int pid, int rid)
 			log(Log::WARNING)<<"NativeRunner: Failed to set work dir to "<<runInfo.workdir<<"."<<endlog;
 			return false;
 		}
-	}
+	}*/
+	
 	if(runInfo.bTrace)
 	{
 		if(ptrace(PTRACE_TRACEME, 0, 0, 0) < 0)
@@ -281,7 +282,7 @@ bool NativeRunner::SetupChild(int pid, int rid)
 			log(Log::WARNING)<<"NativeRunner: Failed to trace child."<<endlog;
 			return false;
 		}
-	}*/
+	}
 
 	sprintf(tmp, "%s/%d", runInfo.filePath.c_str(), rid);
 	sprintf(tmp2, "%d", rid);
@@ -294,7 +295,6 @@ bool NativeRunner::SetupChild(int pid, int rid)
 		log(Log::WARNING)<<"NativeRunner: Failed to execl child."<<endlog;
 		return false;
 	}
-	
 
 	return true;
 }
