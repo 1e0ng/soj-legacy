@@ -53,43 +53,30 @@ bool NativeRunner::Run(int proid, int rid)
 		log(Log::WARNING)<<"NativeRunner::Run : fork failed."<<strerror(errno)<<endlog;
 		return false;
 	}
-	if(pid == 0)
-	{
-		int pid2 = fork();
-		if(pid2 <0){
-			log(Log::WARNING)<<"NativeRunner::Run : fork failed."<<strerror(errno)<<endlog;
+	if(pid > 0){//parent
+		waitpid(0,0,0);
+		exit(0);
+	}
+	if(pid==0){//child
+		int pid2= fork();
+		if(pid2 < 0)
+		{
+			log(Log::WARNING)<<"NativeRunner::Run : fork2 failed."<<strerror(errno)<<endlog;
 			return false;
 		}
-		if(pid2==0){
+		if(pid2 == 0)//grandson
+		{
 			if(!SetupChild(proid, rid))
 			{
 				log(Log::WARNING)<<"NativeRunner::Run : Setup child failed. "<<strerror(errno)<<endlog;
-				return false;
+				exit(0);
 			}
-			return true;
 		}
 		else{
 			sandbox->SetChildPid(pid2);
 			sandbox->Watch();
-			
-			int status;
-			wait(&status);
-			log(Log::INFO)<<"stats: "<<status<<endlog;
-			struct rusage buf;
-			getrusage(RUSAGE_CHILDREN, &buf);
-			ru.time=buf.ru_utime.tv_sec*1000+buf.ru_stime.tv_sec*1000+buf.ru_stime.tv_usec/1000+buf.ru_utime.tv_usec/1000;
-			//the unit of ru.time is ms
-			ru.memory=buf.ru_minflt*(sysconf(_SC_PAGESIZE)/1024);
-			//divide 1024 to make the unit be KB
-			if(ru.time<0){
-				log(Log::INFO)<<"run time is less than 0: "<<ru.time<<endlog;
-				ru.time=0;
-			}
-			if(ru.memory<0){
-				log(Log::INFO)<<"run memory is less than 0: "<<ru.memory<<endlog;
-				ru.memory=0;
-			}
-			
+			ru=sandbox->GetRunUsage();
+		
 			if(sandbox->IsNormalExit())
 			{
 				int status = sandbox->GetExitStatus();
@@ -102,7 +89,7 @@ bool NativeRunner::Run(int proid, int rid)
 				{
 					result = SYS_ERROR;
 					log(Log::WARNING)<<"Child exited with "<<WEXITSTATUS(status)<<" ."<<endlog;
-					return false;
+					return true;
 				}
 			}
 			else
@@ -110,6 +97,7 @@ bool NativeRunner::Run(int proid, int rid)
 				if(sandbox->IsTermByRestrictedSyscall())
 				{
 					result = RESTRICTED_SYSCALL;
+					log(Log::INFO)<<"result= "<<result<<endlog;
 					return false;
 				}
 				int status = sandbox->GetExitStatus();
@@ -133,7 +121,7 @@ bool NativeRunner::Run(int proid, int rid)
 					case SIGKILL:
 					case SIGTERM:
 						result = RUNTIME_ERROR;
-						dlog<<"NativeRunner::Run SIGKILL or SIGTERM cause child terminated."<<endlog;
+						log(Log::INFO)<<"NativeRunner::Run SIGKILL or SIGTERM cause child terminated."<<endlog;
 						break;
 					case SIGXCPU://cputime limit exceed
 						result = TIME_LIMIT_EXCEEDED;
@@ -142,29 +130,23 @@ bool NativeRunner::Run(int proid, int rid)
 						result = OUTPUT_LIMIT_EXCEEDED;
 						break;
 					default:
-						dlog<<"NativeRunner::Run Unexpected signal: "<<WTERMSIG(status)<<endlog;
+						log(Log::INFO)<<"NativeRunner::Run Unexpected signal: "<<WTERMSIG(status)<<endlog;
 					}
 				}
 				else
 				{
 					//how do we come here?
-					dlog<<"NativeRunner::Run Unexpected exit status: "<<status<<endlog;
+					log(Log::INFO)<<"NativeRunner::Run Unexpected exit status: "<<status<<endlog;
 				}
-				return false;
 			}
 		}
-		return true;
 	}
-	else
-	{
-		int status;
-		wait(&status);
-		return true;
-	}
+	return true;
 }
 
 bool NativeRunner::SetupChild(int pid, int rid)
 {
+	log(Log::INFO)<<"Seting up child..."<<endlog;
 	//setup input and output
 	char tmp[512],tmp2[512];
 	close(0);close(1);close(2);
@@ -208,6 +190,7 @@ bool NativeRunner::SetupChild(int pid, int rid)
 		return false;
 	}
 
+	log(Log::INFO)<<"Dup OK"<<endlog;
 	if(runInfo.runLimits.time)
 	{
 		if(SetRLimit(RLIMIT_CPU, runInfo.runLimits.time/1000) < 0)
@@ -216,6 +199,7 @@ bool NativeRunner::SetupChild(int pid, int rid)
 			return false;
 		}
 	}
+	log(Log::INFO)<<"Time limit is set."<<endlog;
 	if(runInfo.runLimits.memory)
 	{
 		if(SetRLimit(RLIMIT_DATA, runInfo.runLimits.memory) < 0)
@@ -224,6 +208,7 @@ bool NativeRunner::SetupChild(int pid, int rid)
 			return false;
 		}
 	}
+	log(Log::INFO)<<"Memory limit is set."<<endlog;
 	/*
 	if(runInfo.runLimits.vm)
 	{
@@ -273,28 +258,25 @@ bool NativeRunner::SetupChild(int pid, int rid)
 			log(Log::WARNING)<<"NativeRunner: Failed to set work dir to "<<runInfo.workdir<<"."<<endlog;
 			return false;
 		}
-	}*/
-	
-	if(runInfo.bTrace)
-	{
+	}
+*/	
+	//if(runInfo.bTrace)
+	//{
 		if(ptrace(PTRACE_TRACEME, 0, 0, 0) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to trace child."<<endlog;
 			return false;
 		}
-	}
+	//}
 
 	sprintf(tmp, "%s/%d", runInfo.filePath.c_str(), rid);
 	sprintf(tmp2, "%d", rid);
-	log(Log::WARNING)<<tmp<<endlog;
 
-	
 	ret = execl(tmp, tmp2, NULL);
 	if(ret < 0)
 	{
 		log(Log::WARNING)<<"NativeRunner: Failed to execl child."<<endlog;
 		return false;
 	}
-
 	return true;
 }

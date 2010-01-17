@@ -49,7 +49,7 @@ const char *SignalName[] =
 };
 
 const char *SyscallName[] = {
-    "restart_syscall", //1
+    "restart_syscall", //0
     "exit",
     "fork",
     "read",

@@ -88,12 +88,15 @@ int Connection::updateCake(const Cake &x)
 		return 1;
 	}
 	//int acceptedPro,submittedPro;
-	if(x.getJudgeStatus()==3){//The code has been accpeted!
+	int result=x.getJudgesStatus();
+	if(result==3||result==4||result==8){//The code has been AC,or WA, or PE
 		sprintf(tmp,"update status set rtime=%d,rmemory=%d where rid=%d",x.getRtime(),x.getRmemory(),x.getRid());
 		if(mysql_query(conn,tmp)){
 			log(Log::WARNING)<<mysql_error(conn)<<endlog;
 			return 1;
 		}
+	}
+	if(result==3){//The code has been accpeted!
 		sprintf(tmp,"update problem set accepted=%d where pid=%d",x.getProblemAccepted()+1,x.getPid());
 		if(mysql_query(conn,tmp)){
 			log(Log::WARNING)<<mysql_error(conn)<<endlog;
@@ -105,6 +108,7 @@ int Connection::updateCake(const Cake &x)
 			return 1;
 		}
 	}
+	/*
 	else{//The code has been rejected!
 		sprintf(tmp,"update problem set accepted=%d where pid=%d",x.getProblemAccepted(),x.getPid());
 		if(mysql_query(conn,tmp)){
@@ -116,6 +120,6 @@ int Connection::updateCake(const Cake &x)
 			log(Log::WARNING)<<mysql_error(conn)<<endlog;
 			return 1;
 		}
-	}
+	}*/
 	return 0;
 }

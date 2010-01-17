@@ -29,7 +29,7 @@ public:
 	virtual void Watch() = 0;
 
 	virtual void SetChildPid(int pid) = 0;
-
+	virtual RunUsage GetRunUsage() const = 0;
 	virtual bool IsNormalExit() const = 0;
 	virtual bool IsRunning() const = 0;
 	virtual int GetExitStatus() const = 0;

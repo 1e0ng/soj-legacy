@@ -708,13 +708,13 @@ const char * SyscallWatcher::GetSyscallName(int syscallNum)const
 
 bool SyscallWatcher::IsSyscallAllowed(int syscallNum, struct user_regs_struct *regs)const
 {
-	return true;
-	static bool bEnterCall = true;
+	//log(Log::INFO)<<SyscallName[syscallNum]<<" called"<<endlog;	
+	//static bool bEnterCall = true;
 	if(IsValidSyscallNum(syscallNum))
 	{
 		//bEnterCall = !bEnterCall;
 
-		switch(syscallNum)
+		/*switch(syscallNum)
 		{
 		case SYS_execve:
 			if(bEnterCall)
@@ -730,7 +730,7 @@ bool SyscallWatcher::IsSyscallAllowed(int syscallNum, struct user_regs_struct *r
 				//}
 			}
 			break;
-		/*case SYS_open:
+		case SYS_open:
 			if(bEnterCall)
 			{
 				char path[512];
@@ -743,11 +743,11 @@ bool SyscallWatcher::IsSyscallAllowed(int syscallNum, struct user_regs_struct *r
 				return AllowedToOpen(path, regs->ecx);
 			}
 			break;
-		*/
-		}
+		
+		}*/
 		if(IsCallAllowed[syscallNum])return true;
-		dlog<<SyscallName[syscallNum]<<" called"<<endlog;
 	}
+	log(Log::INFO)<<SyscallName[syscallNum]<<" is not allowed."<<endlog;
 	return false;
 }
 

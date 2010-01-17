@@ -60,7 +60,7 @@ int Judger::Run()
 	struct timespec interval;
 	interval.tv_sec = 0;
 	interval.tv_nsec = POLL_INTERVAL * 1000;
-	log(Log::INFO)<<"tv_nsec:"<<interval.tv_nsec<<endlog;
+	//log(Log::INFO)<<"tv_nsec:"<<interval.tv_nsec<<endlog;
 	while(!bStopped)	
 	{
 		int rid, pid;
@@ -87,7 +87,7 @@ int Judger::Run()
 		string lan = GetLanName(cake.getLanguage());
 
 		Compiler *compiler = CompilerFactory::GetInstance().GetCompiler(lan);
-		log(Log::INFO)<<"The compiler name:"<<compiler->GetName()<<endlog;
+		//log(Log::INFO)<<"The compiler name:"<<compiler->GetName()<<endlog;
 		
 		if(!compiler->Compile(rid))
 		{
@@ -101,6 +101,10 @@ int Judger::Run()
 		CompilerFactory::GetInstance().DisposeCompiler(compiler);
 
 		Runner *runner = RunnerFactory::GetInstance().GetRunner(lan);
+		//RunInfo runInf;
+		//runInf.bTrace=true;
+		//runner->SetRunInfo(runInf);
+
 		int result = Runner::OK;
 		long timeLimit = cake.getTimeLimit()/*in ms */, memoryLimit = cake.getMemoryLimit() * 1024/* in bytes */;
 		runner->SetTimeLimit(timeLimit);

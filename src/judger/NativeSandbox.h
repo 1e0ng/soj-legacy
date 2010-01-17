@@ -28,7 +28,7 @@ public:
 
 	//usually this mean the beginning of a new child
 	virtual void SetChildPid(int pid);
-
+	virtual RunUsage GetRunUsage() const{return ru;}
 	virtual void Watch();//start trace the child;must be called after SetChildPid
 
 	virtual bool IsNormalExit()const{return bNormalExit;}
@@ -46,7 +46,7 @@ private:
 	bool bNormalExit;
 	bool bRunning;
 	bool bTermByRestrictedSyscall;
-	//RunUsage ru;
+	RunUsage ru;
 	SyscallWatcher watcher;
 };
 
