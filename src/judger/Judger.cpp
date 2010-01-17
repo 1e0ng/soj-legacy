@@ -111,20 +111,14 @@ int Judger::Run()
 		runner->SetMemoryLimit(memoryLimit);
 		for(i = 0; i < RETRY_TIME; i++)
 		{
-			if(!runner->Run(pid, rid))
-			{
-				result = runner->GetResult();
-				if(result == Runner::SYS_ERROR)
-				{
+			runner->Run(pid,rid);
+			result = runner->GetResult();
+			if(result==Runner::SYS_ERROR){
 					log(Log::WARNING)<<"Failed to run program "<<rid<<" .Retry."<<endlog;
-					continue;//system error.retry
-				}
-				else
-				{
-					break;
-				}
 			}
-			else break;
+			else{
+				break;
+			}
 		}
 		if(i == RETRY_TIME)
 		{
@@ -155,6 +149,7 @@ int Judger::Run()
 				log(Log::INFO)<<"Run "<<rid<<": TLE."<<endlog;
 				break;
 			default:
+				cake.setJudgeStatus(RE);
 				log(Log::WARNING)<<"Unknown run result!"<<endlog;
 			}
 			conn.updateCake(cake);

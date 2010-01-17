@@ -96,6 +96,13 @@ int Connection::updateCake(const Cake &x)
 			return 1;
 		}
 	}
+	else{
+		sprintf(tmp,"update status set rtime=null,rmemory=null where rid=%d",x.getRid());
+		if(mysql_query(conn,tmp)){
+			log(Log::WARNING)<<mysql_error(conn)<<endlog;
+			return 1;
+		}
+	}
 	if(result==3){//The code has been accpeted!
 		sprintf(tmp,"update problem set accepted=%d where pid=%d",x.getProblemAccepted()+1,x.getPid());
 		if(mysql_query(conn,tmp)){

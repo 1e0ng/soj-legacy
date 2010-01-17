@@ -24,11 +24,6 @@ void sigalrm_handler(int) {
 
 int __install_ignore_sigalrm_handler = InstallSignalHandler(SIGALRM, sigalrm_handler);
 
-const RunUsage NativeRunner::GetRunUsage()const
-{
-	return ru;
-}
-
 void NativeRunner::SetRunInfo(const RunInfo &info)
 {
 	runInfo = info;
@@ -45,34 +40,62 @@ void NativeRunner::SetMemoryLimit(long memory)
 	runInfo.runLimits.vm = memory + 10 * 1024 * 1024;
 }
 
-bool NativeRunner::Run(int proid, int rid)
+void NativeRunner::Run(int proid, int rid)
 {
+	int p1[2];//pipe the result
+	int p2[2];//pipe the runTime
+	int p3[2];//pipe the runMemory
+	if(pipe(p1)<0||pipe(p2)<0||pipe(p3)<0){
+		log(Log::INFO)<<"NativeRunner::Run : create pipe error."<<endlog;
+		result=SYS_ERROR;
+		return;
+	}
 	pid = fork();
 	if(pid < 0)
 	{
 		log(Log::WARNING)<<"NativeRunner::Run : fork failed."<<strerror(errno)<<endlog;
-		return false;
+		result=SYS_ERROR;
+		return;
 	}
 	if(pid > 0){//parent
-		waitpid(0,0,0);
-		exit(0);
+		log(Log::INFO)<<"parent pid: "<<getpid()<<endlog;
+		log(Log::INFO)<<"child pid: "<<pid<<endlog;
+		close(p1[1]);
+		close(p2[1]);
+		close(p3[1]);
+		read(p1[0],&result,sizeof(result));
+		read(p2[0],&ru.time,sizeof(ru.time));
+		read(p3[0],&ru.memory,sizeof(ru.memory));
+		close(p1[0]);
+		close(p2[0]);
+		close(p3[0]);
+		wait(0);
+		return;
 	}
-	if(pid==0){//child
+	else{//pid==0,child
+		close(p1[0]);
+		close(p2[0]);
+		close(p3[0]);
 		int pid2= fork();
 		if(pid2 < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner::Run : fork2 failed."<<strerror(errno)<<endlog;
-			return false;
+			result=SYS_ERROR;
+			exit(0);
 		}
 		if(pid2 == 0)//grandson
 		{
 			if(!SetupChild(proid, rid))
 			{
 				log(Log::WARNING)<<"NativeRunner::Run : Setup child failed. "<<strerror(errno)<<endlog;
+				result=SYS_ERROR;
 				exit(0);
 			}
+			exit(0);
 		}
 		else{
+			log(Log::INFO)<<"grandson pid: "<<pid2<<endlog;
+			log(Log::INFO)<<"child pid now: "<<getpid()<<endlog;
 			sandbox->SetChildPid(pid2);
 			sandbox->Watch();
 			ru=sandbox->GetRunUsage();
@@ -83,25 +106,22 @@ bool NativeRunner::Run(int proid, int rid)
 				if(WEXITSTATUS(status) == 0)
 				{
 					result = OK;
-					return true;
 				}
 				else
 				{
 					result = SYS_ERROR;
 					log(Log::WARNING)<<"Child exited with "<<WEXITSTATUS(status)<<" ."<<endlog;
-					return true;
 				}
 			}
 			else
 			{
+				int status = sandbox->GetExitStatus();
 				if(sandbox->IsTermByRestrictedSyscall())
 				{
 					result = RESTRICTED_SYSCALL;
 					log(Log::INFO)<<"result= "<<result<<endlog;
-					return false;
 				}
-				int status = sandbox->GetExitStatus();
-				if(WIFSIGNALED(status))
+				else if(WIFSIGNALED(status))
 				{
 					switch(WTERMSIG(status))
 					{
@@ -125,9 +145,11 @@ bool NativeRunner::Run(int proid, int rid)
 						break;
 					case SIGXCPU://cputime limit exceed
 						result = TIME_LIMIT_EXCEEDED;
+						log(Log::INFO)<<"NativeRunner: TLE"<<endlog;
 						break;
 					case SIGXFSZ://fsize limit exceeded
 						result = OUTPUT_LIMIT_EXCEEDED;
+						log(Log::INFO)<<"NativeRunner: OLE"<<endlog;
 						break;
 					default:
 						log(Log::INFO)<<"NativeRunner::Run Unexpected signal: "<<WTERMSIG(status)<<endlog;
@@ -136,17 +158,24 @@ bool NativeRunner::Run(int proid, int rid)
 				else
 				{
 					//how do we come here?
+					result=SYS_ERROR;
 					log(Log::INFO)<<"NativeRunner::Run Unexpected exit status: "<<status<<endlog;
 				}
 			}
 		}
+		write(p1[1],&result,sizeof(result));
+		write(p2[1],&ru.time,sizeof(ru.time));
+		write(p3[1],&ru.memory,sizeof(ru.memory));
+		close(p1[1]);
+		close(p2[1]);
+		close(p3[1]);
+		exit(0);
 	}
-	return true;
 }
 
 bool NativeRunner::SetupChild(int pid, int rid)
 {
-	log(Log::INFO)<<"Seting up child..."<<endlog;
+	//log(Log::INFO)<<"Seting up child..."<<endlog;
 	//setup input and output
 	char tmp[512],tmp2[512];
 	close(0);close(1);close(2);
@@ -183,14 +212,14 @@ bool NativeRunner::SetupChild(int pid, int rid)
 		log(Log::WARNING)<<"NativeRunner: Failed to dup stdout"<<endlog;
 		return false;
 	}
-	dup2(fd_output, STDERR_FILENO);
+	//dup2(fd_output, STDERR_FILENO);
 	if(ret < 0)
 	{
 		log(Log::WARNING)<<"NativeRunner: Failed to dup stderr"<<endlog;
 		return false;
 	}
 
-	log(Log::INFO)<<"Dup OK"<<endlog;
+	//log(Log::INFO)<<"Dup OK"<<endlog;
 	if(runInfo.runLimits.time)
 	{
 		if(SetRLimit(RLIMIT_CPU, runInfo.runLimits.time/1000) < 0)
@@ -199,7 +228,7 @@ bool NativeRunner::SetupChild(int pid, int rid)
 			return false;
 		}
 	}
-	log(Log::INFO)<<"Time limit is set."<<endlog;
+	//log(Log::INFO)<<"Time limit is set."<<endlog;
 	if(runInfo.runLimits.memory)
 	{
 		if(SetRLimit(RLIMIT_DATA, runInfo.runLimits.memory) < 0)
@@ -208,7 +237,7 @@ bool NativeRunner::SetupChild(int pid, int rid)
 			return false;
 		}
 	}
-	log(Log::INFO)<<"Memory limit is set."<<endlog;
+	//log(Log::INFO)<<"Memory limit is set."<<endlog;
 	/*
 	if(runInfo.runLimits.vm)
 	{

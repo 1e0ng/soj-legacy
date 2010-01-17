@@ -15,6 +15,8 @@ string GetTimeInString(const char *fmt)
 
 const char *SignalName[] =
 {
+	
+	
 	"INVALID_SIGNAME",
 	"SIGHUP",
 	"SIGINT",

@@ -13,9 +13,9 @@ public:
 	NativeRunner(){sandbox = SandboxFactory::GetInstance().GetSandbox("native");}
 	virtual ~NativeRunner(){SandboxFactory::GetInstance().DisposeSandbox(sandbox);sandbox = NULL;}
 
-	virtual bool Run(int pid, int rid);
+	virtual void Run(int pid, int rid);
 	virtual int GetResult()const{return result;}
-	virtual const RunUsage GetRunUsage()const;
+	virtual const RunUsage GetRunUsage()const{return ru;}
 
 	virtual void SetRunInfo(const RunInfo &info);
 	virtual void SetTimeLimit(long time);

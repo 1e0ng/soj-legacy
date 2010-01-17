@@ -713,7 +713,6 @@ bool SyscallWatcher::IsSyscallAllowed(int syscallNum, struct user_regs_struct *r
 	if(IsValidSyscallNum(syscallNum))
 	{
 		//bEnterCall = !bEnterCall;
-
 		/*switch(syscallNum)
 		{
 		case SYS_execve:
