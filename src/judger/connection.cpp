@@ -88,7 +88,7 @@ int Connection::updateCake(const Cake &x)
 		return 1;
 	}
 	//int acceptedPro,submittedPro;
-	int result=x.getJudgesStatus();
+	int result=x.getJudgeStatus();
 	if(result==3||result==4||result==8){//The code has been AC,or WA, or PE
 		sprintf(tmp,"update status set rtime=%d,rmemory=%d where rid=%d",x.getRtime(),x.getRmemory(),x.getRid());
 		if(mysql_query(conn,tmp)){
