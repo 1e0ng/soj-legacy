@@ -20,12 +20,12 @@ int Configuration::Initialize()
 	programOutputPath = "pout";
 	programInputPath = "pin";
 	programWorkDir = "";
-	sandboxEnabled = false;
+	sandboxEnabled = true;
 
-	fsizeLimit = 0;
+	fsizeLimit = 256*1024;
 	stackLimit = 8192;
 	nprocLimit = 0;
-	nofileLimit = 20;
+	nofileLimit = 0;
 	javaTimeFactor = 5;
 	javaMemoryFactor = 5;
 	return 0;

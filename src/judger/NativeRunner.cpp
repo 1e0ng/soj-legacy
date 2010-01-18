@@ -58,8 +58,8 @@ void NativeRunner::Run(int proid, int rid)
 		return;
 	}
 	if(pid > 0){//parent
-		log(Log::INFO)<<"parent pid: "<<getpid()<<endlog;
-		log(Log::INFO)<<"child pid: "<<pid<<endlog;
+		//log(Log::INFO)<<"parent pid: "<<getpid()<<endlog;
+		//log(Log::INFO)<<"child pid: "<<pid<<endlog;
 		close(p1[1]);
 		close(p2[1]);
 		close(p3[1]);
@@ -94,8 +94,8 @@ void NativeRunner::Run(int proid, int rid)
 			exit(0);
 		}
 		else{
-			log(Log::INFO)<<"grandson pid: "<<pid2<<endlog;
-			log(Log::INFO)<<"child pid now: "<<getpid()<<endlog;
+			//log(Log::INFO)<<"grandson pid: "<<pid2<<endlog;
+			//log(Log::INFO)<<"child pid now: "<<getpid()<<endlog;
 			sandbox->SetChildPid(pid2);
 			sandbox->Watch();
 			ru=sandbox->GetRunUsage();
@@ -119,7 +119,7 @@ void NativeRunner::Run(int proid, int rid)
 				if(sandbox->IsTermByRestrictedSyscall())
 				{
 					result = RESTRICTED_SYSCALL;
-					log(Log::INFO)<<"result= "<<result<<endlog;
+					//log(Log::INFO)<<"result= "<<result<<endlog;
 				}
 				else if(WIFSIGNALED(status))
 				{
@@ -139,9 +139,12 @@ void NativeRunner::Run(int proid, int rid)
 							result = RUNTIME_ERROR;
 						break;
 					case SIGKILL:
+						result = MEMORY_LIMIT_EXCEEDED;
+						log(Log::INFO)<<"NativeRunner::Run SIGKILL cause child terminated."<<endlog;
+						break;
 					case SIGTERM:
 						result = RUNTIME_ERROR;
-						log(Log::INFO)<<"NativeRunner::Run SIGKILL or SIGTERM cause child terminated."<<endlog;
+						log(Log::INFO)<<"NativeRunner::Run SIGTERM cause child terminated."<<endlog;
 						break;
 					case SIGXCPU://cputime limit exceed
 						result = TIME_LIMIT_EXCEEDED;
@@ -212,14 +215,12 @@ bool NativeRunner::SetupChild(int pid, int rid)
 		log(Log::WARNING)<<"NativeRunner: Failed to dup stdout"<<endlog;
 		return false;
 	}
-	//dup2(fd_output, STDERR_FILENO);
 	if(ret < 0)
 	{
 		log(Log::WARNING)<<"NativeRunner: Failed to dup stderr"<<endlog;
 		return false;
 	}
 
-	//log(Log::INFO)<<"Dup OK"<<endlog;
 	if(runInfo.runLimits.time)
 	{
 		if(SetRLimit(RLIMIT_CPU, runInfo.runLimits.time/1000) < 0)
@@ -228,19 +229,19 @@ bool NativeRunner::SetupChild(int pid, int rid)
 			return false;
 		}
 	}
-	//log(Log::INFO)<<"Time limit is set."<<endlog;
 	if(runInfo.runLimits.memory)
 	{
+		log(Log::INFO)<<"memory limit: "<<runInfo.runLimits.memory<<endlog;
 		if(SetRLimit(RLIMIT_DATA, runInfo.runLimits.memory) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set data limit to "<<runInfo.runLimits.memory<<"."<<endlog;
 			return false;
 		}
 	}
-	//log(Log::INFO)<<"Memory limit is set."<<endlog;
-	/*
+	
 	if(runInfo.runLimits.vm)
 	{
+		log(Log::INFO)<<"AS limit: "<<runInfo.runLimits.vm<<endlog;
 		if(SetRLimit(RLIMIT_AS, runInfo.runLimits.vm) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set as limit to "<<runInfo.runLimits.vm<<"."<<endlog;
@@ -249,6 +250,7 @@ bool NativeRunner::SetupChild(int pid, int rid)
 	}
 	if(runInfo.runLimits.fsize)
 	{
+		log(Log::INFO)<<"fsize limit: "<<runInfo.runLimits.fsize<<endlog;
 		if(SetRLimit(RLIMIT_FSIZE, runInfo.runLimits.fsize) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set file size limit to "<<runInfo.runLimits.fsize<<"."<<endlog;
@@ -257,6 +259,7 @@ bool NativeRunner::SetupChild(int pid, int rid)
 	}
 	if(runInfo.runLimits.stack)
 	{
+		log(Log::INFO)<<"stack limit: "<<runInfo.runLimits.stack<<endlog;
 		if(SetRLimit(RLIMIT_STACK, runInfo.runLimits.stack) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set stack limit to "<<runInfo.runLimits.stack<<"."<<endlog;
@@ -265,6 +268,7 @@ bool NativeRunner::SetupChild(int pid, int rid)
 	}
 	if(runInfo.runLimits.nproc)
 	{
+		log(Log::INFO)<<"nproc limit: "<<runInfo.runLimits.nproc<<endlog;
 		if(SetRLimit(RLIMIT_NPROC, runInfo.runLimits.nproc) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set nproc limit to "<<runInfo.runLimits.nproc<<"."<<endlog;
@@ -273,6 +277,7 @@ bool NativeRunner::SetupChild(int pid, int rid)
 	}
 	if(runInfo.runLimits.nofile)
 	{
+		log(Log::INFO)<<"nofile limit: "<<runInfo.runLimits.nofile<<endlog;
 		if(SetRLimit(RLIMIT_NOFILE, runInfo.runLimits.nofile) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set file limit to "<<runInfo.runLimits.nofile<<"."<<endlog;
@@ -282,21 +287,23 @@ bool NativeRunner::SetupChild(int pid, int rid)
 
 	if(!runInfo.workdir.empty())
 	{
+		log(Log::INFO)<<"workdir limit: "<<runInfo.workdir.c_str()<<endlog;
 		if(chdir(runInfo.workdir.c_str()) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set work dir to "<<runInfo.workdir<<"."<<endlog;
 			return false;
 		}
 	}
-*/	
-	//if(runInfo.bTrace)
-	//{
+	
+	if(runInfo.bTrace)
+	{
+		log(Log::INFO)<<"bTrace=true"<<endlog;	
 		if(ptrace(PTRACE_TRACEME, 0, 0, 0) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to trace child."<<endlog;
 			return false;
 		}
-	//}
+	}
 
 	sprintf(tmp, "%s/%d", runInfo.filePath.c_str(), rid);
 	sprintf(tmp2, "%d", rid);

@@ -55,7 +55,7 @@ void NativeSandbox::Watch()
 			int sig = WTERMSIG(status);
 			int wt=ptrace(PTRACE_SYSCALL,pid,0,sig);
 			//int wt=kill(pid,9);
-			log(Log::INFO)<<"child pid: "<<pid<<endlog;
+			//log(Log::INFO)<<"child pid: "<<pid<<endlog;
 			wait(&wt);
 			log(Log::INFO)<<"NativeSandbox:Child was terminated by signal "<<WTERMSIG(status)<<endlog;
 			break;

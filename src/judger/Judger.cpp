@@ -101,9 +101,6 @@ int Judger::Run()
 		CompilerFactory::GetInstance().DisposeCompiler(compiler);
 
 		Runner *runner = RunnerFactory::GetInstance().GetRunner(lan);
-		//RunInfo runInf;
-		//runInf.bTrace=true;
-		//runner->SetRunInfo(runInf);
 
 		int result = Runner::OK;
 		long timeLimit = cake.getTimeLimit()/*in ms */, memoryLimit = cake.getMemoryLimit() * 1024/* in bytes */;
