@@ -57,9 +57,7 @@ void NativeRunner::Run(int proid, int rid)
 		result=SYS_ERROR;
 		return;
 	}
-	if(pid > 0){//parent
-		//log(Log::INFO)<<"parent pid: "<<getpid()<<endlog;
-		//log(Log::INFO)<<"child pid: "<<pid<<endlog;
+	if(pid > 0){//this is parent
 		close(p1[1]);
 		close(p2[1]);
 		close(p3[1]);
@@ -72,7 +70,7 @@ void NativeRunner::Run(int proid, int rid)
 		wait(0);
 		return;
 	}
-	else{//pid==0,child
+	else{//this is child
 		close(p1[0]);
 		close(p2[0]);
 		close(p3[0]);
@@ -83,7 +81,7 @@ void NativeRunner::Run(int proid, int rid)
 			result=SYS_ERROR;
 			exit(0);
 		}
-		if(pid2 == 0)//grandson
+		if(pid2 == 0)//this is grandson
 		{
 			if(!SetupChild(proid, rid))
 			{
@@ -94,8 +92,6 @@ void NativeRunner::Run(int proid, int rid)
 			exit(0);
 		}
 		else{
-			//log(Log::INFO)<<"grandson pid: "<<pid2<<endlog;
-			//log(Log::INFO)<<"child pid now: "<<getpid()<<endlog;
 			sandbox->SetChildPid(pid2);
 			sandbox->Watch();
 			ru=sandbox->GetRunUsage();
@@ -231,7 +227,7 @@ bool NativeRunner::SetupChild(int pid, int rid)
 	}
 	if(runInfo.runLimits.memory)
 	{
-		log(Log::INFO)<<"memory limit: "<<runInfo.runLimits.memory<<endlog;
+		//log(Log::INFO)<<"memory limit: "<<runInfo.runLimits.memory<<endlog;
 		if(SetRLimit(RLIMIT_DATA, runInfo.runLimits.memory) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set data limit to "<<runInfo.runLimits.memory<<"."<<endlog;
@@ -241,7 +237,7 @@ bool NativeRunner::SetupChild(int pid, int rid)
 	
 	if(runInfo.runLimits.vm)
 	{
-		log(Log::INFO)<<"AS limit: "<<runInfo.runLimits.vm<<endlog;
+		//log(Log::INFO)<<"AS limit: "<<runInfo.runLimits.vm<<endlog;
 		if(SetRLimit(RLIMIT_AS, runInfo.runLimits.vm) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set as limit to "<<runInfo.runLimits.vm<<"."<<endlog;
@@ -250,7 +246,7 @@ bool NativeRunner::SetupChild(int pid, int rid)
 	}
 	if(runInfo.runLimits.fsize)
 	{
-		log(Log::INFO)<<"fsize limit: "<<runInfo.runLimits.fsize<<endlog;
+		//log(Log::INFO)<<"fsize limit: "<<runInfo.runLimits.fsize<<endlog;
 		if(SetRLimit(RLIMIT_FSIZE, runInfo.runLimits.fsize) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set file size limit to "<<runInfo.runLimits.fsize<<"."<<endlog;
@@ -259,7 +255,7 @@ bool NativeRunner::SetupChild(int pid, int rid)
 	}
 	if(runInfo.runLimits.stack)
 	{
-		log(Log::INFO)<<"stack limit: "<<runInfo.runLimits.stack<<endlog;
+		//log(Log::INFO)<<"stack limit: "<<runInfo.runLimits.stack<<endlog;
 		if(SetRLimit(RLIMIT_STACK, runInfo.runLimits.stack) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set stack limit to "<<runInfo.runLimits.stack<<"."<<endlog;
@@ -268,7 +264,7 @@ bool NativeRunner::SetupChild(int pid, int rid)
 	}
 	if(runInfo.runLimits.nproc)
 	{
-		log(Log::INFO)<<"nproc limit: "<<runInfo.runLimits.nproc<<endlog;
+		//log(Log::INFO)<<"nproc limit: "<<runInfo.runLimits.nproc<<endlog;
 		if(SetRLimit(RLIMIT_NPROC, runInfo.runLimits.nproc) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set nproc limit to "<<runInfo.runLimits.nproc<<"."<<endlog;
@@ -277,7 +273,7 @@ bool NativeRunner::SetupChild(int pid, int rid)
 	}
 	if(runInfo.runLimits.nofile)
 	{
-		log(Log::INFO)<<"nofile limit: "<<runInfo.runLimits.nofile<<endlog;
+		//log(Log::INFO)<<"nofile limit: "<<runInfo.runLimits.nofile<<endlog;
 		if(SetRLimit(RLIMIT_NOFILE, runInfo.runLimits.nofile) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set file limit to "<<runInfo.runLimits.nofile<<"."<<endlog;
@@ -287,7 +283,7 @@ bool NativeRunner::SetupChild(int pid, int rid)
 
 	if(!runInfo.workdir.empty())
 	{
-		log(Log::INFO)<<"workdir limit: "<<runInfo.workdir.c_str()<<endlog;
+		//log(Log::INFO)<<"workdir limit: "<<runInfo.workdir.c_str()<<endlog;
 		if(chdir(runInfo.workdir.c_str()) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set work dir to "<<runInfo.workdir<<"."<<endlog;
@@ -297,7 +293,7 @@ bool NativeRunner::SetupChild(int pid, int rid)
 	
 	if(runInfo.bTrace)
 	{
-		log(Log::INFO)<<"bTrace=true"<<endlog;	
+		//log(Log::INFO)<<"bTrace=true"<<endlog;	
 		if(ptrace(PTRACE_TRACEME, 0, 0, 0) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to trace child."<<endlog;

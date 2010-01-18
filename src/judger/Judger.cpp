@@ -189,6 +189,8 @@ int Judger::Run()
 		conn.updateCake(cake);
 
 		log(Log::INFO)<<"Finished processing run "<<rid<<endlog;
+		
+		
 
 	}
 	return 0;
