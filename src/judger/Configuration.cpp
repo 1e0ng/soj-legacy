@@ -22,7 +22,7 @@ int Configuration::Initialize()
 	programWorkDir = "";
 	sandboxEnabled = true;
 
-	fsizeLimit = 256*1024;
+	fsizeLimit = 10*1024*1024;
 	stackLimit = 8192;
 	nprocLimit = 0;
 	nofileLimit = 0;
