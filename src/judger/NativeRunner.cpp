@@ -37,7 +37,7 @@ void NativeRunner::SetTimeLimit(long time)
 void NativeRunner::SetMemoryLimit(long memory)
 {
 	runInfo.runLimits.memory = memory;
-	runInfo.runLimits.vm = memory + 10 * 1024 * 1024;
+	runInfo.runLimits.vm = memory;// + 10 * 1024 * 1024;
 }
 
 void NativeRunner::Run(int proid, int rid)

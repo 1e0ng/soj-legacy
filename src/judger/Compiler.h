@@ -44,7 +44,7 @@ public:
 	GCCCompiler()
 	{
 		cc = "gcc";
-		options = "-ansi -fno-asm -Wall -lm -DONLINE_JUDGE -m32";
+		options = "-g -O2 -std=gnu99 -static -lm";
 		//options = "-m32";
 	}
 	virtual std::string GetName()const
@@ -60,7 +60,7 @@ public:
 	GPPCompiler()
 	{
 		cc = "g++";
-		options = "-ansi -fno-asm -Wall -lm -DONLINE_JUDGE -m32";
+		options = "-g -O2 -static";
 		//options = "-m32";
 	}
 	virtual std::string GetName()const
@@ -76,12 +76,13 @@ public:
 	JavaCompiler()
 	{
 		cc = "javac";
+		options = "-O -sourcepath . -source 1.5 -d . ";
 	}
 	virtual std::string GetName()const
 	{
 		return "Javac";
 	}
-	virtual bool Compile(int id)const{return false;}
+	virtual bool Compile(int id)const;
 };
 
 
