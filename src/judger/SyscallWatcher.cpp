@@ -68,7 +68,7 @@ static const bool IsCallAllowed[512]={
     0, //30, utime
     0, //31, stty
     0, //32, gtty
-    1, //33, access
+    0, //33, access
     0, //34, nice
     0, //35, ftime
     0, //36, sync
@@ -120,7 +120,7 @@ static const bool IsCallAllowed[512]={
     0, //82, select
     0, //83, symlink
     0, //84, oldlstat
-    1, //85, readlink
+    0, //85, readlink
     0, //86, uselib
     0, //87, swapon
     0, //88, reboot
