@@ -28,13 +28,13 @@ int RunnerFactory::Initialize()
 
 Runner *RunnerFactory::GetRunner(const string &lan)
 {
-	if(lan == "c" || lan == "c++")
-	{
+	//if(lan == "c" || lan == "c++")
+	//{
 		Runner *r = new NativeRunner();
 		r->SetRunInfo(ri);
 		return r;
-	}
-	return NULL;
+	//}
+	//return NULL;
 }
 
 void RunnerFactory::DisposeRunner(Runner *runner)

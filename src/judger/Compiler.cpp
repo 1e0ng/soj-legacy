@@ -28,7 +28,14 @@ bool GPPCompiler::Compile(int id)const
 }
 bool JavaCompiler::Compile(int id)const{
 	char cmd[512]={0};
-	sprintf(cmd,"%s %s %s/Main.java",cc.c_str(),options.c_str(),srcPath.c_str());
+	sprintf(cmd,"mkdir -p %s/%d",destPath.c_str(),id);
+		//Generate the destination folder java program needs.
+	if(system(cmd)!=0){
+		log(Log::ERROR)<<"Make destination folder failed."<<endlog;
+		return false;
+	}
+	sprintf(cmd,"%s %s -d %s/%d %s/%d/Main.java",cc.c_str(),options.c_str(),destPath.c_str(),id,srcPath.c_str(),id);
+	//log(Log::INFO)<<"The system command:"<<cmd<<endlog;
 	return system(cmd)==0;
 }
 

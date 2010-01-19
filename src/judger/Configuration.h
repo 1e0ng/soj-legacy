@@ -88,6 +88,14 @@ public:
 	{
 		return nofileLimit;
 	}
+	long GetJavaTimeFactor()const
+	{
+		return javaTimeFactor;
+	}
+	long GetJavaMemoryFactor()const
+	{
+		return javaMemoryFactor;
+	}
 private:
 	Configuration(){}
 	~Configuration(){}

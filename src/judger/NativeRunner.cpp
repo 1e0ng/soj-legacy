@@ -6,6 +6,7 @@
 
 #include <time.h>
 #include <cstdlib>
+#include <cstring>
 #include <cstdio>
 #include <cstring>
 #include <errno.h>
@@ -40,7 +41,7 @@ void NativeRunner::SetMemoryLimit(long memory)
 	runInfo.runLimits.vm = memory;// + 10 * 1024 * 1024;
 }
 
-void NativeRunner::Run(int proid, int rid)
+void NativeRunner::Run(int proid, int rid, const string &lang)
 {
 	int p1[2];//pipe the result
 	int p2[2];//pipe the runTime
@@ -83,7 +84,7 @@ void NativeRunner::Run(int proid, int rid)
 		}
 		if(pid2 == 0)//this is grandson
 		{
-			if(!SetupChild(proid, rid))
+			if(!SetupChild(proid, rid, lang))
 			{
 				log(Log::WARNING)<<"NativeRunner::Run : Setup child failed. "<<strerror(errno)<<endlog;
 				result=SYS_ERROR;
@@ -172,7 +173,7 @@ void NativeRunner::Run(int proid, int rid)
 	}
 }
 
-bool NativeRunner::SetupChild(int pid, int rid)
+bool NativeRunner::SetupChild(int pid, int rid, const string &lang)
 {
 	//log(Log::INFO)<<"Seting up child..."<<endlog;
 	//setup input and output
@@ -300,11 +301,15 @@ bool NativeRunner::SetupChild(int pid, int rid)
 			return false;
 		}
 	}
-
-	sprintf(tmp, "%s/%d", runInfo.filePath.c_str(), rid);
-	sprintf(tmp2, "%d", rid);
-
-	ret = execl(tmp, tmp2, NULL);
+	if(lang=="java"){
+		sprintf(tmp,"%s/%d/Main.class",runInfo.filePath.c_str(),rid);
+		ret= execlp("java","java",tmp,NULL);
+	}
+	else{//C or C++
+		sprintf(tmp, "%s/%d", runInfo.filePath.c_str(), rid);
+		sprintf(tmp2, "%d", rid);
+		ret = execl(tmp, tmp2, NULL);
+	}
 	if(ret < 0)
 	{
 		log(Log::WARNING)<<"NativeRunner: Failed to execl child."<<endlog;

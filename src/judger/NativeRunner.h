@@ -13,7 +13,7 @@ public:
 	NativeRunner(){sandbox = SandboxFactory::GetInstance().GetSandbox("native");}
 	virtual ~NativeRunner(){SandboxFactory::GetInstance().DisposeSandbox(sandbox);sandbox = NULL;}
 
-	virtual void Run(int pid, int rid);
+	virtual void Run(int pid,int rid, const std::string &lang);
 	virtual int GetResult()const{return result;}
 	virtual const RunUsage GetRunUsage()const{return ru;}
 
@@ -21,7 +21,7 @@ public:
 	virtual void SetTimeLimit(long time);
 	virtual void SetMemoryLimit(long memory);
 private:
-	bool SetupChild(int pid, int rid);
+	bool SetupChild(int pid, int rid, const std::string &lang);
 
 	Sandbox *sandbox;
 	RunInfo runInfo;

@@ -10,7 +10,7 @@ public:
 		OUTPUT_LIMIT_EXCEEDED, RESTRICTED_SYSCALL, SYS_ERROR = 42};
 	virtual ~Runner(){}
 
-	virtual void Run(int pid, int rid) = 0;//whether terminated normally
+	virtual void Run(int pid, int rid,const std::string &lang) = 0;
 	virtual int GetResult()const = 0;
 	virtual const RunUsage GetRunUsage()const  = 0;
 

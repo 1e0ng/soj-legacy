@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <string>
+#include <cstdlib>
 
 using namespace std;
 
@@ -104,11 +105,16 @@ int Judger::Run()
 
 		int result = Runner::OK;
 		long timeLimit = cake.getTimeLimit()/*in ms */, memoryLimit = cake.getMemoryLimit() * 1024/* in bytes */;
+		if(lan=="java"){
+			timeLimit*=Configuration::GetInstance().GetJavaTimeFactor();//Up the limit if Java is used.
+			memoryLimit*=Configuration::GetInstance().GetJavaMemoryFactor();
+			
+		}
 		runner->SetTimeLimit(timeLimit);
 		runner->SetMemoryLimit(memoryLimit);
 		for(i = 0; i < RETRY_TIME; i++)
 		{
-			runner->Run(pid,rid);
+			runner->Run(pid,rid,lan);
 			result = runner->GetResult();
 			if(result==Runner::SYS_ERROR){
 					log(Log::WARNING)<<"Failed to run program "<<rid<<" .Retry."<<endlog;

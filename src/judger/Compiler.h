@@ -44,7 +44,7 @@ public:
 	GCCCompiler()
 	{
 		cc = "gcc";
-		options = "-g -O2 -std=gnu99 -static -lm";
+		options = "-g -O2 -std=gnu99 -static -lm ";
 		//options = "-m32";
 	}
 	virtual std::string GetName()const
@@ -60,7 +60,7 @@ public:
 	GPPCompiler()
 	{
 		cc = "g++";
-		options = "-g -O2 -static";
+		options = "-g -O2 -static ";
 		//options = "-m32";
 	}
 	virtual std::string GetName()const
@@ -76,7 +76,7 @@ public:
 	JavaCompiler()
 	{
 		cc = "javac";
-		options = "-O -sourcepath . -source 1.5 -d . ";
+		options = "-O -sourcepath . -source 1.5 ";
 	}
 	virtual std::string GetName()const
 	{
