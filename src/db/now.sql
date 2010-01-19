@@ -44,7 +44,7 @@ CREATE TABLE `problem` (
 
 LOCK TABLES `problem` WRITE;
 /*!40000 ALTER TABLE `problem` DISABLE KEYS */;
-INSERT INTO `problem` VALUES (1,'A+B Problem',67,158,'There are pairs of integers. Ouput the sum of each pair of integers.','Pairs of integers.','The sum of each pair of integers line by line.','1 2\n89323 1\n','3\n89324\n',1000,64000);
+INSERT INTO `problem` VALUES (1,'A+B Problem',63,158,'There are pairs of integers. Ouput the sum of each pair of integers.','Pairs of integers.','The sum of each pair of integers line by line.','1 2\n89323 1\n','3\n89324\n',1000,64000);
 /*!40000 ALTER TABLE `problem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -109,7 +109,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (3,'alazyrabbit','','alazyrabbit','1fccb567a44880e8665b7cb9d0f97271','',2,65,130,'2009-09-17 18:14:15'),(2,'asdfasdf','','asdfasdf','38d2368bdb355fd0acf7eaa86c520b3f','',2,0,0,'2009-09-17 17:51:30'),(4,'powerx1202','powerx1202@gmail.com','ä¸æ–‡é¹','a220a317d4773cd502ceded7a7448287','å±±ä¸œå¤§å­¦',1,0,16,'2009-09-17 21:42:31'),(5,'test','','test','cc03e747a6afbbcbf8be7668acfebee5','',2,0,0,'2009-09-17 21:45:45'),(6,'godlike','','godlike','4f75d8bc38efe07fd24f303eee69b00b','heaven',2,0,0,'2009-09-17 21:56:05'),(7,'godess','','godess','a973d1c139b6dedecc1c79b30efc064d','',0,0,0,'2009-09-17 21:57:55'),(8,'hixuhuiqing','tsingxu@yahoo.cn','tsing_xu','96e79218965eb72c92a549dd5a330112','SDU',1,1,3,'2009-09-18 09:33:23'),(9,'mabaochang','314134278@qq.com','mabaochang','e10adc3949ba59abbe56e057f20f883e','JLU&&SDU',1,0,0,'2009-09-24 19:40:52'),(10,'123abc','zouyun250@126.com','123abc','e10adc3949ba59abbe56e057f20f883e','JLU&&SDU',1,0,0,'2009-09-24 19:42:06'),(11,'yabinxu','','tick','e10adc3949ba59abbe56e057f20f883e','',1,0,0,'2009-11-10 17:22:49'),(12,'a','','a','5d793fc5b00a2348c3fb9ab59e5ca98a','',1,0,1,'2010-01-13 17:54:31'),(13,'yanghdx','','123456','e10adc3949ba59abbe56e057f20f883e','',1,1,6,'2010-01-13 18:03:19'),(14,'JK_L','liujiankun625@yahoo.com.cn','åˆ˜å»ºå¤','25ef754a752450c761f053e4b16bd542','sdu',1,0,0,'2010-01-15 12:44:50'),(15,'eee4','','qq','083696f0769e1f30002ba8084727b1f3','',1,0,0,'2010-01-15 12:45:49'),(16,'shixiao','','shixiao','2c04f98759d784b2d79bd72e8df2457c','',2,0,1,'2010-01-15 12:52:13'),(17,'xunlei','','qq2','083696f0769e1f30002ba8084727b1f3','',1,0,0,'2010-01-15 12:57:38'),(18,'tester','123@123.123','tester','4297f44b13955235245b2497399d7a93','<script>alert(\'aa\');</script>',1,0,1,'2010-01-16 22:31:02');
+INSERT INTO `user` VALUES (3,'alazyrabbit','','alazyrabbit','1fccb567a44880e8665b7cb9d0f97271','',2,61,130,'2009-09-17 18:14:15'),(2,'asdfasdf','','asdfasdf','38d2368bdb355fd0acf7eaa86c520b3f','',2,0,0,'2009-09-17 17:51:30'),(4,'powerx1202','powerx1202@gmail.com','ä¸æ–‡é¹','a220a317d4773cd502ceded7a7448287','å±±ä¸œå¤§å­¦',1,0,16,'2009-09-17 21:42:31'),(5,'test','','test','cc03e747a6afbbcbf8be7668acfebee5','',2,0,0,'2009-09-17 21:45:45'),(6,'godlike','','godlike','4f75d8bc38efe07fd24f303eee69b00b','heaven',2,0,0,'2009-09-17 21:56:05'),(7,'godess','','godess','a973d1c139b6dedecc1c79b30efc064d','',0,0,0,'2009-09-17 21:57:55'),(8,'hixuhuiqing','tsingxu@yahoo.cn','tsing_xu','96e79218965eb72c92a549dd5a330112','SDU',1,1,3,'2009-09-18 09:33:23'),(9,'mabaochang','314134278@qq.com','mabaochang','e10adc3949ba59abbe56e057f20f883e','JLU&&SDU',1,0,0,'2009-09-24 19:40:52'),(10,'123abc','zouyun250@126.com','123abc','e10adc3949ba59abbe56e057f20f883e','JLU&&SDU',1,0,0,'2009-09-24 19:42:06'),(11,'yabinxu','','tick','e10adc3949ba59abbe56e057f20f883e','',1,0,0,'2009-11-10 17:22:49'),(12,'a','','a','5d793fc5b00a2348c3fb9ab59e5ca98a','',1,0,1,'2010-01-13 17:54:31'),(13,'yanghdx','','123456','e10adc3949ba59abbe56e057f20f883e','',1,1,6,'2010-01-13 18:03:19'),(14,'JK_L','liujiankun625@yahoo.com.cn','åˆ˜å»ºå¤','25ef754a752450c761f053e4b16bd542','sdu',1,0,0,'2010-01-15 12:44:50'),(15,'eee4','','qq','083696f0769e1f30002ba8084727b1f3','',1,0,0,'2010-01-15 12:45:49'),(16,'shixiao','','shixiao','2c04f98759d784b2d79bd72e8df2457c','',2,0,1,'2010-01-15 12:52:13'),(17,'xunlei','','qq2','083696f0769e1f30002ba8084727b1f3','',1,0,0,'2010-01-15 12:57:38'),(18,'tester','123@123.123','tester','4297f44b13955235245b2497399d7a93','<script>alert(\'aa\');</script>',1,0,1,'2010-01-16 22:31:02');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -122,4 +122,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-01-19 14:44:14
+-- Dump completed on 2010-01-19 14:47:04
