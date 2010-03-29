@@ -217,7 +217,6 @@ bool NativeRunner::SetupChild(int pid, int rid, const string &lang)
 		log(Log::WARNING)<<"NativeRunner: Failed to dup stderr"<<endlog;
 		return false;
 	}
-
 	if(runInfo.runLimits.time)
 	{
 		if(SetRLimit(RLIMIT_CPU, runInfo.runLimits.time/1000) < 0)
@@ -226,6 +225,7 @@ bool NativeRunner::SetupChild(int pid, int rid, const string &lang)
 			return false;
 		}
 	}
+
 	if(runInfo.runLimits.memory)
 	{
 		//log(Log::INFO)<<"memory limit: "<<runInfo.runLimits.memory<<endlog;
@@ -254,6 +254,7 @@ bool NativeRunner::SetupChild(int pid, int rid, const string &lang)
 			return false;
 		}
 	}
+
 	if(runInfo.runLimits.stack)
 	{
 		//log(Log::INFO)<<"stack limit: "<<runInfo.runLimits.stack<<endlog;
@@ -281,7 +282,6 @@ bool NativeRunner::SetupChild(int pid, int rid, const string &lang)
 			return false;
 		}
 	}
-
 	if(!runInfo.workdir.empty())
 	{
 		//log(Log::INFO)<<"workdir limit: "<<runInfo.workdir.c_str()<<endlog;

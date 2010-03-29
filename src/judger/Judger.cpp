@@ -117,7 +117,7 @@ int Judger::Run()
 			runner->Run(pid,rid,lan);
 			result = runner->GetResult();
 			if(result==Runner::SYS_ERROR){
-					log(Log::WARNING)<<"Failed to run program "<<rid<<" .Retry."<<endlog;
+					log(Log::WARNING)<<"Fail to run program "<<rid<<" .Retry."<<endlog;
 			}
 			else{
 				break;
@@ -193,11 +193,7 @@ int Judger::Run()
 			log(Log::WARNING)<<"unknown check result."<<endlog;
 		}
 		conn.updateCake(cake);
-
-		log(Log::INFO)<<"Finished processing run "<<rid<<endlog;
-		
-		
-
+		log(Log::INFO)<<"Finish processing run "<<rid<<endlog;
 	}
 	return 0;
 }

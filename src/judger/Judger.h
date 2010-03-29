@@ -29,7 +29,6 @@ public:
 	int StartUp();
 	void CleanUp();
 	int Run();
-
 	bool bStopped;
 private:
 	Judger(){bStopped = false;}

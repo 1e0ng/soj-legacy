@@ -23,7 +23,7 @@ int Configuration::Initialize()
 	sandboxEnabled = true;
 
 	fsizeLimit = 10*1024*1024;
-	stackLimit = 8192;
+	stackLimit = 2*1024*1024;
 	nprocLimit = 0;
 	nofileLimit = 0;
 	javaTimeFactor = 5;

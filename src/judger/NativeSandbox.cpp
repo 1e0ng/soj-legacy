@@ -77,7 +77,10 @@ void NativeSandbox::Watch()
 			{
 				//log(Log::INFO)<<"exit or exit_group called"<<endl;
 			}
-			if(!firstCall&&!watcher.IsSyscallAllowed(regs.orig_eax, &regs))
+			if(regs.orig_eax == SYS_open ||regs.orig_eax == SYS_close){
+				ptrace(PTRACE_SYSCALL,pid,0,0);
+			}
+			else if(!firstCall&&!watcher.IsSyscallAllowed(regs.orig_eax, &regs))
 			{
 				bNormalExit = false;
 				bRunning = false;
