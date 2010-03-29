@@ -292,7 +292,7 @@ bool NativeRunner::SetupChild(int pid, int rid, const string &lang)
 		}
 	}
 	
-	if(runInfo.bTrace)
+	if(runInfo.bTrace&&lang!="java")
 	{
 		//log(Log::INFO)<<"bTrace=true"<<endlog;	
 		if(ptrace(PTRACE_TRACEME, 0, 0, 0) < 0)
@@ -302,8 +302,9 @@ bool NativeRunner::SetupChild(int pid, int rid, const string &lang)
 		}
 	}
 	if(lang=="java"){
-		sprintf(tmp,"%s/%d/Main.class",runInfo.filePath.c_str(),rid);
-		ret= execlp("java","java",tmp,NULL);
+		sprintf(tmp,"%s/%d/",runInfo.filePath.c_str(),rid);
+		//log(Log::INFO)<<tmp<<endlog;
+		ret= execlp("java","java","-cp",tmp,"Main",NULL);
 	}
 	else{//C or C++
 		sprintf(tmp, "%s/%d", runInfo.filePath.c_str(), rid);
