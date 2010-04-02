@@ -17,7 +17,17 @@ if($DEBUG)
 include("top.php");
 if(!isset($view))
 	$view = 'home.php';
+?>
+<center>
+<table style="BORDER-RIGHT: 5px; BORDER-TOP: 1px ; BORDER-LEFT: 5px; BORDER-BOTTOM: 1px" cellSpacing=1 cellPadding=1 width="90%" border=0>
+<tr><td>
+<?php
 include($view);
+?>
+</td></tr>
+</table>
+</center>
+<?php
 include("bottom.php");
 ?>
 </body>

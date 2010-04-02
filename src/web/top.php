@@ -29,7 +29,7 @@ else
 echo "</div>\n";
 ?>
 <h1><center><font face="sans-serif">SDU Online Judge</font></center></h1>
-<hr width = "80%">
+<hr width = "90%">
 <div align = "center">
 <font face="sans-serif">
 	<a href="home.php">Home</a>
@@ -43,7 +43,7 @@ echo "</div>\n";
 	<a href="rank.php">Rank</a>
 </font>
 </div>
-<hr width = "40%">
+<hr width = "50%">
 <?php
 }
 ?>
