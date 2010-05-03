@@ -1,12 +1,13 @@
 #include "Configuration.h"
+#include "../common/IniFile.h"
 #include <string>
 
 using namespace std;
 
 int Configuration::Initialize()
 {
-	rootPath = "";
-	configPath = "";
+	rootPath = "./";
+	configPath = "./soj.conf";
 	logPathname = "./";
 
 	dbHost = "localhost";
@@ -39,3 +40,15 @@ int Configuration::Initialize()
 	return 0;
 }
 
+bool Configuration::InitFromFile()
+{
+    IniFile ini;
+    if(ini.InitFromFile(configPath.c_str()))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}

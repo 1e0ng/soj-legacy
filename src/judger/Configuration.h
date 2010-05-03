@@ -14,6 +14,11 @@ public:
 
 	int Initialize();
 
+    void SetConfigFilePath(const std::string &path)
+    {
+        configPath = path;
+    }
+
 	std::string GetRootPath()const
 	{
 		return rootPath;
@@ -132,6 +137,8 @@ private:
 	~Configuration(){}
 	Configuration(const Configuration &);
 	Configuration &operator=(const Configuration &);
+
+    bool InitFromFile();
 
 	std::string rootPath;
 	std::string configPath;
