@@ -1,0 +1,317 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AC	Judger.h	/^		AC,$/;"	e	enum:Judger::JudgeResult
+AlreadyRunning	util.cpp	/^bool AlreadyRunning()$/;"	f
+BeginOneLog	Log.cpp	/^void Log::BeginOneLog()$/;"	f	class:Log
+CAKE_H	cake.h	2;"	d
+CC	Makefile	/^CC=g++$/;"	m
+CE	Judger.h	/^		CE,$/;"	e	enum:Judger::JudgeResult
+CFLAGS	Makefile	/^CFLAGS=-g -O2 -Wall -m32 -D_DEBUG -DTRACE_SYSCALL  -I\/usr\/include\/mysql -L\/usr\/lib\/mysql -lmysqlclient_r$/;"	m
+COMMON_H	Common.h	2;"	d
+COMPILER_H	Compiler.h	2;"	d
+CONFIGURATION_H	Configuration.h	2;"	d
+CONNECTION_H	connection.h	2;"	d
+CRITICAL	Log.h	/^	enum{DEBUG, INFO, WARNING, ERROR, CRITICAL};$/;"	e	enum:Log::__anon3
+CXXFLAGS	Makefile	/^CXXFLAGS=$(CFLAGS)$/;"	m
+Cake	cake.h	/^class Cake{$/;"	c
+Check	OutputChecker.cpp	/^int OutputChecker::Check(int pid, int rid)const$/;"	f	class:OutputChecker
+CleanUp	Judger.cpp	/^void Judger::CleanUp()$/;"	f	class:Judger
+Compile	Compiler.cpp	/^bool GCCCompiler::Compile(int id)const$/;"	f	class:GCCCompiler
+Compile	Compiler.cpp	/^bool GPPCompiler::Compile(int id)const$/;"	f	class:GPPCompiler
+Compile	Compiler.cpp	/^bool JavaCompiler::Compile(int id)const{$/;"	f	class:JavaCompiler
+Compiler	Compiler.h	/^class Compiler$/;"	c
+CompilerFactory	Compiler.cpp	/^CompilerFactory::CompilerFactory()$/;"	f	class:CompilerFactory
+CompilerFactory	Compiler.h	/^class CompilerFactory$/;"	c
+Configuration	Configuration.h	/^	Configuration(){}$/;"	f	class:Configuration
+Configuration	Configuration.h	/^class Configuration$/;"	c
+Connection	connection.h	/^class Connection{$/;"	c
+DEBUG	Log.h	/^	enum{DEBUG, INFO, WARNING, ERROR, CRITICAL};$/;"	e	enum:Log::__anon3
+Deamonize	util.cpp	/^bool Deamonize()$/;"	f
+DisposeCompiler	Compiler.h	/^	void DisposeCompiler(Compiler *compiler){}$/;"	f	class:CompilerFactory
+DisposeRunner	RunnerFactory.cpp	/^void RunnerFactory::DisposeRunner(Runner *runner)$/;"	f	class:RunnerFactory
+DisposeSandbox	Sandbox.h	/^	void DisposeSandbox(Sandbox *sandbox){}$/;"	f	class:SandboxFactory
+ERROR	Log.h	/^	enum{DEBUG, INFO, WARNING, ERROR, CRITICAL};$/;"	e	enum:Log::__anon3
+EndLog	Log.h	/^class EndLog{};$/;"	c
+EndOneLog	Log.cpp	/^void Log::EndOneLog()$/;"	f	class:Log
+FILE_ERROR	OutputChecker.h	/^	enum{OK, WA, PE, FILE_ERROR};$/;"	e	enum:OutputChecker::__anon1
+GCCCompiler	Compiler.h	/^	GCCCompiler()$/;"	f	class:GCCCompiler
+GCCCompiler	Compiler.h	/^class GCCCompiler : public Compiler$/;"	c
+GPPCompiler	Compiler.h	/^	GPPCompiler()$/;"	f	class:GPPCompiler
+GPPCompiler	Compiler.h	/^class GPPCompiler : public Compiler$/;"	c
+GetCompiler	Compiler.cpp	/^Compiler *CompilerFactory::GetCompiler(const string &lan)$/;"	f	class:CompilerFactory
+GetConfigurationPath	Configuration.h	/^	std::string GetConfigurationPath()const$/;"	f	class:Configuration
+GetDbDatabase	Configuration.h	/^	std::string GetDbDatabase()const$/;"	f	class:Configuration
+GetDbHost	Configuration.h	/^	std::string GetDbHost()const$/;"	f	class:Configuration
+GetDbPassword	Configuration.h	/^	std::string GetDbPassword()const$/;"	f	class:Configuration
+GetDbUsername	Configuration.h	/^	std::string GetDbUsername()const$/;"	f	class:Configuration
+GetDestFilePath	Configuration.h	/^	std::string GetDestFilePath()const$/;"	f	class:Configuration
+GetExitStatus	NativeSandbox.h	/^	virtual int GetExitStatus()const{return status;}$/;"	f	class:NativeSandbox
+GetFsizeLimit	Configuration.h	/^	long GetFsizeLimit()const$/;"	f	class:Configuration
+GetInstance	Compiler.h	/^	static CompilerFactory &GetInstance()$/;"	f	class:CompilerFactory
+GetInstance	Configuration.h	/^	static Configuration &GetInstance()$/;"	f	class:Configuration
+GetInstance	Judger.h	/^	static Judger &GetInstance()$/;"	f	class:Judger
+GetInstance	Runner.h	/^	static RunnerFactory &GetInstance()$/;"	f	class:RunnerFactory
+GetInstance	Sandbox.h	/^	static SandboxFactory &GetInstance()$/;"	f	class:SandboxFactory
+GetJavaMemoryFactor	Configuration.h	/^	long GetJavaMemoryFactor()const$/;"	f	class:Configuration
+GetJavaTimeFactor	Configuration.h	/^	long GetJavaTimeFactor()const$/;"	f	class:Configuration
+GetLanExt	util.cpp	/^string GetLanExt(int lan)$/;"	f
+GetLanName	util.cpp	/^string GetLanName(int lan)$/;"	f
+GetLogPathname	Configuration.h	/^	std::string GetLogPathname()const$/;"	f	class:Configuration
+GetLogStream	Log.cpp	/^ostringstream &Log::GetLogStream(int level)$/;"	f	class:Log
+GetName	Compiler.h	/^	virtual std::string GetName()const$/;"	f	class:Compiler
+GetName	Compiler.h	/^	virtual std::string GetName()const$/;"	f	class:GCCCompiler
+GetName	Compiler.h	/^	virtual std::string GetName()const$/;"	f	class:GPPCompiler
+GetName	Compiler.h	/^	virtual std::string GetName()const$/;"	f	class:JavaCompiler
+GetNofileLimit	Configuration.h	/^	long GetNofileLimit()const$/;"	f	class:Configuration
+GetNprocLimit	Configuration.h	/^	long GetNprocLimit()const$/;"	f	class:Configuration
+GetProgramInputPath	Configuration.h	/^	std::string GetProgramInputPath()const$/;"	f	class:Configuration
+GetProgramOutputPath	Configuration.h	/^	std::string GetProgramOutputPath()const$/;"	f	class:Configuration
+GetProgramWorkDir	Configuration.h	/^	std::string GetProgramWorkDir()const$/;"	f	class:Configuration
+GetResult	NativeRunner.h	/^	virtual int GetResult()const{return result;}$/;"	f	class:NativeRunner
+GetRootPath	Configuration.h	/^	std::string GetRootPath()const$/;"	f	class:Configuration
+GetRunUsage	NativeRunner.h	/^	virtual const RunUsage GetRunUsage()const{return ru;}$/;"	f	class:NativeRunner
+GetRunUsage	NativeSandbox.h	/^	virtual RunUsage GetRunUsage() const{return ru;}$/;"	f	class:NativeSandbox
+GetRunner	RunnerFactory.cpp	/^Runner *RunnerFactory::GetRunner(const string &lan)$/;"	f	class:RunnerFactory
+GetSandbox	SandboxFactory.cpp	/^Sandbox *SandboxFactory::GetSandbox(const string &type)const$/;"	f	class:SandboxFactory
+GetSrcFilePath	Configuration.h	/^	std::string GetSrcFilePath()const$/;"	f	class:Configuration
+GetStackLimit	Configuration.h	/^	long GetStackLimit()const$/;"	f	class:Configuration
+GetStandardOutputPath	Configuration.h	/^	std::string GetStandardOutputPath()const$/;"	f	class:Configuration
+GetSyscallName	SyscallWatcher.cpp	/^const char * SyscallWatcher::GetSyscallName(int syscallNum)const$/;"	f	class:SyscallWatcher
+GetTimeInString	Common.cpp	/^string GetTimeInString(const char *fmt)$/;"	f
+INFO	Log.h	/^	enum{DEBUG, INFO, WARNING, ERROR, CRITICAL};$/;"	e	enum:Log::__anon3
+Initialize	Compiler.cpp	/^int CompilerFactory::Initialize()$/;"	f	class:CompilerFactory
+Initialize	Configuration.cpp	/^int Configuration::Initialize()$/;"	f	class:Configuration
+Initialize	Log.cpp	/^int Log::Initialize()$/;"	f	class:Log
+Initialize	OutputChecker.cpp	/^int OutputChecker::Initialize()$/;"	f	class:OutputChecker
+Initialize	RunnerFactory.cpp	/^int RunnerFactory::Initialize()$/;"	f	class:RunnerFactory
+Initialize	SandboxFactory.cpp	/^int SandboxFactory::Initialize()$/;"	f	class:SandboxFactory
+InstallSignalHandler	util.cpp	/^int InstallSignalHandler(int signum, sighandler_t handler)$/;"	f
+IsBlank	OutputChecker.h	/^	static bool IsBlank(char c)$/;"	f	class:OutputChecker
+IsCallAllowed	SyscallWatcher.cpp	/^static const bool IsCallAllowed[512]={$/;"	v	file:
+IsNormalExit	NativeSandbox.h	/^	virtual bool IsNormalExit()const{return bNormalExit;}$/;"	f	class:NativeSandbox
+IsRunning	NativeSandbox.h	/^	virtual bool IsRunning()const{return bRunning;}$/;"	f	class:NativeSandbox
+IsSandboxEnabled	Configuration.h	/^	bool IsSandboxEnabled()const$/;"	f	class:Configuration
+IsSyscallAllowed	SyscallWatcher.cpp	/^bool SyscallWatcher::IsSyscallAllowed(int syscallNum, struct user_regs_struct *regs)const$/;"	f	class:SyscallWatcher
+IsTermByRestrictedSyscall	NativeSandbox.h	/^	virtual bool IsTermByRestrictedSyscall()const{return bTermByRestrictedSyscall;}$/;"	f	class:NativeSandbox
+IsValidSyscallNum	SyscallWatcher.cpp	/^bool SyscallWatcher::IsValidSyscallNum(int syscallNum)const$/;"	f	class:SyscallWatcher
+JUDGER_H	Judger.h	2;"	d
+JUDGING	Judger.h	/^		JUDGING,$/;"	e	enum:Judger::JudgeResult
+JavaCompiler	Compiler.h	/^	JavaCompiler()$/;"	f	class:JavaCompiler
+JavaCompiler	Compiler.h	/^class JavaCompiler : public Compiler$/;"	c
+JudgeResult	Judger.h	/^	enum JudgeResult$/;"	g	class:Judger
+Judger	Judger.h	/^	Judger(){bStopped = false;}$/;"	f	class:Judger
+Judger	Judger.h	/^class Judger$/;"	c
+LOCKFILE	util.cpp	203;"	d	file:
+LOCKMODE	util.cpp	204;"	d	file:
+LOG_H	Log.h	2;"	d
+LOG_TIME_FORMAT	Common.h	9;"	d
+LockFile	util.cpp	/^int LockFile(int fd) {$/;"	f
+Log	Log.cpp	/^Log::Log(bool flag)$/;"	f	class:Log
+Log	Log.h	/^class Log$/;"	c
+MEMORY_LIMIT_EXCEEDED	Runner.h	/^	enum {OK, RUNTIME_ERROR, MEMORY_LIMIT_EXCEEDED, TIME_LIMIT_EXCEEDED,$/;"	e	enum:Runner::__anon2
+MLE	Judger.h	/^		MLE,$/;"	e	enum:Judger::JudgeResult
+NATIVESANDBOX_H	NativeSandbox.h	19;"	d
+NATIVE_RUNNER_H	NativeRunner.h	2;"	d
+NativeRunner	NativeRunner.h	/^	NativeRunner(){sandbox = SandboxFactory::GetInstance().GetSandbox("native");}$/;"	f	class:NativeRunner
+NativeRunner	NativeRunner.h	/^class NativeRunner :public Runner$/;"	c
+NativeSandbox	NativeSandbox.cpp	/^NativeSandbox::NativeSandbox()$/;"	f	class:NativeSandbox
+NativeSandbox	NativeSandbox.h	/^class NativeSandbox: public Sandbox$/;"	c
+OBJS	Makefile	/^OBJS:=$(patsubst %.cpp, %.o, $(SOURCES))$/;"	m
+OK	OutputChecker.h	/^	enum{OK, WA, PE, FILE_ERROR};$/;"	e	enum:OutputChecker::__anon1
+OK	Runner.h	/^	enum {OK, RUNTIME_ERROR, MEMORY_LIMIT_EXCEEDED, TIME_LIMIT_EXCEEDED,$/;"	e	enum:Runner::__anon2
+OUTPUTCHECKER_H	OutputChecker.h	2;"	d
+OUTPUT_LIMIT_EXCEEDED	Runner.h	/^		OUTPUT_LIMIT_EXCEEDED, RESTRICTED_SYSCALL, SYS_ERROR = 42};$/;"	e	enum:Runner::__anon2
+OutputChecker	OutputChecker.h	/^class OutputChecker$/;"	c
+PE	Judger.h	/^		PE,$/;"	e	enum:Judger::JudgeResult
+PE	OutputChecker.h	/^	enum{OK, WA, PE, FILE_ERROR};$/;"	e	enum:OutputChecker::__anon1
+POLL_INTERVAL	Judger.h	/^	const static int POLL_INTERVAL = 500;\/\/in ms$/;"	m	class:Judger
+PeekStringFromProc	util.cpp	/^int PeekStringFromProc(int pid, unsigned long address, char *buf, size_t size)$/;"	f
+QUEUEING	Judger.h	/^		QUEUEING = 1,$/;"	e	enum:Judger::JudgeResult
+RE	Judger.h	/^		RE$/;"	e	enum:Judger::JudgeResult
+RESTRICTED_SYSCALL	Runner.h	/^		OUTPUT_LIMIT_EXCEEDED, RESTRICTED_SYSCALL, SYS_ERROR = 42};$/;"	e	enum:Runner::__anon2
+RETRY_TIME	Judger.cpp	58;"	d	file:
+RUNNER_H	Runner.h	2;"	d
+RUNSTRUTS_H	RunStruts.h	2;"	d
+RUNTIME_ERROR	Runner.h	/^	enum {OK, RUNTIME_ERROR, MEMORY_LIMIT_EXCEEDED, TIME_LIMIT_EXCEEDED,$/;"	e	enum:Runner::__anon2
+Run	Judger.cpp	/^int Judger::Run()$/;"	f	class:Judger
+Run	NativeRunner.cpp	/^void NativeRunner::Run(int proid, int rid, const string &lang)$/;"	f	class:NativeRunner
+RunInfo	RunStruts.h	/^	RunInfo()$/;"	f	struct:RunInfo
+RunInfo	RunStruts.h	/^	RunInfo(const RunInfo &rhs)$/;"	f	struct:RunInfo
+RunInfo	RunStruts.h	/^struct RunInfo$/;"	s
+RunLimits	RunStruts.h	/^struct RunLimits$/;"	s
+RunUsage	RunStruts.h	/^struct RunUsage$/;"	s
+Runner	Runner.h	/^class Runner$/;"	c
+RunnerFactory	Runner.h	/^class RunnerFactory$/;"	c
+RunnerFactory	RunnerFactory.cpp	/^RunnerFactory::RunnerFactory()$/;"	f	class:RunnerFactory
+SANDBOX_H	Sandbox.h	19;"	d
+SOURCES	Makefile	/^SOURCES:=$(wildcard *.cpp)$/;"	m
+SYSCALLWATCHER_H	SyscallWatcher.h	19;"	d
+SYS_ERROR	Runner.h	/^		OUTPUT_LIMIT_EXCEEDED, RESTRICTED_SYSCALL, SYS_ERROR = 42};$/;"	e	enum:Runner::__anon2
+Sandbox	Sandbox.h	/^class Sandbox$/;"	c
+SandboxFactory	Sandbox.h	/^class SandboxFactory$/;"	c
+SandboxFactory	SandboxFactory.cpp	/^SandboxFactory::SandboxFactory()$/;"	f	class:SandboxFactory
+SetCC	Compiler.h	/^	void SetCC(const std::string &cc)$/;"	f	class:Compiler
+SetChildPid	NativeSandbox.cpp	/^void NativeSandbox::SetChildPid(int pid)$/;"	f	class:NativeSandbox
+SetChildPid	SyscallWatcher.h	/^	void SetChildPid(int pid){this->pid = pid;}$/;"	f	class:SyscallWatcher
+SetDestPath	Compiler.h	/^	void SetDestPath(const std::string &path)$/;"	f	class:Compiler
+SetMemoryLimit	NativeRunner.cpp	/^void NativeRunner::SetMemoryLimit(long memory)$/;"	f	class:NativeRunner
+SetOptions	Compiler.h	/^	void SetOptions(const std::string &opts)$/;"	f	class:Compiler
+SetProgramOutputPath	OutputChecker.h	/^	void SetProgramOutputPath(const std::string &path)$/;"	f	class:OutputChecker
+SetRLimit	util.cpp	/^bool SetRLimit(int resource, rlim_t limit)$/;"	f
+SetRunInfo	NativeRunner.cpp	/^void NativeRunner::SetRunInfo(const RunInfo &info)$/;"	f	class:NativeRunner
+SetSrcPath	Compiler.h	/^	void SetSrcPath(const std::string &path)$/;"	f	class:Compiler
+SetStdOutputPath	OutputChecker.h	/^	void SetStdOutputPath(const std::string &path)$/;"	f	class:OutputChecker
+SetTimeLimit	NativeRunner.cpp	/^void NativeRunner::SetTimeLimit(long time)$/;"	f	class:NativeRunner
+SetupChild	NativeRunner.cpp	/^bool NativeRunner::SetupChild(int pid, int rid, const string &lang)$/;"	f	class:NativeRunner
+SetupCompiler	Compiler.cpp	/^void CompilerFactory::SetupCompiler(Compiler &compiler, const std::string &srcPath, const std::string &destPath)$/;"	f	class:CompilerFactory
+SigkillHandler	main.cpp	/^void SigkillHandler(int)$/;"	f
+SignalName	Common.cpp	/^const char *SignalName[] =$/;"	v
+StartUp	Judger.cpp	/^int Judger::StartUp()$/;"	f	class:Judger
+SyscallName	Common.cpp	/^const char *SyscallName[] = {$/;"	v
+SyscallWatcher	SyscallWatcher.h	/^class SyscallWatcher$/;"	c
+TIME_LIMIT_EXCEEDED	Runner.h	/^	enum {OK, RUNTIME_ERROR, MEMORY_LIMIT_EXCEEDED, TIME_LIMIT_EXCEEDED,$/;"	e	enum:Runner::__anon2
+TLE	Judger.h	/^		TLE,$/;"	e	enum:Judger::JudgeResult
+UTIL_H	util.h	2;"	d
+UpdateRunUsage	NativeSandbox.cpp	/^bool NativeSandbox::UpdateRunUsage()$/;"	f	class:NativeSandbox
+WA	Judger.h	/^		WA,$/;"	e	enum:Judger::JudgeResult
+WA	OutputChecker.h	/^	enum{OK, WA, PE, FILE_ERROR};$/;"	e	enum:OutputChecker::__anon1
+WARNING	Log.h	/^	enum{DEBUG, INFO, WARNING, ERROR, CRITICAL};$/;"	e	enum:Log::__anon3
+Watch	NativeSandbox.cpp	/^void NativeSandbox::Watch()$/;"	f	class:NativeSandbox
+__install_ignore_sigalrm_handler	NativeRunner.cpp	/^int __install_ignore_sigalrm_handler = InstallSignalHandler(SIGALRM, sigalrm_handler);$/;"	v
+array_size	SyscallWatcher.cpp	36;"	d	file:
+bLogToStderr	Log.h	/^	bool bLogToStderr;$/;"	m	class:Log
+bLogging	Log.h	/^	bool bLogging;		\/\/whether we are writing a log $/;"	m	class:Log
+bNormalExit	NativeSandbox.h	/^	bool bNormalExit;$/;"	m	class:NativeSandbox
+bRunning	NativeSandbox.h	/^	bool bRunning;$/;"	m	class:NativeSandbox
+bStopped	Judger.h	/^	bool bStopped;$/;"	m	class:Judger
+bTermByRestrictedSyscall	NativeSandbox.h	/^	bool bTermByRestrictedSyscall;$/;"	m	class:NativeSandbox
+bTrace	RunStruts.h	/^	bool bTrace;$/;"	m	struct:RunInfo
+cc	Compiler.h	/^	std::string cc;$/;"	m	class:Compiler
+close	connection.cpp	/^void Connection::close(){$/;"	f	class:Connection
+compilers	Compiler.h	/^	std::vector<Compiler *> compilers;$/;"	m	class:CompilerFactory
+configPath	Configuration.h	/^	std::string configPath;$/;"	m	class:Configuration
+conn	Judger.h	/^	Connection conn;$/;"	m	class:Judger
+conn	connection.h	/^	MYSQL *conn;$/;"	m	class:Connection
+dbDatabase	Configuration.h	/^	std::string dbDatabase;$/;"	m	class:Configuration
+dbHost	Configuration.h	/^	std::string dbHost;$/;"	m	class:Configuration
+dbPassword	Configuration.h	/^	std::string dbPassword;$/;"	m	class:Configuration
+dbUsername	Configuration.h	/^	std::string dbUsername;$/;"	m	class:Configuration
+destFilePath	Configuration.h	/^	std::string destFilePath;$/;"	m	class:Configuration
+destPath	Compiler.h	/^	std::string destPath;$/;"	m	class:Compiler
+dlog	Log.h	31;"	d
+endlog	Log.cpp	/^EndLog endlog;$/;"	v
+fd	Log.h	/^	int fd; \/\/the fileno of the log file$/;"	m	class:Log
+fetchCake	connection.cpp	/^int Connection::fetchCake(Cake& x){$/;"	f	class:Connection
+filePath	RunStruts.h	/^	std::string filePath;$/;"	m	struct:RunInfo
+fsize	RunStruts.h	/^	rlim_t fsize;\/\/output file size limit in bytes$/;"	m	struct:RunLimits
+fsizeLimit	Configuration.h	/^	long fsizeLimit;$/;"	m	class:Configuration
+getJudgeStatus	cake.cpp	/^int Cake::getJudgeStatus()const{$/;"	f	class:Cake
+getLanguage	cake.cpp	/^int Cake::getLanguage()const{$/;"	f	class:Cake
+getMemoryLimit	cake.cpp	/^int Cake::getMemoryLimit()const{$/;"	f	class:Cake
+getPid	cake.cpp	/^int Cake::getPid()const{$/;"	f	class:Cake
+getProblemAccepted	cake.cpp	/^int Cake::getProblemAccepted()const{$/;"	f	class:Cake
+getRid	cake.cpp	/^int Cake::getRid()const{$/;"	f	class:Cake
+getRmemory	cake.cpp	/^int Cake::getRmemory()const{$/;"	f	class:Cake
+getRtime	cake.cpp	/^int Cake::getRtime()const{$/;"	f	class:Cake
+getSourceCode	cake.cpp	/^void Cake::getSourceCode(char x[])const{$/;"	f	class:Cake
+getTimeLimit	cake.cpp	/^int Cake::getTimeLimit()const{$/;"	f	class:Cake
+getUid	cake.cpp	/^int Cake::getUid()const{$/;"	f	class:Cake
+getUserAccepted	cake.cpp	/^int Cake::getUserAccepted()const{$/;"	f	class:Cake
+init	connection.cpp	/^int Connection::init(){$/;"	f	class:Connection
+initialed	connection.h	/^	bool initialed;$/;"	m	class:Connection
+inputPath	RunStruts.h	/^	std::string inputPath;$/;"	m	struct:RunInfo
+instance	Compiler.h	/^	static CompilerFactory *instance;$/;"	m	class:CompilerFactory
+javaMemoryFactor	Configuration.h	/^	long javaMemoryFactor;$/;"	m	class:Configuration
+javaTimeFactor	Configuration.h	/^	long javaTimeFactor;$/;"	m	class:Configuration
+judgeStatus	cake.h	/^	int judgeStatus;$/;"	m	class:Cake
+language	cake.h	/^	int language;$/;"	m	class:Cake
+log	Log.h	32;"	d
+logPathname	Configuration.h	/^	std::string logPathname;$/;"	m	class:Configuration
+logStream	Log.h	/^	std::ostringstream logStream;$/;"	m	class:Log
+main	main.cpp	/^int main(int argc, char *argv[])$/;"	f
+main	src/24.c	/^int main(int argc, char *argv[])$/;"	f
+main	src/25.cpp	/^int main(){$/;"	f
+main	src/26.cpp	/^int main(){$/;"	f
+memory	RunStruts.h	/^	int memory;\/\/memory usage in kilobytes$/;"	m	struct:RunUsage
+memory	RunStruts.h	/^	rlim_t memory;\/\/memory limit in bytes $/;"	m	struct:RunLimits
+memoryLimit	cake.h	/^	int memoryLimit;$/;"	m	class:Cake
+nofile	RunStruts.h	/^	rlim_t nofile;\/\/number of files$/;"	m	struct:RunLimits
+nofileLimit	Configuration.h	/^	long nofileLimit;$/;"	m	class:Configuration
+nproc	RunStruts.h	/^	rlim_t nproc;\/\/number of processes limit$/;"	m	struct:RunLimits
+nprocLimit	Configuration.h	/^	long nprocLimit;$/;"	m	class:Configuration
+operator <<	Log.cpp	/^ostream &operator<<(ostream &out, const EndLog &endLog)$/;"	f
+operator =	RunStruts.h	/^	RunInfo &operator = (const RunInfo &rhs)$/;"	f	struct:RunInfo
+options	Compiler.h	/^	std::string options;$/;"	m	class:Compiler
+outputPath	RunStruts.h	/^	std::string outputPath;$/;"	m	struct:RunInfo
+path	Log.h	/^	std::string path; \/\/path of the log file$/;"	m	class:Log
+pid	NativeRunner.h	/^	pid_t pid;	$/;"	m	class:NativeRunner
+pid	NativeSandbox.h	/^	int pid;$/;"	m	class:NativeSandbox
+pid	SyscallWatcher.h	/^	int pid;$/;"	m	class:SyscallWatcher
+pid	cake.h	/^	int pid;$/;"	m	class:Cake
+problemAccepted	cake.h	/^	int problemAccepted;$/;"	m	class:Cake
+programInputPath	Configuration.h	/^	std::string programInputPath;$/;"	m	class:Configuration
+programOutputPath	Configuration.h	/^	std::string programOutputPath;$/;"	m	class:Configuration
+programOutputPath	OutputChecker.h	/^	std::string programOutputPath;$/;"	m	class:OutputChecker
+programWorkDir	Configuration.h	/^	std::string programWorkDir;$/;"	m	class:Configuration
+res	connection.h	/^	MYSQL_RES *res;$/;"	m	class:Connection
+result	NativeRunner.h	/^	int result;$/;"	m	class:NativeRunner
+ri	Runner.h	/^	RunInfo ri;$/;"	m	class:RunnerFactory
+rid	cake.h	/^	int rid;$/;"	m	class:Cake
+rmemory	cake.h	/^	int rmemory;$/;"	m	class:Cake
+rootPath	Configuration.h	/^	std::string rootPath;$/;"	m	class:Configuration
+row	connection.h	/^	MYSQL_ROW row;$/;"	m	class:Connection
+rtime	cake.h	/^	int rtime;$/;"	m	class:Cake
+ru	NativeRunner.h	/^	RunUsage ru;$/;"	m	class:NativeRunner
+ru	NativeSandbox.h	/^	RunUsage ru;$/;"	m	class:NativeSandbox
+runInfo	NativeRunner.h	/^	RunInfo runInfo;$/;"	m	class:NativeRunner
+runLimits	RunStruts.h	/^	RunLimits runLimits;$/;"	m	struct:RunInfo
+s2n	connection.cpp	/^int s2n(char x[]){$/;"	f
+sandbox	NativeRunner.h	/^	Sandbox *sandbox;$/;"	m	class:NativeRunner
+sandboxEnabled	Configuration.h	/^	bool sandboxEnabled;$/;"	m	class:Configuration
+sandboxes	Sandbox.h	/^	std::vector<Sandbox *> sandboxes;$/;"	m	class:SandboxFactory
+setJudgeStatus	cake.cpp	/^void Cake::setJudgeStatus(int x){$/;"	f	class:Cake
+setLanguage	cake.cpp	/^void Cake::setLanguage(int x){$/;"	f	class:Cake
+setMemoryLimit	cake.cpp	/^void Cake::setMemoryLimit(int x){$/;"	f	class:Cake
+setPid	cake.cpp	/^void Cake::setPid(int x){$/;"	f	class:Cake
+setProblemAccepted	cake.cpp	/^void Cake::setProblemAccepted(int x){$/;"	f	class:Cake
+setRid	cake.cpp	/^void Cake::setRid(int x){$/;"	f	class:Cake
+setRmemory	cake.cpp	/^void Cake::setRmemory(int x){$/;"	f	class:Cake
+setRtime	cake.cpp	/^void Cake::setRtime(int x){$/;"	f	class:Cake
+setSourceCode	cake.cpp	/^void Cake::setSourceCode(char* x){$/;"	f	class:Cake
+setTimeLimit	cake.cpp	/^void Cake::setTimeLimit(int x){$/;"	f	class:Cake
+setUid	cake.cpp	/^void Cake::setUid(int x){$/;"	f	class:Cake
+setUserAccepted	cake.cpp	/^void Cake::setUserAccepted(int x){$/;"	f	class:Cake
+sigalrm_handler	NativeRunner.cpp	/^void sigalrm_handler(int) {$/;"	f
+sourceCode	cake.h	/^	char sourceCode[65536];$/;"	m	class:Cake
+srcFilePath	Configuration.h	/^	std::string srcFilePath;$/;"	m	class:Configuration
+srcPath	Compiler.h	/^	std::string srcPath;$/;"	m	class:Compiler
+stack	RunStruts.h	/^	rlim_t stack;\/\/stack size limit in bytes$/;"	m	struct:RunLimits
+stackLimit	Configuration.h	/^	long stackLimit;$/;"	m	class:Configuration
+standardOutputPath	Configuration.h	/^	std::string standardOutputPath;$/;"	m	class:Configuration
+status	NativeSandbox.h	/^	int status;$/;"	m	class:NativeSandbox
+stdOutputPath	OutputChecker.h	/^	std::string stdOutputPath;\/\/should not ends with slash$/;"	m	class:OutputChecker
+storeSourceCode	cake.cpp	/^int Cake::storeSourceCode(const char *path)$/;"	f	class:Cake
+theChecker	OutputChecker.cpp	/^OutputChecker theChecker;$/;"	v
+time	RunStruts.h	/^	int time;\/\/run time in ms$/;"	m	struct:RunUsage
+time	RunStruts.h	/^	rlim_t time;\/\/run time limit in ms$/;"	m	struct:RunLimits
+timeLimit	cake.h	/^	int timeLimit;$/;"	m	class:Cake
+uid	cake.h	/^	int uid;$/;"	m	class:Cake
+updateCake	connection.cpp	/^int Connection::updateCake(const Cake &x)$/;"	f	class:Connection
+userAccepted	cake.h	/^	int userAccepted;$/;"	m	class:Cake
+vm	RunStruts.h	/^	rlim_t vm;\/\/virutal memory limit in bytes$/;"	m	struct:RunLimits
+watcher	NativeSandbox.h	/^	SyscallWatcher watcher;$/;"	m	class:NativeSandbox
+workdir	RunStruts.h	/^	std::string workdir;$/;"	m	struct:RunInfo
+~Compiler	Compiler.h	/^	virtual ~Compiler(){}$/;"	f	class:Compiler
+~CompilerFactory	Compiler.cpp	/^CompilerFactory::~CompilerFactory()$/;"	f	class:CompilerFactory
+~Configuration	Configuration.h	/^	~Configuration(){}$/;"	f	class:Configuration
+~Judger	Judger.h	/^	~Judger(){}$/;"	f	class:Judger
+~Log	Log.cpp	/^Log::~Log()$/;"	f	class:Log
+~NativeRunner	NativeRunner.h	/^	virtual ~NativeRunner(){SandboxFactory::GetInstance().DisposeSandbox(sandbox);sandbox = NULL;}$/;"	f	class:NativeRunner
+~Runner	Runner.h	/^	virtual ~Runner(){}$/;"	f	class:Runner
+~RunnerFactory	RunnerFactory.cpp	/^RunnerFactory::~RunnerFactory()$/;"	f	class:RunnerFactory
+~Sandbox	Sandbox.h	/^	virtual ~Sandbox(){}$/;"	f	class:Sandbox
+~SandboxFactory	SandboxFactory.cpp	/^SandboxFactory::~SandboxFactory()$/;"	f	class:SandboxFactory

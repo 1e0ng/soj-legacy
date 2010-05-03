@@ -24,7 +24,9 @@ Log::Log(bool flag)
 int Log::Initialize()
 {
 	path = Configuration::GetInstance().GetLogPathname();
-	fd = open(path.c_str(), O_CREAT|O_RDWR|O_APPEND, 0644);
+    char buf[256] = {0};
+    sprintf(buf, "%s/soj-%s-%d.log", path.c_str(), GetTimeInString(NUMBER_TIME_FORMAT).c_str(), getpid());
+	fd = open(buf, O_CREAT|O_RDWR|O_APPEND, 0644);
 	if(fd < 0)
 	{
 		fprintf(stderr, "log failed to open");

@@ -7,12 +7,20 @@ int Configuration::Initialize()
 {
 	rootPath = "";
 	configPath = "";
-	logPathname = "soj.log";
+	logPathname = "./";
 
 	dbHost = "localhost";
 	dbUsername = "soj";
 	dbPassword = "soj-001-soj";
 	dbDatabase = "soj";
+
+    cCompiler = "gcc";
+    cCompilerOpt = "-g -O2 -std=gnu99 -static -lm ";
+    cppCompiler = "g++";
+    cppCompilerOpt = "-g -O2 -std=gnu99 -static -lm ";
+    javaCompiler = "javac";
+    javaCompilerOpt = "-O -sourcepath . -source 1.5 ";
+    javaRunner = "java";
 
 	srcFilePath = "src";
 	destFilePath = "dest";

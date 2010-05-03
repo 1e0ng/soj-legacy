@@ -26,7 +26,37 @@ public:
 	{
 		return logPathname;
 	}
+    //compiler related
+    std::string GetCCompiler()const
+    {
+        return cCompiler;
+    }
+    std::string GetCCompilerOpt()const
+    {
+        return cCompilerOpt;
+    }
+    std::string GetCppCompiler()const
+    {
+        return cppCompiler;
+    }
+    std::string GetCppCompilerOpt()const
+    {
+        return cppCompilerOpt;
+    }
+    std::string GetJavaCompiler()const
+    {
+        return javaCompiler;
+    }
+    std::string GetJavaCompilerOpt()const
+    {
+        return javaCompilerOpt;
+    }
+    std::string GetJavaRunner()const
+    {
+        return javaRunner;
+    }
 
+    //db related
 	std::string GetDbHost()const
 	{
 		return dbHost;
@@ -44,6 +74,7 @@ public:
 		return dbDatabase;
 	}
 
+    //runtime related
 	std::string GetSrcFilePath()const
 	{
 		return srcFilePath;
@@ -110,6 +141,14 @@ private:
 	std::string dbUsername;
 	std::string dbPassword;
 	std::string dbDatabase;
+
+    std::string cCompiler;
+    std::string cCompilerOpt;
+    std::string cppCompiler;
+    std::string cppCompilerOpt;
+    std::string javaCompiler;
+    std::string javaCompilerOpt;
+    std::string javaRunner;
 
 	std::string srcFilePath;
 	std::string destFilePath;

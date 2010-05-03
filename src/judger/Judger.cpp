@@ -95,12 +95,9 @@ int Judger::Run()
 			//mark ce
 			cake.setJudgeStatus(CE);
 			conn.updateCake(cake);
-			CompilerFactory::GetInstance().DisposeCompiler(compiler);
 			log(Log::INFO)<<"Run "<<rid<<": compilation error."<<endlog;
 			continue;
 		}
-		CompilerFactory::GetInstance().DisposeCompiler(compiler);
-
 		Runner *runner = RunnerFactory::GetInstance().GetRunner(lan);
 
 		int result = Runner::OK;

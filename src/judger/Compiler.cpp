@@ -40,16 +40,43 @@ bool JavaCompiler::Compile(int id)const{
 }
 
 CompilerFactory::CompilerFactory()
+    :compilers(3, (Compiler *)NULL)
 {
-	compilers.push_back(new GCCCompiler());
-	compilers.push_back(new GPPCompiler());
-	compilers.push_back(new JavaCompiler());
 }
 
 int CompilerFactory::Initialize()
 {
+    char cmd[512];
+    Configuration &conf = Configuration::GetInstance();
+    sprintf(cmd, "which %s >/dev/null", conf.GetCCompiler().c_str());
+    if( system(cmd) == 0)
+    {
+        compilers[Compiler::COMPILER_GCC] = new GCCCompiler;
+        compilers[Compiler::COMPILER_GCC]->SetCC(conf.GetCCompiler());
+        compilers[Compiler::COMPILER_GCC]->SetOptions(conf.GetCCompilerOpt());
+    }
+    sprintf(cmd, "which %s >/dev/null", conf.GetCppCompiler().c_str());
+    if( system(cmd) == 0)
+    {
+        compilers[Compiler::COMPILER_GPP] = new GPPCompiler;
+        compilers[Compiler::COMPILER_GPP]->SetCC(conf.GetCppCompiler());
+        compilers[Compiler::COMPILER_GPP]->SetOptions(conf.GetCppCompilerOpt());
+    }
+    sprintf(cmd, "which %s >/dev/null", conf.GetJavaCompiler().c_str());
+    if( system(cmd) == 0 )
+    {
+        sprintf(cmd, "which %s >/dev/null", conf.GetJavaRunner().c_str());
+        if( system(cmd) == 0)
+        {
+            compilers[Compiler::COMPILER_JAVA] = new JavaCompiler;
+            compilers[Compiler::COMPILER_JAVA]->SetCC(conf.GetJavaCompiler());
+            compilers[Compiler::COMPILER_JAVA]->SetOptions(conf.GetJavaCompilerOpt());
+        }
+    }
 	for(vector<Compiler *>::iterator it = compilers.begin(); it != compilers.end(); ++it)
 	{
+        if(*it == NULL)
+            continue;
 		SetupCompiler(**it, Configuration::GetInstance().GetSrcFilePath(),
 				Configuration::GetInstance().GetDestFilePath());
 	}
@@ -59,20 +86,29 @@ int CompilerFactory::Initialize()
 CompilerFactory::~CompilerFactory()
 {
 	for(vector<Compiler *>::iterator it = compilers.begin(); it != compilers.end(); ++it)
-		delete *it;
+    {
+		if(*it)
+            delete *it;
+        *it = NULL;
+    }
 	compilers.clear();
 }
 
 Compiler *CompilerFactory::GetCompiler(const string &lan)
 {
 	if(lan == "c")
-		return compilers[0];
+		return compilers[Compiler::COMPILER_GCC];
 	else if(lan == "c++")
-		return compilers[1];
+		return compilers[Compiler::COMPILER_GPP];
 	else if(lan == "java")
-		return compilers[2];
+		return compilers[Compiler::COMPILER_JAVA];
 	else
 		return NULL;
+}
+
+Compiler *CompilerFactory::GetCompiler(Compiler::CompilerType type)
+{
+    return compilers[type];
 }
 
 void CompilerFactory::SetupCompiler(Compiler &compiler, const std::string &srcPath, const std::string &destPath)
