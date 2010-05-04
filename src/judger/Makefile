@@ -13,4 +13,4 @@ soj:$(OBJS)
 $(OBJS):$(SOURCES)
 
 clean:
-	rm -f *.o soj
+	rm -f *.o ../common/*.o soj

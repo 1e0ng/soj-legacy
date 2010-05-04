@@ -10,6 +10,7 @@
 using namespace std;
 
 bool bDeamon = false;
+bool bSingleton = false;
 
 void SigkillHandler(int)
 {
@@ -18,7 +19,7 @@ void SigkillHandler(int)
 
 void PrintUsage()
 {
-    printf("Usage:\nsoj [-deamon] [-conf filepath]\n");
+    printf("Usage:\nsoj [-deamon] [-conf filepath] [-single]\n");
 }
 
 void ParseArgs(int argc, char *argv[])
@@ -29,7 +30,7 @@ void ParseArgs(int argc, char *argv[])
         {
             bDeamon = true;
         }
-        else if(strcmp(argv[i], "-conf"))
+        else if(strcmp(argv[i], "-conf") == 0)
         {
             if(i + 1 < argc)
                 Configuration::GetInstance().SetConfigFilePath(argv[i + 1]);
@@ -39,16 +40,30 @@ void ParseArgs(int argc, char *argv[])
                 exit(0);
             }
         }
+        else if(strcmp(argv[i], "-single") == 0)
+        {
+            bSingleton = true;
+        }
+        else
+        {
+            PrintUsage();
+            exit(0);
+        }
     }
 }
 
 int main(int argc, char *argv[])
 {
-    if(AlreadyRunning())
+    if( bSingleton )
+    {
+        int ret = AlreadyRunning();
+        if(ret == 1)
+            cerr<<"Another instance is running!"<<endl;
         exit(0);
+    }
     ParseArgs(argc, argv);
 	Judger &j = Judger::GetInstance();
-	if(j.StartUp() != 0)
+	if(j.StartUp() < 0)
 	{
 		cerr<<"Failed to start."<<endl;
 		exit(0);

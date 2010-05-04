@@ -36,6 +36,7 @@ int Judger::StartUp()
 	if(RunnerFactory::GetInstance().Initialize() != 0)
 	{
 		cerr<<"Runner initialization failed."<<endl;
+        return -1;
 	}
 	if(theChecker.Initialize() != 0)
 	{

@@ -24,7 +24,7 @@ int PeekStringFromProc(int pid, unsigned long address, char *buf, size_t size);
 
 bool Deamonize();
 
-bool AlreadyRunning();
+int AlreadyRunning();
 
 std::string GetLanName(int lan);
 std::string GetLanExt(int lan);

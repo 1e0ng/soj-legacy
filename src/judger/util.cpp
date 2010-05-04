@@ -200,7 +200,7 @@ bool Deamonize()
 	return true;
 }
 
-#define LOCKFILE "/var/run/daemon.pid"
+#define LOCKFILE "/var/run/judger.pid"
 #define LOCKMODE (S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH)
 
 int LockFile(int fd) {
@@ -212,7 +212,7 @@ int LockFile(int fd) {
     return fcntl(fd, F_SETLK, &lock);
 }
 
-bool AlreadyRunning()
+int AlreadyRunning()
 {
 	int fd;
 	char buf[16];
@@ -221,22 +221,26 @@ bool AlreadyRunning()
 	if(fd < 0)
 	{
 		log(Log::ERROR)<<"Can't open lock "<<LOCKFILE<<" "<<strerror(errno)<<endlog;
-		return false;
+		return -1;
 	}
 	if(LockFile(fd) < 0)
 	{
 		if(errno == EACCES || errno == EAGAIN)
 		{
+            //other instance is running
 			close(fd);
-			return false;
+			return 1;
 		}
-		log(Log::ERROR)<<"Can't lock "<<LOCKFILE<<" "<<strerror(errno)<<endlog;
-		return false;
+        else
+        {
+		    log(Log::ERROR)<<"Can't lock "<<LOCKFILE<<" "<<strerror(errno)<<endlog;
+		    return -1;
+        }
 	}
 	ftruncate(fd, 0);
 	sprintf(buf, "%ld", (long)getpid());
 	write(fd, buf, strlen(buf + 1));
-	return true;
+	return 0;
 }
 
 
