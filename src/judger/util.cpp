@@ -145,7 +145,10 @@ done:
 	return i; 
 }
 
-bool Deamonize()
+
+//return 0 on success
+//return -1 on fail
+int Daemonize()
 {
 	int i, pid, fd0, fd1, fd2;
 	struct rlimit rl;
@@ -155,12 +158,13 @@ bool Deamonize()
 
 	if(getrlimit(RLIMIT_NOFILE, &rl) < 0)
 	{
-		return false;
+		return -1;
 	}
 
 	if((pid = fork()) < 0)
 	{
-		return false;
+        perror("Daemonize():fork failed!\n");
+		return -1;
 	}
 	else if( pid != 0)
 	{
@@ -173,9 +177,12 @@ bool Deamonize()
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
 	if(sigaction(SIGHUP, &sa, NULL) < 0)
-		return false;
+		return -1;
 	if((pid = fork() ) < 0)
-		return false;
+    {
+        perror("Daemonize():fork failed!\n");
+		return -1;
+    }
 	else if ( pid != 0)
 		exit(0);
 
@@ -195,9 +202,9 @@ bool Deamonize()
 
 	if(fd0 != 0 || fd1 != 1 || fd2 != 2)
 	{
-		return false;
+		return -1;
 	}
-	return true;
+	return 0;
 }
 
 #define LOCKFILE "/var/run/judger.pid"
@@ -212,6 +219,9 @@ int LockFile(int fd) {
     return fcntl(fd, F_SETLK, &lock);
 }
 
+//return 0 if there's no other instance running
+//return 1 if there's other instance running
+//return -1 on fail
 int AlreadyRunning()
 {
 	int fd;

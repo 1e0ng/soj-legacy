@@ -5,14 +5,17 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
 AC	Judger.h	/^		AC,$/;"	e	enum:Judger::JudgeResult
-AlreadyRunning	util.cpp	/^bool AlreadyRunning()$/;"	f
+AlreadyRunning	util.cpp	/^int AlreadyRunning()$/;"	f
 BeginOneLog	Log.cpp	/^void Log::BeginOneLog()$/;"	f	class:Log
 CAKE_H	cake.h	2;"	d
 CC	Makefile	/^CC=g++$/;"	m
 CE	Judger.h	/^		CE,$/;"	e	enum:Judger::JudgeResult
 CFLAGS	Makefile	/^CFLAGS=-g -O2 -Wall -m32 -D_DEBUG -DTRACE_SYSCALL  -I\/usr\/include\/mysql -L\/usr\/lib\/mysql -lmysqlclient_r$/;"	m
 COMMON_H	Common.h	2;"	d
+COMPILER_GCC	Compiler.h	/^    enum CompilerType{COMPILER_GCC, COMPILER_GPP, COMPILER_JAVA};$/;"	e	enum:Compiler::CompilerType
+COMPILER_GPP	Compiler.h	/^    enum CompilerType{COMPILER_GCC, COMPILER_GPP, COMPILER_JAVA};$/;"	e	enum:Compiler::CompilerType
 COMPILER_H	Compiler.h	2;"	d
+COMPILER_JAVA	Compiler.h	/^    enum CompilerType{COMPILER_GCC, COMPILER_GPP, COMPILER_JAVA};$/;"	e	enum:Compiler::CompilerType
 CONFIGURATION_H	Configuration.h	2;"	d
 CONNECTION_H	connection.h	2;"	d
 CRITICAL	Log.h	/^	enum{DEBUG, INFO, WARNING, ERROR, CRITICAL};$/;"	e	enum:Log::__anon3
@@ -26,24 +29,31 @@ Compile	Compiler.cpp	/^bool JavaCompiler::Compile(int id)const{$/;"	f	class:Java
 Compiler	Compiler.h	/^class Compiler$/;"	c
 CompilerFactory	Compiler.cpp	/^CompilerFactory::CompilerFactory()$/;"	f	class:CompilerFactory
 CompilerFactory	Compiler.h	/^class CompilerFactory$/;"	c
+CompilerType	Compiler.h	/^    enum CompilerType{COMPILER_GCC, COMPILER_GPP, COMPILER_JAVA};$/;"	g	class:Compiler
 Configuration	Configuration.h	/^	Configuration(){}$/;"	f	class:Configuration
 Configuration	Configuration.h	/^class Configuration$/;"	c
 Connection	connection.h	/^class Connection{$/;"	c
 DEBUG	Log.h	/^	enum{DEBUG, INFO, WARNING, ERROR, CRITICAL};$/;"	e	enum:Log::__anon3
 Deamonize	util.cpp	/^bool Deamonize()$/;"	f
-DisposeCompiler	Compiler.h	/^	void DisposeCompiler(Compiler *compiler){}$/;"	f	class:CompilerFactory
 DisposeRunner	RunnerFactory.cpp	/^void RunnerFactory::DisposeRunner(Runner *runner)$/;"	f	class:RunnerFactory
 DisposeSandbox	Sandbox.h	/^	void DisposeSandbox(Sandbox *sandbox){}$/;"	f	class:SandboxFactory
 ERROR	Log.h	/^	enum{DEBUG, INFO, WARNING, ERROR, CRITICAL};$/;"	e	enum:Log::__anon3
 EndLog	Log.h	/^class EndLog{};$/;"	c
 EndOneLog	Log.cpp	/^void Log::EndOneLog()$/;"	f	class:Log
 FILE_ERROR	OutputChecker.h	/^	enum{OK, WA, PE, FILE_ERROR};$/;"	e	enum:OutputChecker::__anon1
-GCCCompiler	Compiler.h	/^	GCCCompiler()$/;"	f	class:GCCCompiler
 GCCCompiler	Compiler.h	/^class GCCCompiler : public Compiler$/;"	c
-GPPCompiler	Compiler.h	/^	GPPCompiler()$/;"	f	class:GPPCompiler
 GPPCompiler	Compiler.h	/^class GPPCompiler : public Compiler$/;"	c
+GetCC	Compiler.h	/^    std::string GetCC()const$/;"	f	class:Compiler
+GetCCompiler	Configuration.h	/^    std::string GetCCompiler()const$/;"	f	class:Configuration
+GetCCompilerOpt	Configuration.h	/^    std::string GetCCompilerOpt()const$/;"	f	class:Configuration
+GetCompiler	Compiler.cpp	/^Compiler *CompilerFactory::GetCompiler(Compiler::CompilerType type)$/;"	f	class:CompilerFactory
 GetCompiler	Compiler.cpp	/^Compiler *CompilerFactory::GetCompiler(const string &lan)$/;"	f	class:CompilerFactory
+GetCompilerType	Compiler.h	/^    virtual CompilerType GetCompilerType()const$/;"	f	class:GCCCompiler
+GetCompilerType	Compiler.h	/^    virtual CompilerType GetCompilerType()const$/;"	f	class:GPPCompiler
+GetCompilerType	Compiler.h	/^    virtual CompilerType GetCompilerType()const$/;"	f	class:JavaCompiler
 GetConfigurationPath	Configuration.h	/^	std::string GetConfigurationPath()const$/;"	f	class:Configuration
+GetCppCompiler	Configuration.h	/^    std::string GetCppCompiler()const$/;"	f	class:Configuration
+GetCppCompilerOpt	Configuration.h	/^    std::string GetCppCompilerOpt()const$/;"	f	class:Configuration
 GetDbDatabase	Configuration.h	/^	std::string GetDbDatabase()const$/;"	f	class:Configuration
 GetDbHost	Configuration.h	/^	std::string GetDbHost()const$/;"	f	class:Configuration
 GetDbPassword	Configuration.h	/^	std::string GetDbPassword()const$/;"	f	class:Configuration
@@ -56,13 +66,15 @@ GetInstance	Configuration.h	/^	static Configuration &GetInstance()$/;"	f	class:C
 GetInstance	Judger.h	/^	static Judger &GetInstance()$/;"	f	class:Judger
 GetInstance	Runner.h	/^	static RunnerFactory &GetInstance()$/;"	f	class:RunnerFactory
 GetInstance	Sandbox.h	/^	static SandboxFactory &GetInstance()$/;"	f	class:SandboxFactory
+GetJavaCompiler	Configuration.h	/^    std::string GetJavaCompiler()const$/;"	f	class:Configuration
+GetJavaCompilerOpt	Configuration.h	/^    std::string GetJavaCompilerOpt()const$/;"	f	class:Configuration
 GetJavaMemoryFactor	Configuration.h	/^	long GetJavaMemoryFactor()const$/;"	f	class:Configuration
+GetJavaRunner	Configuration.h	/^    std::string GetJavaRunner()const$/;"	f	class:Configuration
 GetJavaTimeFactor	Configuration.h	/^	long GetJavaTimeFactor()const$/;"	f	class:Configuration
 GetLanExt	util.cpp	/^string GetLanExt(int lan)$/;"	f
 GetLanName	util.cpp	/^string GetLanName(int lan)$/;"	f
 GetLogPathname	Configuration.h	/^	std::string GetLogPathname()const$/;"	f	class:Configuration
 GetLogStream	Log.cpp	/^ostringstream &Log::GetLogStream(int level)$/;"	f	class:Log
-GetName	Compiler.h	/^	virtual std::string GetName()const$/;"	f	class:Compiler
 GetName	Compiler.h	/^	virtual std::string GetName()const$/;"	f	class:GCCCompiler
 GetName	Compiler.h	/^	virtual std::string GetName()const$/;"	f	class:GPPCompiler
 GetName	Compiler.h	/^	virtual std::string GetName()const$/;"	f	class:JavaCompiler
@@ -82,7 +94,9 @@ GetStackLimit	Configuration.h	/^	long GetStackLimit()const$/;"	f	class:Configura
 GetStandardOutputPath	Configuration.h	/^	std::string GetStandardOutputPath()const$/;"	f	class:Configuration
 GetSyscallName	SyscallWatcher.cpp	/^const char * SyscallWatcher::GetSyscallName(int syscallNum)const$/;"	f	class:SyscallWatcher
 GetTimeInString	Common.cpp	/^string GetTimeInString(const char *fmt)$/;"	f
+HasCompiler	Compiler.h	/^    bool HasCompiler(Compiler::CompilerType type)$/;"	f	class:CompilerFactory
 INFO	Log.h	/^	enum{DEBUG, INFO, WARNING, ERROR, CRITICAL};$/;"	e	enum:Log::__anon3
+InitFromFile	Configuration.cpp	/^bool Configuration::InitFromFile()$/;"	f	class:Configuration
 Initialize	Compiler.cpp	/^int CompilerFactory::Initialize()$/;"	f	class:CompilerFactory
 Initialize	Configuration.cpp	/^int Configuration::Initialize()$/;"	f	class:Configuration
 Initialize	Log.cpp	/^int Log::Initialize()$/;"	f	class:Log
@@ -100,7 +114,6 @@ IsTermByRestrictedSyscall	NativeSandbox.h	/^	virtual bool IsTermByRestrictedSysc
 IsValidSyscallNum	SyscallWatcher.cpp	/^bool SyscallWatcher::IsValidSyscallNum(int syscallNum)const$/;"	f	class:SyscallWatcher
 JUDGER_H	Judger.h	2;"	d
 JUDGING	Judger.h	/^		JUDGING,$/;"	e	enum:Judger::JudgeResult
-JavaCompiler	Compiler.h	/^	JavaCompiler()$/;"	f	class:JavaCompiler
 JavaCompiler	Compiler.h	/^class JavaCompiler : public Compiler$/;"	c
 JudgeResult	Judger.h	/^	enum JudgeResult$/;"	g	class:Judger
 Judger	Judger.h	/^	Judger(){bStopped = false;}$/;"	f	class:Judger
@@ -116,6 +129,7 @@ MEMORY_LIMIT_EXCEEDED	Runner.h	/^	enum {OK, RUNTIME_ERROR, MEMORY_LIMIT_EXCEEDED
 MLE	Judger.h	/^		MLE,$/;"	e	enum:Judger::JudgeResult
 NATIVESANDBOX_H	NativeSandbox.h	19;"	d
 NATIVE_RUNNER_H	NativeRunner.h	2;"	d
+NUMBER_TIME_FORMAT	Common.h	10;"	d
 NativeRunner	NativeRunner.h	/^	NativeRunner(){sandbox = SandboxFactory::GetInstance().GetSandbox("native");}$/;"	f	class:NativeRunner
 NativeRunner	NativeRunner.h	/^class NativeRunner :public Runner$/;"	c
 NativeSandbox	NativeSandbox.cpp	/^NativeSandbox::NativeSandbox()$/;"	f	class:NativeSandbox
@@ -129,11 +143,13 @@ OutputChecker	OutputChecker.h	/^class OutputChecker$/;"	c
 PE	Judger.h	/^		PE,$/;"	e	enum:Judger::JudgeResult
 PE	OutputChecker.h	/^	enum{OK, WA, PE, FILE_ERROR};$/;"	e	enum:OutputChecker::__anon1
 POLL_INTERVAL	Judger.h	/^	const static int POLL_INTERVAL = 500;\/\/in ms$/;"	m	class:Judger
+ParseArgs	main.cpp	/^void ParseArgs(int argc, char *argv[])$/;"	f
 PeekStringFromProc	util.cpp	/^int PeekStringFromProc(int pid, unsigned long address, char *buf, size_t size)$/;"	f
+PrintUsage	main.cpp	/^void PrintUsage()$/;"	f
 QUEUEING	Judger.h	/^		QUEUEING = 1,$/;"	e	enum:Judger::JudgeResult
 RE	Judger.h	/^		RE$/;"	e	enum:Judger::JudgeResult
 RESTRICTED_SYSCALL	Runner.h	/^		OUTPUT_LIMIT_EXCEEDED, RESTRICTED_SYSCALL, SYS_ERROR = 42};$/;"	e	enum:Runner::__anon2
-RETRY_TIME	Judger.cpp	58;"	d	file:
+RETRY_TIME	Judger.cpp	59;"	d	file:
 RUNNER_H	Runner.h	2;"	d
 RUNSTRUTS_H	RunStruts.h	2;"	d
 RUNTIME_ERROR	Runner.h	/^	enum {OK, RUNTIME_ERROR, MEMORY_LIMIT_EXCEEDED, TIME_LIMIT_EXCEEDED,$/;"	e	enum:Runner::__anon2
@@ -148,7 +164,7 @@ Runner	Runner.h	/^class Runner$/;"	c
 RunnerFactory	Runner.h	/^class RunnerFactory$/;"	c
 RunnerFactory	RunnerFactory.cpp	/^RunnerFactory::RunnerFactory()$/;"	f	class:RunnerFactory
 SANDBOX_H	Sandbox.h	19;"	d
-SOURCES	Makefile	/^SOURCES:=$(wildcard *.cpp)$/;"	m
+SOURCES	Makefile	/^SOURCES:=$(wildcard *.cpp) $(wildcard ..\/common\/*.cpp)$/;"	m
 SYSCALLWATCHER_H	SyscallWatcher.h	19;"	d
 SYS_ERROR	Runner.h	/^		OUTPUT_LIMIT_EXCEEDED, RESTRICTED_SYSCALL, SYS_ERROR = 42};$/;"	e	enum:Runner::__anon2
 Sandbox	Sandbox.h	/^class Sandbox$/;"	c
@@ -157,6 +173,7 @@ SandboxFactory	SandboxFactory.cpp	/^SandboxFactory::SandboxFactory()$/;"	f	class
 SetCC	Compiler.h	/^	void SetCC(const std::string &cc)$/;"	f	class:Compiler
 SetChildPid	NativeSandbox.cpp	/^void NativeSandbox::SetChildPid(int pid)$/;"	f	class:NativeSandbox
 SetChildPid	SyscallWatcher.h	/^	void SetChildPid(int pid){this->pid = pid;}$/;"	f	class:SyscallWatcher
+SetConfigFilePath	Configuration.h	/^    void SetConfigFilePath(const std::string &path)$/;"	f	class:Configuration
 SetDestPath	Compiler.h	/^	void SetDestPath(const std::string &path)$/;"	f	class:Compiler
 SetMemoryLimit	NativeRunner.cpp	/^void NativeRunner::SetMemoryLimit(long memory)$/;"	f	class:NativeRunner
 SetOptions	Compiler.h	/^	void SetOptions(const std::string &opts)$/;"	f	class:Compiler
@@ -187,15 +204,20 @@ bLogToStderr	Log.h	/^	bool bLogToStderr;$/;"	m	class:Log
 bLogging	Log.h	/^	bool bLogging;		\/\/whether we are writing a log $/;"	m	class:Log
 bNormalExit	NativeSandbox.h	/^	bool bNormalExit;$/;"	m	class:NativeSandbox
 bRunning	NativeSandbox.h	/^	bool bRunning;$/;"	m	class:NativeSandbox
+bSingleton	main.cpp	/^bool bSingleton = false;$/;"	v
 bStopped	Judger.h	/^	bool bStopped;$/;"	m	class:Judger
 bTermByRestrictedSyscall	NativeSandbox.h	/^	bool bTermByRestrictedSyscall;$/;"	m	class:NativeSandbox
 bTrace	RunStruts.h	/^	bool bTrace;$/;"	m	struct:RunInfo
+cCompiler	Configuration.h	/^    std::string cCompiler;$/;"	m	class:Configuration
+cCompilerOpt	Configuration.h	/^    std::string cCompilerOpt;$/;"	m	class:Configuration
 cc	Compiler.h	/^	std::string cc;$/;"	m	class:Compiler
 close	connection.cpp	/^void Connection::close(){$/;"	f	class:Connection
 compilers	Compiler.h	/^	std::vector<Compiler *> compilers;$/;"	m	class:CompilerFactory
 configPath	Configuration.h	/^	std::string configPath;$/;"	m	class:Configuration
 conn	Judger.h	/^	Connection conn;$/;"	m	class:Judger
 conn	connection.h	/^	MYSQL *conn;$/;"	m	class:Connection
+cppCompiler	Configuration.h	/^    std::string cppCompiler;$/;"	m	class:Configuration
+cppCompilerOpt	Configuration.h	/^    std::string cppCompilerOpt;$/;"	m	class:Configuration
 dbDatabase	Configuration.h	/^	std::string dbDatabase;$/;"	m	class:Configuration
 dbHost	Configuration.h	/^	std::string dbHost;$/;"	m	class:Configuration
 dbPassword	Configuration.h	/^	std::string dbPassword;$/;"	m	class:Configuration
@@ -224,8 +246,10 @@ getUserAccepted	cake.cpp	/^int Cake::getUserAccepted()const{$/;"	f	class:Cake
 init	connection.cpp	/^int Connection::init(){$/;"	f	class:Connection
 initialed	connection.h	/^	bool initialed;$/;"	m	class:Connection
 inputPath	RunStruts.h	/^	std::string inputPath;$/;"	m	struct:RunInfo
-instance	Compiler.h	/^	static CompilerFactory *instance;$/;"	m	class:CompilerFactory
+javaCompiler	Configuration.h	/^    std::string javaCompiler;$/;"	m	class:Configuration
+javaCompilerOpt	Configuration.h	/^    std::string javaCompilerOpt;$/;"	m	class:Configuration
 javaMemoryFactor	Configuration.h	/^	long javaMemoryFactor;$/;"	m	class:Configuration
+javaRunner	Configuration.h	/^    std::string javaRunner;$/;"	m	class:Configuration
 javaTimeFactor	Configuration.h	/^	long javaTimeFactor;$/;"	m	class:Configuration
 judgeStatus	cake.h	/^	int judgeStatus;$/;"	m	class:Cake
 language	cake.h	/^	int language;$/;"	m	class:Cake
