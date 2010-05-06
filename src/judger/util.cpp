@@ -1,6 +1,7 @@
 #include "util.h"
 #include "RunStruts.h"
 #include "Log.h"
+#include "Configuration.h"
 
 #include <cstdio>
 #include <cstring>
@@ -186,9 +187,8 @@ int Daemonize()
 	else if ( pid != 0)
 		exit(0);
 
-	//here we are
-	//if(chroot("/"))
-	//	return false;
+	if(chroot(Configuration::GetInstance().GetRootPath().c_str()))
+		return -1;
 	
 	if(rl.rlim_max == RLIM_INFINITY)
 		rl.rlim_max = 1024;

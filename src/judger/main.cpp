@@ -54,6 +54,7 @@ void ParseArgs(int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
+    ParseArgs(argc, argv);
     if( bSingleton )
     {
         int ret = AlreadyRunning();
@@ -61,7 +62,6 @@ int main(int argc, char *argv[])
             cerr<<"Another instance is running!"<<endl;
         exit(0);
     }
-    ParseArgs(argc, argv);
 	Judger &j = Judger::GetInstance();
 	if(j.StartUp() < 0)
 	{
