@@ -1,0 +1,50 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Accept	SocketStream.cpp	/^Network::SocketStream *Network::SocketStream::Accept()$/;"	f	class:Network::SocketStream
+Close	SocketStream.cpp	/^int Network::SocketStream::Close()$/;"	f	class:Network::SocketStream
+GetClientAddr	SocketStream.h	/^        const struct sockaddr_in &GetClientAddr()const$/;"	f	class:Network::SocketStream
+GetIntValue	IniFile.cpp	/^bool IniFile::GetIntValue(const char *section, const char *key, int &dest)$/;"	f	class:IniFile
+GetPacketFactory	Packet.cpp	/^Network::PacketFactory *Network::PacketFactoryManager::GetPacketFactory(PacketType_t type)$/;"	f	class:Network::PacketFactoryManager
+GetSocketFd	SocketStream.h	/^        int GetSocketFd()const $/;"	f	class:Network::SocketStream
+GetStringValue	IniFile.cpp	/^bool IniFile::GetStringValue(const char *section, const char *key, char *dest, size_t size)$/;"	f	class:IniFile
+INIFILE_H	IniFile.h	20;"	d
+IniFile	IniFile.h	/^class IniFile$/;"	c
+InitFromFile	IniFile.cpp	/^bool IniFile::InitFromFile(const char *file)$/;"	f	class:IniFile
+InitFromString	IniFile.cpp	/^bool IniFile::InitFromString(const char *buf, long size)$/;"	f	class:IniFile
+IsBlank	IniFile.cpp	/^inline bool IsBlank(char c)$/;"	f
+KeyValue_t	IniFile.h	/^    typedef std::map<std::string, std::string> KeyValue_t;$/;"	t	class:IniFile
+MAX_PACKET_ID	PacketDefine.h	/^    MAX_PACKET_ID$/;"	e	enum:PacketType_t
+Network	Packet.h	/^namespace Network$/;"	n
+Network	SocketStream.h	/^namespace Network$/;"	n
+OpenClientSocket	SocketStream.cpp	/^int Network::SocketStream::OpenClientSocket(const char *ip, short port)$/;"	f	class:Network::SocketStream
+OpenServerSocket	SocketStream.cpp	/^int Network::SocketStream::OpenServerSocket(short port)$/;"	f	class:Network::SocketStream
+PACKET_DEFINE_H	PacketDefine.h	20;"	d
+PACKET_H	Packet.h	19;"	d
+Packet	Packet.h	/^    class Packet$/;"	c	namespace:Network
+PacketFactory	Packet.h	/^    class PacketFactory()$/;"	f	namespace:Network
+PacketFactoryManager	Packet.cpp	/^Network::PacketFactoryManager::PacketFactoryManager()$/;"	f	class:Network::PacketFactoryManager
+PacketFactoryManager	Packet.h	/^    class PacketFactoryManager()$/;"	f	namespace:Network
+PacketType_t	PacketDefine.h	/^enum PacketType_t$/;"	g
+Read	Packet.cpp	/^int Network::Packet::Read(SocketStream &stream)$/;"	f	class:Network::Packet
+Read	SocketStream.cpp	/^ssize_t Network::SocketStream::Read(const void *buf, size_t size)$/;"	f	class:Network::SocketStream
+SOCKET_STREAM_H	SocketStream.h	2;"	d
+SectionKey_t	IniFile.h	/^    typedef std::map<std::string, KeyValue_t> SectionKey_t;$/;"	t	class:IniFile
+SetClientAddr	SocketStream.h	/^        void SetClientAddr(const sockaddr_in &addr)$/;"	f	class:Network::SocketStream
+SkipLine	IniFile.cpp	/^inline void SkipLine(const char *buf, long size, int &pos)$/;"	f
+SocketStream	SocketStream.h	/^        SocketStream():socketfd(-1),bValid(false), bServer(false){}$/;"	f	class:Network::SocketStream
+SocketStream	SocketStream.h	/^    class SocketStream$/;"	c	namespace:Network
+Write	Packet.cpp	/^int Network::Packet::Write(SocketStream &stream)$/;"	f	class:Network::Packet
+Write	SocketStream.cpp	/^ssize_t Network::SocketStream::Write(const void *buf, size_t size)$/;"	f	class:Network::SocketStream
+bServer	SocketStream.h	/^        bool bServer;\/\/is server socket$/;"	m	class:Network::SocketStream
+bValid	SocketStream.h	/^        bool bValid;$/;"	m	class:Network::SocketStream
+clientAddr	SocketStream.h	/^        struct sockaddr_in clientAddr;\/\/used by server$/;"	m	class:Network::SocketStream	typeref:struct:Network::SocketStream::sockaddr_in
+profile	IniFile.h	/^    SectionKey_t profile;$/;"	m	class:IniFile
+socketfd	SocketStream.h	/^        int socketfd;$/;"	m	class:Network::SocketStream
+type	Packet.h	/^        PacketType_t type;$/;"	m	class:Network::Packet
+~Packet	Packet.h	/^        virtual ~Packet(){}$/;"	f	class:Network::Packet
+~PacketFactoryManager	Packet.cpp	/^Network::PacketFactoryManager::~PacketFactoryManager()$/;"	f	class:Network::PacketFactoryManager
+~SocketStream	SocketStream.cpp	/^Network::SocketStream::~SocketStream()$/;"	f	class:Network::SocketStream
