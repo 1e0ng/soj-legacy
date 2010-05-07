@@ -29,7 +29,7 @@ int Log::Initialize()
 	fd = open(buf, O_CREAT|O_RDWR|O_APPEND, 0644);
 	if(fd < 0)
 	{
-		fprintf(stderr, "log failed to open");
+		perror("log failed to open");
 		return -1;
 	}
 	return 0;
