@@ -18,10 +18,11 @@
 /* each submit is as a cake */
 #ifndef CAKE_H
 #define CAKE_H
-
+/*
 #ifdef _CONTROLLER
 #include "../controller/Database.h"
 #endif
+*/
 
 struct Cake
 {
@@ -45,12 +46,13 @@ public:
     //judger need to store the source code
     int storeSourceCode(const char *path);
 #endif
-
+/*
 #ifdef _CONTROLLER
     int LoadFromDB(Database *db);
     //update judge status, user related data and problem related data such as accepted number
     int UpdateDB(Database *db);
 #endif
+*/
 };
 
 #endif

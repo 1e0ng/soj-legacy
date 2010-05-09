@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  CakeImp.cpp
+ *       Filename:  CakeManager.cpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  05/07/2010 04:01:49 PM
+ *        Created:  05/07/2010 06:57:52 PM
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,17 +15,11 @@
  *
  * =====================================================================================
  */
-#include "Cake.h"
-#include <assert.h>
-#include <string.h>
-#include <stdio.h>
+#include "CakeManager.h"
 
-int Cake::LoadFromDB(Database *db)
+CakeManager::~CakeManager()
 {
-    assert(db);
-}
-
-int Cake::UpdateDB(Database *db)
-{
-    assert(db);
+    usedFlag.reset();
+    for(int i = 0; i < MAX_CAKE_NUMBER; i++)
+        cake[i].CleanUp();
 }
