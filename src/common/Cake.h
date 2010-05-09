@@ -32,8 +32,8 @@ public:
     int rid;//run id
     int pid;//problem id
     int language;//code language
-    int rtime;//run time usage
-    int rmemory;//run memory usage
+//    int rtime;//run time usage
+//    int rmemory;//run memory usage
     int timeLimit;//time limit for rtime
     int memoryLimit;//memory limit for rmemory
     int uid;//user id

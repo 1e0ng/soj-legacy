@@ -32,6 +32,7 @@ struct JudgeInfo
 {
     int rid;//run id
     int pid;//problem id
+    int uid;//user id
     time_t beginTime;
 };
 
@@ -88,8 +89,8 @@ public:
 
     static &GetInstance()
     {
-        static JudgerManager;
-        return JudgerManager;
+        static JudgerManager instance;
+        return instance;
     }
 
     Judger *NewJudger();

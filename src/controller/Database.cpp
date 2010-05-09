@@ -32,17 +32,24 @@ Database::~Database()
     Close();
 }
 
-int Database::Init()
+int Database::Init(const string &host, const string &username, const string &password, const string &schema)
 {
-    if(mysql_server_init(0, 0, 0))
+    if(mysql_library_init(0, 0, 0))
     {
-        cerr<<"Database initialization failed!"<<endl;
+        cerr<<"mysql_library_init() initialization failed!"<<endl;
         return -1;
     }
-    conn = mysql_init(NULL);
-    if(!mysql_real_connect(conn, "localhost", "root", "dwp880412", "soj", 0, NULL, 0))
+    if((conn = mysql_init(NULL)) == NULL)
+    {
+        cerr<<"mysql_init() failed!"<<endl;
+        mysql_library_end();
+        return -1;
+    }
+    if(!mysql_real_connect(conn, host.c_str(), username.c_str(), password.c_str(), schema.c_str(), 0, NULL, 0))
     {
         cerr<<mysql_error(conn)<<endl;
+        mysql_close(conn);
+        mysql_library_end();
         return -1;
     }
     bValid = true;
@@ -54,7 +61,7 @@ void Database::Close()
     if(bValid && conn)
     {
         mysql_close(conn);
-        mysql_server_end();
+        mysql_library_end();
     }
     conn = NULL;
     bValid = false;

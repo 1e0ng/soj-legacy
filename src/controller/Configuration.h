@@ -30,15 +30,18 @@ public:
     
     std::string logFile;
 
+    short listenPort;
+
     static Configuration &GetInstance()
     {
         static Configuration instance;
         return instance;
     }
-    int Init();
+    int Init(const std::string &path);
     void CleanUp();
 private:
     Configuration();
+    ~Configuration();
     Configuration &operator=(const Configuration &);
     Configuration(const Configuration &);
 };

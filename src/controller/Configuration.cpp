@@ -81,6 +81,17 @@ int Configuration::Init()
             cerr<<"Read key Controller::LogFile failed!"<<endl;
             return -1;
         }
+
+        int val;
+        if(ini.GetIntValue("Controller", "ServerPort", val))
+        {
+            listenPort = (short)val;
+        }
+        else
+        {
+            cerr<<"Read key Controller::ServerPort failed!"<<endl;
+            return -1;
+        }
         return 0;
     }
     else 

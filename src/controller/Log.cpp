@@ -20,10 +20,11 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <time.h>
+using namespace std;
 
-int _Log::Init()
+int _Log::Init(const string &path)
 {
-    f = fopen(Configuration::GetInstance().logFile.c_str(), "a");
+    f = fopen(path.c_str(), "a");
     if(!f)
         return -1;
     return 0;

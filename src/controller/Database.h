@@ -23,13 +23,21 @@
 class Database
 {
 public:
-    Database();
-    ~Database();
+    static Database &GetInstance()
+    {
+        static Database instance;
+        return instance;
+    }
 
-    int Init();
+    int Init(const std::string &host, const std::string &username, const std::string &password, const std::string &schema);
     void Close();
     int Query(const std::string &sql, MYSQL_RES **res);
 private:
+    Database();
+    ~Database();
+    Database(const Database &);
+    Database &operator=(const Database &);
+
     MYSQL *conn;
     bool bValid;
 };

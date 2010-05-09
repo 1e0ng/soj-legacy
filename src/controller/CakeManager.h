@@ -18,25 +18,31 @@
 #ifndef CAKE_MANAGER_H
 #define CAKE_MANAGER_H
 
+#include "Database.h"
 #include <bitset>
 
+//manage cakes just fetched from db and waiting for dispatching to specific judger
+//once dispatched, remove it immediately
 class CakeManager
 {
 public:
     const static int MAX_CAKE_NUMBER = 64;
 
-    CakeManager():size(0){}
+    CakeManager():head(0), tail(0){}
     ~CakeManager();
 
+    //dispatch one, release one
     Cake *GetCakeToJudge();
     void ReleaseCake(Cake *cake);
 
     void Tick();
-    int LoadCakes();
+private:
+    //called by Tick()
+    int LoadCakes(Database *db);
 private:
     Cake cake[MAX_CAKE_NUMBER];
-    bitset<MAX_CAKE_NUMBER> usedFlag;    
-    size_t size;
+    size_t head;
+    size_t tail;
 };
 
 #endif
