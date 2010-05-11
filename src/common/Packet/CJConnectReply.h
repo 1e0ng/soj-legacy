@@ -22,7 +22,7 @@
 
 namespace Network
 {
-    class CJConnectReply
+    class CJConnectReply: public Packet
     {
     public:
         enum ReplyType_t
@@ -31,7 +31,7 @@ namespace Network
         };
         virtual int Read(SocketStream &stream);
         virtual int Write(SocketStream &stream);
-        virtual int GetPacketSize()const
+        virtual size_t GetPacketSize()const
         {
             return sizeof(int) + sizeof(int);
         }

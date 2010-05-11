@@ -22,12 +22,12 @@
 
 namespace Network
 {
-    class JCJudgeThisReturn
+    class JCJudgeThisReturn: public Packet
     {
     public:
         virtual int Read(SocketStream &stream);
         virtual int Write(SocketStream &stream);
-        virtual int GetPacketSize()const 
+        virtual size_t GetPacketSize()const 
         {
             return sizeof(int) + sizeof(int);
         }

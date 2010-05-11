@@ -19,7 +19,7 @@
 
 using namespace Network;
 
-int Packet::Read(SocketStream &stream)
+int JCConnect::Read(SocketStream &stream)
 {
     if(Packet::Read(stream) < 0)
         return -1;
@@ -33,7 +33,7 @@ int Packet::Read(SocketStream &stream)
     return 0;
 }
 
-int Packet::Write(SocketStream &stream)
+int JCConnect::Write(SocketStream &stream)
 {
     if(Packet::Write(stream) < 0)
         return -1;

@@ -23,7 +23,7 @@ int CJJudgeThis::Read(SocketStream &stream)
     if(Packet::Read(stream) < 0)
         return -1;
 
-    if(stream.Read(&cake, sizeof(cake)) < 0)
+    if(stream.Read((char *)&cake, sizeof(cake)) < 0)
         return -1;
     return 0;
 }
@@ -33,7 +33,7 @@ int CJJudgeThis::Write(SocketStream &stream)
     if(Packet::Write(stream) < 0)
         return -1;
 
-   if(stream.Write(&cake, sizeof(cake)) < 0)
+   if(stream.Write((const char *)&cake, sizeof(cake)) < 0)
        return -1;
    return 0;
 }

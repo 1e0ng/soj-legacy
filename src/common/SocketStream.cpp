@@ -47,8 +47,6 @@ int Network::SocketStream::OpenClientSocket(const char *ip, short port)
     addr.sin_port = htons(port);
     if(inet_aton(ip, &addr.sin_addr) < 0)
     {
-        perror("Invalid ip address");
-        close(socketfd);
         return -1;
     }
 

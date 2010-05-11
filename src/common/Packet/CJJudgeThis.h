@@ -22,14 +22,14 @@
 
 namespace Network
 {
-    class CJJudgeThis
+    class CJJudgeThis:public Packet
     {
     public:
         virtual int Read(SocketStream &stream);
         virtual int Write(SocketStream &stream);
-        virtual int GetPacketSize()const
+        virtual size_t GetPacketSize()const
         {
-            return sizeof(cake):
+            return sizeof(cake);
         }
 
         virtual int Execute();

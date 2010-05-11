@@ -31,6 +31,7 @@ int Network::Packet::Read(SocketStream &stream)
 
 int Network::Packet::Write(SocketStream &stream)
 {
+    int ty = type;
     return stream.WriteInt(ty);
 }
 

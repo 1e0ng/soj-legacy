@@ -121,10 +121,14 @@ void JudgerManager::PrepareFdset(fd_set *rset, int &maxfd)
         return;
     for(size_t i = 0; i < size; i++)
     {
-        int fd = judger[i]->GetSocketFd();
+        int fd = judger[i]->GetSocketStream().GetSocketFd();
         FD_SET(fd, rset);
         if(fd > maxfd)
             maxfd = fd;
     }
 }
 
+int JudgerManager::ProcessInput(fd_set *rset)
+{
+    return 0;
+}

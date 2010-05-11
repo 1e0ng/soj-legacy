@@ -23,12 +23,12 @@
 
 namespace Network
 {
-    class JCConnect
+    class JCConnect: public Packet
     {
     public:
         virtual int Read(SocketStream &stream);
         virtual int Write(SocketStream &stream);
-        virtual size_t GetPacketsize()const
+        virtual size_t GetPacketSize()const
         {
             return sizeof(int) * 3;
         }
@@ -41,11 +41,11 @@ namespace Network
 
             supportedLan[lan] = bOn? 1: 0;
         }
-        void GetLanguageSupport(Language lan)const
+        bool GetLanguageSupport(Language lan)const
         {
             assert(lan <LAN_NUMBER);
 
-            return supported[lan];
+            return supportedLan[lan] == 1;
         }
     private:
         int supportedLan[3];

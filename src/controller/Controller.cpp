@@ -19,9 +19,11 @@
 #include "Configuration.h"
 #include "Log.h"
 #include "Database.h"
+#include "Judger.h"
 //#include "CakeManager.h"
 #include <iostream>
 #include <errno.h>
+#include <string.h>
 
 using namespace std;
 using namespace Network;
@@ -64,7 +66,7 @@ int Controller::Loop()
         FD_ZERO(&rset);
         FD_SET(listener.GetSocketFd(), &rset);
         maxfd = listener.GetSocketFd();
-        jm.PrepareFdset(&rset, maxfds);
+        jm.PrepareFdset(&rset, maxfd);
         
         tv.tv_sec = TIME_PER_TICK / 1000;
         tv.tv_usec = TIME_PER_TICK % 1000;

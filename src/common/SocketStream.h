@@ -8,7 +8,7 @@ namespace Network
     class SocketStream
     {
     public:
-        SocketStream():socketfd(-1),bValid(false), bServer(false){}
+        SocketStream():socketfd(-1),bValid(false){}
         ~SocketStream();
 
         //socket(),bind(),listen
@@ -34,10 +34,10 @@ namespace Network
         int Accept(SocketStream &stream);
         //return bytes left to send on success otherwise -1
         ssize_t Write(const char *buf, size_t size);
-        inline ssize_t WriteInt(int n);
+        ssize_t WriteInt(int n);
         //return bytes read on success otherwize -1
         ssize_t Read(char *buf, size_t size);
-        inline ssize_t ReadInt(int &n);
+        ssize_t ReadInt(int &n);
     private:
         int socketfd;
         bool bValid;
