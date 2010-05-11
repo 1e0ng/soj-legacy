@@ -1,3 +1,4 @@
+#include "Controller.h"
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
@@ -5,11 +6,14 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <signal.h>
+#include <errno.h>
+#include <stddef.h>
+#include <string.h>
 
 using namespace std;
 
 bool bDaemon = false;
-bool bSingle = false;
+bool bSingleton = false;
 
 //return 0 on success
 //return -1 on fail
@@ -143,7 +147,7 @@ void ParseArgs(int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-    ParseArgs(argc, argv[]);
+    ParseArgs(argc, argv);
     if(bSingleton)
     {
         if(AlreadyRunning() > 0)

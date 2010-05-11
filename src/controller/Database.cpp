@@ -67,7 +67,7 @@ void Database::Close()
     bValid = false;
 }
 
-int Query(const string &sql, MYSQL_RES **res)
+int Database::Query(const string &sql, MYSQL_RES **res)
 {
     assert(bValid);
 
@@ -85,7 +85,7 @@ int Query(const string &sql, MYSQL_RES **res)
     else//nonselect statement
     {
         if(mysql_field_count(conn) == 0)
-            return mysql_affected_rows(mysql);
+            return mysql_affected_rows(conn);
         else
         {
             Log("%s(Error no:%d)", mysql_error(conn), mysql_errno(conn));

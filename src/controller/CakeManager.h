@@ -19,7 +19,7 @@
 #define CAKE_MANAGER_H
 
 #include "Database.h"
-#include <bitset>
+#include "../common/Cake.h"
 
 //manage cakes just fetched from db and waiting for dispatching to specific judger
 //once dispatched, remove it immediately

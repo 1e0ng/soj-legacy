@@ -18,13 +18,14 @@
 #ifndef LOG_H
 #define LOG_H
 #include <stdio.h>
-
-const static int MAX_LOG_LENGTH = 512;
+#include <string>
 
 class _Log
 {
 public:
-    int Init();
+    const static int MAX_LOG_LENGTH = 512;
+
+    int Init(const std::string &path);
     int AddLog(const char *str);
 private:
     FILE *f;

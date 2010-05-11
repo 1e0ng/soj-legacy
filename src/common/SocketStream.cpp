@@ -29,7 +29,6 @@ int Network::SocketStream::OpenServerSocket(short port)
     listen(socketfd, 5);
     
     bValid = true;
-    bServer = true;
     return 0;
 }
 
@@ -61,7 +60,6 @@ int Network::SocketStream::OpenClientSocket(const char *ip, short port)
     }
 
     bValid = true;
-    bServer = false;
     return 0;
 }
 
@@ -70,7 +68,9 @@ int Network::SocketStream::Close()
     close(socketfd);
     bValid = false;
     socketfd = -1;
+#ifdef _CONTROLLER
     memset(&clientAddr, 0, sizeof(clientAddr));
+#endif
     return 0;
 }
 
@@ -80,14 +80,27 @@ Network::SocketStream::~SocketStream()
         Close();
 }
 
-Network::SocketStream *Network::SocketStream::Accept()
+int Network::SocketStream::Accept(SocketStream &stream)
 {
     sockaddr_in addr;
     int clientfd;
     socklen_t len = sizeof(addr);
     
     clientfd = accept(socketfd, (struct sockaddr *)&addr, &len);
-    return NULL;
+    if(clientfd != -1)
+    {
+        stream.Close();
+
+        stream.bValid = true;
+#ifdef _CONTROLLER
+        stream.SetClientAddr(addr);
+#endif
+        return 0;
+    }
+    else
+    {
+        return -1;
+    }
 }
 
 ssize_t Network::SocketStream::Write(const char *buf, size_t size)
@@ -99,7 +112,7 @@ ssize_t Network::SocketStream::Write(const char *buf, size_t size)
     {
         if((nWritten = write(socketfd, buf, nLeft)) <= 0);
         {
-            if(nWritten == EINTR)
+            if(errno == EINTR)
                 nWritten = 0;
             else
                 return -1;//error occured
@@ -108,6 +121,11 @@ ssize_t Network::SocketStream::Write(const char *buf, size_t size)
         buf += nWritten;
     }
     return nLeft;
+}
+
+ssize_t Network::SocketStream::WriteInt(int n)
+{
+    return Write((const char *)&n, sizeof(int));
 }
 
 ssize_t Network::SocketStream::Read(char *buf, size_t size)
@@ -119,12 +137,12 @@ ssize_t Network::SocketStream::Read(char *buf, size_t size)
     {
         if((nRead = read(socketfd, buf, nLeft)) < 0)
         {
-            if(nRead == EINTR)
+            if(errno == EINTR)
                 nRead = 0;
             else
                 return -1;
         }
-        else
+        else if(nRead == 0)
         {
             break;//EOF
         }
@@ -132,4 +150,9 @@ ssize_t Network::SocketStream::Read(char *buf, size_t size)
         buf += nRead;
     }
     return size - nLeft;
+}
+
+ssize_t Network::SocketStream::ReadInt(int &n)
+{
+    return Read((char *)&n, sizeof(int));
 }

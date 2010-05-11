@@ -20,7 +20,7 @@
 
 #include <string>
 
-struct Configuration
+class Configuration
 {
 public:
     std::string dbHost;
@@ -41,7 +41,7 @@ public:
     void CleanUp();
 private:
     Configuration();
-    ~Configuration();
+    ~Configuration(){}
     Configuration &operator=(const Configuration &);
     Configuration(const Configuration &);
 };

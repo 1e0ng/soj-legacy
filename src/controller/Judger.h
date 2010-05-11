@@ -68,7 +68,7 @@ public:
         return false;
     }
 private:
-    vector<JudgeInfo> queue;
+    std::vector<JudgeInfo> queue;
     
     int judgerId;//each judger is assigned a unique id
 
@@ -87,7 +87,7 @@ class JudgerManager
 public:
     const static int MAX_JUDGER_NUMBER = 10;
 
-    static &GetInstance()
+    static JudgerManager &GetInstance()
     {
         static JudgerManager instance;
         return instance;
@@ -101,13 +101,14 @@ public:
     Judger *GetAvailableJudgerFor(Language lan);
     Judger *GetJudgerById(int jid);
 
-    ProcessInput();
-    ProcessOutput();
+    void PrepareFdset(fd_set *rset, int &maxfd);
+    int ProcessInput(fd_set *rset);
+    int ProcessOutput(fd_set *rset);
 private:
     JudgerManager();
     ~JudgerManager();
     JudgerManager &operator=(const JudgerManager &);
-    JudgerManager &JudgerManager(const JudgerManager &);
+    JudgerManager(const JudgerManager &);
 
     Judger *judger[MAX_JUDGER_NUMBER];
     size_t size;

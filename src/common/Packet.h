@@ -30,6 +30,8 @@ namespace Network
         virtual int Read(SocketStream &stream) = 0;
         virtual int Write(SocketStream &stream) = 0;
         virtual size_t GetPacketSize()const = 0;
+
+        virtual int Execute() = 0;
     private:
         PacketType_t type;
     };

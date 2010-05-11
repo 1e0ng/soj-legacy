@@ -18,6 +18,7 @@
 #include "CakeManager.h"
 #include "Log.h"
 #include <stdlib.h>
+#include <string.h>
 #include <assert.h>
 
 CakeManager::~CakeManager()
@@ -59,9 +60,9 @@ int CakeManager::LoadCakes(Database *db)
         Log("CakeManager::LoadCakes failed!");
         return -1;
     }
-    MYSQL_ROW *row;
+    MYSQL_ROW row;
 
-    while(row = mysql_fetch_row(res))
+    while((row = mysql_fetch_row(res)))
     {
         if(head >= MAX_CAKE_NUMBER)
             break;
@@ -92,5 +93,5 @@ void CakeManager::Tick()
 {
     //so we just load new cakes when all cakes are sent out
     if((tail == head) )
-        LoadCakes();
+        LoadCakes(&Database::GetInstance());
 }

@@ -20,6 +20,9 @@
 
 #include "../common/SocketStream.h"
 
+//in microseconds
+#define TIME_PER_TICK 100
+
 class Controller
 {
 public:

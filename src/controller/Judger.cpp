@@ -19,7 +19,7 @@
 #include "Judger.h"
 #include <assert.h>
 
-static int JudgerManager::JudgerIndexer = 1;
+int JudgerManager::JudgerIndexer = 1;
 
 Judger::Judger()
 {
@@ -27,6 +27,8 @@ Judger::Judger()
     status = INVALID;
     lastStartJudgeTime = 0;
     pidJudging = -1;
+    for(int i = 0; i < LAN_NUMBER; i++)
+        supportedLan[i] = false;
 }
 
 Judger::~Judger()
@@ -35,6 +37,8 @@ Judger::~Judger()
     status = INVALID;
     lastStartJudgeTime = 0;
     pidJudging = -1;
+    for(int i = 0; i < LAN_NUMBER; i++)
+        supportedLan[i] = false;
 
     stream.Close();
 }
@@ -52,23 +56,17 @@ int Judger::ReceivePacket()
 JudgerManager::JudgerManager()
 {
     size = 0;
-    nextPos = 0;
     for(int i = 0; i < MAX_JUDGER_NUMBER; i++)
         judger[i] = NULL;
-    for(Language i = 0; i < LAN_NUMBER; i++)
-        supportedLan[i] = false;
 }
 
 JudgerManager::~JudgerManager()
 {
-    for(int i = 0; i < size; i++)
+    for(size_t i = 0; i < size; i++)
     {
         if(judger[i])delete judger[i],judger[i] = NULL;
     }
     size = 0;
-
-    for(Language i = 0; i < LAN_NUMBER; i++)
-        supportedLan[i] = false;
 }
 
 Judger *JudgerManager::NewJudger()
@@ -83,9 +81,11 @@ Judger *JudgerManager::NewJudger()
 
 void JudgerManager::RemoveJudger(int jid)
 {
+    assert(j >= 1);
+
     for(size_t i = 0; i < size; i++)
     {
-        if(judger[i].GetJudgerId() == jid)
+        if(judger[i]->GetJudgerId() == jid)
         {
             delete judger[i];
             if(size >= 2)
@@ -99,6 +99,8 @@ void JudgerManager::RemoveJudger(int jid)
 
 void JudgerManager::RemoveJudger(Judger *j)
 {
+    if(j == NULL)
+        return;
     for(size_t i = 0; i < size; i++)
     {
         if(judger[i] == j)
@@ -112,3 +114,17 @@ void JudgerManager::RemoveJudger(Judger *j)
         }
     }
 }
+
+void JudgerManager::PrepareFdset(fd_set *rset, int &maxfd)
+{
+    if(rset == NULL)
+        return;
+    for(size_t i = 0; i < size; i++)
+    {
+        int fd = judger[i]->GetSocketFd();
+        FD_SET(fd, rset);
+        if(fd > maxfd)
+            maxfd = fd;
+    }
+}
+

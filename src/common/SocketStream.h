@@ -20,6 +20,7 @@ namespace Network
         {
             return socketfd;
         }
+#ifdef _CONTROLLER
         void SetClientAddr(const sockaddr_in &addr)
         {
             clientAddr = addr;
@@ -28,17 +29,21 @@ namespace Network
         {
             return clientAddr;
         }
+#endif
 
-        SocketStream *Accept();
+        int Accept(SocketStream &stream);
         //return bytes left to send on success otherwise -1
         ssize_t Write(const char *buf, size_t size);
+        inline ssize_t WriteInt(int n);
         //return bytes read on success otherwize -1
         ssize_t Read(char *buf, size_t size);
+        inline ssize_t ReadInt(int &n);
     private:
         int socketfd;
         bool bValid;
-        bool bServer;//is server socket
+#ifdef _CONTROLLER
         struct sockaddr_in clientAddr;//used by server
+#endif
     };
 }
 

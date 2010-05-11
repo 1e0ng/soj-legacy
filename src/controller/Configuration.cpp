@@ -25,11 +25,10 @@ Configuration::Configuration()
     CleanUp();
 }
 
-int Configuration::Init()
+int Configuration::Init(const string &path)
 {
-    string conf_path = "./controller.conf";
     IniFile ini;
-    if(ini.InitFromFile(conf_path.c_str()))
+    if(ini.InitFromFile(path.c_str()))
     {
         char buf[512];
         if(ini.GetStringValue("Controller", "DBHost", buf, sizeof(buf)))

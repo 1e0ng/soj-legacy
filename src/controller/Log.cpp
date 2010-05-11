@@ -22,6 +22,8 @@
 #include <time.h>
 using namespace std;
 
+_Log _log;
+
 int _Log::Init(const string &path)
 {
     f = fopen(path.c_str(), "a");
@@ -42,7 +44,7 @@ int _Log::AddLog(const char *str)
 
 void Log(const char *fmt, ...)
 {
-    char buf[MAX_LOG_LENGTH - 32];//make room for time
+    char buf[_Log::MAX_LOG_LENGTH - 32];//make room for time
     va_list ap;
 
     va_start(ap, fmt);
