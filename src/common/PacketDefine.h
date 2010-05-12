@@ -21,6 +21,11 @@
 
 enum PacketType_t
 {
+    JC_CONNECT_PACKET,
+    CJ_CONNECT_REPLY_PACKET,
+    CJ_JUDGE_THIS_PACKET,
+    JC_JUDGE_THIS_RETURN,
+
     MAX_PACKET_ID
 };
 

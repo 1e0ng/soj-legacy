@@ -16,6 +16,10 @@
  * =====================================================================================
  */
 #include "Packet.h"
+#include "Packet/JCConnect.h"
+#include "Packet/CJConnectReply.h"
+#include "Packet/CJJudgeThis.h"
+#include "Packet/JCJudgeThisReturn.h"
 #include <stdio.h>
 
 int Network::Packet::Read(SocketStream &stream)
@@ -44,6 +48,11 @@ Network::PacketFactoryManager::PacketFactoryManager()
 {
     for(int i = 0; i < MAX_PACKET_ID; i++)
         factory[i] = NULL;
+
+    RegisterFactory(new JCConnectFactory, JC_CONNECT_PACKET);
+    RegisterFactory(new CJConnectReply, CJ_CONNECT_REPLY_PACKET);
+    RegisterFactory(new CJJudgeThis, CJ_JUDGE_THIS_PACKET);
+    RegisterFactory(new JCJudgeThisReturn, JC_JUDGE_THIS_RETURN);
 }
 
 Network::PacketFactoryManager::~PacketFactoryManager()

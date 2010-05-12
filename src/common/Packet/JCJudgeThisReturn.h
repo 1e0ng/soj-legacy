@@ -36,10 +36,13 @@ namespace Network
 
         void SetRid(int rid){this->rid = rid;}
         int GetRid()const{return rid;}
+        void SetJudgerId(int jid){this->jid = jid;}
+        int GetJudgerId()const{return jid;}
         void SetResult(JudgeResult res){result = res;}
         int GetResult()const{return result;}
     private:
         int rid;
+        int jid;//judger id
         int result;
     };
 }
