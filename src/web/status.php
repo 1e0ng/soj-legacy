@@ -97,7 +97,7 @@ $page_string = paged_disp($conn, $table, $condition, $top, $pagesize,
 
 echo $page_string;
 ?>
-	<table background="table_back.jpg">
+	<table background="table_back.jpg" border="1" bordercolor="#ffffff" style="BORDER-COLLAPSE: collapse">
 		<tr>
 			<th width = "80" align = "center" bgcolor="#6589d1"><font color="#FFFFFF">RunID</font></th>
 			<th width = "80" align = "center" bgcolor="#6589d1"><font color="#FFFFFF">ProblemID</font></th>

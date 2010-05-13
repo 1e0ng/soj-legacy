@@ -19,7 +19,7 @@ $page_string = paged_disp($conn, "user", null, $top, $pagesize, "user.php");
 echo $page_string;
 ?>
 <div align = "center">
-<table background="table_back.jpg">
+<table background="table_back.jpg" border="1" bordercolor="#ffffff" style="BORDER-COLLAPSE: collapse">
 	<tr>
 	<th width = "80" bgcolor="#6589d1" class="h"><font color="#FFFFFF">Rank</font></th>
 	<th width = "400" bgcolor="#6589d1" class="h"><font color="#FFFFFF">NickName</font></th>
