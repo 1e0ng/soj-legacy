@@ -54,7 +54,7 @@ if(!isset($_POST['submit']))
 }
 ?>
 <!--Table Header Division-->
-	<table background="table_back.jpg">
+	<table background="table_back.jpg" border="1" bordercolor="#ffffff" style="BORDER-COLLAPSE: collapse">
 		<tr>
 			<th width = "60" align = "center" bgcolor="#6589d1" class="h"><font color="#FFFFFF">ID</font></th>
 		  <th width = "400" align = "left" bgcolor="#6589d1" class="h"><font color="#FFFFFF">Title</font></th>
