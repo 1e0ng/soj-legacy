@@ -19,7 +19,7 @@ $page_string = paged_disp($conn, "user", null, $top, $pagesize, "user.php");
 echo $page_string;
 ?>
 <div align = "center">
-<table background="table_back.jpg" border="1" bordercolor="#ffffff" style="BORDER-COLLAPSE: collapse">
+<table border="1" bordercolor="#ffffff" style="BORDER-COLLAPSE: collapse">
 	<tr>
 	<th width = "80" bgcolor="#6589d1" class="h"><font color="#FFFFFF">Rank</font></th>
 	<th width = "400" bgcolor="#6589d1" class="h"><font color="#FFFFFF">NickName</font></th>
@@ -35,7 +35,13 @@ if($result = $conn->query($sql))
 	$i = 0;
 	while($user = $result->fetch_object())
 	{
-		echo "<tr>\n";
+		if ($user->uid%2==0){
+			echo "<tr bgcolor=\"#A2B9E6\">\n";
+		}
+		else {
+			echo "<tr bgcolor=\"#B7C8EA\">\n";
+		}
+		
 		gen_cell($top + $i++);
 		gen_cell("<a href=\"user.php?uid=$user->uid\">$user->nickname</a>");
 		echo "<td>";

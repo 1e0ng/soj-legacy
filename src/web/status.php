@@ -97,7 +97,7 @@ $page_string = paged_disp($conn, $table, $condition, $top, $pagesize,
 
 echo $page_string;
 ?>
-	<table background="table_back.jpg" border="1" bordercolor="#ffffff" style="BORDER-COLLAPSE: collapse">
+	<table border="1" bordercolor="#ffffff" style="BORDER-COLLAPSE: collapse">
 		<tr>
 			<th width = "80" align = "center" bgcolor="#6589d1"><font color="#FFFFFF">RunID</font></th>
 			<th width = "80" align = "center" bgcolor="#6589d1"><font color="#FFFFFF">ProblemID</font></th>
@@ -122,7 +122,12 @@ if($result = $conn->query($sql))
 	{
 		while($status = $result->fetch_object())
 		{
-			echo "<tr>";
+			if ($status->rid%2==0){
+				echo "<tr bgcolor=\"#B7C8EA\">";
+			}
+			else {
+				echo "<tr bgcolor=\"#A2B9E6\">";
+			}
 
 			gen_cell($status->rid);
 

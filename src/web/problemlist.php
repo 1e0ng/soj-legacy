@@ -54,7 +54,7 @@ if(!isset($_POST['submit']))
 }
 ?>
 <!--Table Header Division-->
-	<table background="table_back.jpg" border="1" bordercolor="#ffffff" style="BORDER-COLLAPSE: collapse">
+	<table border="1" bordercolor="#ffffff" style="BORDER-COLLAPSE: collapse">
 		<tr>
 			<th width = "60" align = "center" bgcolor="#6589d1" class="h"><font color="#FFFFFF">ID</font></th>
 		  <th width = "400" align = "left" bgcolor="#6589d1" class="h"><font color="#FFFFFF">Title</font></th>
@@ -73,8 +73,13 @@ if($result = $conn->query($sql))
 		//here generates the content of table
 		while($problem = $result->fetch_object())
 		{
-			echo "<tr>";
-			echo "<td>$problem->pid</td>";
+			if ($problem->pid%2==0){
+				echo "<tr bgcolor=\"#A2B9E6\">";
+			}
+			else {
+				echo "<tr bgcolor=\"#B7C8EA\">";
+			}
+			echo "<td><center>$problem->pid</center></td>";
 			echo "<td align = \"left\">
 				<a href=\"problem.php?pid=$problem->pid\">
 				$problem->problemName</a></td>";
@@ -83,8 +88,10 @@ if($result = $conn->query($sql))
 				$ratio = ($problem->accepted / $problem->submitted) * 100;
 			else
 				$ratio = 0;
+			echo"<center>";
 			printf("%.2f%%", $ratio);
 			echo "($problem->accepted/$problem->submitted)";
+			echo"</center>";
 			echo "</td></tr>";
 		}
 	}
