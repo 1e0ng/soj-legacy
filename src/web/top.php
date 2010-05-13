@@ -5,7 +5,7 @@ else
 {?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="soj.css" rel="stylesheet" type="text/css" />
-<img src="banner.jpg" width="980" height="90" />
+<center><img src="banner.jpg" width="980" height="90" /></center>
 <?
 echo "<div align = \"right\">";
 
