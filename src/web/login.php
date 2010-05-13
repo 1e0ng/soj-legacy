@@ -61,7 +61,7 @@ else
 	}
 ?> 
 		" method = "post" onsubmit = "return checkLoginItems()">
-	<table>
+	<table background="table_back.jpg">
 		<tr>
 			<td align = "right">Username&nbsp;&nbsp;</td>
 			<td align = "left"><input type="text" name="username" size="25" maxlength="32"></td>
@@ -87,5 +87,6 @@ else
 <div>
 <?php
 }
+echo "<center>Login Successful.</center>";
 }
 ?>

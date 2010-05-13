@@ -41,7 +41,7 @@ if($result = $conn->query($sql))
 		gen_row("Email", $user->email);
 		gen_row("Gender", $user->gender == null ? "Unknown" : ($user->gender ? "Male" : "Female"));
 
-		echo "<tr height = \"300\" valign = \"top\"><td>Solved</td><td>";
+		echo "<tr height = \"100\" valign = \"top\"><td>Solved</td><td>";
 		$sql = "select distinct pid from status where uid=$uid and judgeStatus=3";
 		if($result = $conn->query($sql))
 		{

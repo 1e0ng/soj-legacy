@@ -97,16 +97,16 @@ $page_string = paged_disp($conn, $table, $condition, $top, $pagesize,
 
 echo $page_string;
 ?>
-	<table>
+	<table background="table_back.jpg">
 		<tr>
-			<th width = "80" align = "center">RunID</th>
-			<th width = "80" align = "center">ProblemID</th>
-			<th width = "160" align = "center">Username</th>
-			<th width = "160" align = "center">Judge Status</th>
-			<th width = "80" align = "center">Language</th>
-			<th width = "100" align = "center">Time</th>
-			<th width = "100" align = "center">Memory</th>
-			<th width = "200" align = "center">Submitted Time</th>
+			<th width = "80" align = "center" bgcolor="#6589d1"><font color="#FFFFFF">RunID</font></th>
+			<th width = "80" align = "center" bgcolor="#6589d1"><font color="#FFFFFF">ProblemID</font></th>
+			<th width = "160" align = "center" bgcolor="#6589d1"><font color="#FFFFFF">Username</font></th>
+			<th width = "160" align = "center" bgcolor="#6589d1"><font color="#FFFFFF">Judge Status</font></th>
+			<th width = "80" align = "center" bgcolor="#6589d1"><font color="#FFFFFF">Language</font></th>
+			<th width = "100" align = "center" bgcolor="#6589d1"><font color="#FFFFFF">Time</font></th>
+			<th width = "100" align = "center" bgcolor="#6589d1"><font color="#FFFFFF">Memory</font></th>
+			<th width = "200" align = "center" bgcolor="#6589d1"><font color="#FFFFFF">Submitted Time</font></th>
 		</tr>
 <?php
 //in mysql minimum top value is 0, so we need dec it by 1 and restore it later

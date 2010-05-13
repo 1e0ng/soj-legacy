@@ -13,7 +13,7 @@ else
 	if(isset($_GET['title']))
 		$title = trim($_GET['title']);
 ?>
-<!--Search Division-->
+
 <div align = "center">
 <form name = "formSearchProblem" action = "problemlist.php" 
 			method = "post" onsubmit = "return checkSearchProblemItems()" align = "center">
@@ -54,11 +54,11 @@ if(!isset($_POST['submit']))
 }
 ?>
 <!--Table Header Division-->
-	<table>
+	<table background="table_back.jpg">
 		<tr>
-			<th align = "center" width = "60">ID</th>
-			<th align = "left" width = "400">Title</th>
-			<th align = "center" width = "80">AC Ratio</th>
+			<th width = "60" align = "center" bgcolor="#6589d1" class="h"><font color="#FFFFFF">ID</font></th>
+		  <th width = "400" align = "left" bgcolor="#6589d1" class="h"><font color="#FFFFFF">Title</font></th>
+			<th width = "80" align = "center" bgcolor="#6589d1" class="h"><font color="#FFFFFF">AC Ratio</font></th>
 		</tr>
 <?php
 $top--;

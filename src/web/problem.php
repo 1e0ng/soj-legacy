@@ -8,11 +8,13 @@ else
 {
 include("conn.php");
 include("common.php");
-
+?>
+<link href="soj.css" rel="stylesheet" type="text/css" />
+<?
 //generate section titles such like discription, InputCase, etc
 function gen_section($title, $content)
 {
-	echo "<div align = \"left\"><h3>$title</h3></div>\n";
+	echo "<div align = \"left\"><h3><font color=\"#0000FF\">$title</font></h3></div>\n";
 	$change_array=array('\n'=>'<br>');
 	$content=strtr($content,$change_array);
 	//echo "<div style=\"word-break:break-all\">$content</div>\n";
@@ -48,14 +50,18 @@ else
 
 echo "<center><h2>$problem->problemName</h2></center>\n";
 //limitations and statistics area
-echo "<div align = \"center\"><table>";
-echo "<tr><td width = \"140\">Time Limit:</td><td width = \"80\">{$problem->timeLimit}ms</td>";
-echo "<td width = \"140\">Memory Limit:</td><td width = \"80\">{$problem->memoryLimit}KB</td></tr>";
-echo "<tr><td width = \"140\">Accepted:</td><td width = \"80\">$problem->accepted</td>";
-echo "<td width = \"140\">Submitted:</td><td width = \"80\">$problem->submitted</td></tr>\n";
-echo "</table></div>\n";
+?>
+<table width="100%" border="0" background="table_back.jpg">
+  <tr>
+    <td>
+<div align = "center"><table>
+<tr><td width = "140">Time Limit:</td><td width = "80"><?=$problem->timeLimit?>ms</td>
+<td width = "140">Memory Limit:</td><td width = "80"><?=$problem->memoryLimit?>KB</td></tr>
+<tr><td width = "140">Accepted:</td><td width = "80"><?=$problem->accepted?></td>
+<td width = "140">Submitted:</td><td width = "80"><?=$problem->submitted?></td></tr>
+</table></div>
+<?
 //problem discription area
-
 gen_section("DISCRIPTION", my_htmlentities($problem->discription));
 gen_section("INPUT", my_htmlentities($problem->input));
 gen_section("OUTPUT", my_htmlentities($problem->output));
@@ -65,10 +71,13 @@ gen_section("OUTPUT CASE", my_htmlentities($problem->outputCase));
 echo "<div align = \"center\">\n";
 echo "<a href=\"submitproblem.php?pid=$pid\">Submit</a>";
 echo "&nbsp;&nbsp;&nbsp;&nbsp;";
-echo "<a href=\"statistics?pid=$pid\">Statistics</a>";
+echo "<a href=\"statistics.php?pid=$pid\">Statistics</a>";
 echo "</div>\n";
 ?>
 </div>
+</td>
+  </tr>
+</table>
 <?php
 }
 ?>

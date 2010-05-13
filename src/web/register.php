@@ -149,7 +149,7 @@ else
 ?>
 <form name = "formRegister" method = "post" action = "register.php" onsubmit = "return checkRegisterItems()">
 <div align = "center">
-<table cellpadding = "20">
+<table cellpadding = "20" background="table_back.jpg">
 <tr>
 <td width = "300"><font color = "red">*</font>Username.Valid characters are alphabet, digits and underscore(_).</td>
 <td width = "200"><input type = "text" name = "username" value = "" maxlength = "32" size = "25"/></td>
