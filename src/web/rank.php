@@ -19,11 +19,11 @@ $page_string = paged_disp($conn, "user", null, $top, $pagesize, "user.php");
 echo $page_string;
 ?>
 <div align = "center">
-<table>
+<table background="table_back.jpg">
 	<tr>
-	<th width = "80">Rank</th>
-	<th width = "400">NickName</th>
-	<th width = "100">AC Ration</th>
+	<th width = "80" bgcolor="#6589d1" class="h"><font color="#FFFFFF">Rank</font></th>
+	<th width = "400" bgcolor="#6589d1" class="h"><font color="#FFFFFF">NickName</font></th>
+	<th width = "100" bgcolor="#6589d1" class="h"><font color="#FFFFFF">AC Ration</font></th>
 	</tr>
 <?php
 $top--;
