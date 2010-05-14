@@ -24,6 +24,7 @@
 #endif
 */
 
+//from controller to judger
 struct Cake
 {
 public:
@@ -37,7 +38,7 @@ public:
     int timeLimit;//time limit for rtime
     int memoryLimit;//memory limit for rmemory
     int uid;//user id
-    char sourceCode[65536];
+    char sourceCode[MAX_SOURCE_LENGTH];
 
     Cake(){CleanUp();}
     void CleanUp();
@@ -53,6 +54,22 @@ public:
     int UpdateDB(Database *db);
 #endif
 */
+};
+
+//from judger to controller
+struct CakeReturn
+{
+    int rid;        //run id
+    int jid;        //judger id
+    int result;     //result
+    int rtime;      //run time
+    int rmemory;    //run memory
+
+    CakeReturn(){CleanUp();}
+    void CleanUp()
+    {
+        rid = jid = result = rtime = rmemory = -1;
+    }
 };
 
 #endif

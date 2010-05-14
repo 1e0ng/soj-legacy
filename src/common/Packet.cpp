@@ -21,22 +21,20 @@
 #include "Packet/CJJudgeThis.h"
 #include "Packet/JCJudgeThisReturn.h"
 #include <stdio.h>
+#include <assert.h>
 
 int Network::Packet::Read(SocketStream &stream)
 {
-    int ty;
-    if(stream.ReadInt(ty) != sizeof(ty))
+    if(stream.ReadInt(type) != sizeof(type))
         return -1;
-    if(ty >= MAX_PACKET_ID || ty < 0)
+    if(type >= MAX_PACKET_ID || type < 0)
         return -1;
-    type = (PacketType_t)ty;
     return 0;
 }
 
 int Network::Packet::Write(SocketStream &stream)
 {
-    int ty = type;
-    return stream.WriteInt(ty);
+    return stream.WriteInt(type);
 }
 
 size_t Network::Packet::GetPacketSize()const
@@ -49,10 +47,10 @@ Network::PacketFactoryManager::PacketFactoryManager()
     for(int i = 0; i < MAX_PACKET_ID; i++)
         factory[i] = NULL;
 
-    RegisterFactory(new JCConnectFactory, JC_CONNECT_PACKET);
-    RegisterFactory(new CJConnectReply, CJ_CONNECT_REPLY_PACKET);
-    RegisterFactory(new CJJudgeThis, CJ_JUDGE_THIS_PACKET);
-    RegisterFactory(new JCJudgeThisReturn, JC_JUDGE_THIS_RETURN);
+    RegisterFactory(new JCConnectPacketFactory, JC_CONNECT_PACKET);
+    RegisterFactory(new CJConnectReplyPacketFactory, CJ_CONNECT_REPLY_PACKET);
+    RegisterFactory(new CJJudgeThisPacketFactory, CJ_JUDGE_THIS_PACKET);
+    RegisterFactory(new JCJudgeThisReturnPacketFactory, JC_JUDGE_THIS_RETURN);
 }
 
 Network::PacketFactoryManager::~PacketFactoryManager()
@@ -63,7 +61,74 @@ Network::PacketFactoryManager::~PacketFactoryManager()
     }
 }
 
-Network::PacketFactory *Network::PacketFactoryManager::GetPacketFactory(PacketType_t type)
+Network::PacketFactory *Network::PacketFactoryManager::GetPacketFactory(int type)
 {
+    assert(type >= 0 && type < MAX_PACKET_ID);
+
     return factory[type];
+}
+
+int Network::PacketPlayer::ProcessInput()
+{
+    for(int i = 0; i < MAX_PACKETS_PER_TICK; i++)
+    {
+        Packet *packet = ReceivePacket();
+        if(packet)
+        {
+            packet->Execute(this);
+            delete packet;
+        }
+    }
+
+    return 0;
+}
+
+int Network::PacketPlayer::ProcessOutput()
+{
+    return 0;
+}
+
+int Network::PacketPlayer::SendPacket(Packet *packet)
+{
+    assert(packet);
+
+    return packet->Write(stream) == packet->GetPacketSize()? 0: -1;
+}
+
+Network::Packet *Network::PacketPlayer::ReceivePacket()
+{
+    int ret, type;
+    Packet *packet = NULL;
+
+    if((ret = stream.PeekInt(type)) != sizeof(int) || type < 0 || type >= MAX_PACKET_ID)
+    {
+        if(ret == 0)
+        {
+            //we encounter an EOF
+        }
+        //can't continue
+    }
+    else
+    {
+        packet = PacketFactoryManager::GetInstance().GetPacketFactory(type)->GetPacket();
+        assert(packet);
+        /*
+        char buf[1024];
+        if((ret = stream.Peek(buf, packet->GetPacketSize()) != packet->GetPacketSize()))
+        {
+            //maybe this is because data is still being received.
+            //
+            Log("Packet size is not as expected.Received: %d, expected: %d, judger: %d", ret, packet->GetPacketSize(), jid);
+            break;
+        }
+        else
+        {
+        */
+        if(packet->Read(stream))
+        {
+            delete packet;
+            packet = NULL;
+        }
+    }
+    return packet;
 }

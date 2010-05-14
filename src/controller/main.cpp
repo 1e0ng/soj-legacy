@@ -160,4 +160,12 @@ int main(int argc, char *argv[])
     {
         Daemonize();
     }
+    Controller &c = Controller::GetInstance();
+    if(c.Init() < 0)
+    {
+        cerr<<"Initialization failed."<<endl;
+        exit(0);
+    }
+    c.Loop();
+    c.CleanUp();
 }

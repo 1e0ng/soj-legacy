@@ -18,4 +18,4 @@ $(OBJS):%.o:%.cpp
 	$(CC) $(CXXFLAGS) $(INCPATHS) -c $< -o $@
 
 clean:
-	rm -f *.o ../common/*.o controller
+	rm -f *.o ../common/*.o ../common/Packet/*.o controller

@@ -17,6 +17,7 @@
  */
 #ifndef JC_JUDGE_THIS_RETURN_H
 #define JC_JUDGE_THIS_RETURN_H
+#include "../Cake.h"
 #include "../Packet.h"
 #include "../OJDefine.h"
 
@@ -29,21 +30,33 @@ namespace Network
         virtual int Write(SocketStream &stream);
         virtual size_t GetPacketSize()const 
         {
-            return sizeof(int) + sizeof(int);
+            return Packet::GetPacketSize() + sizeof(int) * 5;
         }
 
-        virtual int Execute();
+        virtual int Execute(PacketPlayer *player);
 
-        void SetRid(int rid){this->rid = rid;}
-        int GetRid()const{return rid;}
-        void SetJudgerId(int jid){this->jid = jid;}
-        int GetJudgerId()const{return jid;}
-        void SetResult(JudgeResult res){result = res;}
-        int GetResult()const{return result;}
+        void SetRid(int rid){cr.rid = rid;}
+        int GetRid()const{return cr.rid;}
+        void SetJudgerId(int jid){cr.jid = jid;}
+        int GetJudgerId()const{return cr.jid;}
+        void SetResult(JudgeResult res){cr.result = res;}
+        int GetResult()const{return cr.result;}
+        void SetRtime(int rtime){cr.rtime = rtime;}
+        int GetRtime()const{return cr.rtime;}
+        void SetRmemory(int rmemory){cr.rmemory = rmemory;}
+        int GetRmemory()const{return cr.rmemory;}
+
     private:
-        int rid;
-        int jid;//judger id
-        int result;
+        CakeReturn cr;
+    };
+
+    class JCJudgeThisReturnPacketFactory: public PacketFactory
+    {
+    public:
+        virtual Packet *GetPacket()
+        {
+            return new JCJudgeThisReturn;
+        }
     };
 }
 

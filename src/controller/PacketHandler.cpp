@@ -19,25 +19,72 @@
 #include "../common/Packet/CJConnectReply.h"
 #include "../common/Packet/JCConnect.h"
 #include "../common/Packet/JCJudgeThisReturn.h"
+#include "Judger.h"
+#include "Log.h"
+#include <assert.h>
 
 using namespace Network;
 
-int CJJudgeThis::Execute()
+int CJJudgeThis::Execute(PacketPlayer *player)
 {
-    return 0;
+    return PER_PACKET_CONTINUE;
 }
 
-int CJConnectReply::Execute()
+int CJConnectReply::Execute(PacketPlayer *player)
 {
-    return 0;
+    return PER_PACKET_CONTINUE;
 }
 
-int JCConnect::Execute()
+int JCConnect::Execute(PacketPlayer *player)
 {
-    return 0;
+    assert(player);
+
+    Judger *j = dynamic_cast<Judger *>(player);
+    if(j)
+    {
+        j->InitFromPacket(this);
+        CJConnectReply packet;
+        packet.SetReply(CJConnectReply::ACCEPTED);
+        packet.SetJudgerId(j->GetJudgerId());
+        j->SendPacket(&packet);
+    }
+    else
+    {
+        Log("JCConnect::Execute Invalid player!");
+    }
+    return PER_PACKET_CONTINUE;
 }
 
-int JCJudgeThisReturn::Execute()
+int JCJudgeThisReturn::Execute(PacketPlayer *player)
 {
-    return 0;
+    assert(player);
+
+    Judger *j = dynamic_cast<Judger *>(player);
+    if(j)
+    {
+        int jid = GetJudgerId();
+        if(jid != j->GetJudgerId())
+        {
+            Log("JCJudgeThisReturn::Execute judger ids are not the same.Expected ID = %d, ID from packet = %d", j->GetJudgerId(), jid);
+            return PER_PACKET_CONTINUE;
+        }
+        int rid = GetRid();
+        if(rid != j->GetPidJudging())
+        {
+            Log("JCJudgeThisReturn::Execute run ids are not the same.Expected ID = %d, ID from packet = %d", j->GetPidJudging(), rid);
+            return PER_PACKET_CONTINUE;
+        }
+        int status = GetResult();
+        if(status < 0 || status >= JR_RESULT_NUMBER)
+        {
+            Log("JCJudgeThisReturn::Execute status invalid. value = %d", status);
+            return PER_PACKET_CONTINUE;
+        }
+        j->UpdateCakeToDB(cr, &Database::GetInstance());
+    }
+    else
+    {
+        Log("JCJudgeThisReturn::Execute Invalid player!");
+    }
+    return PER_PACKET_CONTINUE;
 }

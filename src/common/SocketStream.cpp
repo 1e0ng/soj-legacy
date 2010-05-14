@@ -118,7 +118,7 @@ ssize_t Network::SocketStream::Write(const char *buf, size_t size)
         nLeft -= nWritten;
         buf += nWritten;
     }
-    return nLeft;
+    return size;
 }
 
 ssize_t Network::SocketStream::WriteInt(int n)
@@ -153,4 +153,19 @@ ssize_t Network::SocketStream::Read(char *buf, size_t size)
 ssize_t Network::SocketStream::ReadInt(int &n)
 {
     return Read((char *)&n, sizeof(int));
+}
+
+ssize_t Network::SocketStream::Recv(char *buf, size_t size, int flags)
+{
+    return recv(socketfd, buf, size, flags);
+}
+
+ssize_t Network::SocketStream::Peek(char *buf, size_t size)
+{
+    return recv(socketfd, buf, size, MSG_PEEK | MSG_DONTWAIT);
+}
+
+ssize_t Network::SocketStream::PeekInt(int &n)
+{
+    return Peek((char *)&n, sizeof(n));
 }

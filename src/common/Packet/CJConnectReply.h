@@ -33,10 +33,10 @@ namespace Network
         virtual int Write(SocketStream &stream);
         virtual size_t GetPacketSize()const
         {
-            return sizeof(int) + sizeof(int);
+            return Packet::GetPacketSize() + sizeof(int) + sizeof(int);
         }
 
-        virtual int Execute();
+        virtual int Execute(PacketPlayer *player);
 
         void SetReply(ReplyType_t rep){reply = rep;}
         int GetReply()const{return reply;}
@@ -45,6 +45,15 @@ namespace Network
     private:
         int reply;
         int judgerId;//if accepted, return its id
+    };
+
+    class CJConnectReplyPacketFactory: public PacketFactory
+    {
+    public:
+        virtual Packet *GetPacket()
+        {
+            return new CJConnectReply;
+        }
     };
 }
 

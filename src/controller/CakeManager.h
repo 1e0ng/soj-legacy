@@ -28,18 +28,27 @@ class CakeManager
 public:
     const static int MAX_CAKE_NUMBER = 64;
 
-    CakeManager():head(0), tail(0){}
-    ~CakeManager();
-
+    static CakeManager &GetInstance()
+    {
+        static CakeManager instance;
+        return instance;
+    }
     //dispatch one, release one
     Cake *GetCakeToJudge();
     void ReleaseCake(Cake *cake);
+    //no judger for current cake,so return it
+    void ReturnCake(Cake *cake);
 
     void Tick();
 private:
     //called by Tick()
     int LoadCakes(Database *db);
 private:
+    CakeManager():head(0), tail(0){}
+    ~CakeManager();
+    CakeManager(const CakeManager &);
+    CakeManager &operator=(const CakeManager &);
+
     Cake cake[MAX_CAKE_NUMBER];
     size_t head;
     size_t tail;

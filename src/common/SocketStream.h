@@ -38,6 +38,10 @@ namespace Network
         //return bytes read on success otherwize -1
         ssize_t Read(char *buf, size_t size);
         ssize_t ReadInt(int &n);
+        ssize_t Recv(char *buf, size_t size, int flags);
+        //peek with MSG_DONTWAIT
+        ssize_t Peek(char *buf, size_t size);
+        ssize_t PeekInt(int &n);
     private:
         int socketfd;
         bool bValid;

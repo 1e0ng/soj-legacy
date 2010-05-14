@@ -38,7 +38,10 @@ int _Log::AddLog(const char *str)
     struct tm *tm = localtime(&t);
     char buf[32];
     strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", tm);
-    fprintf(f, "%s %s",  buf, str);
+    fprintf(f, "%s %s\n",  buf, str);
+#ifdef NDEBUG
+    fprintf(stderr, "%s %s\n", buf, str);
+#endif
     return 0;
 }
 

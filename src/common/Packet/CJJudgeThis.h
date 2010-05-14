@@ -19,6 +19,7 @@
 #define CJ_JUDGE_THIS_H
 #include "../Packet.h"
 #include "../Cake.h"
+#include <string.h>
 
 namespace Network
 {
@@ -29,15 +30,25 @@ namespace Network
         virtual int Write(SocketStream &stream);
         virtual size_t GetPacketSize()const
         {
-            return sizeof(cake);
+            return Packet::GetPacketSize() + sizeof(int) * 6;
         }
 
-        virtual int Execute();
+        virtual int Execute(PacketPlayer *player);
 
         const Cake &GetCake()const{return cake;}
-        void SetCake(const Cake &c){cake = c;}
+        void SetCake(const Cake &c){cake = c; sourceLength = strlen(cake.sourceCode);}
+        int GetSourceLength()const{return sourceLength;}
     private:
+        int sourceLength;
         Cake cake;
+    };
+    class CJJudgeThisPacketFactory: public PacketFactory
+    {
+    public:
+        virtual Packet *GetPacket()
+        {
+            return new CJJudgeThis;
+        }
     };
 }
 

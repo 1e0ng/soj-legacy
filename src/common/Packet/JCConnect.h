@@ -30,25 +30,26 @@ namespace Network
         virtual int Write(SocketStream &stream);
         virtual size_t GetPacketSize()const
         {
-            return sizeof(int) * 3;
+            return Packet::GetPacketSize() + sizeof(int) * LAN_NUMBER;
         }
 
-        virtual int Execute();
+        virtual int Execute(PacketPlayer *player);
 
-        void SetLanguageSupport(Language lan, bool bOn)
+        void SetLanguageSupport(int lan, bool bOn)
         {
-            assert(lan < LAN_NUMBER);
+            assert(lan <= LAN_MAX_ID && lan >= LAN_MIN_ID);
 
-            supportedLan[lan] = bOn? 1: 0;
+            supportedLan[lan - LAN_MIN_ID] = bOn? 1: 0;
         }
-        bool GetLanguageSupport(Language lan)const
+        bool GetLanguageSupport(int lan)const
         {
-            assert(lan <LAN_NUMBER);
+            assert(lan <= LAN_MAX_ID && lan >= LAN_MIN_ID);
 
-            return supportedLan[lan] == 1;
+            return supportedLan[lan - LAN_MIN_ID] == 1;
         }
+
     private:
-        int supportedLan[3];
+        int supportedLan[LAN_NUMBER];
     };
 
     class JCConnectPacketFactory: public PacketFactory

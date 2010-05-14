@@ -20,22 +20,29 @@
 
 enum Language
 {
+    LAN_MIN_ID = 1,
+
+    LAN_CPP = 1,
     LAN_C,
-    LAN_CPP,
     LAN_JAVA,
 
-    LAN_NUMBER,
+    LAN_MAX_ID = 3,
+    LAN_NUMBER = 3,
 };
 
 enum JudgeResult
 {
-   JR_AC,           //accepted
-   JR_WA,           //wrong anser
-   JR_TLE,          //time limit exceeded
-   JR_MLE,          //memory limit exceeded
-   JR_CE,           //compile error
-   JR_PE,           //presentation error
-   JR_SYSERR,       //system error
+    JR_QUEUEING = 1,
+    JR_JUDGING,
+    JR_AC,           //accepted
+    JR_WA,           //wrong anser
+    JR_TLE,          //time limit exceeded
+    JR_MLE,          //memory limit exceeded
+    JR_CE,           //compile error
+    JR_PE,           //presentation error
+    JR_RE,           //runtime error
+
+    JR_RESULT_NUMBER
 };
 
 #endif

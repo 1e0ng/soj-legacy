@@ -22,9 +22,7 @@ int JCJudgeThisReturn::Read(SocketStream &stream)
 {
     if(Packet::Read(stream) < 0)
         return -1;
-    if(stream.ReadInt(rid) < 0)
-        return -1;
-    if(stream.ReadInt(result) < 0)
+    if(stream.Read((char *)&cr, sizeof(cr)) < 0)
         return -1;
     return 0;
 }
@@ -34,9 +32,7 @@ int JCJudgeThisReturn::Write(SocketStream &stream)
     if(Packet::Write(stream) < 0)
         return -1;
 
-    if(stream.WriteInt(rid) < 0)
-        return -1;
-    if(stream.WriteInt(result) < 0)
+    if(stream.Write((const char *)&cr, sizeof(cr)) < 0)
         return -1;
     return 0;
 }

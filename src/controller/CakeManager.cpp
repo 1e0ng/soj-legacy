@@ -40,8 +40,15 @@ Cake *CakeManager::GetCakeToJudge()
     return &cake[tail++];
 }
 
+void CakeManager::ReturnCake(Cake *cake)
+{
+    tail--;
+    assert( &cake[tail] == cake );
+}
+
 void CakeManager::ReleaseCake(Cake *cake)
 {
+    assert(cake);
     //maybe we should add some check here
     cake->CleanUp();
 }
@@ -54,8 +61,8 @@ int CakeManager::LoadCakes(Database *db)
     head = tail = 0;
 
     MYSQL_RES *res;
-    if(db->Query("select rid,pid,language,sourceCode,uid,timeLimit,memoryLimit\
-            from status,problem where judgeStatus=1 and status.pid=prolbem.pid order by rid", &res) < 0)
+    if(db->Query("select rid, status.pid, language, sourceCode, uid, timeLimit,memoryLimit\
+            from status,problem where judgeStatus=1 and status.pid=problem.pid order by rid", &res) < 0)
     {
         Log("CakeManager::LoadCakes failed!");
         return -1;
@@ -75,13 +82,13 @@ int CakeManager::LoadCakes(Database *db)
         c.timeLimit = atoi(row[5]);
         c.memoryLimit = atoi(row[6]);
         strncpy(c.sourceCode, row[3], Cake::MAX_SOURCE_LENGTH);
-        Log("CakeManager::Loadcs load cake with rid = %d successfully.", c.rid);
+        Log("CakeManager::Loadcakes load cake with rid = %d successfully.", c.rid);
 
         char buf[256];
         snprintf(buf, sizeof(buf), "update status set judgeStatus=2 where rid = %d", c.rid);
         if(db->Query(buf, NULL) != 1)
         {
-            Log("Cake::Loadcs update cake with rid = %d to status JUDGING failed!", c.rid);
+            Log("Cake::Loadcakes update cake with rid = %d to status JUDGING failed!", c.rid);
         }
     }
     mysql_free_result(res);

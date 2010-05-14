@@ -20,23 +20,38 @@
 #include "../common/SocketStream.h"
 #include "../common/Packet.h"
 #include "../common/OJDefine.h"
+#include "../common/Packet/JCConnect.h"
+#include "../common/Cake.h"
+#include "Database.h"
 #include <string>
-#include <vector>
+//#include <vector>
 #include <time.h>
 using namespace Network;
 
 //set an uplimit for judge time in case server gets down
 #define MAX_JUDGE_TIME 10
 
-struct JudgeInfo
+struct CakeInfo
 {
     int rid;//run id
     int pid;//problem id
     int uid;//user id
     time_t beginTime;
+
+    CakeInfo()
+    {
+        CleanUp();
+    }
+    void CleanUp()
+    {
+        rid = -1;
+        pid = -1;
+        uid = -1;
+        beginTime = 0;
+    }
 };
 
-class Judger
+class Judger: public PacketPlayer
 {
 public:
     enum Status{INVALID, INITIALIZING, AVAILABLE, BUSY};
@@ -47,45 +62,44 @@ public:
     int GetJudgerId()const{return judgerId;}
     void SetJudgerId(int jid){judgerId = jid;}
 
-    SocketStream &GetSocketStream(){return stream;}
-
-    time_t GetLastStartJudgeTime()const{return lastStartJudgeTime;}
-    void SetLastStartJudgeTime(time_t judgeTime){lastStartJudgeTime = judgeTime;}
+    time_t GetLastStartJudgeTime()const{return cake.beginTime;}
+    void SetLastStartJudgeTime(time_t judgeTime){cake.beginTime = judgeTime;}
 
     Status GetStatus()const{return status;}
     void SetStatus(Status s){status = s;}
 
-    int GetPidJudging()const{return pidJudging;} 
-    void SetPidJudging(int pid){pidJudging = pid;}
+    int GetPidJudging()const{return cake.pid;} 
+    void SetPidJudging(int pid){cake.pid = pid;}
 
-    int SendPacket(Packet *packet);
-    int ReceivePacket();
-
-    bool IsLanguageSupported(Language lan)const
+    bool IsLanguageSupported(int lan)const
     {
-        if(lan < LAN_NUMBER)
-            return supportedLan[lan];
+        if(lan <= LAN_MAX_ID && lan >= LAN_MIN_ID)
+            return supportedLan[lan - LAN_MIN_ID];
         return false;
     }
+    bool IsAvailable()const{return status == AVAILABLE;}
+
+    int InitFromPacket(JCConnect *packet);
+    int Judge(const Cake &c);
+    int UpdateCakeToDB(const CakeReturn &cr, Database *db);
+
+    virtual int GetPlayerId()const{return judgerId;}
 private:
-    std::vector<JudgeInfo> queue;
+    //std::vector<JudgeInfo> queue;
     
     int judgerId;//each judger is assigned a unique id
 
-    SocketStream stream;//socket associated with this judger
-    time_t lastStartJudgeTime;//in case judger get down during judging
-
     Status status;//which status the judge is in
 
-    int pidJudging;//the problem id being judged
-
     bool supportedLan[LAN_NUMBER];//true:support false:not
+
+    CakeInfo cake;
 };
 
 class JudgerManager
 {
 public:
-    const static int MAX_JUDGER_NUMBER = 10;
+    const static int MAX_JUDGER_NUMBER = 20;
 
     static JudgerManager &GetInstance()
     {
@@ -98,12 +112,14 @@ public:
     void RemoveJudger(int jid);
     size_t GetJudgerNumber()const{return size;}
 
-    Judger *GetAvailableJudgerFor(Language lan);
+    Judger *GetAvailableJudgerFor(int lan);
     Judger *GetJudgerById(int jid);
 
     void PrepareFdset(fd_set *rset, int &maxfd);
     int ProcessInput(fd_set *rset);
     int ProcessOutput(fd_set *rset);
+
+    void Tick();
 private:
     JudgerManager();
     ~JudgerManager();
@@ -112,6 +128,7 @@ private:
 
     Judger *judger[MAX_JUDGER_NUMBER];
     size_t size;
+    size_t indexer;
 
     static int JudgerIndexer;//index judgers
 };

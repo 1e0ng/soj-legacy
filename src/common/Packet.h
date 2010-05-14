@@ -22,18 +22,25 @@
 
 namespace Network
 {
+    class PacketPlayer;
     class Packet
     {
     public:
+        enum PacketExecuteReturn_t
+        {
+            PER_PACKET_ERROR = -1,
+            PER_PACKET_CONTINUE,
+            PER_PACKET_BREAK
+        };
         virtual ~Packet(){}
 
         virtual int Read(SocketStream &stream) = 0;
         virtual int Write(SocketStream &stream) = 0;
         virtual size_t GetPacketSize()const = 0;
 
-        virtual int Execute() = 0;
+        virtual int Execute(PacketPlayer *player) = 0;
     private:
-        PacketType_t type;
+        int type;
     };
 
     class PacketFactory
@@ -48,17 +55,48 @@ namespace Network
     class PacketFactoryManager
     {
     public:
+        static PacketFactoryManager &GetInstance()
+        {
+            static PacketFactoryManager instance;
+            return instance;
+        }
+
+        PacketFactory *GetPacketFactory(int type);
+    private:
         PacketFactoryManager();
         ~PacketFactoryManager();
+        PacketFactoryManager(const PacketFactoryManager &);
+        PacketFactoryManager &operator=(const PacketFactoryManager &);
 
-        PacketFactory *GetPacketFactory(PacketType_t type);
-    private:
         inline void RegisterFactory(PacketFactory *pf, PacketType_t type)
         {
             factory[type] = pf;
         }
 
         PacketFactory *factory[MAX_PACKET_ID];
+    };
+
+    //all classes needing packet process should inherited from me
+    class PacketPlayer
+    {
+    public:
+        const static int MAX_PACKETS_PER_TICK = 5;
+
+        PacketPlayer(){}
+        virtual ~PacketPlayer(){stream.Close();}
+
+        SocketStream &GetSocketStream(){return stream;}
+
+        virtual int ProcessInput();
+        virtual int ProcessOutput();
+
+        int SendPacket(Packet *packet);
+        Packet *ReceivePacket();
+
+        virtual int GetPlayerId()const = 0;
+    protected:
+        SocketStream stream;
+    private:
     };
 }
 

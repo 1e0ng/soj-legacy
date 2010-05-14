@@ -20,6 +20,9 @@
 #include "Log.h"
 #include "Database.h"
 #include "Judger.h"
+#include "CakeManager.h"
+#include "../common/Packet.h"
+#include "../common/Packet/CJConnectReply.h"
 //#include "CakeManager.h"
 #include <iostream>
 #include <errno.h>
@@ -63,6 +66,8 @@ int Controller::Loop()
     
     while(true)
     {
+        //phase 1
+
         FD_ZERO(&rset);
         FD_SET(listener.GetSocketFd(), &rset);
         maxfd = listener.GetSocketFd();
@@ -75,8 +80,11 @@ int Controller::Loop()
         if(ret == -1)//select error
         {
             if(errno == EINTR)
-                continue;
-            else
+            {
+                Log("Select was interrupted.Continue looping.");
+                //continue;
+            }
+            else//usually this means programing error
             {
                 Log("Controller::Loop select error:%s", strerror(errno));
                 return -1;
@@ -84,16 +92,31 @@ int Controller::Loop()
         }
         else if(ret == 0)//timeout
         {
-            continue;
+            //continue;
         }
         else
         {
             if(FD_ISSET(listener.GetSocketFd(), &rset))//new judger
             {
-
+                //here we may be tricked
+                JudgerManager &jm = JudgerManager::GetInstance();
+                Judger *j = jm.NewJudger();
+                //for now, we just accept one new judger per loop
+                if(listener.Accept(j->GetSocketStream()) < 0)
+                {
+                    Log("Accept new judger failed.");
+                    jm.RemoveJudger(j);
+                    //retry
+                }
             }
             jm.ProcessInput(&rset);
         }
+
+        //phase 2
+        CakeManager::GetInstance().Tick(); //load new cake from db
+
+        //phase 3
+        JudgerManager::GetInstance().Tick();//dispatch loaded cakes to judgers
     }
 
     return 0;
@@ -101,5 +124,6 @@ int Controller::Loop()
 
 int Controller::CleanUp()
 {
+    listener.Close();
     return 0;
 }
