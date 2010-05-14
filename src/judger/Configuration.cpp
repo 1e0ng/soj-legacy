@@ -237,6 +237,19 @@ bool Configuration::InitFromFile()
             return false;
         }
         javaMemoryFactor = (long)val;
+
+        if(!ini.GetStringValue("Judger", "ServerIP", buf, sizeof(buf)))
+        {
+            cerr<<"Read Judger::ServerIP failed!"<<endl;
+            return false;
+        }
+        serverIp = buf;
+
+        if(!ini.GetIntValue("Judger", "ServerPort", serverPort))
+        {
+            cerr<<"Read Judger::ServerPort failed!"<<endl;
+            return false;
+        }
         return true;
     }
     else

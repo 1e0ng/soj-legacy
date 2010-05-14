@@ -132,6 +132,15 @@ public:
 	{
 		return javaMemoryFactor;
 	}
+
+    std::string GetServerIp()const
+    {
+        return serverIp;
+    }
+    int GetServerPort()const
+    {
+        return serverPort;
+    }
 private:
 	Configuration(){}
 	~Configuration(){}
@@ -172,6 +181,9 @@ private:
 	long nofileLimit;
 	long javaTimeFactor;
 	long javaMemoryFactor;
+
+    std::string serverIp;
+    int serverPort;
 };
 
 #endif

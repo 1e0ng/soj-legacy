@@ -1,24 +1,14 @@
 #ifndef JUDGER_H
 #define JUDGER_H
 
+#include "../common/OJDefine.h"
+#include "../common/SocketStream.h"
+#include "../common/Packet.h"
 #include <string>
-#include "connection.h"
 
-class Judger
+class Judger: public PacketPlayer
 {
 public:
-	enum JudgeResult
-	{
-		QUEUEING = 1,
-		JUDGING,
-		AC,
-		WA,
-		TLE,
-		MLE,
-		CE,
-		PE,
-		RE
-	};
 	const static int POLL_INTERVAL = 500;//in ms
 
 	static Judger &GetInstance()
@@ -31,12 +21,12 @@ public:
 	int Run();
 	bool bStopped;
 private:
-	Judger(){bStopped = false;}
+	Judger(){bStopped = false; judgerId = -1;}
 	~Judger(){}
 	Judger(const Judger &);
 	Judger &operator = (const Judger &);
 
-	Connection conn;
+    int judgerId;
 };
 
 #endif

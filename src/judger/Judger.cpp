@@ -23,6 +23,7 @@ int Judger::StartUp()
 		cerr<<"Can't initialize configuration."<<endl;
 		return -1;
 	}
+    Configuration &conf = Configuration::GetInstance();
 	if(_log.Initialize() != 0)
 	{
 		cerr<<"Log initialization failed."<<endl;
@@ -43,9 +44,9 @@ int Judger::StartUp()
 		cerr<<"FileChecker initialization failed."<<endl;
 		return -1;
 	}
-	if(conn.init() != 0)
+	if(stream.OpenClientSocket(conf.GetServerIp().c_str(), conf.GetServerPort()) != 0)
 	{
-		cerr<<"Database initialization failed."<<endl;
+		cerr<<"Network initialization failed."<<endl;
 		return -1;
 	}
 	return 0;
