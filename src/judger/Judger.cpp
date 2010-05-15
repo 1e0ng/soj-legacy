@@ -273,6 +273,7 @@ int Judger::SendPacket(Packet *packet)
 {
     assert(packet);
 
+    Log("Judger::SendPacket Sending packet...");
     int ret = packet->Write(stream);
     if(ret < 0)
     {
@@ -281,6 +282,7 @@ int Judger::SendPacket(Packet *packet)
     }
     else
     {
+        Log("Judger::SendPacket Sent successfully.");
         return 0;
     }
 }

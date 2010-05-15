@@ -58,7 +58,7 @@ int Judger::Judge(const Cake &c)
     packet.SetCake(c);
     if(SendPacket(&packet) < 0)
     {
-        Log("Judger::Judge SendPacket error. JudgerId = %d", judgerId);
+        Log("Judger::Judge SendPacket error. JudgerId = %d, SysError: %s", judgerId, strerror(errno));
         return -1;
     }
     return 0;
@@ -93,6 +93,7 @@ int Judger::SendPacket(Packet *packet)
 {
     assert(packet);
 
+    Log("Judger::SendPacket Sending packet...");
     int ret = packet->Write(stream);
     if(ret < 0)
     {
@@ -101,6 +102,7 @@ int Judger::SendPacket(Packet *packet)
     }
     else
     {
+        Log("Judger::SendPacket Sent successfully.");
         return 0;
     }
 }

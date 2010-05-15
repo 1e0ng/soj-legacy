@@ -17,6 +17,7 @@
  */
 #include "CakeManager.h"
 #include "Log.h"
+#include "../common/OJDefine.h"
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
@@ -73,7 +74,10 @@ int CakeManager::LoadCakes(Database *db)
     while((row = mysql_fetch_row(res)))
     {
         if(head >= MAX_CAKE_NUMBER)
+        {
+            Log("CakeManager::LoadCakes Cake pool is fool.Let me have a rest and wait for those lazy judgers.");
             break;
+        }
         flag = true;
 
         Cake &c = cake[ head++ ];
@@ -88,7 +92,7 @@ int CakeManager::LoadCakes(Database *db)
         Log("CakeManager::Loadcakes load cake with rid = %d successfully.", c.rid);
 
         char buf[256];
-        snprintf(buf, sizeof(buf), "update status set judgeStatus=2 where rid = %d", c.rid);
+        snprintf(buf, sizeof(buf), "update status set judgeStatus=%d where rid = %d", JR_JUDGING, c.rid);
         if(db->Query(buf, NULL) != 1)
         {
             Log("CakeManager::Loadcakes update cake with rid = %d to status JUDGING failed!", c.rid);
