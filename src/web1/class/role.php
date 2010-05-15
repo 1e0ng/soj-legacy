@@ -61,6 +61,4 @@ class RoleManager
 	}
 }
 
-echo RoleManager::getInstance()->getRole(2)->name;
-
 ?>

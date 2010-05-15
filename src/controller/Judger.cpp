@@ -48,6 +48,10 @@ Judger::~Judger()
 
 int Judger::Judge(const Cake &c)
 {
+    assert(IsAvailable());
+
+    status = BUSY;
+
     cake.CleanUp();
     cake.rid = c.rid;
     cake.uid = c.uid;
@@ -117,7 +121,10 @@ Packet *Judger::ReceivePacket()
         if(ret == 0)
         {
             //we encounter an EOF
+            //maybe this is not a good place to handle this...
             Log("Judger::ReceivePacket Client closed connection.Remove judger %d", judgerId);
+            if(status == BUSY)
+                CakeManager::GetInstance().RestoreCake(cake.rid, &Database::GetInstance());
             JudgerManager::GetInstance().RemoveJudger(this);
             status = INVALID;
         }
@@ -331,11 +338,15 @@ void JudgerManager::Tick()
     {
         Cake *c = cm.GetCakeToJudge();
         if(c == NULL)//no cakes
+        {
+            Log("JudgerManager::Tick No new cake to judge.");
             break;
+        }
 
         Judger *j = GetAvailableJudgerFor(c->language);
         if( j == NULL)
         {
+            Log("JudgerManager::Tick All judgers are busy judging so save for next loop to process.");
             cm.ReturnCake(c);
             break;
         }

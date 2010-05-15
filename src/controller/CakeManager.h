@@ -39,6 +39,11 @@ public:
     //no judger for current cake,so return it
     void ReturnCake(Cake *cake);
 
+    //sometime judge exited unexpectedly during judging
+    //so we need to restore it and leave it to some other judger
+    //here we make it back to status JR_QUEUEING
+    void RestoreCake(int rid, Database *db);
+
     void Tick();
 private:
     //called by Tick()

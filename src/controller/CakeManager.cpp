@@ -107,6 +107,24 @@ int CakeManager::LoadCakes(Database *db)
     return head;
 }
 
+void CakeManager::RestoreCake(int rid, Database *db)
+{
+    assert(rid >= 0);
+    assert(db);
+
+    Log("CakeManager::RestoreCake Restoring cake with rid = %d", rid);
+    char buf[128];
+    snprintf(buf, sizeof(buf), "update status set judgeStatus=%d where rid = %d", JR_QUEUEING, rid);
+    if(db->Query(buf) != 1)
+    {
+        Log("CakeManager::RestoreCake update db error.");
+    }
+    else
+    {
+        Log("CakeManager::RestoreCake Restore cake with rid = %d successfully", rid);
+    }
+}
+
 void CakeManager::Tick()
 {
     //so we just load new cakes when all cakes are sent out

@@ -84,6 +84,7 @@ int JCJudgeThisReturn::Execute(PacketPlayer *player)
         }
         Log("Judger %d judges cake %d complete. Result: %d", jid, rid, status);
         j->UpdateCakeToDB(cr, &Database::GetInstance());
+        j->SetStatus(Judger::AVAILABLE);
     }
     else
     {
