@@ -22,6 +22,7 @@
 #include "CakeManager.h"
 #include <assert.h>
 #include <stdio.h>
+#include <errno.h>
 
 int JudgerManager::JudgerIndexer = 1;
 
@@ -61,6 +62,86 @@ int Judger::Judge(const Cake &c)
         return -1;
     }
     return 0;
+}
+
+int Judger::ProcessInput()
+{
+    for(int i = 0; i < MAX_PACKETS_PER_TICK; i++)
+    {
+        Packet *packet = ReceivePacket();
+        if(packet)
+        {
+            packet->Execute(this);
+            delete packet;
+        }
+        else
+        {
+            if(status == INVALID)
+                break;
+        }
+    }
+
+    return 0;
+}
+
+int Judger::ProcessOutput()
+{
+    return 0;
+}
+
+int Judger::SendPacket(Packet *packet)
+{
+    assert(packet);
+
+    return packet->Write(stream) == packet->GetPacketSize()? 0: -1;
+}
+
+Packet *Judger::ReceivePacket()
+{
+    int ret, type;
+    Packet *packet = NULL;
+
+    if((ret = stream.PeekInt(type)) != sizeof(int) || type < 0 || type >= MAX_PACKET_ID)
+    {
+        if(ret == 0)
+        {
+            //we encounter an EOF
+            Log("Judger::ReceivePacket Client closed connection.Remove judger %d", judgerId);
+            JudgerManager::GetInstance().RemoveJudger(this);
+            status = INVALID;
+        }
+        else
+        {
+            Log("Judger::ReceivePacket %s", strerror(errno));
+            assert(false);
+        }
+    }
+    else
+    {
+        Log("Judger::ReceivePacket receiving packet (type = %d)", type);
+        packet = PacketFactoryManager::GetInstance().GetPacketFactory(type)->GetPacket();
+        assert(packet);
+        /*
+        char buf[1024];
+        if((ret = stream.Peek(buf, packet->GetPacketSize()) != packet->GetPacketSize()))
+        {
+            //maybe this is because data is still being received.
+            //
+            Log("Packet size is not as expected.Received: %d, expected: %d, judger: %d", ret, packet->GetPacketSize(), jid);
+            break;
+        }
+        else
+        {
+        */
+        if(packet->Read(stream))
+        {
+            Log("Judger::ReceivePacket Read error %s", strerror(errno));
+            delete packet;
+            packet = NULL;
+        }
+        Log("Judger::ReceivePacket Packet received successfully.");
+    }
+    return packet;
 }
 
 int Judger::UpdateCakeToDB(const CakeReturn &cr, Database *db)
@@ -241,6 +322,7 @@ void JudgerManager::Tick()
             break;
         }
 
+        Log("JudgerManager::Tick dispatch cake %d to judger %d", c->rid, j->GetJudgerId());
         j->Judge(*c);
 
         cm.ReleaseCake(c);

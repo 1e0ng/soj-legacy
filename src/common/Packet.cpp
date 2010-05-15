@@ -70,16 +70,6 @@ Network::PacketFactory *Network::PacketFactoryManager::GetPacketFactory(int type
 
 int Network::PacketPlayer::ProcessInput()
 {
-    for(int i = 0; i < MAX_PACKETS_PER_TICK; i++)
-    {
-        Packet *packet = ReceivePacket();
-        if(packet)
-        {
-            packet->Execute(this);
-            delete packet;
-        }
-    }
-
     return 0;
 }
 
@@ -90,45 +80,10 @@ int Network::PacketPlayer::ProcessOutput()
 
 int Network::PacketPlayer::SendPacket(Packet *packet)
 {
-    assert(packet);
-
-    return packet->Write(stream) == packet->GetPacketSize()? 0: -1;
+    return 0;
 }
 
 Network::Packet *Network::PacketPlayer::ReceivePacket()
 {
-    int ret, type;
-    Packet *packet = NULL;
-
-    if((ret = stream.PeekInt(type)) != sizeof(int) || type < 0 || type >= MAX_PACKET_ID)
-    {
-        if(ret == 0)
-        {
-            //we encounter an EOF
-        }
-        //can't continue
-    }
-    else
-    {
-        packet = PacketFactoryManager::GetInstance().GetPacketFactory(type)->GetPacket();
-        assert(packet);
-        /*
-        char buf[1024];
-        if((ret = stream.Peek(buf, packet->GetPacketSize()) != packet->GetPacketSize()))
-        {
-            //maybe this is because data is still being received.
-            //
-            Log("Packet size is not as expected.Received: %d, expected: %d, judger: %d", ret, packet->GetPacketSize(), jid);
-            break;
-        }
-        else
-        {
-        */
-        if(packet->Read(stream))
-        {
-            delete packet;
-            packet = NULL;
-        }
-    }
-    return packet;
+    return NULL;
 }

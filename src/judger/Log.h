@@ -16,7 +16,7 @@ public:
         CRITICAL        //something very bad happened and can't continue running
     };
 
-	Log(bool flag = false);
+	Log(bool flag = true);
 	~Log();
 	int Initialize();
 

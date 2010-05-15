@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-g -O2 -Wall -m32 -DNDEBUG -DTRACE_SYSCALL -D_CONTROLLER -pipe -fPIC \
+CFLAGS=-g -Wall -m32 -DNDEBUG -DTRACE_SYSCALL -D_CONTROLLER -pipe -fPIC \
 	   -fno-strict-aliasing   -DUNIV_LINUX -DUNIV_LINUX
 CXXFLAGS=$(CFLAGS)
 INCPATHS=-I/usr/include/mysql

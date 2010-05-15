@@ -20,6 +20,7 @@ namespace Network
         {
             return socketfd;
         }
+        void SetTimeout(long ms);
 #ifdef _CONTROLLER
         void SetClientAddr(const sockaddr_in &addr)
         {

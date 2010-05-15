@@ -26,6 +26,10 @@ public:
 	bool bStopped;
 
     int DoJudge(Cake &cake);//judge a cake
+
+    //interface
+    virtual Network::Packet *ReceivePacket();
+    virtual int SendPacket(Network::Packet *packet);
 private:
 	Judger(){bStopped = false; judgerId = -1;}
 	~Judger(){}

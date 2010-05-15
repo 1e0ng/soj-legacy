@@ -67,34 +67,6 @@ bool Configuration::InitFromFile()
         }
         logPathname = buf;
 
-        if(!ini.GetStringValue("Judger", "DBHost", buf, sizeof(buf)))
-        {
-            cerr<<"Read Judger::DBHost failed!"<<endl;
-            return false;
-        }
-        dbHost = buf;
-
-        if(!ini.GetStringValue("Judger", "DBUsername", buf, sizeof(buf)))
-        {
-            cerr<<"Read Judger::DBUsername failed!"<<endl;
-            return false;
-        }
-        dbUsername = buf;
-
-        if(!ini.GetStringValue("Judger", "DBPassword", buf, sizeof(buf)))
-        {
-            cerr<<"Read Judger::DBPassword failed!"<<endl;
-            return false;
-        }
-        dbPassword = buf;
-
-        if(!ini.GetStringValue("Judger", "DBDatabase", buf, sizeof(buf)))
-        {
-            cerr<<"Read Judger::DBDatabase failed!"<<endl;
-            return false;
-        }
-        dbDatabase = buf;
-
         if(!ini.GetStringValue("Judger", "CCompiler", buf, sizeof(buf)))
         {
             cerr<<"Read Judger::CCompiler failed!"<<endl;

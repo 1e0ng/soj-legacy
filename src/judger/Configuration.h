@@ -61,24 +61,6 @@ public:
         return javaRunner;
     }
 
-    //db related
-	std::string GetDbHost()const
-	{
-		return dbHost;
-	}
-	std::string GetDbUsername()const
-	{
-		return dbUsername;
-	}
-	std::string GetDbPassword()const
-	{
-		return dbPassword;
-	}
-	std::string GetDbDatabase()const
-	{
-		return dbDatabase;
-	}
-
     //runtime related
 	std::string GetSrcFilePath()const
 	{
@@ -152,11 +134,6 @@ private:
 	std::string rootPath;
 	std::string configPath;
 	std::string logPathname;
-
-	std::string dbHost;
-	std::string dbUsername;
-	std::string dbPassword;
-	std::string dbDatabase;
 
     std::string cCompiler;
     std::string cCompilerOpt;

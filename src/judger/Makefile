@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-g -O2 -Wall -m32 -DNDEBUG -DTRACE_SYSCALL -D_JUDGER
+CFLAGS=-g -Wall -m32 -DNDEBUG -DTRACE_SYSCALL -D_JUDGER
 CXXFLAGS=$(CFLAGS)
 SOURCES:=$(wildcard *.cpp) $(wildcard ../common/*.cpp) $(wildcard ../common/Packet/*.cpp)
 OBJS:=$(patsubst %.cpp, %.o, $(SOURCES))

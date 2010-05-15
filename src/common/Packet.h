@@ -93,8 +93,8 @@ namespace Network
         virtual int ProcessInput();
         virtual int ProcessOutput();
 
-        int SendPacket(Packet *packet);
-        Packet *ReceivePacket();
+        virtual int SendPacket(Packet *packet);
+        virtual Packet *ReceivePacket();
     protected:
         SocketStream stream;
     private:

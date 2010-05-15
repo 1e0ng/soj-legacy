@@ -17,6 +17,7 @@
 #include <assert.h>
 #include <stddef.h>
 #include <errno.h>
+#include <string.h>
 #include <sys/select.h>
 
 using namespace std;
@@ -50,6 +51,7 @@ int Judger::StartUp()
 		cerr<<"FileChecker initialization failed."<<endl;
 		return -1;
 	}
+    log(Log::INFO)<<"Connecting to server..."<<endlog;
 	if(stream.OpenClientSocket(conf.GetServerIp().c_str(), conf.GetServerPort()) != 0)
 	{
 		cerr<<"Network initialization failed."<<endl;
@@ -57,6 +59,7 @@ int Judger::StartUp()
 	}
     else
     {
+        log(Log::INFO)<<"Connected to server."<<endlog;
         JCConnect packet;
         SendPacket(&packet);
     }
@@ -201,7 +204,7 @@ int Judger::Run()
 	{
         struct timeval tv;
         tv.tv_sec = TIME_PER_TICK / 1000;
-        tv.tv_usec = TIME_PER_TICK % 1000;
+        tv.tv_usec = TIME_PER_TICK % 1000 * 1000;
 
         fd_set rset;
         FD_ZERO(&rset);
@@ -243,10 +246,12 @@ int Judger::Run()
                 else
                 {
                     packet->Execute(this);
+                    log(Log::INFO)<<"Initialization complete.My judger id is "<<judgerId<<endlog;
                 }
             }
             else
             {
+                log(Log::INFO)<<"A new packet received.PacketType="<<packet->GetPacketType()<<endlog;
                 packet->Execute(this);
             }
             delete packet;
@@ -258,4 +263,57 @@ int Judger::Run()
         //do something else
 	}
 	return 0;
+}
+
+int Judger::SendPacket(Packet *packet)
+{
+    assert(packet);
+
+    return packet->Write(stream) == packet->GetPacketSize()? 0: -1;
+}
+
+Packet *Judger::ReceivePacket()
+{
+    int ret, type;
+    Packet *packet = NULL;
+
+    if((ret = stream.PeekInt(type)) != sizeof(int) || type < 0 || type >= MAX_PACKET_ID)
+    {
+        if(ret == 0)
+        {
+            log(Log::INFO)<<"Server closed connection.Exiting..."<<endlog;
+            exit(0);
+        }
+        else
+        {
+            log(Log::ERROR)<<"Judger::ReceivePacket Error "<<strerror(errno)<<endlog;
+            assert(false);
+        }
+        //can't continue
+    }
+    else
+    {
+        log(Log::INFO)<<"Judger::ReceivePacket Receiving packet (type = "<<type<<")"<<endlog;
+        packet = PacketFactoryManager::GetInstance().GetPacketFactory(type)->GetPacket();
+        assert(packet);
+        /*
+        char buf[1024];
+        if((ret = stream.Peek(buf, packet->GetPacketSize()) != packet->GetPacketSize()))
+        {
+            //maybe this is because data is still being received.
+            //
+            Log("Packet size is not as expected.Received: %d, expected: %d, judger: %d", ret, packet->GetPacketSize(), jid);
+            break;
+        }
+        else
+        {
+        */
+        if(packet->Read(stream))
+        {
+            delete packet;
+            packet = NULL;
+        }
+        log(Log::INFO)<<"Judger::ReceivePacket Packet received successfully."<<endlog;
+    }
+    return packet;
 }

@@ -26,6 +26,8 @@
 //#include "CakeManager.h"
 #include <iostream>
 #include <errno.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 #include <string.h>
 
 using namespace std;
@@ -74,7 +76,7 @@ int Controller::Loop()
         jm.PrepareFdset(&rset, maxfd);
         
         tv.tv_sec = TIME_PER_TICK / 1000;
-        tv.tv_usec = TIME_PER_TICK % 1000;
+        tv.tv_usec = TIME_PER_TICK % 1000 * 1000;
 
         int ret = select(maxfd + 1, &rset, NULL, NULL, &tv);
         if(ret == -1)//select error
@@ -107,6 +109,11 @@ int Controller::Loop()
                     Log("Accept new judger failed.");
                     jm.RemoveJudger(j);
                     //retry
+                }
+                else
+                {
+                    const sockaddr_in &addr = j->GetSocketStream().GetClientAddr();
+                    Log("New judger comes.IP=%s Port=%d", inet_ntoa(addr.sin_addr), addr.sin_port);
                 }
             }
             jm.ProcessInput(&rset);

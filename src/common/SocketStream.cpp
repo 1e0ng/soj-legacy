@@ -3,7 +3,9 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
+#include <signal.h>
 #include <errno.h>
+#include <assert.h>
 #include <arpa/inet.h>
 
 int Network::SocketStream::OpenServerSocket(short port)
@@ -28,9 +30,12 @@ int Network::SocketStream::OpenServerSocket(short port)
     }
     listen(socketfd, 5);
     
+    SetTimeout(1000);
     bValid = true;
     return 0;
 }
+
+void alarm_handler(int){}
 
 int Network::SocketStream::OpenClientSocket(const char *ip, short port)
 {
@@ -41,6 +46,7 @@ int Network::SocketStream::OpenClientSocket(const char *ip, short port)
         perror("socket() failed");
         return -1;
     }
+
     sockaddr_in addr;
     memset(&addr, 0, sizeof(addr));
     addr.sin_family = AF_INET;
@@ -50,13 +56,27 @@ int Network::SocketStream::OpenClientSocket(const char *ip, short port)
         return -1;
     }
 
+    void (*old_handler)(int);
+
+    old_handler = signal(SIGALRM, alarm_handler);
+    assert(alarm(5) == 0);
+
     if(connect(socketfd, (struct sockaddr *)&addr, sizeof(addr)) < 0)
     {
         perror("connect failed");
         close(socketfd);
+        if(errno == EINTR)
+            errno = ETIMEDOUT;
+        alarm(0);
+        signal(SIGALRM, old_handler);
+
         return -1;
     }
 
+    alarm(0);
+    signal(SIGALRM, old_handler);
+
+    SetTimeout(1000);
     bValid = true;
     return 0;
 }
@@ -70,6 +90,15 @@ int Network::SocketStream::Close()
     memset(&clientAddr, 0, sizeof(clientAddr));
 #endif
     return 0;
+}
+
+void Network::SocketStream::SetTimeout(long ms)
+{
+    struct timeval tv;
+    tv.tv_sec = ms / 1000;
+    tv.tv_usec = ms % 1000 * 1000;
+    setsockopt(socketfd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
+    setsockopt(socketfd, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(tv));
 }
 
 Network::SocketStream::~SocketStream()
@@ -89,6 +118,7 @@ int Network::SocketStream::Accept(SocketStream &stream)
     {
         stream.Close();
 
+        stream.socketfd = clientfd;
         stream.bValid = true;
 #ifdef _CONTROLLER
         stream.SetClientAddr(addr);

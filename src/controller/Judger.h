@@ -83,6 +83,11 @@ public:
     int Judge(const Cake &c);
     int UpdateCakeToDB(const CakeReturn &cr, Database *db);
 
+    //interface
+    virtual int ProcessInput();
+    virtual int ProcessOutput();
+    virtual Packet *ReceivePacket();
+    virtual int SendPacket(Packet *packet);
 private:
     //std::vector<JudgeInfo> queue;
     

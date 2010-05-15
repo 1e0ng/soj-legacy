@@ -68,11 +68,14 @@ int CakeManager::LoadCakes(Database *db)
         return -1;
     }
     MYSQL_ROW row;
+    bool flag = false;
 
     while((row = mysql_fetch_row(res)))
     {
         if(head >= MAX_CAKE_NUMBER)
             break;
+        flag = true;
+
         Cake &c = cake[ head++ ];
 
         c.rid = atoi(row[0]);
@@ -88,8 +91,12 @@ int CakeManager::LoadCakes(Database *db)
         snprintf(buf, sizeof(buf), "update status set judgeStatus=2 where rid = %d", c.rid);
         if(db->Query(buf, NULL) != 1)
         {
-            Log("Cake::Loadcakes update cake with rid = %d to status JUDGING failed!", c.rid);
+            Log("CakeManager::Loadcakes update cake with rid = %d to status JUDGING failed!", c.rid);
         }
+    }
+    if(!flag)
+    {
+        Log("CakeManager::Loadcakes no cakes for present.");
     }
     mysql_free_result(res);
 
