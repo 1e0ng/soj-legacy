@@ -138,7 +138,7 @@ ssize_t Network::SocketStream::Write(const char *buf, size_t size)
 
     while(nLeft > 0)
     {
-        if((nWritten = write(socketfd, buf, nLeft)) <= 0);
+        if((nWritten = write(socketfd, buf, nLeft)) <= 0)
         {
             if(errno == EINTR)
                 nWritten = 0;

@@ -71,6 +71,7 @@ int Judger::ProcessInput()
         Packet *packet = ReceivePacket();
         if(packet)
         {
+            Log("Judger::ProcessInput Judger %d is process packet (type = %d)", judgerId, packet->GetPacketType());
             packet->Execute(this);
             delete packet;
         }
@@ -92,7 +93,16 @@ int Judger::SendPacket(Packet *packet)
 {
     assert(packet);
 
-    return packet->Write(stream) == packet->GetPacketSize()? 0: -1;
+    int ret = packet->Write(stream);
+    if(ret < 0)
+    {
+        Log("Judger::SendPacket Write packet error %s", strerror(errno));
+        return -1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 Packet *Judger::ReceivePacket()

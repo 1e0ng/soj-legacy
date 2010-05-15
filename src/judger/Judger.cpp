@@ -269,7 +269,16 @@ int Judger::SendPacket(Packet *packet)
 {
     assert(packet);
 
-    return packet->Write(stream) == packet->GetPacketSize()? 0: -1;
+    int ret = packet->Write(stream);
+    if(ret < 0)
+    {
+        log(Log::ERROR)<<"Judger::SendPacket Write packet error "<< strerror(errno) <<endlog;
+        return -1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 Packet *Judger::ReceivePacket()
