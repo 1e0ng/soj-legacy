@@ -1,16 +1,17 @@
 CC=g++
-CFLAGS=-g -O2 -Wall -m32 -D_DEBUG -DTRACE_SYSCALL -D_JUDGER  -I/usr/include/mysql -L/usr/lib/mysql -lmysqlclient_r
+CFLAGS=-g -O2 -Wall -m32 -DNDEBUG -DTRACE_SYSCALL -D_JUDGER
 CXXFLAGS=$(CFLAGS)
-SOURCES:=$(wildcard *.cpp) $(wildcard ../common/*.cpp)
+SOURCES:=$(wildcard *.cpp) $(wildcard ../common/*.cpp) $(wildcard ../common/Packet/*.cpp)
 OBJS:=$(patsubst %.cpp, %.o, $(SOURCES))
+BINPATH=../bin/
 #DEPS:=$(patsubst %.o, %.d, $(OBJS))
 
-all:soj
+all:judger
 
-soj:$(OBJS)
-	$(CC) $(CXXFLAGS) $(OBJS) -o soj
+judger:$(OBJS)
+	$(CC) $(CXXFLAGS) $(OBJS) -o $@ && mv $@ $(BINPATH)
 
 $(OBJS):$(SOURCES)
 
 clean:
-	rm -f *.o ../common/*.o soj
+	rm -f *.o ../common/*.o ../common/Packet/*.o $(BINPATH)judger

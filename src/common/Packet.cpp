@@ -50,7 +50,7 @@ Network::PacketFactoryManager::PacketFactoryManager()
     RegisterFactory(new JCConnectPacketFactory, JC_CONNECT_PACKET);
     RegisterFactory(new CJConnectReplyPacketFactory, CJ_CONNECT_REPLY_PACKET);
     RegisterFactory(new CJJudgeThisPacketFactory, CJ_JUDGE_THIS_PACKET);
-    RegisterFactory(new JCJudgeThisReturnPacketFactory, JC_JUDGE_THIS_RETURN);
+    RegisterFactory(new JCJudgeThisReturnPacketFactory, JC_JUDGE_THIS_RETURN_PACKET);
 }
 
 Network::PacketFactoryManager::~PacketFactoryManager()

@@ -19,25 +19,53 @@
 #include "../common/Packet/CJConnectReply.h"
 #include "../common/Packet/JCConnect.h"
 #include "../common/Packet/JCJudgeThisReturn.h"
+#include "Log.h"
+#include "Judger.h"
+#include <assert.h>
 
 using namespace Network;
 
-int CJJudgeThis::Execute()
+int CJJudgeThis::Execute(PacketPlayer *player)
 {
-    return 0;
+    assert(player);
+
+    Judger *j = dynamic_cast<Judger *>(player);
+    if(j)
+    {
+        j->DoJudge(cake); 
+    }
+    else
+    {
+        log(Log::ERROR)<<"player can't be cast Judger!"<<endlog;
+        assert(false);
+    }
+
+    return PER_PACKET_CONTINUE;
 }
 
-int CJConnectReply::Execute()
+int CJConnectReply::Execute(PacketPlayer *player)
 {
-    return 0;
+    assert(player);
+
+    Judger *j = dynamic_cast<Judger *>(player);
+    if(j)
+    {
+        j->SetJudgerId(judgerId);
+    }
+    else
+    {
+        log(Log::ERROR)<<"player can't be cast to Judger!"<<endlog;
+        assert(false);
+    }
+    return PER_PACKET_CONTINUE;
 }
 
-int JCConnect::Execute()
+int JCConnect::Execute(PacketPlayer *player)
 {
-    return 0;
+    return PER_PACKET_CONTINUE;
 }
 
-int JCJudgeThisReturn::Execute()
+int JCJudgeThisReturn::Execute(PacketPlayer *player)
 {
-    return 0;
+    return PER_PACKET_CONTINUE;
 }

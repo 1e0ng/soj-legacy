@@ -9,6 +9,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <assert.h>
 
 using namespace std;
 
@@ -47,7 +48,22 @@ ostringstream &Log::GetLogStream(int level)
 	if(bLogging)
 		EndOneLog();
 	BeginOneLog();
-	return logStream;
+    switch(level)
+    {
+    case DEBUG:
+        logStream<<"[DEBUG] ";break;
+    case INFO:
+        logStream<<"[INFO] "; break;
+    case WARNING:
+        logStream<<"[WARNING] ";break;
+    case CRITICAL:
+        logStream<<"[CRITICAL] ";break;
+    case ERROR:
+        logStream<<"[CRITICAL] ";break;
+    default:
+        assert(false);
+    }
+    return logStream;
 }
 
 void Log::BeginOneLog()

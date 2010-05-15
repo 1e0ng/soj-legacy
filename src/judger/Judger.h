@@ -4,22 +4,28 @@
 #include "../common/OJDefine.h"
 #include "../common/SocketStream.h"
 #include "../common/Packet.h"
+#include "../common/Cake.h"
 #include <string>
 
-class Judger: public PacketPlayer
+#define TIME_PER_TICK 100
+
+class Judger: public Network::PacketPlayer
 {
 public:
-	const static int POLL_INTERVAL = 500;//in ms
-
 	static Judger &GetInstance()
 	{
 		static Judger instance;
 		return instance;
 	}
+    void SetJudgerId(int id){judgerId = id;}
+    int GetJudgerId()const{return judgerId;}
+
 	int StartUp();
 	void CleanUp();
 	int Run();
 	bool bStopped;
+
+    int DoJudge(Cake &cake);//judge a cake
 private:
 	Judger(){bStopped = false; judgerId = -1;}
 	~Judger(){}

@@ -7,7 +7,14 @@
 class Log
 {
 public:
-	enum{DEBUG, INFO, WARNING, ERROR, CRITICAL};
+	enum
+    {
+        DEBUG,          //debug information
+        INFO,           //normal runtime information
+        WARNING,        //something unexpected happened but not critical
+        ERROR,          //programing error
+        CRITICAL        //something very bad happened and can't continue running
+    };
 
 	Log(bool flag = false);
 	~Log();

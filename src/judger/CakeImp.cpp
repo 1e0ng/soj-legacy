@@ -23,7 +23,7 @@
 #include <assert.h>
 #include <cstdlib>
 
-int Cake::storeSourceCode(const char *path)
+int Cake::storeSourceCode(const char *path)const
 {
     assert(path);
 
@@ -39,7 +39,6 @@ int Cake::storeSourceCode(const char *path)
     else{
         sprintf(buf,"%s/%d.%s",path,rid,GetLanExt(language).c_str());
     }
-	}
 	FILE *f = fopen(buf, "w+");
 	if(!f)
 		return -1;

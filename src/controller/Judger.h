@@ -83,7 +83,6 @@ public:
     int Judge(const Cake &c);
     int UpdateCakeToDB(const CakeReturn &cr, Database *db);
 
-    virtual int GetPlayerId()const{return judgerId;}
 private:
     //std::vector<JudgeInfo> queue;
     

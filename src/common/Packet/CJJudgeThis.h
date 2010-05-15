@@ -26,6 +26,8 @@ namespace Network
     class CJJudgeThis:public Packet
     {
     public:
+        CJJudgeThis(){SetPacketType(CJ_JUDGE_THIS_PACKET);}
+
         virtual int Read(SocketStream &stream);
         virtual int Write(SocketStream &stream);
         virtual size_t GetPacketSize()const

@@ -29,6 +29,8 @@ namespace Network
         {
             ACCEPTED, JUDGER_FULL, REFUSED
         };
+        CJConnectReply(){SetPacketType(CJ_CONNECT_REPLY_PACKET);}
+
         virtual int Read(SocketStream &stream);
         virtual int Write(SocketStream &stream);
         virtual size_t GetPacketSize()const

@@ -26,6 +26,8 @@ namespace Network
     class JCJudgeThisReturn: public Packet
     {
     public:
+        JCJudgeThisReturn(){SetPacketType(JC_JUDGE_THIS_RETURN_PACKET);}
+
         virtual int Read(SocketStream &stream);
         virtual int Write(SocketStream &stream);
         virtual size_t GetPacketSize()const 

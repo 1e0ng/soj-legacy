@@ -39,6 +39,9 @@ namespace Network
         virtual size_t GetPacketSize()const = 0;
 
         virtual int Execute(PacketPlayer *player) = 0;
+
+        int GetPacketType()const{return type;}
+        void SetPacketType(int ty){type = ty;}
     private:
         int type;
     };
@@ -92,8 +95,6 @@ namespace Network
 
         int SendPacket(Packet *packet);
         Packet *ReceivePacket();
-
-        virtual int GetPlayerId()const = 0;
     protected:
         SocketStream stream;
     private:

@@ -45,7 +45,7 @@ public:
 
 #ifdef _JUDGER
     //judger need to store the source code
-    int storeSourceCode(const char *path);
+    int storeSourceCode(const char *path)const;
 #endif
 /*
 #ifdef _CONTROLLER

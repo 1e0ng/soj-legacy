@@ -3,6 +3,7 @@
 #include "Configuration.h"
 #include <signal.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include <iostream>
 #include <string>
