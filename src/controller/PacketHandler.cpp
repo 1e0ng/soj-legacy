@@ -42,6 +42,8 @@ int JCConnect::Execute(PacketPlayer *player)
     Judger *j = dynamic_cast<Judger *>(player);
     if(j)
     {
+        Log("JCConnect::Execute Init judger %d", j->GetJudgerId());
+
         j->InitFromPacket(this);
         CJConnectReply packet;
         packet.SetReply(CJConnectReply::ACCEPTED);
@@ -80,6 +82,7 @@ int JCJudgeThisReturn::Execute(PacketPlayer *player)
             Log("JCJudgeThisReturn::Execute status invalid. value = %d", status);
             return PER_PACKET_CONTINUE;
         }
+        Log("Judger %d judges cake %d complete. Result: %d", jid, rid, status);
         j->UpdateCakeToDB(cr, &Database::GetInstance());
     }
     else

@@ -226,6 +226,10 @@ int Judger::Run()
                     assert(false);
                 }
             }
+            else//timeout
+            {
+                log(Log::INFO)<<"Idle loop..."<<endlog;
+            }
             continue;
         }
         if(FD_ISSET(fd, &rset))

@@ -32,6 +32,7 @@ int CJJudgeThis::Execute(PacketPlayer *player)
     Judger *j = dynamic_cast<Judger *>(player);
     if(j)
     {
+        log(Log::INFO)<<"CJJudgeThis::Execute judging cake with rid = "<<cake.rid<<endlog;
         j->DoJudge(cake); 
     }
     else
@@ -50,6 +51,7 @@ int CJConnectReply::Execute(PacketPlayer *player)
     Judger *j = dynamic_cast<Judger *>(player);
     if(j)
     {
+        log(Log::INFO)<<"CJConnectReply::Execute Get Judger id = "<<judgerId<<endlog;
         j->SetJudgerId(judgerId);
     }
     else
