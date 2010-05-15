@@ -71,9 +71,9 @@ int JCJudgeThisReturn::Execute(PacketPlayer *player)
             return PER_PACKET_CONTINUE;
         }
         int rid = GetRid();
-        if(rid != j->GetPidJudging())
+        if(rid != j->GetRidJudging())
         {
-            Log("JCJudgeThisReturn::Execute run ids are not the same.Expected ID = %d, ID from packet = %d", j->GetPidJudging(), rid);
+            Log("JCJudgeThisReturn::Execute run ids are not the same.Expected ID = %d, ID from packet = %d", j->GetRidJudging(), rid);
             return PER_PACKET_CONTINUE;
         }
         int status = GetResult();

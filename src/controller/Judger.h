@@ -68,8 +68,8 @@ public:
     Status GetStatus()const{return status;}
     void SetStatus(Status s){status = s;}
 
-    int GetPidJudging()const{return cake.pid;} 
-    void SetPidJudging(int pid){cake.pid = pid;}
+    int GetRidJudging()const{return cake.rid;} 
+    void SetRidJudging(int rid){cake.rid = rid;}
 
     bool IsLanguageSupported(int lan)const
     {
