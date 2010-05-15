@@ -313,7 +313,10 @@ Packet *Judger::ReceivePacket()
             delete packet;
             packet = NULL;
         }
-        log(Log::INFO)<<"Judger::ReceivePacket Packet received successfully."<<endlog;
+        else
+        {
+            log(Log::INFO)<<"Judger::ReceivePacket Packet received successfully."<<endlog;
+        }
     }
     return packet;
 }

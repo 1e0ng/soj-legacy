@@ -24,12 +24,11 @@ int JCConnect::Read(SocketStream &stream)
     if(Packet::Read(stream) < 0)
         return -1;
 
-    if(stream.ReadInt(supportedLan[0]) < 0)
-        return -1;
-    if(stream.ReadInt(supportedLan[1]) < 0)
-        return -1;
-    if(stream.ReadInt(supportedLan[2]) < 0)
-        return -1;
+    for(int i = 0; i < LAN_NUMBER; i++)
+    {
+        if(stream.ReadInt(supportedLan[i]) < 0)
+            return -1;
+    }
     return 0;
 }
 
@@ -38,11 +37,10 @@ int JCConnect::Write(SocketStream &stream)
     if(Packet::Write(stream) < 0)
         return -1;
 
-    if(stream.WriteInt(supportedLan[0]) < 0)
-        return -1;
-    if(stream.WriteInt(supportedLan[1]) < 0)
-        return -1;
-    if(stream.WriteInt(supportedLan[2]) < 0)
-        return -1;
+    for(int i = 0; i < LAN_NUMBER; i++)
+    {
+        if(stream.WriteInt(supportedLan[i]) < 0)
+            return -1;
+    }
     return 0;
 }

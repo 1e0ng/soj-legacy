@@ -76,8 +76,7 @@ int Judger::ProcessInput()
         }
         else
         {
-            if(status == INVALID)
-                break;
+            break;
         }
     }
 
@@ -110,6 +109,10 @@ Packet *Judger::ReceivePacket()
             JudgerManager::GetInstance().RemoveJudger(this);
             status = INVALID;
         }
+        else if(ret == -1 && (errno == EAGAIN || errno == EWOULDBLOCK))
+        {
+            return NULL;
+        }
         else
         {
             Log("Judger::ReceivePacket %s", strerror(errno));
@@ -139,7 +142,10 @@ Packet *Judger::ReceivePacket()
             delete packet;
             packet = NULL;
         }
-        Log("Judger::ReceivePacket Packet received successfully.");
+        else
+        {
+            Log("Judger::ReceivePacket Packet received successfully.");
+        }
     }
     return packet;
 }
