@@ -19,10 +19,10 @@ int RunnerFactory::Initialize()
 	ri.inputPath = conf.GetProgramInputPath();
 	ri.outputPath = conf.GetProgramOutputPath();
 	ri.bTrace = conf.IsSandboxEnabled();
-	ri.runLimits.fsize = conf.GetFsizeLimit();
+	ri.runLimits.fsize = conf.GetFsizeLimit() * 1024 * 1024;
 	ri.runLimits.nofile = conf.GetNofileLimit();
 	ri.runLimits.nproc = conf.GetNprocLimit();
-	ri.runLimits.stack = conf.GetStackLimit();
+	ri.runLimits.stack = conf.GetStackLimit() * 1024 * 1024;
 	return 0;
 }
 
