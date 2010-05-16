@@ -336,6 +336,7 @@ void JudgerManager::Tick()
         {
             Log("JudgerManager::Tick All judgers are busy judging so save for next loop to process.");
             cm.ReturnCake(c);
+            break;
         }
 
         Log("JudgerManager::Tick dispatch cake %d to judger %d", c->rid, j->GetJudgerId());
