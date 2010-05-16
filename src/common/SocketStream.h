@@ -1,5 +1,6 @@
 #ifndef SOCKET_STREAM_H
 #define SOCKET_STREAM_H
+#include "Exception.h"
 #include <netinet/in.h>
 #include <sys/socket.h>
 
@@ -49,6 +50,54 @@ namespace Network
 #ifdef _CONTROLLER
         struct sockaddr_in clientAddr;//used by server
 #endif
+    };
+
+    class NetworkException: public OJException
+    {
+    public:
+        NetworkException()throw(){}
+        virtual ~NetworkException()throw(){}
+
+        virtual const char *What()const throw()
+        {
+            return "network exception";
+        }
+    };
+
+    class ConnectionResetException: public NetworkException
+    {
+    public:
+        ConnectionResetException()throw(){}
+        virtual ~ConnectionResetException()throw(){}
+
+        virtual const char *What()const throw()
+        {
+            return "connection reset";
+        }
+    };
+
+    class ConnectionEOFException: public NetworkException
+    {
+    public:
+        ConnectionEOFException()throw(){}
+        virtual ~ConnectionEOFException()throw(){}
+
+        virtual const char *What()const throw()
+        {
+            return "connection closed";
+        }
+    };
+
+    class ConnectionTimedoutException: public NetworkException
+    {
+    public:
+        ConnectionTimedoutException()throw(){}
+        virtual ~ConnectionTimedoutException()throw(){}
+
+        virtual const char *What()const throw()
+        {
+            return "connction timedout";
+        }
     };
 
 }

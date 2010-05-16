@@ -21,26 +21,22 @@ using namespace Network;
 
 int JCConnect::Read(SocketStream &stream)
 {
-    if(Packet::Read(stream) < 0)
-        return -1;
+    Packet::Read(stream);
 
     for(int i = 0; i < LAN_NUMBER; i++)
     {
-        if(stream.ReadInt(supportedLan[i]) < 0)
-            return -1;
+        stream.ReadInt(supportedLan[i]);
     }
     return 0;
 }
 
 int JCConnect::Write(SocketStream &stream)
 {
-    if(Packet::Write(stream) < 0)
-        return -1;
+    Packet::Write(stream);
 
     for(int i = 0; i < LAN_NUMBER; i++)
     {
-        if(stream.WriteInt(supportedLan[i]) < 0)
-            return -1;
+        stream.WriteInt(supportedLan[i]);
     }
     return 0;
 }

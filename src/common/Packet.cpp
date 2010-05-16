@@ -25,16 +25,14 @@
 
 int Network::Packet::Read(SocketStream &stream)
 {
-    if(stream.ReadInt(type) != sizeof(type))
-        return -1;
-    if(type >= MAX_PACKET_ID || type < 0)
-        return -1;
+    stream.ReadInt(type);
     return 0;
 }
 
 int Network::Packet::Write(SocketStream &stream)
 {
-    return stream.WriteInt(type);
+    stream.WriteInt(type);
+    return 0;
 }
 
 size_t Network::Packet::GetPacketSize()const

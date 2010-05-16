@@ -61,13 +61,22 @@ int Judger::StartUp()
     {
         log(Log::INFO)<<"Connected to server.Begin init from server..."<<endlog;
         JCConnect packet;
-        SendPacket(&packet);
+        try
+        {
+            SendPacket(&packet);
+        }
+        catch(NetworkException &e)
+        {
+            log(Log::CRITICAL)<<"Network error:"<<e.What()<<" Exit."<<endlog;
+            return -1;
+        }
     }
 	return 0;
 }
 
 void Judger::CleanUp()
 {
+    stream.Close();
 }
 
 int Judger::DoJudge(Cake &ck)
@@ -197,94 +206,100 @@ int Judger::DoJudge(Cake &ck)
 
 int Judger::Run()
 {
+    while(!bStopped)
+    {
+        try
+        {
+            Loop();
+        }
+        catch(NetworkException &e)
+        {
+            log(Log::CRITICAL)<<"Network error:"<<e.What()<<". Exit."<<endlog;
+            break;
+        }
+    }
+    return 0;
+}
+
+void Judger::Loop()
+{
     int fd = stream.GetSocketFd();
 
-	while(!bStopped)	
-	{
-        struct timeval tv;
-        tv.tv_sec = TIME_PER_TICK / 1000;
-        tv.tv_usec = TIME_PER_TICK % 1000 * 1000;
+    struct timeval tv;
+    tv.tv_sec = TIME_PER_TICK / 1000;
+    tv.tv_usec = TIME_PER_TICK % 1000 * 1000;
 
-        fd_set rset;
-        FD_ZERO(&rset);
-        FD_SET(fd, &rset);
+    fd_set rset;
+    FD_ZERO(&rset);
+    FD_SET(fd, &rset);
 
-        int ret;
-        if( (ret = select(fd + 1, &rset, NULL, NULL, &tv)) <= 0)
+    int ret;
+    if( (ret = select(fd + 1, &rset, NULL, NULL, &tv)) <= 0)
+    {
+        if(ret == -1)
         {
-            if(ret == -1)
+            if(errno == EINTR)
             {
-                if(errno == EINTR)
-                {
-                    log(Log::INFO)<<"Select was interrupt by some signal."<<endlog;
-                }
-                else
-                {
-                    //usually this meaning programing error
-                    log(Log::ERROR)<<"Select error!"<<endlog;
-                    assert(false);
-                }
-            }
-            else//timeout
-            {
-                log(Log::INFO)<<"Idle loop..."<<endlog;
-            }
-            continue;
-        }
-        if(FD_ISSET(fd, &rset))
-        {
-            Packet *packet = ReceivePacket();
-            if(!packet)
-            {
-                log(Log::INFO)<<"Something comes but is not a complete packet!.Exiting..."<<endlog;
-                //here continue running is meaningless
-                break;
-            }
-            if(judgerId == -1)//expecting cjconnectreply
-            {
-                if(packet->GetPacketType() != CJ_CONNECT_REPLY_PACKET)
-                {
-                    log(Log::CRITICAL)<<"Expect CJ_CONNECT_REPLY_PACKET but comes "<<packet->GetPacketType()<<endlog;
-                    assert(false);
-                }
-                else
-                {
-                    packet->Execute(this);
-                    log(Log::INFO)<<"Initialization complete.My judger id is "<<judgerId<<endlog;
-                }
+                log(Log::INFO)<<"Select was interrupt by some signal."<<endlog;
             }
             else
             {
-                log(Log::INFO)<<"A new packet received.PacketType="<<packet->GetPacketType()<<endlog;
-                packet->Execute(this);
+                //usually this meaning programing error
+                log(Log::ERROR)<<"Select error!"<<endlog;
+                assert(false);
             }
-            delete packet;
+        }
+        else//timeout
+        {
+            log(Log::INFO)<<"Idle loop..."<<endlog;
+        }
+        return;
+    }
+    if(FD_ISSET(fd, &rset))
+    {
+        Packet *packet = ReceivePacket();
+        if(!packet)
+        {
+            //now won't reach here
+            log(Log::INFO)<<"Something comes but is not a complete packet!.Exiting..."<<endlog;
+            //here continue running is meaningless
+            return;
+        }
+        if(judgerId == -1)//expecting cjconnectreply
+        {
+            if(packet->GetPacketType() != CJ_CONNECT_REPLY_PACKET)
+            {
+                log(Log::CRITICAL)<<"Expect CJ_CONNECT_REPLY_PACKET but comes "<<packet->GetPacketType()<<endlog;
+                assert(false);
+            }
+            else
+            {
+                packet->Execute(this);
+                log(Log::INFO)<<"Initialization complete.My judger id is "<<judgerId<<endlog;
+            }
         }
         else
         {
-            log(Log::WARNING)<<"Some socket was ready but is not expected!"<<endlog;
-            assert(false);
+            log(Log::INFO)<<"A new packet received.PacketType="<<packet->GetPacketType()<<endlog;
+            packet->Execute(this);
         }
-        //do something else
-	}
-	return 0;
+        delete packet;
+    }
+    else
+    {
+        log(Log::WARNING)<<"Some socket was ready but is not expected!"<<endlog;
+        assert(false);
+    }
+    //do something else
 }
 
 int Judger::SendPacket(Packet *packet)
 {
     assert(packet);
 
-    int ret = packet->Write(stream);
-    if(ret < 0)
-    {
-        log(Log::ERROR)<<"Judger::SendPacket Write packet error "<< strerror(errno) <<endlog;
-        return -1;
-    }
-    else
-    {
-        log(Log::INFO)<<"Judger::SendPacket Sent packet (type = "<<packet->GetPacketType()<<") successfully."<<endlog;
-        return 0;
-    }
+    packet->Write(stream);
+    log(Log::INFO)<<"Judger::SendPacket Sent packet (type = "<<packet->GetPacketType()<<") successfully."<<endlog;
+    return 0;
 }
 
 Packet *Judger::ReceivePacket()
@@ -310,28 +325,9 @@ Packet *Judger::ReceivePacket()
     {
         packet = PacketFactoryManager::GetInstance().GetPacketFactory(type)->GetPacket();
         assert(packet);
-        /*
-        char buf[1024];
-        if((ret = stream.Peek(buf, packet->GetPacketSize()) != packet->GetPacketSize()))
-        {
-            //maybe this is because data is still being received.
-            //
-            Log("Packet size is not as expected.Received: %d, expected: %d, judger: %d", ret, packet->GetPacketSize(), jid);
-            break;
-        }
-        else
-        {
-        */
-        if(packet->Read(stream))
-        {
-            log(Log::ERROR)<<"Judger::ReceivePacket Receive packet error(type = "<<type<<")"<<endlog;
-            delete packet;
-            packet = NULL;
-        }
-        else
-        {
-            log(Log::INFO)<<"Judger::ReceivePacket Packet (type = "<<type<<") received successfully."<<endlog;
-        }
+
+        packet->Read(stream);
+        log(Log::INFO)<<"Judger::ReceivePacket Packet (type = "<<type<<") received successfully."<<endlog;
     }
     return packet;
 }

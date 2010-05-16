@@ -69,7 +69,6 @@ int CakeManager::LoadCakes(Database *db)
         return -1;
     }
     MYSQL_ROW row;
-    bool flag = false;
 
     while((row = mysql_fetch_row(res)))
     {
@@ -78,7 +77,6 @@ int CakeManager::LoadCakes(Database *db)
             Log("CakeManager::LoadCakes Cake pool is fool.Let me have a rest and wait for those lazy judgers.");
             break;
         }
-        flag = true;
 
         Cake &c = cake[ head++ ];
 
@@ -97,10 +95,6 @@ int CakeManager::LoadCakes(Database *db)
         {
             Log("CakeManager::Loadcakes update cake with rid = %d to status JUDGING failed!", c.rid);
         }
-    }
-    if(!flag)
-    {
-        Log("CakeManager::Loadcakes no cakes for present.");
     }
     mysql_free_result(res);
 

@@ -142,8 +142,14 @@ ssize_t Network::SocketStream::Write(const char *buf, size_t size)
         {
             if(errno == EINTR)
                 nWritten = 0;
+            else if(errno == ECONNRESET)
+            {
+                throw ConnectionResetException();
+            }
             else
-                return -1;//error occured
+            {
+                assert(false);
+            }
         }
         nLeft -= nWritten;
         buf += nWritten;
@@ -167,12 +173,22 @@ ssize_t Network::SocketStream::Read(char *buf, size_t size)
         {
             if(errno == EINTR)
                 nRead = 0;
+            else if(errno == ETIMEDOUT)
+            {
+                throw ConnectionTimedoutException();
+            }
+            else if(errno == ECONNRESET)
+            {
+                throw ConnectionResetException();
+            }
             else
-                return -1;
+            {
+                assert(false);
+            }
         }
         else if(nRead == 0)
         {
-            break;//EOF
+            throw ConnectionEOFException();
         }
         nLeft -= nRead;
         buf += nRead;

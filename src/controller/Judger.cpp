@@ -60,28 +60,35 @@ int Judger::Judge(const Cake &c)
 
     CJJudgeThis packet;
     packet.SetCake(c);
-    if(SendPacket(&packet) < 0)
-    {
-        Log("Judger::Judge SendPacket error. JudgerId = %d, SysError: %s", judgerId, strerror(errno));
-        return -1;
-    }
+    SendPacket(&packet);
     return 0;
 }
 
 int Judger::ProcessInput()
 {
-    for(int i = 0; i < MAX_PACKETS_PER_TICK; i++)
+    Packet *packet = NULL;
+    try
     {
-        Packet *packet = ReceivePacket();
+        for(int i = 0; i < MAX_PACKETS_PER_TICK; i++)
+        {
+            packet = ReceivePacket();
+            if(packet)
+            {
+                packet->Execute(this);
+                delete packet;
+                packet = NULL;
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+    catch(...)
+    {
         if(packet)
-        {
-            packet->Execute(this);
             delete packet;
-        }
-        else
-        {
-            break;
-        }
+        throw;
     }
 
     return 0;
@@ -96,17 +103,10 @@ int Judger::SendPacket(Packet *packet)
 {
     assert(packet);
 
-    int ret = packet->Write(stream);
-    if(ret < 0)
-    {
-        Log("Judger::SendPacket Write packet error %s", strerror(errno));
-        return -1;
-    }
-    else
-    {
-        Log("Judger::SendPacket Sent packet (type = %d)successfully.", packet->GetPacketType());
-        return 0;
-    }
+    packet->Write(stream);
+    Log("Judger::SendPacket Sent packet (type = %d)successfully.", packet->GetPacketType());
+
+    return 0;
 }
 
 Packet *Judger::ReceivePacket()
@@ -118,13 +118,7 @@ Packet *Judger::ReceivePacket()
     {
         if(ret == 0)
         {
-            //we encounter an EOF
-            //maybe this is not a good place to handle this...
-            Log("Judger::ReceivePacket Client closed connection.Remove judger %d", judgerId);
-            if(status == BUSY)
-                CakeManager::GetInstance().RestoreCake(cake.rid, &Database::GetInstance());
-            JudgerManager::GetInstance().RemoveJudger(this);
-            status = INVALID;
+            throw ConnectionEOFException();
         }
         else if(ret == -1 && (errno == EAGAIN || errno == EWOULDBLOCK))
         {
@@ -132,7 +126,8 @@ Packet *Judger::ReceivePacket()
         }
         else
         {
-            Log("Judger::ReceivePacket %s", strerror(errno));
+            Log("Judger::ReceivePacket %s.Type = %d", strerror(errno), type);
+            throw NetworkException();
             assert(false);
         }
     }
@@ -140,28 +135,9 @@ Packet *Judger::ReceivePacket()
     {
         packet = PacketFactoryManager::GetInstance().GetPacketFactory(type)->GetPacket();
         assert(packet);
-        /*
-        char buf[1024];
-        if((ret = stream.Peek(buf, packet->GetPacketSize()) != packet->GetPacketSize()))
-        {
-            //maybe this is because data is still being received.
-            //
-            Log("Packet size is not as expected.Received: %d, expected: %d, judger: %d", ret, packet->GetPacketSize(), jid);
-            break;
-        }
-        else
-        {
-        */
-        if(packet->Read(stream))
-        {
-            Log("Judger::ReceivePacket Read error %s", strerror(errno));
-            delete packet;
-            packet = NULL;
-        }
-        else
-        {
-            Log("Judger::ReceivePacket Packet (type = %d) received successfully.", type);
-        }
+        packet->Read(stream);
+
+        Log("Judger::ReceivePacket Packet (type = %d) received successfully.", type);
     }
     return packet;
 }
@@ -324,7 +300,20 @@ int JudgerManager::ProcessInput(fd_set *rset)
     {
         if(FD_ISSET(judger[i]->GetSocketStream().GetSocketFd(), rset))
         {
-            judger[i]->ProcessInput();
+            try
+            {
+                judger[i]->ProcessInput();
+            }
+            catch(NetworkException &e)
+            {
+                Log("JudgerManager::ProcessInput Network error:%s ,judger id = %d. Remove it now.", 
+                        e.What(), judger[i]->GetJudgerId());
+                if(judger[i]->GetStatus() == Judger::BUSY)
+                    CakeManager::GetInstance().RestoreCake(judger[i]->GetRidJudging(), &Database::GetInstance());
+                RemoveJudger(judger[i]);
+                //Remove judger will cause size minus 1
+                --i;
+            }
         }
     }
     return 0;
@@ -347,11 +336,22 @@ void JudgerManager::Tick()
         {
             Log("JudgerManager::Tick All judgers are busy judging so save for next loop to process.");
             cm.ReturnCake(c);
-            break;
         }
 
         Log("JudgerManager::Tick dispatch cake %d to judger %d", c->rid, j->GetJudgerId());
-        j->Judge(*c);
+
+        try
+        {
+            j->Judge(*c);
+        }
+        catch(NetworkException &e)
+        {
+            Log("JudgerManager::Tick Network error:%s ,judger id = %d. Remove it now.", 
+                    e.What(), judger[i]->GetJudgerId());
+            if(judger[i]->GetStatus() == Judger::BUSY)
+                CakeManager::GetInstance().RestoreCake(judger[i]->GetRidJudging(), &Database::GetInstance());
+            RemoveJudger(judger[i]);
+        }
 
         cm.ReleaseCake(c);
     }

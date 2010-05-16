@@ -21,24 +21,16 @@ using namespace Network;
 
 int CJConnectReply::Read(SocketStream &stream)
 {
-    if(Packet::Read(stream) < 0)
-        return -1;
-
-    if(stream.ReadInt(reply) < 0)
-        return -1;
-    if(stream.ReadInt(judgerId) < 0)
-        return -1;
+    Packet::Read(stream); 
+    stream.ReadInt(reply);
+    stream.ReadInt(judgerId);
     return 0;
 }
 
 int CJConnectReply::Write(SocketStream &stream)
 {
-    if(Packet::Write(stream) < 0)
-        return -1;
-
-    if(stream.WriteInt(reply) < 0)
-        return -1;
-    if(stream.WriteInt(judgerId) < 0)
-        return -1;
+    Packet::Write(stream);
+    stream.WriteInt(reply);
+    stream.WriteInt(judgerId);
     return 0;
 }

@@ -31,6 +31,8 @@ public:
     virtual Network::Packet *ReceivePacket();
     virtual int SendPacket(Network::Packet *packet);
 private:
+    void Loop();
+
 	Judger(){bStopped = false; judgerId = -1;}
 	~Judger(){}
 	Judger(const Judger &);

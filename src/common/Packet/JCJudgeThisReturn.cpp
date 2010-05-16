@@ -20,19 +20,14 @@ using namespace Network;
 
 int JCJudgeThisReturn::Read(SocketStream &stream)
 {
-    if(Packet::Read(stream) < 0)
-        return -1;
-    if(stream.Read((char *)&cr, sizeof(cr)) < 0)
-        return -1;
+    Packet::Read(stream);
+    stream.Read((char *)&cr, sizeof(cr));
     return 0;
 }
 
 int JCJudgeThisReturn::Write(SocketStream &stream)
 {
-    if(Packet::Write(stream) < 0)
-        return -1;
-
-    if(stream.Write((const char *)&cr, sizeof(cr)) < 0)
-        return -1;
+    Packet::Write(stream);
+    stream.Write((const char *)&cr, sizeof(cr));
     return 0;
 }
