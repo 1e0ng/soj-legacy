@@ -327,7 +327,7 @@ void JudgerManager::Tick()
         Cake *c = cm.GetCakeToJudge();
         if(c == NULL)//no cakes
         {
-            Log("JudgerManager::Tick No new cake to judge.");
+            //Log("JudgerManager::Tick No new cake to judge.");
             break;
         }
 
@@ -344,6 +344,7 @@ void JudgerManager::Tick()
         try
         {
             j->Judge(*c);
+            cm.ReleaseCake(c);
         }
         catch(NetworkException &e)
         {
@@ -354,7 +355,6 @@ void JudgerManager::Tick()
             RemoveJudger(judger[i]);
         }
 
-        cm.ReleaseCake(c);
     }
     //here add some other stuff such as check how much time each judger has spent and to determine whether they are alive
 }
@@ -363,7 +363,7 @@ void JudgerManager::OnClose()
 {
     CakeManager &cm = CakeManager::GetInstance();
     Database *db = &Database::GetInstance();
-    for(size_t i = size - 1; i >= 0; i--)
+    for(size_t i = 0; i < size ; i++)
     {
         if(judger[i]->GetStatus() == Judger::BUSY)
         {

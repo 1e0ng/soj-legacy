@@ -35,27 +35,39 @@ using namespace Network;
 
 int Controller::Init()
 {
+    cerr<<"Initing config file..."<<endl;
     if(Configuration::GetInstance().Init("./controller.conf"))
     {
         cerr<<"Configuration init failed!"<<endl;
         return -1;
     }
+    cerr<<"Init done."<<endl;
+
+    cerr<<"Initing log..."<<endl;
     Configuration &conf = Configuration::GetInstance();
     if(_log.Init(conf.logFile))
     {
         cerr<<"Log init failed!"<<endl;
         return -1;
     }
+    cerr<<"Init done."<<endl;
+
+    cerr<<"Initing database..."<<endl;
     if(Database::GetInstance().Init(conf.dbHost, conf.dbUsername, conf.dbPassword, conf.dbSchema))
     {
         cerr<<"Database init failed!"<<endl;
         return -1;
     }
+    cerr<<"Init done."<<endl;
+
+    cerr<<"Initing network..."<<endl;
     if(listener.OpenServerSocket(conf.listenPort))
     {
         cerr<<"Network init failed!"<<endl;
         return -1;
     }
+    cerr<<"Init done."<<endl;
+
     return 0;
 }
 
