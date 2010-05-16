@@ -18,4 +18,8 @@
 #ifndef UTIL_H
 #define UTIL_H
 
+typedef void (*SigHandler)(int);
+
+SigHandler Signal(int signum, SigHandler handler);
+
 #endif

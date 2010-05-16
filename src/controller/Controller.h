@@ -34,9 +34,11 @@ public:
     int Init();
     int Loop();
     int CleanUp();
+
+    bool bStopped;
 private:
     //for singleton
-    Controller(){}
+    Controller(){bStopped = false;}
     ~Controller(){}
     Controller(const Controller &);
     Controller &operator=(const Controller &);

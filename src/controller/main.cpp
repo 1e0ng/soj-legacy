@@ -1,4 +1,5 @@
 #include "Controller.h"
+#include "Util.h"
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
@@ -145,9 +146,16 @@ void ParseArgs(int argc, char *argv[])
     }
 }
 
+void SigKillHandler(int)
+{
+    Controller::GetInstance().bStopped = true;
+}
+
 int main(int argc, char *argv[])
 {
     ParseArgs(argc, argv);
+    Signal(SIGKILL, SigKillHandler);
+
     if(bSingleton)
     {
         if(AlreadyRunning() > 0)

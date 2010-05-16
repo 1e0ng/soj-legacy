@@ -66,7 +66,7 @@ int Controller::Loop()
     JudgerManager &jm = JudgerManager::GetInstance();
     struct timeval tv;
     
-    while(true)
+    while(!bStopped)
     {
         //phase 1
 
