@@ -133,5 +133,10 @@ int Controller::Loop()
 int Controller::CleanUp()
 {
     listener.Close();
+    //handler cakes which are not completely judged
+    JudgerManager::GetInstance().OnClose();
+    CakeManager::GetInstance().OnClose();
+
+    Database::GetInstance().Close();
     return 0;
 }

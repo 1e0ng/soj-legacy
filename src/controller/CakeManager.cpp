@@ -124,3 +124,12 @@ void CakeManager::Tick()
     if((tail == head) )
         LoadCakes(&Database::GetInstance());
 }
+
+void CakeManager::OnClose()
+{
+    Database *db = &Database::GetInstance();
+    for(size_t i = tail; i < head; i++)
+    {
+        RestoreCake(cake[i].rid, db);
+    }
+}

@@ -124,6 +124,8 @@ public:
     int ProcessOutput(fd_set *rset);
 
     void Tick();
+
+    void OnClose();//restore not completely judged cake to db
 private:
     void DoRemoveJudger(int index);
 

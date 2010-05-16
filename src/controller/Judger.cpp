@@ -358,3 +358,16 @@ void JudgerManager::Tick()
     }
     //here add some other stuff such as check how much time each judger has spent and to determine whether they are alive
 }
+
+void JudgerManager::OnClose()
+{
+    CakeManager &cm = CakeManager::GetInstance();
+    Database *db = &Database::GetInstance();
+    for(size_t i = size - 1; i >= 0; i--)
+    {
+        if(judger[i]->GetStatus() == Judger::BUSY)
+        {
+             cm.RestoreCake(judger[i]->GetRidJudging(), db);
+        }
+    }
+}

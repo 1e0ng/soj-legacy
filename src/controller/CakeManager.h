@@ -45,6 +45,8 @@ public:
     void RestoreCake(int rid, Database *db);
 
     void Tick();
+
+    void OnClose();
 private:
     //called by Tick()
     int LoadCakes(Database *db);
