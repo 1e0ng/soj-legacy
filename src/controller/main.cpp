@@ -146,7 +146,7 @@ void ParseArgs(int argc, char *argv[])
     }
 }
 
-void SigKillHandler(int)
+void SigIntHandler(int)
 {
     Controller::GetInstance().bStopped = true;
 }
@@ -154,7 +154,7 @@ void SigKillHandler(int)
 int main(int argc, char *argv[])
 {
     ParseArgs(argc, argv);
-    Signal(SIGKILL, SigKillHandler);
+    Signal(SIGINT, SigIntHandler);
 
     if(bSingleton)
     {
