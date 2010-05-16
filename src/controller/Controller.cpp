@@ -106,7 +106,7 @@ int Controller::Loop()
         }
         else if(ret == 0)//timeout
         {
-            Log("Controller::Loop No new packet arrives.");
+            //Log("Controller::Loop No new packet arrives.");
             //continue;
         }
         else
