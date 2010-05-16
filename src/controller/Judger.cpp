@@ -75,7 +75,6 @@ int Judger::ProcessInput()
         Packet *packet = ReceivePacket();
         if(packet)
         {
-            Log("Judger::ProcessInput Judger %d is process packet (type = %d)", judgerId, packet->GetPacketType());
             packet->Execute(this);
             delete packet;
         }
@@ -97,7 +96,6 @@ int Judger::SendPacket(Packet *packet)
 {
     assert(packet);
 
-    Log("Judger::SendPacket Sending packet...");
     int ret = packet->Write(stream);
     if(ret < 0)
     {
@@ -106,7 +104,7 @@ int Judger::SendPacket(Packet *packet)
     }
     else
     {
-        Log("Judger::SendPacket Sent successfully.");
+        Log("Judger::SendPacket Sent packet (type = %d)successfully.", packet->GetPacketType());
         return 0;
     }
 }
@@ -140,7 +138,6 @@ Packet *Judger::ReceivePacket()
     }
     else
     {
-        Log("Judger::ReceivePacket receiving packet (type = %d)", type);
         packet = PacketFactoryManager::GetInstance().GetPacketFactory(type)->GetPacket();
         assert(packet);
         /*
@@ -163,7 +160,7 @@ Packet *Judger::ReceivePacket()
         }
         else
         {
-            Log("Judger::ReceivePacket Packet received successfully.");
+            Log("Judger::ReceivePacket Packet (type = %d) received successfully.", type);
         }
     }
     return packet;
@@ -211,6 +208,7 @@ int Judger::UpdateCakeToDB(const CakeReturn &cr, Database *db)
 			return -1;
 		}
 	}   
+    Log("Judger::UpdateCakeToDB update status with rid = %d successfully.", cake.rid);
     return 0;
 }
 
@@ -262,11 +260,7 @@ void JudgerManager::RemoveJudger(int jid)
     {
         if(judger[i]->GetJudgerId() == jid)
         {
-            delete judger[i];
-            if(size >= 2)
-                judger[i] = judger[size - 1];
-            judger[size - 1] = NULL;
-            size--;
+            DoRemoveJudger(i);
             break;
         }
     }
@@ -280,14 +274,19 @@ void JudgerManager::RemoveJudger(Judger *j)
     {
         if(judger[i] == j)
         {
-            delete judger[i];
-            if(size >= 2)
-                judger[i] = judger[size - 1];
-            judger[size - 1] = NULL;
-            size--;
+            DoRemoveJudger(i);
             break;
         }
     }
+}
+
+void JudgerManager::DoRemoveJudger(int index)
+{
+    delete judger[index];
+    if(size >= 2)
+        judger[index] = judger[size - 1];
+    judger[size - 1] = NULL;
+    size--;
 }
 
 Judger *JudgerManager::GetAvailableJudgerFor(int lan)

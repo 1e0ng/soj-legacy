@@ -125,6 +125,8 @@ public:
 
     void Tick();
 private:
+    void DoRemoveJudger(int index);
+
     JudgerManager();
     ~JudgerManager();
     JudgerManager &operator=(const JudgerManager &);

@@ -50,6 +50,7 @@ namespace Network
         struct sockaddr_in clientAddr;//used by server
 #endif
     };
+
 }
 
 #endif

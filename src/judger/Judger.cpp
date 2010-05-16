@@ -59,7 +59,7 @@ int Judger::StartUp()
 	}
     else
     {
-        log(Log::INFO)<<"Connected to server."<<endlog;
+        log(Log::INFO)<<"Connected to server.Begin init from server..."<<endlog;
         JCConnect packet;
         SendPacket(&packet);
     }
@@ -191,7 +191,6 @@ int Judger::DoJudge(Cake &ck)
         log(Log::WARNING)<<"unknown check result."<<endlog;
     }
     SendPacket(&packet);
-    log(Log::INFO)<<"Finish processing run "<<ck.rid<<endlog;
 
     return 0;
 }
@@ -237,8 +236,9 @@ int Judger::Run()
             Packet *packet = ReceivePacket();
             if(!packet)
             {
-                log(Log::INFO)<<"Something comes but is not a complete packet!"<<endlog;
-                continue;
+                log(Log::INFO)<<"Something comes but is not a complete packet!.Exiting..."<<endlog;
+                //here continue running is meaningless
+                break;
             }
             if(judgerId == -1)//expecting cjconnectreply
             {
@@ -263,6 +263,7 @@ int Judger::Run()
         else
         {
             log(Log::WARNING)<<"Some socket was ready but is not expected!"<<endlog;
+            assert(false);
         }
         //do something else
 	}
@@ -273,7 +274,6 @@ int Judger::SendPacket(Packet *packet)
 {
     assert(packet);
 
-    Log("Judger::SendPacket Sending packet...");
     int ret = packet->Write(stream);
     if(ret < 0)
     {
@@ -282,7 +282,7 @@ int Judger::SendPacket(Packet *packet)
     }
     else
     {
-        Log("Judger::SendPacket Sent successfully.");
+        log(Log::INFO)<<"Judger::SendPacket Sent packet (type = "<<packet->GetPacketType()<<") successfully."<<endlog;
         return 0;
     }
 }
@@ -308,7 +308,6 @@ Packet *Judger::ReceivePacket()
     }
     else
     {
-        log(Log::INFO)<<"Judger::ReceivePacket Receiving packet (type = "<<type<<")"<<endlog;
         packet = PacketFactoryManager::GetInstance().GetPacketFactory(type)->GetPacket();
         assert(packet);
         /*
@@ -325,12 +324,13 @@ Packet *Judger::ReceivePacket()
         */
         if(packet->Read(stream))
         {
+            log(Log::ERROR)<<"Judger::ReceivePacket Receive packet error(type = "<<type<<")"<<endlog;
             delete packet;
             packet = NULL;
         }
         else
         {
-            log(Log::INFO)<<"Judger::ReceivePacket Packet received successfully."<<endlog;
+            log(Log::INFO)<<"Judger::ReceivePacket Packet (type = "<<type<<") received successfully."<<endlog;
         }
     }
     return packet;

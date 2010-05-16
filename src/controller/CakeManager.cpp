@@ -112,12 +112,11 @@ void CakeManager::RestoreCake(int rid, Database *db)
     assert(rid >= 0);
     assert(db);
 
-    Log("CakeManager::RestoreCake Restoring cake with rid = %d", rid);
     char buf[128];
     snprintf(buf, sizeof(buf), "update status set judgeStatus=%d where rid = %d", JR_QUEUEING, rid);
-    if(db->Query(buf) != 1)
+    if(db->Query(buf, NULL) != 1)
     {
-        Log("CakeManager::RestoreCake update db error.");
+        Log("CakeManager::RestoreCake Update db error(rid = %d)", rid);
     }
     else
     {
