@@ -162,7 +162,7 @@ int Judger::UpdateCakeToDB(const CakeReturn &cr, Database *db)
 	else
     {
 		snprintf(tmp, sizeof(tmp), "update status set judgeStatus=%d, rtime=null,rmemory=null where rid=%d", cr.result, cake.rid);
-		if(db->Query(tmp, NULL))
+		if(db->Query(tmp, NULL) != 1)
         {
             Log("Judger::UpdateCakeToDB can't update status where rid = %d", cake.rid);
 			return -1;
