@@ -120,7 +120,7 @@ int Judger::DoJudge(Cake &ck)
     long timeLimit = ck.timeLimit/*in ms */, memoryLimit = ck.memoryLimit * 1024/* in bytes */;
     if(lan == "java")
     {
-        timeLimit *= Configuration::GetInstance().GetJavaTimeFactor();//Up the limit if Java is used.
+        timeLimit *= Configuration::GetInstance().GetJavaTimeFactor();//Loose the limit if Java is used.
         memoryLimit *= Configuration::GetInstance().GetJavaMemoryFactor();
     }
     runner->SetTimeLimit(timeLimit);
@@ -265,7 +265,7 @@ void Judger::Loop()
             //here continue running is meaningless
             return;
         }
-        if(judgerId == -1)//expecting cjconnectreply
+        if(judgerId == -1)//expecting cjconnect reply
         {
             if(packet->GetPacketType() != CJ_CONNECT_REPLY_PACKET)
             {

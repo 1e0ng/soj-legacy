@@ -206,17 +206,19 @@ bool NativeRunner::SetupChild(int pid, int rid, const string &lang)
 		log(Log::WARNING)<<"NativeRunner: Failed to dup stdin"<<endlog;
 		return false;
 	}
-	dup2(fd_output, STDOUT_FILENO);
+	ret = dup2(fd_output, STDOUT_FILENO);
 	if(ret < 0)
 	{
 		log(Log::WARNING)<<"NativeRunner: Failed to dup stdout"<<endlog;
 		return false;
 	}
+	ret = dup2(fd_err, STDERR_FILENO);
 	if(ret < 0)
 	{
 		log(Log::WARNING)<<"NativeRunner: Failed to dup stderr"<<endlog;
 		return false;
 	}
+
 	if(runInfo.runLimits.time)
 	{
 		if(SetRLimit(RLIMIT_CPU, runInfo.runLimits.time/1000) < 0)
@@ -228,26 +230,26 @@ bool NativeRunner::SetupChild(int pid, int rid, const string &lang)
 
 	if(runInfo.runLimits.memory)
 	{
-		//log(Log::INFO)<<"memory limit: "<<runInfo.runLimits.memory<<endlog;
+		log(Log::INFO)<<"memory limit: "<<runInfo.runLimits.memory<<endlog;
 		if(SetRLimit(RLIMIT_DATA, runInfo.runLimits.memory) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set data limit to "<<runInfo.runLimits.memory<<"."<<endlog;
 			return false;
 		}
 	}
-	
+/*	
 	if(runInfo.runLimits.vm)
 	{
-		//log(Log::INFO)<<"AS limit: "<<runInfo.runLimits.vm<<endlog;
+		log(Log::INFO)<<"AS limit: "<<runInfo.runLimits.vm<<endlog;
 		if(SetRLimit(RLIMIT_AS, runInfo.runLimits.vm) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set as limit to "<<runInfo.runLimits.vm<<"."<<endlog;
 			return false;
 		}
 	}
-	if(runInfo.runLimits.fsize)
+*/	if(runInfo.runLimits.fsize)
 	{
-		//log(Log::INFO)<<"fsize limit: "<<runInfo.runLimits.fsize<<endlog;
+		log(Log::INFO)<<"fsize limit: "<<runInfo.runLimits.fsize<<endlog;
 		if(SetRLimit(RLIMIT_FSIZE, runInfo.runLimits.fsize) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set file size limit to "<<runInfo.runLimits.fsize<<"."<<endlog;
@@ -257,7 +259,7 @@ bool NativeRunner::SetupChild(int pid, int rid, const string &lang)
 
 	if(runInfo.runLimits.stack)
 	{
-		//log(Log::INFO)<<"stack limit: "<<runInfo.runLimits.stack<<endlog;
+		log(Log::INFO)<<"stack limit: "<<runInfo.runLimits.stack<<endlog;
 		if(SetRLimit(RLIMIT_STACK, runInfo.runLimits.stack) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set stack limit to "<<runInfo.runLimits.stack<<"."<<endlog;
@@ -294,7 +296,7 @@ bool NativeRunner::SetupChild(int pid, int rid, const string &lang)
 	
 	if(runInfo.bTrace&&lang!="java")
 	{
-		//log(Log::INFO)<<"bTrace=true"<<endlog;	
+		//log(Log::INFO)<<"bTrace=true"<<endlog;
 		if(ptrace(PTRACE_TRACEME, 0, 0, 0) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to trace child."<<endlog;
@@ -304,7 +306,7 @@ bool NativeRunner::SetupChild(int pid, int rid, const string &lang)
 	if(lang=="java"){
 		sprintf(tmp,"%s/%d/",runInfo.filePath.c_str(),rid);
 		//log(Log::INFO)<<tmp<<endlog;
-		ret= execlp("java","java","-cp",tmp,"Main",NULL);
+		ret= execlp("java","java","-cp",tmp,"Loader","-Xmx256m",NULL);
 	}
 	else{//C or C++
 		sprintf(tmp, "%s/%d", runInfo.filePath.c_str(), rid);

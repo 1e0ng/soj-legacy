@@ -35,8 +35,16 @@ bool JavaCompiler::Compile(int id)const{
 		return false;
 	}
 	sprintf(cmd,"%s %s -d %s/%d %s/%d/Main.java >/dev/null 2>&1",cc.c_str(),options.c_str(),destPath.c_str(),id,srcPath.c_str(),id);
-	//log(Log::INFO)<<"The system command:"<<cmd<<endlog;
-	return system(cmd)==0;
+	if(system(cmd)!=0){
+		log(Log::ERROR)<<"Compiler Main.java failed."<<endlog;
+		return false;
+	}
+	sprintf(cmd,"%s %s -d %s/%d Loader.java >/dev/null 2>&1",cc.c_str(),options.c_str(),destPath.c_str(),id);
+	if(system(cmd)!=0){
+		log(Log::ERROR)<<"Compiler Loader.java failed."<<endlog;
+		return false;
+	}
+	return true;
 }
 
 CompilerFactory::CompilerFactory()
