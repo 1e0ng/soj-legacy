@@ -230,26 +230,28 @@ bool NativeRunner::SetupChild(int pid, int rid, const string &lang)
 
 	if(runInfo.runLimits.memory)
 	{
-		log(Log::INFO)<<"memory limit: "<<runInfo.runLimits.memory<<endlog;
+		//log(Log::INFO)<<"memory limit: "<<runInfo.runLimits.memory<<endlog;
 		if(SetRLimit(RLIMIT_DATA, runInfo.runLimits.memory) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set data limit to "<<runInfo.runLimits.memory<<"."<<endlog;
 			return false;
 		}
 	}
-/*	
+	
 	if(runInfo.runLimits.vm)
 	{
-		log(Log::INFO)<<"AS limit: "<<runInfo.runLimits.vm<<endlog;
-		if(SetRLimit(RLIMIT_AS, runInfo.runLimits.vm) < 0)
+		//log(Log::INFO)<<"AS limit: "<<runInfo.runLimits.vm<<endlog;
+		int as=runInfo.runLimits.vm;
+		if(lang=="java")as+=128*1024*1024;
+		if(SetRLimit(RLIMIT_AS, as) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set as limit to "<<runInfo.runLimits.vm<<"."<<endlog;
 			return false;
 		}
 	}
-*/	if(runInfo.runLimits.fsize)
+	if(runInfo.runLimits.fsize)
 	{
-		log(Log::INFO)<<"fsize limit: "<<runInfo.runLimits.fsize<<endlog;
+		//log(Log::INFO)<<"fsize limit: "<<runInfo.runLimits.fsize<<endlog;
 		if(SetRLimit(RLIMIT_FSIZE, runInfo.runLimits.fsize) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set file size limit to "<<runInfo.runLimits.fsize<<"."<<endlog;
@@ -259,7 +261,7 @@ bool NativeRunner::SetupChild(int pid, int rid, const string &lang)
 
 	if(runInfo.runLimits.stack)
 	{
-		log(Log::INFO)<<"stack limit: "<<runInfo.runLimits.stack<<endlog;
+		//log(Log::INFO)<<"stack limit: "<<runInfo.runLimits.stack<<endlog;
 		if(SetRLimit(RLIMIT_STACK, runInfo.runLimits.stack) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set stack limit to "<<runInfo.runLimits.stack<<"."<<endlog;
