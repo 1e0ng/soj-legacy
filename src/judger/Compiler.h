@@ -7,7 +7,7 @@
 class Compiler
 {
 public:
-    enum CompilerType{COMPILER_GCC, COMPILER_GPP, COMPILER_JAVA};
+    enum CompilerType{COMPILER_GCC, COMPILER_GPP, COMPILER_JAVA, COMPILER_PASCAL};
 
 	virtual ~Compiler(){}
 
@@ -86,7 +86,16 @@ public:
     }
 	virtual bool Compile(int id)const;
 };
-
+class PascalCompiler : public Compiler{
+public:
+	std::string GetName()const{
+		return cc;
+	}
+	CompilerType GetCompilerType()const{
+		return COMPILER_PASCAL;
+	}
+	bool Compile(int id)const;
+};
 
 
 class CompilerFactory

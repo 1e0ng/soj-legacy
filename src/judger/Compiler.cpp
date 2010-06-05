@@ -26,6 +26,12 @@ bool GPPCompiler::Compile(int id)const
 	//log(Log::INFO)<<"The system command:"<<cmd<<endlog;
 	return system(cmd) == 0;
 }
+bool PascalCompiler::Compile(int id)const{
+	char cmd[512]={0};
+	sprintf(cmd,"%s %s/%d.pas -o%s/%d >/dev/null 2>&1",
+		cc.c_str(),srcPath.c_str(),id,destPath.c_str(),id);
+	return system(cmd)==0;
+}
 bool JavaCompiler::Compile(int id)const{
 	char cmd[512]={0};
 	sprintf(cmd,"mkdir -p %s/%d >/dev/null 2>&1",destPath.c_str(),id);
@@ -108,6 +114,21 @@ int CompilerFactory::Initialize()
         log(Log::INFO)<<"Java compiler "<<conf.GetCppCompiler()<<" failed to load."<<endlog;
     }
 
+    sprintf(cmd, "which %s >/dev/null 2>&1", conf.GetPascalCompiler().c_str());
+    if( system(cmd) == 0)
+    {
+        compilers[Compiler::COMPILER_PASCAL] = new PascalCompiler;
+        compilers[Compiler::COMPILER_PASCAL]->SetCC(conf.GetPascalCompiler());
+        //compilers[Compiler::COMPILER_PASCAL]->SetOptions(conf.GetCppCompilerOpt());
+
+        flag = true;
+        log(Log::INFO)<<"Pascal compiler "<<conf.GetPascalCompiler()<<" loaded successfully."<<endlog;
+    }
+    else
+    {
+        log(Log::INFO)<<"C++ compiler "<<conf.GetPascalCompiler()<<" failed to load."<<endlog;
+    }
+
     if(!flag)
         return -1;//no compiler exists. so continueing running is meaningless
 
@@ -140,6 +161,8 @@ Compiler *CompilerFactory::GetCompiler(const string &lan)
 		return compilers[Compiler::COMPILER_GPP];
 	else if(lan == "java")
 		return compilers[Compiler::COMPILER_JAVA];
+	else if(lan == "pascal")
+		return compilers[Compiler::COMPILER_PASCAL];
 	else
 		return NULL;
 }

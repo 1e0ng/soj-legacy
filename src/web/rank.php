@@ -28,7 +28,7 @@ echo $page_string;
 <?php
 $top--;
 $sql = "select uid, nickname, accepted, submitted from user
-	order by accepted desc, submitted desc limit $top, $pagesize";
+	order by accepted desc, submitted asc limit $top, $pagesize";
 $top++;
 if($result = $conn->query($sql))
 {

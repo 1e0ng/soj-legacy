@@ -60,6 +60,10 @@ public:
     {
         return javaRunner;
     }
+    std::string GetPascalCompiler()const
+    {
+        return pascalCompiler;
+    }
 
     //runtime related
 	std::string GetSrcFilePath()const
@@ -142,6 +146,7 @@ private:
     std::string javaCompiler;
     std::string javaCompilerOpt;
     std::string javaRunner;
+    std::string pascalCompiler;
 
 	std::string srcFilePath;
 	std::string destFilePath;

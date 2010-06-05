@@ -6,7 +6,8 @@ else
 $LANGUAGE[] = "All";
 $LANGUAGE[] = "C++";
 $LANGUAGE[] = "C";
-$LANGUAGE[] = "JAVA";
+$LANGUAGE[] = "Java";
+$LANGUAGE[] = "Pascal";
 
 $JUDGE_STATUS[] = "All";
 $JUDGE_STATUS[] = "Queueing";

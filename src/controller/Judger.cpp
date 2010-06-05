@@ -211,7 +211,7 @@ int Judger::InitFromPacket(JCConnect *packet)
     assert(packet);
 
     //temporary
-    for(int i = 0; i < 3; i++)
+    for(int i = 0; i < 4; i++)
         supportedLan[i] = true;
     status = AVAILABLE;
     return 0;

@@ -24,90 +24,6 @@ bool SetRLimit(int resource, rlim_t limit)
 	return setrlimit(resource, &rl) != -1;
 }
 
-//the two functions below are copied from zoj with slight changes
-//
-//returns the time consumed by process pid in ms
-/*
-int ReadTimeConsumption(pid_t pid) {
-
-
-    char buffer[64];
-    sprintf(buffer, "/proc/%d/stat", pid);
-    FILE* fp = fopen(buffer, "r");
-    if (fp == NULL) {
-        return -1;
-    }
-    int utime, stime;
-    while (fgetc(fp) != ')');
-    fgetc(fp);
-    if (fscanf(fp, "%*c %*d %*d %*d %*d %*d %*u %*u %*u %*u %*u %d %d", &utime, &stime) < 2) {
-        fclose(fp);
-        return -1;
-    }
-    fclose(fp);
-    static int clktck = 0;
-    if (clktck == 0) {
-        clktck = sysconf(_SC_CLK_TCK);
-    }
-    return int((utime + stime + 0.0) / clktck * 1000);
-
-}
-
-int ReadMemoryConsumption(pid_t pid) {
-
-    char buffer[64];
-    sprintf(buffer, "/proc/%d/status", pid);
-    FILE* fp = fopen(buffer, "r");
-    if (fp == NULL) {
-        return -1;
-    }
-    int vmPeak = 0, vmSize = 0, vmExe = 0, vmLib = 0, vmStack = 0;
-    while (fgets(buffer, 32, fp)) {
-        if (!strncmp(buffer, "VmPeak:", 7)) {
-            sscanf(buffer + 7, "%d", &vmPeak);
-        } else if (!strncmp(buffer, "VmSize:", 7)) {
-            sscanf(buffer + 7, "%d", &vmSize);
-        } else if (!strncmp(buffer, "VmExe:", 6)) {
-            sscanf(buffer + 6, "%d", &vmExe);
-        } else if (!strncmp(buffer, "VmLib:", 6)) {
-            sscanf(buffer + 6, "%d", &vmLib);
-        } else if (!strncmp(buffer, "VmStk:", 6)) {
-            sscanf(buffer + 6, "%d", &vmStack);
-        }
-    }
-    fclose(fp);
-    if (vmPeak) {
-        vmSize = vmPeak;
-    }
-    return vmSize - vmExe - vmLib - vmStack;
-
-}
-
-bool GetCurrentRunUsage(pid_t pid, RunUsage &ru)
-{
-	struct rusage buf;
-	getrusage(RUSAGE_CHILDREN, &buf);
-	
-	ru.time=buf.ru_utime.tv_sec*1000+buf.ru_stime.tv_sec*1000+buf.ru_stime.tv_usec/1000+buf.ru_utime.tv_usec/1000;//the unit of ru.time is ms
-	
-	ru.memory= buf.ru_minflt*(sysconf(_SC_PAGESIZE)/1024);//divide 1024 to make the unit be KB
-	log(Log::INFO)<<"Run memory is: "<<ru.memory<<endlog;
-	log(Log::INFO)<<"Run memory is: "<<buf.ru_minflt<<endlog;
-	
-	//ru.time = ReadTimeConsumption(pid);
-	if(ru.time < 0){
-		ru.time=0;
-		return false;
-	}
-	//ru.memory = ReadMemoryConsumption(pid);
-	if(ru.memory < 0){
-		ru.memory=0;
-		return false;
-	}
-	return true;
-}
-*/
-
 int PeekStringFromProc(int pid, unsigned long address, char *buf, size_t size)
 {
 	long mask = -1<<2;//we use long as a word
@@ -271,6 +187,7 @@ string GetLanName(int lan)
 	case 1:return "c++";
 	case 2:return "c";
 	case 3:return "java";
+	case 4:return "pascal";
 	default:return "";
 	}
 }
@@ -282,6 +199,7 @@ string GetLanExt(int lan)
 	case 1:return "cpp";
 	case 2:return "c";
 	case 3:return "java";
+	case 4:return "pas";
 	default:return "";
 	}
 }

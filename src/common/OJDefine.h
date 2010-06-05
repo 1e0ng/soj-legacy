@@ -25,9 +25,10 @@ enum Language
     LAN_CPP = 1,
     LAN_C,
     LAN_JAVA,
+    LAN_PASCAL,
 
-    LAN_MAX_ID = 3,
-    LAN_NUMBER = 3,
+    LAN_MAX_ID = 4,
+    LAN_NUMBER = 4,
 };
 
 enum JudgeResult

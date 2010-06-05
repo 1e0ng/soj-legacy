@@ -99,19 +99,26 @@ int Judger::DoJudge(Cake &ck)
     //phase 2
     string lan = GetLanName(ck.language);
 
+    log(Log::INFO)<<"processing 2 "<<endlog;
+	
     Compiler *compiler = CompilerFactory::GetInstance().GetCompiler(lan);
     //log(Log::INFO)<<"The compiler name:"<<compiler->GetName()<<endlog;
+    log(Log::INFO)<<"processing 2.5 "<<endlog;
     assert(compiler);
+    log(Log::INFO)<<"processing 2.5 "<<endlog;
     
     if(!compiler->Compile(ck.rid))
     {
         //mark ce
+	    log(Log::INFO)<<"processing 2.5 "<<endlog;
         packet.SetResult(JR_CE);
+	    log(Log::INFO)<<"processing 2.5 "<<endlog;
         SendPacket(&packet);
         log(Log::INFO)<<"Run "<<ck.rid<<": compilation error."<<endlog;
         return 0;
     }
     
+    log(Log::INFO)<<"processing 3 "<<endlog;
     //phase 3
     Runner *runner = RunnerFactory::GetInstance().GetRunner(lan);
     assert(runner);
@@ -123,6 +130,8 @@ int Judger::DoJudge(Cake &ck)
         timeLimit *= Configuration::GetInstance().GetJavaTimeFactor();//Loose the limit if Java is used.
         memoryLimit *= Configuration::GetInstance().GetJavaMemoryFactor();
     }
+    log(Log::INFO)<<"processing 4 "<<endlog;
+
     runner->SetTimeLimit(timeLimit);
     runner->SetMemoryLimit(memoryLimit);
     runner->Run(ck.pid, ck.rid, lan);
