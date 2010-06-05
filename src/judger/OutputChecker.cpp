@@ -56,6 +56,8 @@ int OutputChecker::Check(int pid, int rid)const
 				ret = WA;
 				break;
 			}
+			if(IsBlank(s)&&IsBlank(p))
+				continue;
 			if(IsBlank(s))
 			{
 				for(;;)

@@ -22,7 +22,7 @@ public:
 private:
 	static bool IsBlank(char c)
 	{
-		return c == '\n' || c == ' ' || c == '\b' || c == '\t';
+		return c == '\n' || c == ' ' || c == '\b' || c == '\t' || c== '\r';
 	}
 
 	std::string stdOutputPath;//should not ends with slash
