@@ -1,0 +1,20 @@
+#!/bin/sh
+user="soj"
+pass="soj-001-soj"
+host="localhost"
+dir="./sojbackup"
+db="soj"
+time="$(date +"%Y-%m-%d %H:%M:%S")"
+cycle=30
+test ! -d "$dir/0/" && mkdir "$dir/0"
+mysqldump -u$user -h$host -p$pass $db |gzip >"$dir/0/$time.$db.gz"
+test -d "$dir/$cycle/" &&rm -rf "$dir/$cycle"
+for iint in $(seq $cycle)
+do 
+	int=`expr $cycle - $iint`
+	if(test -d "$dir/$int")
+	then
+		next_int=`expr $int + 1`
+		mv "$dir/$int" "$dir/$next_int"
+	fi
+done
