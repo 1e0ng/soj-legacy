@@ -51,6 +51,8 @@ void NativeRunner::Run(int proid, int rid, const string &lang)
 		result=SYS_ERROR;
 		return;
 	}
+	result=OK;
+	/*
 	pid = fork();
 	if(pid < 0)
 	{
@@ -91,6 +93,7 @@ void NativeRunner::Run(int proid, int rid, const string &lang)
 				exit(0);
 			}
 			exit(0);
+
 		}
 		else{
 			sandbox->SetChildPid(pid2);
@@ -171,6 +174,7 @@ void NativeRunner::Run(int proid, int rid, const string &lang)
 		close(p3[1]);
 		exit(0);
 	}
+	*/
 }
 
 bool NativeRunner::SetupChild(int pid, int rid, const string &lang)
