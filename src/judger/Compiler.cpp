@@ -54,7 +54,7 @@ bool JavaCompiler::Compile(int id)const{
 }
 
 CompilerFactory::CompilerFactory()
-    :compilers(3, (Compiler *)NULL)
+    :compilers(16, (Compiler *)NULL)
 {
 }
 
@@ -126,7 +126,7 @@ int CompilerFactory::Initialize()
     }
     else
     {
-        log(Log::INFO)<<"C++ compiler "<<conf.GetPascalCompiler()<<" failed to load."<<endlog;
+        log(Log::INFO)<<"Pascal compiler "<<conf.GetPascalCompiler()<<" failed to load."<<endlog;
     }
 
     if(!flag)

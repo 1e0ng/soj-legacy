@@ -102,7 +102,6 @@ int Judger::DoJudge(Cake &ck)
     Compiler *compiler = CompilerFactory::GetInstance().GetCompiler(lan);
     //log(Log::INFO)<<"The compiler name:"<<compiler->GetName()<<endlog;
     assert(compiler);
-    
     if(!compiler->Compile(ck.rid))
     {
         //mark ce
@@ -111,7 +110,6 @@ int Judger::DoJudge(Cake &ck)
         log(Log::INFO)<<"Run "<<ck.rid<<": compilation error."<<endlog;
         return 0;
     }
-    
     //phase 3
     Runner *runner = RunnerFactory::GetInstance().GetRunner(lan);
     assert(runner);

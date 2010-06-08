@@ -89,7 +89,7 @@ static const bool IsCallAllowed[512]={
     0, //51, acctSYS_exit
     0, //52, umount2
     0, //53, lock
-    0, //54, ioctl
+    1, //54, ioctl/////////////////////for pascal
     0, //55, fcntl
     0, //56, mpx
     0, //57, setpgid
@@ -120,7 +120,7 @@ static const bool IsCallAllowed[512]={
     0, //82, select
     0, //83, symlink
     0, //84, oldlstat
-    0, //85, readlink
+    1, //85, readlink////////////////////////////////////
     0, //86, uselib
     0, //87, swapon
     0, //88, reboot
@@ -209,7 +209,7 @@ static const bool IsCallAllowed[512]={
     0, //171, getresgid
     0, //172, prctl
     0, //173, rt_sigreturn
-    0, //174, rt_sigaction
+    1, //174, rt_sigaction//////////////////////////
     0, //175, rt_sigprocmask
     0, //176, rt_sigpending
     0, //177, rt_sigtimedwait
@@ -226,7 +226,7 @@ static const bool IsCallAllowed[512]={
     0, //188, getpmsg
     0, //189, putpmsg
     0, //190, vfork
-    0, //191, ugetrlimit
+    1, //191, ugetrlimit////////////////////////////////////
     1, //192, mmap2
     0, //193, truncate64
     0, //194, ftruncate64

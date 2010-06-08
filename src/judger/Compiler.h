@@ -88,13 +88,13 @@ public:
 };
 class PascalCompiler : public Compiler{
 public:
-	std::string GetName()const{
+	virtual std::string GetName()const{
 		return cc;
 	}
-	CompilerType GetCompilerType()const{
+	virtual CompilerType GetCompilerType()const{
 		return COMPILER_PASCAL;
 	}
-	bool Compile(int id)const;
+	virtual bool Compile(int id)const;
 };
 
 
