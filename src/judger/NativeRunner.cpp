@@ -299,8 +299,8 @@ bool NativeRunner::SetupChild(int pid, int rid, const string &lang)
 			return false;
 		}
 	}
-	sprintf(tmp, "%s/%d", runInfo.filePath.c_str(), rid);
-	sprintf(tmp2, "%d", rid);
+	snprintf(tmp, sizeof(tmp),"%s/%d", runInfo.filePath.c_str(), rid);
+	snprintf(tmp2, sizeof(tmp2), "%d", rid);
 	ret = execl(tmp, tmp2, NULL);
 	if(ret < 0)
 	{

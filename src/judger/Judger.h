@@ -32,6 +32,7 @@ public:
     virtual int SendPacket(Network::Packet *packet);
 private:
     void Loop();
+    void CleanTmpFiles();
 
 	Judger(){bStopped = false; judgerId = -1;}
 	~Judger(){}

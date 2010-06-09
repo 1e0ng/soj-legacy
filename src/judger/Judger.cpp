@@ -79,7 +79,16 @@ void Judger::CleanUp()
 {
     stream.Close();
 }
-
+void Judger::CleanTmpFiles(){
+	string src=Configuration::GetInstance().GetSrcFilePath();
+	string dest=Configuration::GetInstance().GetDestFilePath();
+	string pout=Configuration::GetInstance().GetProgramOutputPath();
+	char tmp[512];
+	snprintf(tmp,sizeof(tmp),"rm -rf %s/* %s/* %s/*",src.c_str(),dest.c_str(),pout.c_str());
+	if(system(tmp)!=0){
+		log(Log::ERROR)<<"Remove tmp files error"<<endlog;
+	}
+}
 int Judger::DoJudge(Cake &ck)
 {
     log(Log::INFO)<<"Begin processing run "<<ck.rid<<" "<<endlog;
@@ -94,6 +103,7 @@ int Judger::DoJudge(Cake &ck)
         log(Log::ERROR)<<"Store source code "<<ck.pid<<" failed."<<endlog;
         packet.SetResult(JR_WA);
         SendPacket(&packet);
+        CleanTmpFiles();
         return 0;
     }
 
@@ -109,6 +119,7 @@ int Judger::DoJudge(Cake &ck)
         packet.SetResult(JR_CE);
         SendPacket(&packet);
         log(Log::INFO)<<"Run "<<ck.rid<<": compilation error."<<endlog;
+        CleanTmpFiles();
         return 0;
     }
     //phase 3
@@ -134,6 +145,7 @@ int Judger::DoJudge(Cake &ck)
 
         RunnerFactory::GetInstance().DisposeRunner(runner);
         log(Log::INFO)<<"Run "<<ck.rid<<": runtime error."<<endlog;
+        CleanTmpFiles();
         return 0;
     }
     else if(result != Runner::OK)
@@ -162,7 +174,8 @@ int Judger::DoJudge(Cake &ck)
         SendPacket(&packet);
 
         RunnerFactory::GetInstance().DisposeRunner(runner);
-        
+
+        CleanTmpFiles();
         return 0;
     }
     RunUsage ru = runner->GetRunUsage();
@@ -176,6 +189,8 @@ int Judger::DoJudge(Cake &ck)
         packet.SetResult(JR_WA);
         SendPacket(&packet);
         log(Log::INFO)<<"Run "<<ck.rid<<": WA."<<endlog;
+ 
+        CleanTmpFiles();
         return 0;
     }
     //mark this run as AC, WA, PE
@@ -200,6 +215,7 @@ int Judger::DoJudge(Cake &ck)
     }
     SendPacket(&packet);
 
+    CleanTmpFiles();
     return 0;
 }
 
