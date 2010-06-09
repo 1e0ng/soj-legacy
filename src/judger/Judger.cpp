@@ -156,7 +156,7 @@ int Judger::DoJudge(Cake &ck)
             break;
         default:
             packet.SetResult(JR_RE);
-            log(Log::WARNING)<<"Unknown run result!"<<endlog;
+            log(Log::WARNING)<<"Unknown run result!"<<result<<endlog;
         }
         SendPacket(&packet);
 

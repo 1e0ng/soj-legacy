@@ -4,12 +4,15 @@ import java.util.PropertyPermission;
 import java.io.FilePermission;
 import java.net.NetPermission;
 import java.lang.reflect.ReflectPermission;
-
+import java.io.File;
 public class SandboxSM extends SecurityManager{
     private String javahome=System.getenv("JAVA_HOME");
+    public void checkWrite(String file){
+    	File f1=new File("err");
+    	if(!file.equals(f1.getAbsolutePath()))
+    		super.checkWrite(file);
+    }
     public void checkPermission(Permission perm) {
-    	//System.out.println(perm.getClass());
-    	//System.out.println(perm.getName());
 		if (perm instanceof SecurityPermission) {
             if (perm.getName().startsWith("getProperty")) {
                 return;
@@ -19,7 +22,12 @@ public class SandboxSM extends SecurityManager{
                 return;
             }
         } else if (perm instanceof FilePermission){
+        	String name=Loader.path;
+        
         	String action=perm.getActions();
+        	if(action.indexOf("write")!=-1){
+        		
+        	}
         	if(action.indexOf("write")!=-1||action.indexOf("execute")!=-1||action.indexOf("delete")!=-1)
         		throw new SecurityException(perm.toString());
         	if(action.indexOf("../")!=-1)

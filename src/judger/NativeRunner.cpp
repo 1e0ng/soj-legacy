@@ -101,16 +101,36 @@ void NativeRunner::Run(int proid, int rid, const string &lang)
 		
 			if(sandbox->IsNormalExit())
 			{
-				int status = sandbox->GetExitStatus();
-				if(WEXITSTATUS(status) == 0)
-				{
+				//int status = sandbox->GetExitStatus();
+				//if(WEXITSTATUS(status) == 0)
+				//{
 					result = OK;
-				}
-				else
-				{
-					result = SYS_ERROR;
-					log(Log::WARNING)<<"Child exited with "<<WEXITSTATUS(status)<<" ."<<endlog;
-				}
+					log(Log::INFO)<<lang<<endlog;
+					if(lang=="java"){
+						char tmp[512];
+						snprintf(tmp,sizeof(tmp),"%s/%d/err",runInfo.filePath.c_str(),rid);
+						log(Log::INFO)<<tmp<<endlog;
+						int fd_err = open(tmp, O_RDONLY);
+						memset(tmp,0,16);
+						read(fd_err,tmp,16);
+						tmp[15]=0;
+						log(Log::INFO)<<tmp<<endlog;
+						if(tmp[0]=='M'&&tmp[1]=='L'&&tmp[2]=='E'){
+							result = MEMORY_LIMIT_EXCEEDED;
+							log(Log::INFO)<<"NativeRunner::Run Java MLE."<<endlog;
+						}
+						else if(strlen(tmp)>0){
+							result = RUNTIME_ERROR;
+							log(Log::INFO)<<"NativeRunner::RUN Java RE."<<endlog;
+						}
+						close(fd_err);
+					}
+				//}
+				//else
+				//{
+				//	result = SYS_ERROR;
+				//	log(Log::WARNING)<<"Child exited with "<<WEXITSTATUS(status)<<" ."<<endlog;
+				//}
 			}
 			else
 			{
@@ -195,6 +215,7 @@ bool NativeRunner::SetupChild(int pid, int rid, const string &lang)
 		log(Log::WARNING)<<"NativeRunner: Failed to open output file "<< tmp << ". "<<endlog;
 		return false;
 	}
+	
 	int fd_err = open("/dev/null", O_RDWR);
 	if(fd_err < 0)
 	{
@@ -244,7 +265,9 @@ bool NativeRunner::SetupChild(int pid, int rid, const string &lang)
 	{
 		//log(Log::INFO)<<"AS limit: "<<runInfo.runLimits.vm<<endlog;
 		int as=runInfo.runLimits.vm;
-		if(lang=="java")as+=128*1024*1024;
+		if(lang=="java")as+=100*1024*1024;
+		//log(Log::INFO)<<"AS limit: "<<as<<endlog;
+		
 		if(SetRLimit(RLIMIT_AS, as) < 0)
 		{
 			log(Log::WARNING)<<"NativeRunner: Failed to set as limit to "<<runInfo.runLimits.vm<<"."<<endlog;
@@ -309,10 +332,12 @@ bool NativeRunner::SetupChild(int pid, int rid, const string &lang)
 	}
 	if(lang=="java"){
 		sprintf(tmp,"%s/%d/",runInfo.filePath.c_str(),rid);
+		chdir(tmp);
+		//sprintf(tmp,"%s/%d/",runInfo.filePath.c_str(),rid);
 		//log(Log::INFO)<<tmp<<endlog;
-		ret= execlp("java","java","-cp",tmp,"Loader","-Xmx256m",NULL);
+		ret= execlp("java","java","-Xms64m","Loader",NULL);
 	}
-	else{//C or C++
+	else{//C or C++ or Pascal
 		sprintf(tmp, "%s/%d", runInfo.filePath.c_str(), rid);
 		sprintf(tmp2, "%d", rid);
 		ret = execl(tmp, tmp2, NULL);
