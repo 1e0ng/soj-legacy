@@ -35,8 +35,9 @@ CREATE TABLE `problem` (
   `timeLimit` int(10) unsigned NOT NULL default '1000',
   `memoryLimit` int(10) unsigned NOT NULL default '64000',
   `did` int(10) unsigned NOT NULL default '1',
+  `standardCode` blob,
   PRIMARY KEY  (`pid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -57,7 +58,7 @@ CREATE TABLE `status` (
   `submitTime` datetime NOT NULL,
   `sourceCode` blob,
   PRIMARY KEY  (`rid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=222 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -100,7 +101,7 @@ CREATE TABLE `user` (
   PRIMARY KEY  (`uid`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `nickname` (`nickname`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -112,4 +113,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-06-09 12:20:26
+-- Dump completed on 2010-06-09 12:39:45
