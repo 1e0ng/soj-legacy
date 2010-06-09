@@ -22,12 +22,14 @@ public class Loader{
 			try{
 				c=Class.forName("Main");
 			}catch(ClassNotFoundException e){
-				fout.println(e);
+				fout.println("CE");
+				return;
 			}
 			try{
 				m=c.getMethod("main",String[].class);
 			}catch(NoSuchMethodException e){
-				fout.println(e);
+				fout.println("CE");
+				return;
 			}
 			System.gc();
 
@@ -35,7 +37,7 @@ public class Loader{
 				SandboxSM sm=new SandboxSM();
 				System.setSecurityManager(sm);
 			}catch(SecurityException e){
-				fout.println(e);
+				fout.println("Inner Error");
 			}
 			System.gc();
 

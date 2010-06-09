@@ -71,6 +71,7 @@ int Judger::StartUp()
             return -1;
         }
     }
+    idleTime=false;
 	return 0;
 }
 
@@ -249,10 +250,14 @@ void Judger::Loop()
         }
         else//timeout
         {
-            log(Log::INFO)<<"Idle loop..."<<endlog;
+        	if(!idleTime){
+	            log(Log::INFO)<<"Idle loop..."<<endlog;
+	            idleTime=true;
+	        }
         }
         return;
     }
+    idleTime=false;
     if(FD_ISSET(fd, &rset))
     {
         Packet *packet = ReceivePacket();

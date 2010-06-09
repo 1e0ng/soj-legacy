@@ -39,6 +39,7 @@ private:
 	Judger &operator = (const Judger &);
 
     int judgerId;
+    bool idleTime;
 };
 
 #endif

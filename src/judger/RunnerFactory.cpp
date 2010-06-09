@@ -1,5 +1,6 @@
 #include "Runner.h"
 #include "NativeRunner.h"
+#include "JavaRunner.h"
 #include "Configuration.h"
 
 using namespace std;
@@ -26,18 +27,20 @@ int RunnerFactory::Initialize()
 	return 0;
 }
 
-Runner *RunnerFactory::GetRunner(const string &lan)
-{
-	//if(lan == "c" || lan == "c++")
-	//{
+Runner *RunnerFactory::GetRunner(const string &lan){
+	if(lan == "c" || lan == "c++" || lan=="pascal"){
 		Runner *r = new NativeRunner();
 		r->SetRunInfo(ri);
 		return r;
-	//}
-	//return NULL;
+	}
+	else if(lan=="java"){
+		Runner *r = new JavaRunner();
+		r->SetRunInfo(ri);
+		return r;
+	}
+	return NULL;
 }
 
-void RunnerFactory::DisposeRunner(Runner *runner)
-{
+void RunnerFactory::DisposeRunner(Runner *runner){
 	delete runner;
 }
