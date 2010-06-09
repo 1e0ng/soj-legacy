@@ -62,11 +62,14 @@ echo "<center><h2>$problem->problemName</h2></center>\n";
 </table></div>
 <?
 //problem discription area
+/*
 gen_section("DISCRIPTION", my_htmlentities($problem->discription));
 gen_section("INPUT", my_htmlentities($problem->input));
 gen_section("OUTPUT", my_htmlentities($problem->output));
 gen_section("INPUT CASE", my_htmlentities($problem->inputCase));
 gen_section("OUTPUT CASE", my_htmlentities($problem->outputCase));
+ */
+include("problem/{$problem->pid}.htm");
 
 echo "<div align = \"center\">\n";
 echo "<a href=\"submitproblem.php?pid=$pid\">Submit</a>";

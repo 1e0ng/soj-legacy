@@ -1,3 +1,3 @@
 <?php
-echo "hello world!";
+print_r($_SERVER['QUERY_STRING']);
 ?>
