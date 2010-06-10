@@ -42,6 +42,7 @@ enum JudgeResult
     JR_CE,           //compile error
     JR_PE,           //presentation error
     JR_RE,           //runtime error
+    JR_OLE,          //output limit error
 
     JR_RESULT_NUMBER
 };

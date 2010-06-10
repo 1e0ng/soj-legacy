@@ -19,6 +19,7 @@ $JUDGE_STATUS[] = "Memory Limit Exceeded";
 $JUDGE_STATUS[] = "Compile Error";
 $JUDGE_STATUS[] = "Presentation Error";
 $JUDGE_STATUS[] = "Runtime Error";
+$JUDGE_STATUS[] = "Output Limit Exceeded";
 
 function alert($msg)
 {

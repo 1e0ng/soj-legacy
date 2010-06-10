@@ -153,8 +153,11 @@ int Judger::DoJudge(Cake &ck)
         //mark this run as re, tle, mle or etc here
         switch(result)
         {
-        case Runner::RUNTIME_ERROR:
         case Runner::OUTPUT_LIMIT_EXCEEDED:
+        	packet.SetResult(JR_OLE);
+        	log(Log::INFO)<<"Run "<<ck.rid<<": OLE."<<endlog;
+        	break;
+        case Runner::RUNTIME_ERROR:
         case Runner::RESTRICTED_SYSCALL:
             packet.SetResult(JR_RE);
             log(Log::INFO)<<"Run "<<ck.rid<<": RE."<<endlog;

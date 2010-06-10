@@ -97,12 +97,12 @@ void JavaRunner::Run(int proid, int rid, const string &lang)
 			if(sandbox->IsNormalExit()){
 				char tmp[512];
 				snprintf(tmp,sizeof(tmp),"%s/%d/err",runInfo.filePath.c_str(),rid);
-				log(Log::INFO)<<tmp<<endlog;
+				//log(Log::INFO)<<tmp<<endlog;
 				int fd_err = open(tmp, O_RDONLY);
 				memset(tmp,0,16);
 				read(fd_err,tmp,16);
 				tmp[15]=0;
-				log(Log::INFO)<<tmp<<endlog;
+				//log(Log::INFO)<<tmp<<endlog;
 				if(tmp[0]=='M'&&tmp[1]=='L'&&tmp[2]=='E'){
 					result = MEMORY_LIMIT_EXCEEDED;
 					log(Log::INFO)<<"JavaRunner::Run Java MLE."<<endlog;
@@ -309,8 +309,19 @@ bool JavaRunner::SetupChild(int pid, int rid, const string &lang)
 			return false;
 		}
 	}
-	sprintf(tmp,"%s/%d/",runInfo.filePath.c_str(),rid);
-	chdir(tmp);
+	snprintf(tmp,sizeof(tmp),"%s/%d/",runInfo.filePath.c_str(),rid);
+	if(chmod(tmp,0777)){
+		log(Log::WARNING)<<"chmod failed."<<endlog;
+	}
+	if(chdir(tmp)){
+		log(Log::WARNING)<<"chdir failed."<<endlog;
+	}
+	if(setuid(3417)!=0){
+		log(Log::WARNING)<<"setuid failed."<<endlog;
+	}
+	if(setresuid(3417,3417,3417)!=0){
+		log(Log::WARNING)<<"setresuid failed."<<endlog;
+	}
 	ret= execlp("java","java","-Xms64m","Loader",NULL);
 	if(ret < 0)
 	{
