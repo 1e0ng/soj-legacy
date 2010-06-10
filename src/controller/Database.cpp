@@ -31,6 +31,22 @@ Database::~Database()
 {
     Close();
 }
+int Database::UpdateProblemAccepted(){
+	char *tmp="update problem p set accepted=(select sum(1) from status s where s.judgestatus=3 and s.pid=p.pid)";
+    if(mysql_query(conn, tmp)){
+        Log("%s(Error no:%d)", mysql_error(conn), mysql_errno(conn));
+        return -1;
+    }
+    return 0;
+}
+int Database::UpdateUserAccepted(){
+	char *tmp="update user u set accepted=(select sum(1) from status s where s.judgestatus=3 and s.uid=u.uid)";
+    if(mysql_query(conn, tmp)){
+        Log("%s(Error no:%d)", mysql_error(conn), mysql_errno(conn));
+        return -1;
+    }
+    return 0;
+}
 
 int Database::Init(const string &host, const string &username, const string &password, const string &schema)
 {
@@ -53,6 +69,8 @@ int Database::Init(const string &host, const string &username, const string &pas
         return -1;
     }
     bValid = true;
+    UpdateProblemAccepted();
+    UpdateUserAccepted();
     return 0;
 }
 

@@ -38,6 +38,9 @@ private:
     Database(const Database &);
     Database &operator=(const Database &);
 
+    int UpdateProblemAccepted();
+    int UpdateUserAccepted();
+
     MYSQL *conn;
     bool bValid;
 };
