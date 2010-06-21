@@ -69,7 +69,7 @@ gen_section("OUTPUT", my_htmlentities($problem->output));
 gen_section("INPUT CASE", my_htmlentities($problem->inputCase));
 gen_section("OUTPUT CASE", my_htmlentities($problem->outputCase));
  */
-$infile="problem/{$problem->pid}.php";
+$infile="problem/{$problem->pid}.htm";
 include $infile;
 echo "<div align = \"center\">\n";
 echo "<a href=\"submitproblem.php?pid=$pid\">Submit</a>";
