@@ -21,7 +21,7 @@ border="1" bordercolor="#ffffff" style="BORDER-COLLAPSE: collapse">
       <p class="index_context"><span class="index_context">First of all, familiarize yourself with the environment.<br />
         Then, choose a <a href="problemlist.php">problem</a>, solve it and <a href="submitproblem.php">submit</a> your solution.</span></p>
       <p class="index_context"><span class="index_context"><strong>If you want to publish your problems or setup your own online contest,<br />
-      </strong></span><span class="index_context"><strong>just write to <a href="mailto:pojadmin@gmail.com">us</a>.</strong><br />
+      </strong></span><span class="index_context"><strong>just write to <a href="mailto:alazyrabbit@gmail.com">us</a>.</strong><br />
       </span></p>
 <p class="index_context"><strong><span id="ACM_team">Shandong University ACM ICPC Team</span></strong></p>
 <p class="index_context"><span class="index_context"><strong>Designer &amp; Developer:&nbsp;&nbsp;&nbsp;&nbsp;</strong><a href="mailto:powerx1202@gmail.com">powerx1202</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="mailto:alazyrabbit@gmail.com">alazyrabbit</a></span></p></td>
