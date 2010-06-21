@@ -1,0 +1,56 @@
+<html>
+<head>
+ <title>Chain</title>
+</head>
+
+<body>
+
+<center>
+<h1>POI VIII Stage 3 Problem 6</h1>
+<h1>Chain</h1>
+</center>
+
+      <P>Byteland had not always been a democratic country. There were also black pages in its book of history. One lovely day general Bytel - commander of the junta  which
+      had power over Byteland -- decided to finish the long-lasting time of war and released imprisoned activists of the opposition. However, he had no intention to let the leader Bytesar free. He decided to chain him to the wall with the bytish chain. It consists of joined
+      rings and the bar fixed to the wall. Although the rings are not joined with the bar, it is hard to take them off.
+      <P>&nbsp;&nbsp;&nbsp; 'General, why have you chained me to the prison walls and did not let rejoice at freedom!'
+      cried Bytesar.<br>
+      &nbsp;&nbsp;&nbsp; 'But Bytesar, you are not chained at all, and  I am certain you are able to take off the
+      rings from the bar by yourself.' perfidiously answered general Bytel, and he added
+      'But deal with that before a clock strikes the cyber hour and do not make a noise at night, otherwise I will be forced to call Civil Cyber Police.'&nbsp; 
+      <P><br>
+      Help Bytesar! Number the following rings of the chain with integers
+      1,2,...,<i>n</i>. We may put on and take off these rings according to the
+      following rules:&nbsp; 
+      <UL>
+        <LI>only one ring can be put on or taken off from the bar in one move, </LI> 
+        <LI>the ring number 1 can be always put on or taken off from the bar, </LI> 
+        <LI>if the rings with the numbers 1,...,<i>k</i>-1 (for 1&lt;=<i>k</i>&lt;<i>n</i>) are taken off from the bar and the
+          ring number <i> k</i> is put on, we can put on or take off the ring number
+          <i>k</i>+1.&nbsp; </LI></UL>
+<p>Write a program which:</p>
+      <UL>
+        <LI>reads from the text file LAN.IN the description of the bytish chain, </LI> 
+        <LI>computes minimal number of moves necessary to take off all rings of  the bytish chain from the bar, </LI> 
+        <LI>writes the result in the text file LAN.OUT.&nbsp; </LI></UL>
+
+<H2>Input</H2>
+In the first line of the text file LAN.IN there is written
+one integer <i>n</i>, 1&lt;=<i>n</i>&lt;=1&nbsp;000. <I> </I>In the second line there
+are written <i>n</i> integers <I>o<SUB>1</SUB>,o<SUB>2</SUB>,...,o<SUB>n</SUB></I>
+(each of them is either 0 or 1) separated by single spaces. If <I>o<SUB>i</SUB>=</I>1<I>,</I>
+then the <i>i</i>-th ring is put on the bar, and if <I>o<SUB>i</SUB>=</I>0<I>, </I>then
+the <i>i</i>-th ring is taken off the bar. 
+
+<H2>Output</H2>
+The text file LAN.OUT should contain exactly one integer
+equal to the minimal number of moves necessary to take off all the rings of the bytish chain from the bar.&nbsp; 
+
+<H2>Sample Input</H2>
+<PRE>4
+1 0 1 0
+
+<h2>Sample Output</h2>
+<PRE>6</PRE>
+</body>
+</html>

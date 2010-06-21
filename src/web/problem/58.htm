@@ -1,0 +1,97 @@
+<HTML><HEAD><TITLE>CEOI: Problems</TITLE>
+</HEAD>
+<BODY>
+<center>
+<h1>CEOI 2002 Day 1 Problem 1</h1>
+<h1>Bugs Integrated, Inc.</h1>
+Input file: bugs.in <BR>
+Output file: bugs.out <BR>
+Source code: bugs.pas/.c/.cpp <BR>
+<B>100 points</B> <BR>
+Time limit: <B>30 s</B> <BR>
+Memory limit: <B>8 MB</B> 
+</center>
+
+<P>Bugs Integrated, Inc. is a major manufacturer of advanced memory chips. They 
+are launching production of a new six terabyte Q-RAM chip. Each chip consists of 
+six unit squares arranged in a form of a <!-- MATH
+$2 \times 3$
+-->2? 
+rectangle. The way Q-RAM chips are made is such that one takes a rectangular 
+plate of silicon divided into <!-- MATH
+$N \times M$
+--><I>N</I>?I>M</I> unit 
+squares. Then all squares are tested carefully and the bad ones are marked with 
+a black marker. 
+
+<P align=center><img src="58a.gif">
+
+<P>Finally, the plate of silicon is cut into memory chips. Each chip consists of 
+<!-- MATH
+$2 \times 3$
+-->2? (or <!-- MATH
+$3 \times 2$
+-->3?) unit squares. 
+Of course, no chip can contain any bad (marked) squares. It might not be 
+possible to cut the plate so that every good unit square is a part of some 
+memory chip. The corporation wants to waste as little good squares as possible. 
+Therefore they would like to know how to cut the plate to make the maximum 
+number of chips possible. 
+
+<h2>Task</h2> 
+<P>You are given the dimensions of several silicon plates and a list of all bad 
+unit squares for each plate. Your task is to write a program that computes for 
+each plate the maximum number of chips that can be cut out of the plate. 
+
+<h2>Input</h2> 
+<P>The first line of the input file consists of a single integer <I>D</I> (<!-- MATH
+$1 <= D <=
+5$
+--> 1 &lt; = <I>D</I> &lt; = 5), denoting the number of 
+silicon plates. <I>D</I> blocks follow, each describing one silicon plate. The 
+first line of each block contains three integers <I>N</I> (<!-- MATH
+$1 <= N <= 150$
+--> 1 &lt; = <I>N</I> &lt; = 150), <I>M</I> (<!-- MATH
+$1 <= M <= 10$
+--> 1 &lt; = <I>M</I> &lt; = 10), <I>K</I> (<!-- MATH
+$0 <= K <= MN$
+--> 0 &lt; = <I>K</I> &lt; = <I>MN</I>) separated by 
+single spaces. <I>N</I> is the length of the plate, <I>M</I> is its height and 
+<I>K</I> is the number of bad squares in the plate. The following <I>K</I> lines 
+contain a list of bad squares. Each line consists of two integers <I>x</I> and 
+<I>y</I> (<!-- MATH
+$1 <= x <=
+N$
+--> 1 &lt; = <I>x</I> &lt; = <I>N</I>, <!-- MATH
+$1 <= y <= M$
+-->1 &lt; = <I>y</I> &lt; = <I>M</I>) - coordinates of 
+one bad square (the upper left square has coordinates [1, 1], the bottom right 
+is [<I>N</I>, <I>M</I>]). 
+
+<h2>Output</h2> 
+<P>For each plate in the input file output a single line containing the maximum 
+number of memory chips that can be cut out of the plate. 
+
+<h2>Sample Input</h2>
+<pre>
+2
+6 6 5
+1 4
+4 6
+2 2
+3 6
+6 4
+6 5 4
+3 3
+6 1
+6 2
+6 4
+</PRE>
+
+<h2>Sample Output</h2>
+<pre>
+3
+4
+</PRE>
+<p align=center><IMG src="58b.gif">
+</BODY></HTML>

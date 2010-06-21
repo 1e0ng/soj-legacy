@@ -1,0 +1,121 @@
+<html>
+<head>
+<title>Automorphisms</title>
+</head>
+
+<body>
+
+<center>
+<h1>POI VII Stage 2 Problem 2</h1>
+<h1>Automorphisms</h1>
+</center>
+
+<p>
+A <b>tournament</b> is a directed graph in which:
+</p>
+
+  <ul>
+    <li> for each two different vertices <i>u</i> and <i>v</i> there exsits 
+	 exactly one edge between them
+          (i.e. either <i>u</i> -&gt; <i>v</i> or <i>v</i> -&gt; <i>u</i>),
+    <li>  there are no loops (i.e. for each vertex <i>u</i>
+          there is no edge <i>u</i>-&gt; <i>u</i> ).
+  </ul>
+  
+<p>  
+  Let <i>p</i> denote any permutation of the set of tournament's vertices.
+  (A permutation of a finite set is an injective function from <i>X</i> to <i>X</i>.)
+  The permutation <i>p</i> is called an <b>automorphism</b>,
+  if for each two different vertices <i>u</i> and <i>v</i> 
+  the direction of the edge between <i>u</i> and <i>v</i> is 
+  the same as the direction of the edge between <i>p(u)</i> and <i>p(v)</i>
+  (i.e. <i>u</i> -&gt; <i>v</i> is an edge in the tournament if and only if 
+  <i>p(u)</i> -&gt; <i>p(v)</i> is an edge in this tournament).
+  For a given permutation <i>p</i>, we want to know for how many tournaments 
+  this permutation is an automorphism.
+</p>  
+
+<h2>Example</h2>
+
+<p>
+  Let's take the set of vertices 1,...,4 and the permutation <i>p</i>:
+</p>  
+  <table width="50%" align=center>
+  <tr>
+   <td>
+    <p>p(1) = 2</p>
+   </td>
+   
+   <td>
+    <p>p(2) = 4</p>
+    </td>  
+    
+   <td>
+    p(3) = 3
+   </td>  
+   
+   <td>
+    p(4) = 1.
+    </td>      
+  </tr>
+  </table>
+<p>  
+  There are only four tournaments for which this permutation is an automorphism:
+</p>  
+
+<center>
+<img src="266.gif">
+</center>
+  
+
+<h2>Task</h2>
+<p>
+  Write a program which:
+  <ul>
+    <li> reads the description of a permutation of an <i>n</i>-element set from the 
+         text file <tt>AUT.IN</tt>, 
+    <li> computes <i>t</i>, the number of different <i>n</i>-element tournaments for which 
+	 this permutation is an automorphism,
+    <li> writes to the text file <tt>AUT.OUT</tt>
+          <b>the remainder of dividing <i>t</i> by 1000</b>
+  </ul>
+</p>  
+
+<h2>Input</h2>
+
+<p>
+  In the first line of the text file <tt>AUT.IN</tt> there is one integer <i>n</i>, 
+  1&lt;=<i>n</i>&lt;= 10000, which is the number of vertices.
+
+  In the following <i>n</i> lines there is a description of a permutation <i>p</i>. 
+  We assume that vertices are numbered from 1 to <i>n</i>. In line
+  (<i>k</i>+1) there is a value of the permutation <i>p</i> for the vertex <i>k</i> 
+  (i.e. the value <i>p(k)</i>).
+</p>  
+
+<h2>Output</h2>
+
+<p>
+  In the first and only line of the text file <tt>AUT.OUT</tt>
+  there should be one integer equal to the remainder of dividing <i>t</i>
+  (the number of different <i>n</i>-vertex tournaments for which <i>p</i> 
+  is an automorphism) by 1000.
+</p>  
+
+<h2>Sample Input</h2>
+<pre>
+4
+2
+4
+3
+1
+</pre>
+
+<h2>Sample Output</h2>
+<pre>
+4
+</pre>
+
+</body>
+
+</html>

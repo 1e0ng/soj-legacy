@@ -1,0 +1,160 @@
+<HTML><HEAD><TITLE>CEOI: Problems</TITLE>
+<BODY>
+<center>
+<h1>CEOI 2002 Day 1 Problem 2</h1>
+<h1>Conqueror's battalion</h1>
+Input file: conquer.in <BR>
+Output file: conquer.out <BR>
+Source code: conquer.pas/.c/.cpp <BR>
+<B>100 points</B> <BR>
+Time limit: <B>1 s</B> <BR>
+Memory limit: <B>16 MB</B> 
+</center>
+
+<P>In the whole history of mankind one can find several curious battles, like 
+the following one in France, in 1747... 
+<P>There was a fortress in Bassignac-le-Haut, a small village lying on the left 
+bank of river Dordogne, just over the Chastang dam. From the dam up to the 
+fortress there was a wide staircase made out of red marble. One day in the 
+morning, the guard spotted a large battalion approaching the fortress, with a 
+dreaded leader - The Conqueror. 
+<P>When The Conqueror reached the fortress, he was already awaited by its 
+commandant. As the commandant had only a small part of his soldiery available, 
+he proposed to The Conqueror: <I>``I see that you have many soldiers behind you, 
+standing on the stairs. We can play a small `game': In each round, you will 
+divide your soldiers into two groups in an arbitrary way. Then I will decide 
+which one of them stays and which one goes home. Each soldier that stays will 
+then move up one stair. If at least one of your soldiers reaches the uppermost 
+stair, you will be the winner, in the other case, you will be the loser. And 
+your destination will be the dam down there..."</I>, added the commandant, 
+pointing to the Chastang dam by his hand. 
+<P>The Conqueror immediately liked this game, so he agreed and started to 
+`conquer'. 
+
+<h2>Task</h2>
+<p>Your role is The Conqueror's now. There are <I>N</I> stairs to 
+the fortress (<!-- MATH
+$2<= N<= 2\,000$
+--> 2 &lt; = <I>N</I> &lt; = 
+2&nbsp;000) and you have at most 
+<!-- MATH
+$1\,000\,000\,000$
+-->1&nbsp;000&nbsp;000&nbsp;000 soldiers. For each 
+stair, you are given the number of soldiers standing on it, with number 1 being 
+the uppermost stair and <I>N</I> the bottom one. None of your soldiers stands on 
+stair 1 at the beginning. 
+<P>For each starting position given to your program, if the position is winning 
+(i.e. there is a strategy that enables you to win the game regardless of your 
+opponent's moves), your program should win. Otherwise it should just play the 
+game (and lose) correctly. 
+<P>This is an interactive problem; you will play against a library as specified 
+below. In each round, your program will describe a group of soldiers to our 
+library. The library returns 1 or 2 specifying which group of soldiers should 
+stay (1 means the group you described, 2 means the rest of the soldiers). In 
+case the game ends (either because you won or there are no more soldiers in the 
+game), the library will terminate your program correctly. Your program may not 
+terminate in any other way. 
+
+<h2>Library interface</h2>
+The library <TT>libconq</TT> provides two routines: 
+<UL>
+  <LI><TT>start</TT> - returns the number <I>N</I> and fills an array 
+  <I>stairs</I> with numbers of soldiers standing on the stairs (i.e. there are 
+  <I>stairs</I>[<I>i</I>] soldiers standing on stair <I>i</I>) 
+  <LI><TT>step</TT> - takes an array <I>subset</I> (with at least <I>N</I><A 
+  href="http://ipsc.host.sk/footnode.html#foot23" 
+  name=tex2html1><SUP>1</SUP></A> elements), describing the group of soldiers 
+  you chose, and returns 1 or 2 as described above; the group of soldiers is 
+  specified by numbers of soldiers on each stair, as in the <TT>start</TT> 
+  function </LI></UL>
+<P>If you fail to specify a valid group of soldiers, the game will be terminated 
+and your program will score zero points for the particular test case. <B>Please 
+note that also in C/C++ the stairs are numbered starting from 1.</B> 
+<P>Following are the declarations of these routines in FreePascal and C/C++: <PRE>procedure start(var N: longint; var stairs:array of longint);
+function step(subset:array of longint): longint;
+void start(int *N, int *stairs);
+int step(int *subset);
+</PRE>
+<P>Below you can find examples of library usage in both FreePascal and C/C++; 
+both fragments do the same - start the game and then play one round, with the 
+chosen group containing all soldiers on randomly chosen stairs. Your real 
+program will probably play the rounds in an infinite loop. 
+<P>You are strongly encouraged to define the arrays <CODE>stairs</CODE> and 
+<CODE>subset</CODE> in the same way as they are defined in the example below. 
+(Note that the FreePascal library returns its answer in the first <I>N</I> 
+elements of the array regardless of how you defined it, the C/C++ library 
+returns its answer in the elements with indices 1 to <I>N</I>.) 
+<P>
+
+FreePascal example: <PRE>uses libconq;
+var stairs: array[1..2000] of longint;
+subset: array[1..2000] of longint;
+i,N,result: longint;
+...
+start(N,stairs);
+...
+for i:=1 to N do 
+if random(2)=0 then subset[i]:=0
+else subset[i]:=stairs[i];
+result:=step(subset);
+...
+</PRE>
+
+C/C++ example: <PRE>#include "libconq.h"
+int stairs[2001];
+int subset[2001];
+int i,N,result;
+...
+start(&amp;N, stairs);
+...
+for (i=1;i&lt;=N;i++) 
+if (rand()%2==0) subset[i]=0;
+else subset[i]=stairs[i];
+result=step(subset);
+...
+</PRE>
+
+<P>You have to link the library to your program - by <CODE>uses libconq;</CODE> 
+in FreePascal and by <CODE>#include "libconq.h"</CODE> in C/C++, where you have 
+to compile your program by adding <TT>libconq.c</TT> to the compiler arguments. 
+
+<h2>An example of the game</h2> 
+<TABLE cellPadding=3 border=1>
+  <TBODY>
+  <TR>
+    <TD align=left>You:</TD>
+    <TD align=left>Library:</TD></TR>
+  <TR>
+    <TD align=left><CODE>start(N,stairs)</CODE></TD>
+    <TD align=left>N=8, stairs=(0,1,1,0,3,3,4,0)</TD></TR>
+  <TR>
+    <TD align=left><CODE>step((0,1,0,0,1,0,1,0))</CODE></TD>
+    <TD align=left>returns 2</TD></TR>
+  <TR>
+    <TD align=left><CODE>step((0,1,0,0,0,1,0,0))</CODE></TD>
+    <TD align=left>returns 2</TD></TR>
+  <TR>
+    <TD align=left><CODE>step((0,0,0,3,2,0,0,0))</CODE></TD>
+    <TD align=left>returns 1</TD></TR>
+  <TR>
+    <TD align=left><CODE>step((0,0,2,0,0,0,0,0))</CODE></TD>
+    <TD align=left>returns 2</TD></TR>
+  <TR>
+    <TD align=left><CODE>step((0,1,0,0,0,0,0,0))</CODE></TD>
+    <TD align=left>returns 2</TD></TR>
+  <TR>
+    <TD align=left><CODE>step((0,1,0,0,0,0,0,0))</CODE></TD>
+    <TD align=left>no return: you won</TD></TR></TBODY></TABLE>
+<P>
+<h2>Resources</h2> 
+<P>On the web page you may find example libraries for both C/C++ and FreePascal. 
+These libraries are different from those that will be used during testing. You 
+may use them to make sure your library calls are correct. The example library 
+reads the input from the file <CODE>libconq.dat</CODE>, containing two lines. On 
+the first line is the number <I>N</I> of stairs, the second line contains 
+<I>N</I> integers - the numbers of soldiers on each of the stairs 1..<I>N</I>. 
+<P>The file <CODE>libconq.dat</CODE> for the example above would look like this: 
+<PRE>8
+0 1 1 0 3 3 4 0
+</PRE>
+</BODY></HTML>

@@ -1,0 +1,71 @@
+
+<html>
+<head>
+<title>Sum of one-sequence</title>
+</head>
+
+<body>
+
+<center>
+<h1>POI V Stage 1 Problem 3</h1>
+<h1>Sum of one-sequence</h1>
+</center>
+
+<p>
+We say that a sequence of integers is a <i>one-sequence</i> if the 
+difference between any two consecutive numbers in this sequence
+is 1 or -1 and its first element is 0. More precisely: 
+[a<SUB>1</SUB>,a<SUB>2</SUB>,...,a<SUB>n</SUB>]
+is a one-sequence if
+<UL>
+<LI>for any k, such that 1&lt=k&lt n  : |a<SUB>k</SUB>-a<SUB>k+1</SUB>| =1
+ and
+<LI> a<SUB>1</SUB>=0
+</UL>
+
+<h2>Task</h2>
+Write a program that:
+<UL>
+<LI>reads  two integers describing the
+    length of the sequence and the sum of its elements,
+    from the text file SUM.IN;
+<LI> finds a one-sequence of the given length whose elements sum up to the given value or 
+    states that such a sequence does not exist;
+<LI>  writes the result to the text file SUM.OUT.
+</UL>
+
+<h2>Input</h2>
+In the first line of the text file SUM.IN there is a number
+ n, such that 1&lt=n&lt=10 000, which is the number of elements in the
+ sequence. In the second line there is a number S, which is the sum
+ of the elements of the sequence, such that |S| &lt= 50 000 000.
+
+<h2>Output</h2>
+ In the first n lines of the text file SUM.OUT there should be
+written n integers (one in each line) that are the elements of
+the sequence (k-th element in the k-th line) whose sum is S
+or the word NIE (which means NO in Polish) if such a sequence does
+not exist.
+
+
+<h2>Sample Input</h2>
+<PRE>
+8
+4
+</PRE>
+
+<h2>Sample Output</h2>
+<PRE>
+0
+1
+2
+1
+0
+-1
+0
+1
+</PRE>
+
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<html>
+<head>
+ <title>Superknight</title>
+</head>
+
+<body>
+
+<center>
+<h1>POI IX Stage 1 Problem 3</h1>
+<h1>Superknight(SUP)</h1>
+</center>
+
+      <P>On an infinite chequered board there is a superknight which can make 
+      different moves. Each kind of move is described by two integers: the first 
+      tells how many columns (to the right if the number is positive or to the 
+      left if the number is negative) and the second tells how many rows 
+      (forward if the number is positive or backward if the number is negative) 
+      the knight traverses making such a move. 
+      <H3>Task</H3>Write a program which: 
+      <UL>
+        <LI>reads from the text file <TT>sup.in</TT> sets of data describing 
+        different superknights, 
+        <LI>determines for each superknight whether it is able to reach any 
+        square of the board making allowed moves, 
+        <LI>writes the result to the text file <TT>sup.out</TT>. </LI></UL>
+      <H3>Input</H3>In the first line of the text file <TT>sup.in</TT> there is 
+      one integer <I>k</I> denoting the number of sets of data, 
+      1&lt;=<I>k</I>&lt;=100. It is followed by <I>k</I> sets of data. In the 
+      first line of each set there is an integer <I>n</I> being the number of 
+      kinds of the superknight's moves, 1&lt;=<I>n</I>&lt;=100. Each of the 
+      following <I>n</I> lines of the set contains two integers <I>p</I> and 
+      <I>q</I> separated by a single space, -100&lt;=<I>p</I>,<I>q</I>&lt;=100. 
+      These numbers describe one kind of move. 
+      <H3>Output</H3>The text file <TT>sup.out</TT> should consist of <I>k</I> 
+      lines. The <I>i</I>-th line should contain one word <TT>TAK</TT> ("yes"), 
+      if the superknight described by the <I>i</I>-th set of data is able to 
+      reach any square of the board, or the word <TT>NIE</TT> ("no") otherwise. 
+      <H3>Example</H3>For the following input file <TT>sup.in</TT>: <BR><PRE>2
+3
+1 0
+0 1
+-2 -1
+5
+3 4
+-3 -6
+2 -2
+5 6
+-1 4
+</PRE>the correct answer is in the following output file <TT>sup.out</TT>: 
+<PRE>TAK
+NIE
+</PRE><!--  LocalWords:  superknight TAK NIE
+ --></TD></TR></TBODY></TABLE></BODY></HTML>

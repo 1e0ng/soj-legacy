@@ -1,0 +1,76 @@
+<html>
+<head>
+<title>Bridge</title>
+</head>
+<body>
+
+<center>
+<h1>BOI 2000 Day 2 Problem 1</h1>
+<h1>Bridge</h1>
+</center>
+
+<p>
+Naum has returned to his village Elshani from abroad, where he has earned a lot of money. Everyday
+the people from Elshani go to work in one of the two neighboring villages Peshtani and Lagadin.
+There were a lot of paths in the mountain to their destinations. In order to help his neighbors
+and shorten their traveling Naum wants to build one bridge up to certain length Lmax.
+
+<h2>Task</h2>
+Find where to build a bridge that satisfies the following criteria:
+<ul>
+<li>There will be a new path from Elshani to Peshtani shorter than the existing shortest path
+<li>There will be a new path from Elshani to Lagadin shorter than the existing shortest path
+<li>The sum of the lengths of the new shortest paths will be minimal.
+</ul>
+
+<h2>Limitations</h2>
+<ul>
+<li>3&lt;=N&lt;=2000 is positive integer and is the number of points.
+<li>The points are denoted by 1,2,��,N, where 1 is the starting point (the village Elshani), 2 is
+one destination point (the village Peshtani) and 3 is the other destination point (the village
+Lagadin). Two points can be connected by only one path. The length of the path is shortest distance
+between the corresponding points. From each point there are at most 20 paths.
+<li>-32000&lt;=x<sub>i</sub> , y<sub>i</sub>&lt;=32000 are integers representing the XY coordinates of the i-th point.
+<li>M&lt;=5000 is positive integer and is the number of paths between the points.
+<li>Lmax is a positive real number representing the maximum possible length of the bridge.
+<li>Rounding errors will not produce irregular answers in test data.
+<li>If there is a solution then it is unique.
+<li>Time limit: 15 sec.
+</ul>
+
+<h2>Input</h2>
+In the first line of the input file there are two integer numbers N and M and one real number Lmax.
+In each of the next N lines there are two numbers xi and yi. In each of the next M lines there are
+two integer numbers representing the points connected by a path.
+
+<h2>Output</h2>
+If there is a solution, the output consists of two integers K1 and K2 representing the points where the bridge should be built.<br>
+If no bridge can be built with the proposed criteria then write 0 0 in the first line, and write two real numbers d1 and d2 in the
+second line as reals with no decimal places. d1 is the shortest distance from point 1 to 2 and d2 is the shortest distance from point 1 to 3.
+
+<h2>Sample Input</h2>
+<pre>
+6 5 40
+0 0
+100 0
+100 100
+45 20
+55 20
+25 50
+1 4
+4 6
+5 2
+5 3
+6 3
+</pre>
+
+<h2>Sample Output</h2>
+<pre>
+4 5
+</pre>
+
+<h2>Figure</h2>
+<center><img src="126.gif"></center>
+
+</body>
+</html>

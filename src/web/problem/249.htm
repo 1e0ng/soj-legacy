@@ -1,0 +1,249 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0146)http://pcwi1060.uni-muenster.de/ceoi2003/contest/main.php?page=showtask&userid=ceoi0157&taskid=register&sessionid=1231420b43178fcb97b27cdabab0c711 --><?xml version="1.0" encoding="iso-8859-1"?><HTML 
+lang=en xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><HEAD><TITLE>CEOI 2003 - Contest Environment</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312"><LINK 
+href="CEOI 2003 - Contest Environment.files/style.css" type=text/css 
+rel=stylesheet>
+<META content="MSHTML 6.00.2716.2200" name=GENERATOR></HEAD>
+<BODY>
+<H2>Shift Register</H2>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD><B>Input File</B></TD>
+    <TD><TT>register.in</TT></TD></TR>
+  <TR>
+    <TD><B>Output File</B></TD>
+    <TD>register.out</TD></TR>
+  <TR>
+    <TD><B>Source Code</B></TD>
+    <TD><TT>register.pas/.c/.cpp</TT></TD></TR>
+  <TR>
+    <TD><B>Time Limit</B></TD>
+    <TD>1.5 seconds per test case</TD></TR>
+  <TR>
+    <TD><B>Memory Limit</B></TD>
+    <TD>16 MBytes</TD></TR></TBODY></TABLE>
+<P>A register of a computer stores N bits for computation. A shift register is a 
+special kind of register, with bit values that can be easily shifted by one 
+position. </P>
+<P>Using a feedback shift register, binary pseudo-random numbers can be 
+generated in the following way: A shift register of size N is initially filled 
+with the bit values a<SUB>1</SUB>,a<SUB>2</SUB>,...,a<SUB>N</SUB>. At each clock 
+tick, the register outputs the value of the rightmost bit, a<SUB>N</SUB>. The 
+other bit values are shifted by one position to the right. The first position is 
+assigned a new value a'<SUB>1</SUB> as follows: </P>
+<P>Each bit of the register is connected to an XOR gate via a switch (see figure 
+below). For each bit i there is a switch s<SUB>i</SUB> (which can be 1 or 0) 
+that determines whether the bit value a<SUB>i</SUB> is forwarded or not to the 
+XOR gate. Let k<SUB>i</SUB> = s<SUB>i</SUB> * a<SUB>i</SUB>. The new value 
+a'<SUB>1</SUB> is set to the output value of the XOR gate, 
+XOR(k<SUB>1</SUB>,...,k<SUB>N</SUB>). (Remark: If the number of ones in 
+k<SUB>1</SUB>,... k<SUB>N</SUB> is odd, the value of 
+XOR(k<SUB>1</SUB>,...,k<SUB>N</SUB>) is 1, else 0). Below are the formal 
+definitions: </P>
+<P>a'<SUB>1</SUB> = XOR(k<SUB>1</SUB>, ..., k<SUB>N</SUB>) <BR>a'<SUB>i</SUB> = 
+a<SUB>{</SUB>i-1} for 2 �� i �� N <BR>output = a<SUB>N</SUB> </P>
+<TABLE cellPadding=3 border=1>
+  <TBODY>
+  <TR>
+    <TD vAlign=center><IMG src="249.gif"> </TD>
+    <TD>
+      <TABLE cellPadding=1 border=0>
+        <TBODY>
+        <TR>
+          <TD>tick</TD></TD>
+          <TD>a<SUB>1</SUB> </TD>
+          <TD>a<SUB>2</SUB> </TD>
+          <TD>a<SUB>3</SUB> </TD>
+          <TD>a<SUB>4</SUB> </TD>
+          <TD>a<SUB>5</SUB> </TD>
+          <TD>a<SUB>6</SUB> </TD>
+          <TD>a<SUB>7</SUB> </TD>
+          <TD>output</TD></TR>
+        <TR>
+          <TD>0</TD></TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>-</TD></TR>
+        <TR>
+          <TD>1</TD></TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>0 </TD>
+          <TD>1</TD></TR>
+        <TR>
+          <TD>2</TD></TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>0</TD></TR>
+        <TR>
+          <TD>3</TD></TD>
+          <TD>1 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>1 </TD>
+          <TD>0</TD></TR>
+        <TR>
+          <TD>4</TD></TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>1</TD></TR>
+        <TR>
+          <TD>5</TD></TD>
+          <TD>0 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>1</TD></TR>
+        <TR>
+          <TD>6</TD></TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>0</TD></TR>
+        <TR>
+          <TD>7</TD></TD>
+          <TD>1 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>1</TD></TR>
+        <TR>
+          <TD>8</TD></TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>1 </TD>
+          <TD>0</TD></TR>
+        <TR>
+          <TD>9</TD></TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>1</TD></TR>
+        <TR>
+          <TD>10</TD></TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>0 </TD>
+          <TD>1</TD></TR>
+        <TR>
+          <TD>11</TD></TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>0</TD></TR>
+        <TR>
+          <TD>12</TD></TD>
+          <TD>1 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>1 </TD>
+          <TD>0</TD></TR>
+        <TR>
+          <TD>13</TD></TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>1</TD></TR>
+        <TR>
+          <TD>14</TD></TD>
+          <TD>0 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>1 </TD>
+          <TD>0 </TD>
+          <TD>1</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<P>In the example above, the value a<SUB>1</SUB> at tick 1 is calculated as 
+follows: </P>
+<P>XOR(1 * 1, 0 * 0, 1 * 1, 1 * 1, 0 * 0, 1 * 0, 1 * 1) = 0. </P>
+<P>You are given the first 2N output values of such a feedback shift register. 
+From those values, you shall try to determine the switch values s<SUB>i</SUB>. 
+</P>
+<H3>Input</H3>
+<P>The first line of the input file <TT>register.in</TT> contains the size N of 
+the shift register (1 �� N �� 750). The second line contains 2N numbers 0 or 1, 
+which are the first 2N output bit values of the shift register. </P>
+<H3>Output</H3>
+<P>The output file <TT>register.out</TT> consists of exactly one line. If there 
+is a switch setting that produces the given register output values, output the 
+switch values s<SUB>i</SUB> of any such switch setting, starting with 
+s<SUB>1</SUB>. If there are no such switch settings, output the number -1 only. 
+</P>
+<H3>Example</H3>
+<TABLE cellPadding=3 border=1>
+  <TBODY>
+  <TR>
+    <TD vAlign=top align=left width=198><TT>register.in</TT></TD>
+    <TD vAlign=top align=left width=198><TT>register.out</TT></TD></TR>
+  <TR>
+    <TD vAlign=top align=left width=220><TT>7 <BR>1 0 0 1 1 0 1 0 1 1 0 0 1 
+      1</TT></TD>
+    <TD vAlign=top align=left width=220><TT>1 0 1 1 0 1 1 
+</TT></TD></TR></TBODY></TABLE>
+<TABLE cellPadding=3 border=1>
+  <TBODY>
+  <TR>
+    <TD vAlign=top align=left width=220><TT>register.in</TT></TD>
+    <TD vAlign=top align=left width=220><TT>register.out</TT></TD></TR>
+  <TR>
+    <TD vAlign=top align=left width=220><TT>3 <BR>0 0 0 1 1 1</TT></TD>
+    <TD vAlign=top align=left width=220><TT>-1 
+</TT></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></BODY></HTML>

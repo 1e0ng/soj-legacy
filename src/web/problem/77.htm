@@ -1,0 +1,40 @@
+<html>
+<title>The Buses</title>
+<body>
+<center>
+<h1>IOI94 Day 2 Problem 2</h1>
+<h1>The Buses</h1>
+</center>
+
+<h2>Problem</h2>
+A man arrives at a bus stop at 12:00. He remains there during 12:00-12:59. The bus stop is used by a number of bus routes. The man notes the times of arriving buses. The times when buses arrive are given.
+<ul>
+<li>Buses on the same route arrive at regular intervals from 12:00 to 12:59 throughout the entire hour.</li>
+<li>Times are given in the whole minutes from 0 to 59.</li>
+<li>Each bus route stops at least 2 times.</li>
+<li>The number of bus routes in the test examples will be <= 17.</li>
+<li>Buses from different routes may arrive at the same time.</li>
+<li>Several bus routes can have the same time of first arrival and/or time interval. If two bus routes have the same starting time and interval, they are distinct and are both to be presented.</li>
+</ul>
+<p>Find the schedule with the fewest number of bus routes that must stop at that bus stop to satisfy the input data. For each bus route, output the starting time and the interval.
+
+<h2>Input</h2>
+<p>The input contains a number n(n<=300) telling how many arriving buses have been noted, followed by the arrival times in ascending order.
+
+<h2>Output</h2>
+<p>One line for each bus route. Each line in the file gives the time of arrival for the first bus and the time interval in minutes. The order of the bus routes does not matter. If there are several solutions, only one is required.
+
+<h2>Sample Input</h2>
+<pre>
+17
+0 3 5 13 13 15 21 26 27 29 37 39 39 45 51 52 53
+</pre>
+
+<h2>Output for the Sample Input</h2>
+<pre>
+0 13
+3 12
+5 8
+</pre>
+</body>
+</html>

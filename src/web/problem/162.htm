@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>Diving</title>
+</head>
+<body>
+
+<center>
+<h1>BOI 2000 Day 1 Problem 3</h1>
+<h1>Diving</h1>
+</center>
+
+<p>
+Each year there are diving courses in Ohrid. Different tasks are performed during the courses.
+One of them is to dive from one side of the rock through an underwater passage to the other
+side of the rock. The whole group of N students has only one oxygen bottle. No more then two
+persons can use the same oxygen bottle at same time. Each diver has its own speed of diving,
+so when two students dive together they dive with speed of the slower one (one with longer
+diving time). There are M pairs of students that dislike each other and cannot dive together.
+
+<h2>Task</h2>
+Find one schedule to move the group of students from one side of the rock to the other side in minimal time.
+
+<h2>Limitations</h2>
+<ul>
+<li>N&lt;=6000 is positive integer and is the number of students in the group.
+<li>Each student is denoted by 1,2,...,N.
+<li>M&lt;=6000 is positive integer and is the number of student pairs that cannot dive together.
+<li>t<sub>i</sub> is positive integer denoting the time required for the i-th student to move from one side of the rock to the other side.
+<li>The oxygen bottle can only be moved from one side of the rock to the other side by diving. The oxygen bottle has unlimited capacity.
+<li>There is always at least one solution in the test data.
+<li>Time limit: 1 sec.
+</ul>
+
+<h2>Input</h2>
+The first line of the input consists of two integers N and M. In each of the next N lines there is
+one integer t<sub>i</sub>. In each of the next M lines there are two integers representing a student pair that
+cannot dive together.
+
+<h2>Output</h2>
+The first line of the output contains one integer, the minimal time required for moving all the students.
+The next lines of the output file are reflecting one possible schedule of moves with minimal time. Each
+line represents one move in the schedule. It consists of one or two integers denoting the student(s) who
+dive with the oxygen bottle from one side of the rock to the other side.
+
+<h2>Sample Input</h2>
+<pre>
+4 2
+1
+2
+1
+2
+3 4
+2 3
+</pre>
+
+<h2>Sample Output</h2>
+<pre>
+6
+3 1
+1
+4 2
+3
+3 1
+</pre>
+
+</body>
+</html>

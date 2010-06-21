@@ -1,0 +1,72 @@
+<html>
+<head>
+ <title>Necklaces</title>
+</head>
+
+<body>
+
+<center>
+<h1>POI VIII Stage 3 Problem 2</h1>
+<h1>Necklaces</h1>
+</center>
+
+<p>Byteland is known for the gorgeous necklaces made by famous
+jeweler Byteman.
+These necklaces are made of gem stones threaded together. The gem stones are
+divided into 26 distinct sorts, these will be denoted by the lower case Latin
+letters: a - z (stones of the same sort are indistinguishable). It is a point of
+honor with Byteman never to produce two identical necklaces, therefore he keeps
+the descriptions of all the necklaces he had ever produced. Some of the
+necklaces are really long, that is why their descriptions are kept in a shorten
+form. Each description consists of fragments of the following form: a sequence
+of letters (called pattern) followed by an integer denoting the number of times the
+pattern repeats in the necklace. Every description is a sequence of such fragments. For
+example, the description:
+<p><center><tt>abc 2 xyz 1 axc 3</tt></center></p>
+<p>represents the necklace <tt>abcabcxyzaxcaxcaxc</tt> (this word is obtained by
+writing : <tt>&quot;abc&quot;</tt> - twice, <tt>&quot;xyz&quot;</tt> - once, and <tt>&quot;axc&quot;</tt>
+- 3 times). The problem is more complicated because of the inability to
+determine the beginning of the necklace (i.e. the necklace can be arbitrarily
+turned around). Hence some necklaces may have more then one description. For
+example, the necklace described above may also be described as: <tt>cabcxyzaxcaxcaxcab</tt>
+ or <tt>xcaxcaxcabcabcxyza.</tt></p>
+
+<h2>Task</h2>
+Write a program which:
+<ul>
+  <li>reads two descriptions of necklaces from the input file NAS.IN,</li>
+  <li>verifies, whether these descriptions represent the same necklace,</li>
+  <li>writes the result in the output file NAS.OUT.&nbsp;</li>
+</ul>
+
+<h2>Input</h2>
+The text file NAS.IN consists of two lines. Each of these lines is a description
+of a necklace composed of words of lower case letters from Latin alphabet and
+integers, separated by single spaces. The description of a necklace begins with
+integer <i>n</i> equal to the number of patterns in the description, (<i>1&lt;=n&lt;=1&nbsp;000</i>),
+followed by <i>n</i> descriptions of repeating patterns. The i-th description of
+a repeating pattern is composed of: an integer <i>l<sub>i</sub></i>  equal to the
+length of the pattern, (<i>1&lt;=l<sub>i</sub>&lt;=10&nbsp;000</i>), a word <i>s<sub>i</sub></i>
+ built of <i>l<sub>i</sub></i>  lower case Latin letters (a-z) representing the
+pattern, and an integer <i>k<sub>i</sub></i>  equal to the number of times the
+pattern <i>s<sub>i</sub></i> repeats in the description, (<i>1&lt;=k<sub>i</sub>&lt;=100&nbsp;000</i>).
+The sum of numbers <i>l<sub>i</sub></i> (for <i>i=1,...,n</i>) des not exceed <i>10
+000</i>.
+
+<h2>Output</h2>
+<p>Your program should write in the first and only line of the output file
+NAS.OUT a word &quot;TAK&quot; (<i>&quot;YES&quot; in Polish</i>), if both
+descriptions represent the same necklace, and a word &quot;NIE&quot; (<i>&quot;NO&quot;
+in Polish</i>) if the described necklaces are different. </p>
+
+<h2>Sample Input</h2>
+<pre>3 3 abc 2 3 xyz 1 3 axc 3
+4 4 cabc 1 4 xyza 1 3 xca 3 1 b 1
+</pre>
+
+<h2>Sample Output</h2>
+<pre>TAK</pre>
+
+</body>
+
+</html>

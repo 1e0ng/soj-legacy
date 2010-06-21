@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>Primitivus</title>
+</head>
+
+<body>
+
+<center>
+<h1>POI VI Stage 3 Problem 5</h1>
+<h1>Primitivus</h1>
+</center>
+
+<p>
+<b>A genetic code</b> of the abstract primitivus (<i>Primitivus recurencis</i>) is a series of natural numbers
+<i>K=</i>(<i>a_1,...,a_n</i>). <b> A feature</b> of primitivus we call each ordered pair of numbers
+(<i>l</i>,<i>r</i>), which appears successively in the genetic code, i.e. there exists such
+<i> i</i> that
+<i> l=a_i, r=a_i+1</i>. There are no (<i>p</i>,<i>p</i>) features in a primitivus' genetic
+code.&nbsp;
+</p>
+
+
+<h2>Task</h2>
+<p>
+Write a program which:&nbsp;
+<ul>
+<li>reads the list of the features from the text file PIE.IN,
+<li>computes the length of the shortest genetic code having given features,
+<li>writes the results in the output file PIE.OUT.&nbsp;
+</ul>
+
+<h2>Input</h2>
+<p>
+In the first line of the input file PIE.IN one positive integer number <i> n</i> is written. It is the number of different features of the primitivus. In each
+of the following <i> n</i> lines there is a pair of natural numbers<i> l</i> and<i> r</i> separated
+by a single space, <i>  1 &lt;= l &lt;= 1000, 1 &lt;= r &lt;= 1000</i>. A pair (<i>l</i>,
+<i>r</i>) is one of the primitivus' features. The features do not repeat in the input file
+</p>
+
+<h2>Output</h2>
+<p>
+Your program should write, in the first and only line of the text file PIE.OUT, exactly one integer number equal to the length of the shortest genetic code of the primitivus, comprising the features from the file
+PIE.IN.&nbsp;
+</p>
+
+<h2>Sample Input</h2>
+<pre>
+12
+2 3
+3 9
+9 6
+8 5
+5 7
+7 6
+4 5
+5 1
+1 4
+4 2
+2 8
+8 6
+</pre>
+
+<h2>Sample Output</h2>
+<pre>
+15
+</pre>
+
+<h2>Remark</h2>
+All the features from the file PIE.IN are written in the following genetic code:&nbsp;
+<center>(8, 5, 1, 4, 2, 3, 9, 6, 4, 5, 7, 6, 2, 8, 6)
+</center>
+
+</body>
+
+</html>

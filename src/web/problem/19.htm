@@ -1,0 +1,99 @@
+<html>
+<head>
+ <title>Step Traversing a Tree</title>
+</head>
+
+<body>
+<center>
+<h1>POI II Stage 3 Problem 2</h1>
+<h1>Step Traversing a Tree</h1>
+</center>
+<p>
+A <b>graph</b> is a pair (<i>V</i>,&nbsp;<i>E</i>), where
+<i>V</i> is a finite set of elements called <b>vertices</b> of the
+graph, and <i>E</i> is a subset of the set of all unordered pairs of
+distinct vertices. The elements of the set <i>E</i> are called
+<b>edges</b> of the graph. If for each pair of distinct vertices
+<i>u</i>,&nbsp;<i>v</i> there exists exactly one sequence of distinct
+vertices <i>w</i><sub>0</sub>, <i>w</i><sub>1</sub>, ...,
+<i>w<sub>k</sub></i>, such that
+<i>w</i><sub>0</sub>&nbsp;=&nbsp;<i>u</i>,
+<i>w<sub>k</sub></i>&nbsp;=&nbsp;<i>v</i> and the pairs
+{<i>w<sub>i</sub></i>,&nbsp;<i>w</i><sub><i>i</i>&nbsp;+&nbsp;1</sub>}
+are in <i>E</i>, for <i>i</i>&nbsp;=&nbsp;0,
+..., <i>k</i>&nbsp;-&nbsp;1, then the graph is called a <b>tree</b>. We
+say that the distance between the vertices <i>u</i> and <i>v</i> in the
+tree is <i>k</i>.
+<p>
+It is known that a tree of <i>n</i> vertices has exactly
+<i>n</i>&nbsp;-&nbsp;1 edges. A tree <i>T</i> whose vertices are
+numbered from 1 to <i>n</i> can be unambiguously described by giving
+the number of its vertices <i>n</i>, and an appropriate sequence of
+<i>n</i>&nbsp;-&nbsp;1 pairs of positive integers describing its
+edges.
+<p>
+Any permutation of vertices - i.e. a sequence in which each vertex
+appears exactly once - is called a <b>traversing order</b> of a tree. If
+the distance of each two consecutive vertices in some order of the
+tree <i>T</i> is at most <i>c</i>, then we say that it is a
+<b>traversing order of the tree with step</b> <i>c</i>.
+<p>
+It is known that for each tree its traversing order with step 3
+can be found.
+
+<h2>Example</h2>
+The picture shows a tree of 7 vertices. The vertices are represented
+by black dots, and edges by line segments joining the dots.
+<p align="center">
+<img src="19.gif" alt="a tree"></img></p> 
+<p>
+This tree can be traversed with step 3 by visiting its vertices in
+the following order: 7 2 3 5 6 4 1. 
+
+<h2>Task</h2>
+Write a program that:
+<ul>
+<li>reads a description of a tree from the text file DRZ.IN,
+<li>finds an arbitrary traversing order of that tree with step 3,
+<li>writes that order in the text file DRZ.OUT. 
+</ul>
+
+<h2>Input</h2>
+<ul>
+<li>In the first line of the file DRZ.IN there is a positive integer
+<i>n</i>, not greater than 5000 - it is the number of vertices of the
+tree.
+<li>In each of the following <i>n</i>&nbsp;-&nbsp;1 lines there is one
+pair of positive integers separated by a single space and representing
+one edge of the tree. 
+</ul>
+
+<h2>Output</h2>
+In the successive lines of the file DRZ.OUT one should write the numbers
+of the successive vertices in a traversing order of the tree with
+step 3 - each number should be written in a separate line.
+ 
+<h2>Example</h2> 
+The following file DRZ.IN is a correct description of the tree
+presented in the picture:
+<pre>
+7
+1 2
+2 3
+2 4
+4 5
+5 6
+1 7
+</pre>
+The following file DRZ.OUT is a correct solution:
+<pre>
+7
+2
+3
+5
+6
+4
+1
+</pre>
+</body>
+</html>
