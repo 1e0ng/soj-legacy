@@ -63,7 +63,7 @@ if(!isset($_POST['submit']))
 <?php
 $top--;
 $sql = "select pid, problemName, accepted, submitted from problem "
-	.($sql_condition? "and $sql_condition": "")." limit $top, $pagesize";
+	.($sql_condition? "and $sql_condition": "")."order by pid"." limit $top, $pagesize";
 $top++;
 
 if($result = $conn->query($sql))
