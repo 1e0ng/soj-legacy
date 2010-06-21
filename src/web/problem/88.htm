@@ -1,0 +1,86 @@
+<html>
+<head>
+<title>Division Expression</title>
+</head>
+
+<body>
+<center>
+<h1>BOI 2000 Day 2 Problem 1</h1>
+<h1>Division Expression</h1>
+</center>
+
+<p>
+Division expression is an arithmetic expression of the form
+
+<center>
+<pre>
+x1/x2/x3/.../xk
+</pre>
+</center>
+
+<p>
+where xi is a positive integer, for i, (1&lt;=i&lt;=k). Division expression is evaluated from the left to
+the right. For instance the value of the expression
+
+<center>
+<pre>
+1/2/1/2
+</pre>
+</center>
+
+<p>
+is 1/4. One can put parentheses into expression in order to change its value. For example the value of the expression
+
+<center>
+<pre>
+(1/2)/(1/2)
+</pre>
+</center>
+
+<p>
+is 1. We are given a division expression E. Is it possible to put some parentheses into E to get an expression E' whose value is an integer number.
+
+<h2>Task</h2>
+Write a program that for each data set from a sequence of several data sets:
+<ul>
+<li>reads an expression E from the text file DIV.IN,
+<li>verifies whether it is possible to put some parentheses in E to get a new expression E' whose value is an integer number,
+<li>writes the result to the text file DIV.OUT
+</ul>
+
+<h2>Input</h2>
+The first line of the file DIV.IN contains one positive integer d, (d&lt;=5). This is the number of data
+sets. The data sets follow. The first line of each data set contain an integer n, (2&lt;=n&lt;=10000). This
+is the number of integers in the expression. Each of the following n lines contains exactly one positive
+integer not greater than 1,000,000,000. The ith number is the ith integer in the expression.
+
+<h2>Output</h2>
+For each i,(1&lt;=i&lt;=d) your program should write to the ith line of the output file DIV.OUT one word YES,
+if the ith input expression can be transformed into an expression whose value is an integer number, and
+the word NO in the other case.
+
+<h2>Sample Input</h2>
+<pre>
+2
+4
+1
+2
+1
+2
+3
+1
+2
+3
+</pre>
+
+<h2>Sample Output</h2>
+<pre>
+YES
+NO
+</pre>
+
+<h2>Remark</h2>
+Time limit for each test: 2 s<br>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<html>
+<head>
+<title>Skiers</title>
+</head>
+
+<body>
+
+<center>
+<h1>POI VII Stage 1 Problem 3</h1>
+<h1>Skiers</h1>
+</center>
+
+
+<p>
+ A ski team organizes a training on the Bytemountain. There is one ski
+ lift on the northern slope of the mountain. All the ski runs lead from
+ the upper ski lift station to the bottom one.
+ During the training the team members will start together from the upper
+ station and meet at the bottom one. Apart from these two points, the ski
+ runs of the competitors cannot intersect, nor adhere to each other. All
+ ski runs always have to lead downwards.
+</p>
+
+<p>
+ A map of ski runs consists of net of clearings connected by 
+ glades. Every clearing lies on a different height. Two clearings can be
+ joint directly with at most one glade. While skiing downhill from
+ the upper to the bottom station of ski lift, one can choose way to visit
+ any  clearing (but maybe not all in one downhill run). Ski runs can
+ intersect only on the clearings and do not lead through tunnels, or
+ flyovers.  
+</p>
+
+<h2>Task</h2>
+<p>
+Write a program, which: 
+</p>
+
+<ul>
+<li>reads the map of ski runs from the text file NAR.IN, 
+<li>determines maximum number of competitors who can participate in training,
+<li>write the result to the text file NAR.OUT. 
+</ul>
+
+<h2>Input</h2>
+
+<p>
+ In the first line of the input file NAR.IN, there is an integer <i>n</i>,
+ that equals to the number of the clearings, 2 &lt;= <i>n</i> &lt;= 5 000.
+</p>
+
+<p>
+ In each of the next <i>n</i>-1 lines there is a sequence of integers separated
+ by single spaces. Numbers in the (<i>i</i>+1)-th line describe, to which
+ clearings the downhill glades from the <i>i</i>-th clearing lead. First integer
+ in the line - <i>k</i> is the number of these clearings, and the following
+ <i>k</i> integers are their numbers, which are ordered according to
+ the arrangement of glades leading to them, in east to west
+ direction. The clearings are numbered from 1 to <i>n</i>. The upper station of
+ the ski lift can be found on the clearing number 1 and the bottom one on
+ the clearing number <i>n</i>. 
+</p>
+
+<h2>Output</h2>
+
+<p>
+ The first and the only one line of the output file NAR.OUT should
+ consist of exactly one integer - the maximum number of skiers able
+ to take part in the training.
+</p>
+
+<h2>Sample Input</h2>
+<pre>
+15
+5 3 5 9 2 4 
+1 9
+2 7 5 
+2 6 8 
+1 7 
+1 10
+2 14 11 
+2 10 12 
+2 13 10
+3 13 15 12 
+2 14 15
+1 15 
+1 15 
+1 15
+</pre>
+
+<h2>Sample Output</h2>
+<pre>
+3
+</pre>
+
+</body>
+
+</html>

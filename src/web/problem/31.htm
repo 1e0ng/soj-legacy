@@ -1,0 +1,62 @@
+<HTML><HEAD><TITLE>BOI 2003</TITLE>
+      <H1>The Gangs</H1>
+      <P>Chicago in the 1920s: a battlefield of gangsters.</P>
+      <P>If two gangsters have ever met each other, then they have become either 
+      true friends or mortal enemies. The gangsters live --- and die --- by the 
+      following code of ethics:</P>
+      <OL>
+        <LI>A friend of my friend is also my friend. 
+        <LI>An enemy of my enemy is my friend. </LI></OL>
+      <P>Two gangsters are in the same gang if and only if they are friends.</P>
+      <P>Poor you are employed by the Chicago Police Department. You must 
+      calculate the maximal possible number of different gangs in Chicago based 
+      on what the Department knows about the relations between the individual 
+      gangsters.</P>
+
+      <H2>Input</H2>
+      <P>The first line of the input file <SPAN class=sample>GANGS.IN</SPAN> 
+      gives the number <SPAN class=math>N</SPAN> (<SPAN 
+      class=math>2<=N<=1&nbsp;000</SPAN>) of known 
+      gangsters. The gangsters are numbered from <SPAN class=math>1</SPAN> to 
+      <SPAN class=math>N</SPAN>. The second line gives the number <SPAN 
+      class=math>M</SPAN> (<SPAN 
+      class=math>1<=M<=5&nbsp;000</SPAN>) of known facts 
+      about these gangsters.</P>
+      <P>The following <SPAN class=math>M</SPAN> lines list the facts, each fact 
+      on its own line. Each fact is of the form <SPAN class=sample>F&nbsp;<SPAN 
+      class=math>p</SPAN>&nbsp;<SPAN class=math>q</SPAN></SPAN> or <SPAN 
+      class=sample>E&nbsp;<SPAN class=math>p</SPAN>&nbsp;<SPAN 
+      class=math>q</SPAN></SPAN>, where <SPAN 
+      class=math>1<=p&nbsp;&lt;&nbsp;q<=N</SPAN> are the 
+      two gangsters in question. (Each of the three components is separated by a 
+      space.) If the first letter is&nbsp;<SPAN class=sample>F</SPAN>, the line 
+      says that <SPAN class=math>p</SPAN> and <SPAN class=math>q</SPAN> are 
+      known friends. If it is&nbsp;<SPAN class=sample>E</SPAN>, then they are 
+      known enemies.</P>
+      <P>It can be assumed that the input is consistent --- two gangsters cannot 
+      be both friends and enemies of each other.</P>
+
+      <H2>Output</H2>
+      <P>The first and only line of the output file <SPAN 
+      class=sample>GANGS.OUT</SPAN> must contain the maximal possible number of 
+      gangs.</P>
+
+      <H2>Sample Input</H2>
+<pre>
+6
+4
+E 1 4
+F 3 5
+F 4 6
+E 1 2
+</pre>
+
+<h2>Sample Output</h2>
+<pre>
+3
+</pre>
+
+      <H2>Remark</H2>
+      <P>The <SPAN class=math>3</SPAN> gangs in the example above are <SPAN 
+      class=math>{1}</SPAN>, <SPAN class=math>{2, 4, 6}</SPAN>, and <SPAN 
+      class=math>{3, 5}</SPAN>. </P></TD></TR></TBODY></TABLE></FONT><!-- end browsable version --></BODY></HTML>

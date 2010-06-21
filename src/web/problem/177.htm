@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<title>The Caterpillar</title>
+</head>
+<BODY>
+
+<center>
+<h1>CEOI 2000 Day 1 Problem 3</h1>
+<h1>The Caterpillar</h1>
+</center>
+
+<I>Definition:</I>
+A caterpillar is a particular kind of tree with the following property: 
+there is a central chain such that each of the tree's nodes lie either on 
+the central chain, or they are adjacent to that chain. Below there are 
+shown two caterpillars. The darkened nodes indicate the chain. 
+<CENTER><IMG src="177a.gif"></CENTER>
+The chain is not necessarily unique. For example, another possible chain for the second 
+caterpillar is 3-2-5-9.
+
+<h2>Task</h2>
+Given a caterpillar with N
+nodes, write a program which labels the nodes with numbers from 1 to N such that: 
+<LI>each label from 1 to N is used exactly once; 
+<LI>no two edges in the tree have the same absolute value of the 
+difference between the labels of their adjacent nodes.
+<p>
+For the second caterpillar above, a possible labeling is indicated below along 
+with the corresponding differences on the edges:
+<CENTER><IMG src="177b.gif"></CENTER>
+
+<h2>Input</h2>
+File name: <B>CP.IN </B><BR>
+<B>Line 1</B>: N
+<LI>one integer, the number of nodes; <BR><B>Lines 2..<I>N</I></B>: X Y 
+<LI>two integers, separated by a blank, which are two adjacent nodes 
+connected by an edge.
+<p>
+The input data is correct, and the input tree is a caterpillar.
+
+<h2>Output</h2>
+File name: <B>CP.OUT</B><BR>
+<B>Line 1</B>: L<SUB>1</SUB> L<SUB>2</SUB> ... L<SUB>N</SUB>
+<LI>N integers, separated by blanks, where L<SUB>i</SUB> represents the 
+label associated with the node i.
+<p>If there are multiple solutions,
+only one is required. If no labeling is possible, the output file should 
+contain only one line with the word: IMPOSSIBLE
+
+<h2>Limits</h2>
+<LI>2 &lt;= N &lt;= 10000
+
+<h2>Sample Input</h2>
+<pre>
+9
+1 2
+6 5
+5 7
+4 2
+2 3
+8 5
+2 5
+5 9
+</PRE>
+
+<h2>Sample Output</h2>
+<pre>
+8 1 5 2 9 4 6 3 7
+</pre>
+
+</BODY></HTML>

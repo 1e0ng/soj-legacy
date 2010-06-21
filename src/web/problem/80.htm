@@ -1,0 +1,265 @@
+<head>
+<title>Championship in Basketball</title>
+</head>
+
+<body>
+
+<center>
+<h1>BOI 98 Day 1 Problem 3</h1>
+<h1>Championship in Basketball</h1>
+</center>
+
+<p>
+Here you have the result
+from BSCB (Baltic Sea Championship in Basketball). As you can see
+the team from Lithuania won the victory, winning all four games.
+The team from Sweden made a bad tournament and was beaten in all
+games.
+
+<center>
+<table border="1" cellpadding="1" cellspacing="0">
+    <tr>
+        <td nowrap><font size="2" face="Courier New">LIT</font></td>
+        <td><font size="2" face="Courier New">4</font></td>
+        <td><font size="2" face="Courier New">0</font></td>
+        <td><font size="2" face="Courier New">344 -
+        267</font></td>
+    </tr>
+    <tr>
+        <td><font size="2" face="Courier New">LAT</font></td>
+        <td><font size="2" face="Courier New">3</font></td>
+        <td><font size="2" face="Courier New">1</font></td>
+        <td><font size="2" face="Courier New">368 -
+        287</font></td>
+    </tr>
+    <tr>
+        <td><font size="2" face="Courier New">EST</font></td>
+        <td><font size="2" face="Courier New">2</font></td>
+        <td><font size="2" face="Courier New">2</font></td>
+        <td><font size="2" face="Courier New">396 -
+        397</font></td>
+    </tr>
+    <tr>
+        <td><font size="2" face="Courier New">FIN</font></td>
+        <td><font size="2" face="Courier New">1</font></td>
+        <td><font size="2" face="Courier New">3</font></td>
+        <td><font size="2" face="Courier New">414 -
+        473</font></td>
+    </tr>
+    <tr>
+        <td><font size="2" face="Courier New">SWE</font></td>
+        <td><font size="2" face="Courier New">0</font></td>
+        <td><font size="2" face="Courier New">4</font></td>
+        <td><font size="2" face="Courier New">267 -
+        365</font></td>
+    </tr>
+</table>
+</center>
+
+<p>
+You read the table in this way:
+
+<table border="1" cellpadding="1" cellspacing="0">
+    <tr>
+        <td><font size="2" face="Courier New"><strong>Column</strong></font></td>
+        <td><font size="2" face="Courier New"><strong>Explanation</strong></font></td>
+    </tr>
+    <tr>
+        <td><font size="2" face="Courier New">1</font></td>
+        <td><font size="2" face="Courier New">The
+        name of the team (always the same and in the same order
+        and never used in problem).</font></td>
+    </tr>
+    <tr>
+        <td><font size="2" face="Courier New">2</font></td>
+        <td><font size="2" face="Courier New">The
+        number of won games.</font></td>
+    </tr>
+    <tr>
+        <td><font size="2" face="Courier New">3</font></td>
+        <td><font size="2" face="Courier New">The
+        number of lost games.</font></td>
+    </tr>
+    <tr>
+        <td><font size="2" face="Courier New">4</font></td>
+        <td><font size="2" face="Courier New">The
+        number of made points.</font></td>
+    </tr>
+    <tr>
+        <td><font size="2" face="Courier New">5</font></td>
+        <td><font size="2" face="Courier New">The
+        number of lost points.</font></td>
+    </tr>
+</table>
+
+<p>
+Your program will be given
+the table and 20 matchpoints (i.e. points collected by each team
+in each game) P<sub>i</sub> (1&lt;=P<sub>i</sub>&lt;=200, <b>all
+different</b>). Then it will have to find the <b>unique</b>
+results of every game for filling a table like this:
+
+<center>
+<table border="1" cellpadding="1" cellspacing="1">
+    <tr>
+        <td><font size="2"
+        face="Courier New"></font>&nbsp;</td>
+        <td><p><font
+        size="2" face="Courier New">LIT </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">LAT </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">EST </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">FIN </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">SWE </font></p>
+        </td>
+    </tr>
+    <tr>
+        <td><font size="2"
+        face="Courier New">LIT</font></td>
+        <td><p><font
+        size="2" face="Courier New">- </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">48 </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">106 </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">120 </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">70 </font></p>
+        </td>
+    </tr>
+    <tr>
+        <td><font size="2"
+        face="Courier New">LAT</font></td>
+        <td><p><font
+        size="2" face="Courier New">41 </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">- </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">111 </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">137 </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">79 </font></p>
+        </td>
+    </tr>
+    <tr>
+        <td><font size="2"
+        face="Courier New">EST</font></td>
+        <td><p><font
+        size="2" face="Courier New">102 </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">89 </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">- </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">123 </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">82 </font></p>
+        </td>
+    </tr>
+    <tr>
+        <td><font size="2"
+        face="Courier New">FIN</font></td>
+        <td><p><font
+        size="2" face="Courier New">66 </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">97 </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">117 </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">- </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">134 </font></p>
+        </td>
+    </tr>
+    <tr>
+        <td><font size="2"
+        face="Courier New">SWE</font></td>
+        <td><p><font
+        size="2" face="Courier New">58 </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">53 </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">63 </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">93 </font></p>
+        </td>
+        <td><p><font
+        size="2" face="Courier New">- </font></p>
+        </td>
+    </tr>
+</table>
+</center>
+
+<p>
+For instance, the match LAT - SWE closed 79 - 53.
+
+<h2>Input</h2>
+There are at first five rows
+in input file MATCH.IN, with four numbers in each (compare with
+the table given above).
+<p>
+And then in a single line,
+the 20 matchpoints in <b>some</b> order.
+<p>
+The teams in input table are not necessarily ranked by final result.
+
+<h2>Output</h2>
+In the output file MATCH.OUT
+must be the gameschedule without text, written with at least one
+blank between numbers.
+<p>
+Use zero (0) in stead of -.
+Remember that in the testcases there is always a <b>unique</b>
+solution.
+
+<h2>Sample Input</h2>
+<pre>
+4 0 344 267
+3 1 368 287
+2 2 396 397
+1 3 414 473
+0 4 267 365
+41 48 53 58 63 66 70 79 82 89 93 97 102 106 111 117 120 123 134 137
+</pre>
+
+<h2>Sample Output</h2>
+<pre>
+0 48 106 120 70
+41 0 111 137 79
+102 89 0 123 82
+66 97 117 0 134
+58 53 63 93 0
+</pre>
+
+<h2>Remark</h2>
+Timelimit: 2 min<br>
+
+</body></html>

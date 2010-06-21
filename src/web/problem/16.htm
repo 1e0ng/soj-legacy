@@ -1,0 +1,66 @@
+<html>
+<title>Problem 0016</title>
+<body>
+<center>
+<h1>IOI2002 Day 0 Problem 2</h1>
+<h1>String from substrings</h1>
+</center>
+<h2>Problem</h2>
+<p>Every DNA string consists of only 4 letters, A, T, G and C. You have an unknown DNA string and must determine the string. The only way you can access information about the hidden string is through an oracle. The oracle, when given a query string S, answers whether the hidden string contains S as a substring. For example, let the hidden string be S<sub>o</sub>= "ATTGCGCGATCG". Then "ATTG" and "CGCG", "T", "AT" are substrings of S<sub>o</sub>. But neither of "TGG" or "GCGATG" is not a substring of S<sub>o</sub>. When a string S<subo</sub> is represented as S<sub>o</sub>=(s[1], s[2], s[3], ��, s[N]), where s[i] is the i-th character of S<sub>o</sub>, then a substring of S<sub>o</sub> is a consecutive subsequence represented as (s[i], s[i+1], s[i+2], ��, s[j]), where 1 <= i <= j <= N <= 255.
+<p>You are to write a program, which determines the hidden string using as few oracle queries as possible.
+
+<h2>Library</h2>
+<p>You are given a library in the following.
+
+<p>GNU C/C++ Library: (oracle.h, oracle.o)
+<p>The C/C++library has the following three functions:
+<p>
+<pre>void start_string()</pre> The call to start. It should be called only once at the beginning.
+<pre>int oracle_call(char *S)</pre> If S is a substring of the hidden string, this function returns 1.  Otherwise, this function returns 0.  The query string S should not be an empty string, and the length of s should be equal or less than 255.
+<pre>void answer_string(char *S)</pre> This function will terminate your program. Your program passes the string S as an answer. This should be called only once at the end of the program.
+
+<p>
+Instruction: To compile your string.c or string.cpp, use the include statement
+<p>
+<pre>
+ #include "oracle.h"
+</pre>
+<p>
+in the source code and compile it as:
+<p>
+<pre>
+ gcc -O2 -static string.c oracle.o -lm<br>
+ g++ -O2 -static string.cpp oracle.o -lm<br>
+</pre>
+<p>lib_test.c shows how to use the GNU C/C++ library.
+
+<h2>FreePascal Library: (oracle.ppu, oracle.o)</h2>
+<p>The corresponding pascal library functions are
+<pre>
+procedure start_string;
+function oracle_call(S: string): integer;
+procedure answer_string(S: string);
+</pre>
+<p>Instruction: To compile your string.pas, include the import statement
+<pre>uses oracle;</pre>
+<p>in the source code and compile it as
+<pre>fpc -So -O2 -XS string.pas</pre>
+<p>lib_test.pas shows how to use the FreePascal library.
+<p>The libray generates a file named string.out automatically in a call to answer_string. The file string.out has two lines. The integer in the first line shows the number of calls to oracle_call made by your program and the second line contains the hidden string your program has given as a solution.
+
+<h2>Example inputs and outputs</h2>
+The length L of the hidden string satisfies 1<=L<=255. You can experiment with the library by creating a text file string.in with a single line which contains the hidden DNA string.  Note that the string.out in the following example is not necessarily optimal. It merely shows the file format of input and output.
+string.in
+<pre>
+ATTGCGCGATCG
+</pre>
+string.out
+<pre>
+41
+ATTGCGCGATCG
+</pre>
+<h2>Scoring</h2>
+<p>If your program violates one of constraints (e.g. calling too many function calls), then you get 0 point.
+<p>If your solution is not correct, then the score is 0.  When the output solution is correct, then your score depends on the number of library function calls for each testing data. For each data if the number of function calls is less than a bound B (that is fixed independently for each data), then you get full score. Otherwise you will get 0 points.
+</body>
+</html>

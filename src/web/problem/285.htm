@@ -1,0 +1,115 @@
+<html>
+<head>
+<title>Chase</title>
+</head>
+
+<body>
+
+<center>
+<h1>POI V Stage 3 Problem 3</h1>
+<h1>Chase</h1>
+</center>
+
+<P>
+Chase is a two-person board game. A board consists of squares
+numbered from 1 to n. For each pair of different
+squares it is known if they are adjacent to one another or they
+are not. Each player has a piece at his disposal. At the beginning
+of a game pieces of players are placed on fixed, distinct squares.
+In one turn a player can leave his
+piece on the square it stands or move it to an adjacent 
+square.</P>
+
+<P>
+A game board has the following properties:
+<UL>
+<LI>it contains no triangles, i.e. there are no three distinct 
+squares such that each pair of them is adjacent,
+<LI>each square can be reached by each player.
+</UL>
+</P>
+
+<P>
+A game consists of many turns. In one turn each player makes
+a single move. Each turn is started by player A. We say 
+that player A is caught by player B if both pieces
+stand on the same square.
+
+Decide, if for a given initial positions of pieces, player B
+can catch player A, independently of the moves of his opponent. 
+
+If so, how many turns player B needs to catch player A if both
+play optimally (i.e. player A tries to run away as long as he can
+and player B tries to catch him as quickly as possible).
+</P>
+
+
+<h2>Example</h2>
+
+<center><img src="285.gif"></center>
+
+<P>
+Consider the board in the figure.
+Adjacent squares (denoted by circles) are connected by edges. 
+If at the beginning of a game pieces of players A and B 
+stand on the squares 9 and 4 respectively, then player B
+can catch player A in the third turn (if both players move optimally).
+If game starts with pieces on the squares 8 (player A) and
+4 (player B) then player B cannot catch player A (if A plays
+correctly).</P>
+
+<h2>Task</h2>
+Write a program that:
+<LI>reads from the text file GON.IN the description of a board
+and numbers of squares on which pieces are placed initially.
+<LI>decides if player B can catch player A and if so, computes how 
+many turns he needs (we assume that both players play optimally);
+<LI>writes the result to the text file GON.OUT.
+</P>
+
+
+<h2>Input</h2>
+In the first line of the input file GON.IN there are four integers
+n, m, a and b separated by single spaces, where
+2&lt;=n&lt;=3000, n-1&lt;=m&lt;=15000, 
+1&lt;=a,b&lt;=n and a &lt;b. 
+These are (respectively): the number of squares of the board,
+the number of adjacent (unordered) pairs,
+the number of the square on which the piece of player A is placed,
+the number of the square on which the piece of player B is placed.
+In each of the following lines there are two distinct positive integers
+separated by a single space, which
+donote numbers of adjacent squares.</P>
+
+<h2>Output</h2>
+In the first and only line of the file GON.OUT there should be:
+<LI>one word NIE (which means NO in Polish), if player B can not 
+catch player A, or
+<LI>one integer - the number of turns needed by B to catch A
+(if B can catch A).
+</P>
+
+<h2>Sample Input</h2>
+<PRE>
+9 11 9 4
+1 2
+3 2
+1 4
+4 7
+7 5
+5 1
+6 9
+8 5
+9 8
+5 3
+4 8
+</PRE>
+
+<h2>Sample Output</h2>
+<PRE>
+3
+</PRE>
+
+</body>
+
+</html>

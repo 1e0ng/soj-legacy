@@ -1,0 +1,93 @@
+<HTML>
+<HEAD>
+<TITLE>MEETING</TITLE>
+</HEAD>
+
+<body>
+
+<center>
+<H1>BOI 98 Day 1 Problem 1</H1>
+<H1>Meeting</H1>
+</center>
+
+<P>Two diplomats, on a mission from their respective countries, are in
+the same city to engage in negotiations. They are staying in different
+hotels. They would like to arrange a rendezvous with the following conditions.
+They are supposed to leave their hotels exactly at the same time and arrive
+at some meeting point exactly at the same time. They walk at the same speed.
+So it is assured that both parties get an equal treatment: they walk the
+same distance and no one will be standing alone at the meeting point waiting
+for the other. The city map will be given to you: On the map streets are
+shown along with the distances between any two points connected by a street;
+points where the two hotels are located are marked. It is possible to reach
+from any point of interest to any other. Your task is to find a place in
+town which could be a meeting point and specify the two routes to this
+point. The point you find must enable the meeting to start at the earliest
+possible time (with respect to the departure time from their hotels). Also,
+no one must pass through the same point twice. Moreover, the two diplomats
+must follow disjoint routes (i.e. routes that do not have a point in common
+except the meeting point).You are assured that at least one such meeting
+point exists.
+
+<H2>Input</H2>
+The points of interest on the map are numbered 1 through P consecutively
+(1 &lt;= P &lt;= 200). If points i and j are connected by a street, the distance
+between these points, D<sub>i,j</sub> will be an integer (1 &lt;= D<sub>i,j</sub>&lt;= 10). The first
+line of the input file contains three integers, each separated by a blank.
+The first integer, call it L, is the number of the lines that follow (L
+ &lt;=500). The second and third integers designate the locations of the hotels
+the two diplomats are staying. Each of the L lines has three numbers, each
+separated by blanks. These numbers are i, j and D<sub>i,j</sub>-in left to right
+order. These three numbers represent two points of interest, i and j, connected
+by a street such that their distance along this street is D<sub>i,j</sub>. Notice
+that the order of i and j is not important. Moreover, there will not be
+another line with the same i and j. The input will be a text file named
+meet.inp.
+
+<H2>Output</H2>
+Your output must be a text file to be named meet.out. The output must
+consist of two lines each holding a route for a diplomat. The route for
+a diplomat is a sequence of integers, each separated by a blank, where
+each integer designates a point along the route. The first point must be
+the hotel and the last point must be the meeting point. The ordering of
+the two lines is not important.
+
+<H2>Sample Input</H2>
+<pre>
+22 1 8
+1 13 2
+1 2 1
+2 6 4
+2 3 1
+3 4 1
+3 5 1
+4 5 1
+4 6 2
+5 7 2
+6 7 3
+5 14 2
+7 8 3
+7 14 2
+13 14 4
+13 12 3
+12 14 4
+12 11 2
+11 14 3
+11 10 2
+10 8 1
+10 9 2
+9 8 2
+</PRE>
+
+<h2>Sample Output</h2>
+<pre>
+1 2 3 5 14
+8 7 14
+</pre>
+
+<h2>Note</h2>
+Here is the picture of the sample input:<br>
+<center><IMG SRC="293.gif" HEIGHT=224 WIDTH=280></center>
+
+</BODY>
+</HTML>

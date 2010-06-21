@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>THE MOBILE</title>
+</head>
+
+<body>
+
+<center>
+<h1>BOI 99 Day 2 Problem 3</h1>
+<h1>The Mobile</h1>
+</center>
+
+<center><img SRC="216a.gif" HSPACE=9 VSPACE=16 height=141 width=254></center>
+<p>In figure 1 you can see a mobile in perfect balance. The mobile have
+five weights 1 kg, 2 kg ... 5 kg. The distance between two marks is 1 m.
+You can check the balance through this calculation
+<p><font face="Courier New"><font size=+0>-3&middot;3 + -1&middot;5 + 2&middot;(1+2+4)=0</font></font>
+<br><font face="Courier New"><font size=+0>-2&middot;1 + -1&middot;2 +
+1&middot;4=0</font></font>
+<p>When you get a mobile problem you will get the <i>structure</i> of the
+mobile from a character string. The mobile in figure 1 is described in
+this way
+<p><font face="Courier,Courier New"><font size=+0>(-3,-1,2(-2,-1,1))</font></font>
+<p>You have to calculate such weights so the mobile is in perfect balance
+and give the answer as another character string. From figure 1 with the
+five weights the answer is
+<p><font face="Courier,Courier New"><font size=+0>(3,5,(1,2,4))</font></font>
+
+<h2>Input and Output</h2>
+<p>You will now write a program reading a description of a mobile from
+an input file, calculate the weights and writing the answer to an output
+file.
+
+<ul>
+<li>If there are <i>n</i> weights in the mobile you must use the weights from
+1 kg to <i>n</i> kg exactly once</li>
+<li>The mobile must be in perfect balance.</li>
+<li><i>n</i> <font face="Symbol">&pound;</font> 17</li>
+<li>There will be no more than 7 attachments hanging from any of the bars.
+The mobile on fig.1 has 2 bars with 3 attachments hanging from each.</li>
+<li>The input string will be given as a single line in the input file MOBILE.IN.
+All numbers are integers which values are between -50 and 50 (inclusive).</li>
+<li>The output string must be given as a single line in the output file MOBILE.OUT,
+without spaces.</li>
+<li>You can assume that for each given test data at least one solution exists.
+If more than one solution is possible, you must output one of them.</li>
+</ul>
+
+
+<h2>Sample Input 1</h2>
+<pre>
+(-3(-1(-1(-1,1,2),3),2),3(-2,1,2),6(-2,3))
+</pre>
+
+<h2>Sample Output 1</h2>
+<pre>
+((((8,6,1),5),10),(9,4,7),(3,2))
+</pre>
+
+<h2>Figure 1</h2>
+<center><img SRC="216b.gif" HSPACE=9 VSPACE=18 height=220 width=511></center>
+
+<h2>Sample Input 2</h2>
+<pre>
+(-8,-4(-5,-3,-1,1),-2(-1,1,3),2(-1(-3,-2,1(-2,1,3)),1,3),6)
+</pre>
+
+<h2>Sample Output 2</h2>
+<pre>
+(10,(1,2,4,15),(14,5,3),((6,8,(16,11,7)),9,13),12)
+</pre>
+
+<h2>Figure 2</h2>
+<center><img SRC="216c.gif" HSPACE=9 VSPACE=18 height=313 width=596></center>
+
+</body>
+</html>

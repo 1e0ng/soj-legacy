@@ -1,0 +1,105 @@
+<html>
+<head>
+<title>Window</title>
+</head>
+
+<body>
+
+<center>
+<h1>POI V Stage 2 Problem 5</h1>
+<h1>Window</h1>
+</center>
+
+<p>
+We have a polygon chosen in the cartesian coordinate system.
+Sides of the polygon are parallel to the axes
+of coordinates. Every two consecutive sides are 
+perpendicular and coordinates of every vertex
+are integers. We have also given a window that is a rectangle
+whose sides are parallel to the axes of coordinates.
+The interior of the polygon (but not its periphery)
+is coloured red. What is the number of separate red fragments
+of the polygon that can be seen through the window?</p>
+
+<h2>Example</h2>
+Look at the figure below:
+
+<center><img src="183.gif"></center>
+
+There are two separate fragments of the polygon that can be seen 
+through the window.
+
+<h2>Task</h2>
+Write a program that:
+<ul>
+<li> reads descriptions of a window and a polygon from the text file
+OKN.IN;
+<li>computes the number of separate red fragments of the polygon
+that can be seen through the window;
+<li>writes the result to the text file OKN.OUT.
+</ul>
+
+<h2>Input</h2>
+In the first line of the input file OKN.IN there are four
+integers x1, y1, x2, y2 from the range [0..10000], separated by
+single spaces. The numbers x1, y1 are the coordinates of the
+top-left corner of the window.
+The numbers x2, y2 are the coordinates of the bottom-right corner of
+the window.
+
+The next line of the input file contains one integer n, 
+4&lt;=n&lt;=5000, which equals the number of vertices of the polygon.
+
+In the following n lines there are coordinates of polygon's vertices
+given in anticlockwise direction, 
+i.e the interior of the polygon is on the left side of its periphery
+when we move along the sides of the polygon according to the
+given order.
+Each line contains two integers x, y separated by a single space,
+0&lt;=x&lt;=10000, 0&lt;=y&lt;=10000.
+The numbers in the (i+2)-nd line of the file OKN.IN, 1&lt;=i&lt;=n, 
+are coordinates of the i-th vertex of the polygon. 
+
+<h2>Output</h2>
+In the first and only line of the output file OKN.OUT there
+should be one integer - the number of separate red fragments
+of the polygon that can be seen through the window.
+
+<h2>Sample Input</h2>
+<pre>
+0 5 8 1
+24
+0 0
+4 0
+4 2
+5 2
+5 0
+7 0
+7 3
+3 3
+3 2
+2 2
+2 4
+1 4
+1 5
+2 5
+2 6
+3 6
+3 5
+4 5
+4 6
+5 6
+5 4
+7 4
+7 7
+0 7
+</pre>
+
+<h2>Sample Output</h2>
+<pre>
+2
+</pre>
+
+</body>
+
+</html>
