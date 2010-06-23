@@ -1,0 +1,38 @@
+<html>
+<head>
+</head>
+<body>
+<h2>Discription</h2>
+John is going on a fishing trip. He has h hours available (1 &lt;= <I>h</I> &lt;= 16),and there are <I>n</I> lakes in the area (2 &lt;= <I>n</I> &lt;= 25) all reachable along a single, one-way road. John starts at lake 1, but he can finish at any lake he wants. He can only travel from one lake to the next one, but he does not have to stop at any lake unless he wishes to. For each <I>i</I> = 1,...,<I>n</I> - 1, the number of 5-minute intervals it takes to travel from lake i to lake <I>i</I> + 1 is denoted <I>t<sub>i</sub></I> (0 &lt; <I>t<sub>i</sub></I> &lt;= 192). For example, <I>t<sub>3</sub></I> = 4 means that it takes 20 minutes to travel from lake 3 to lake 4.<br>
+To help plan his fishing trip, John has gathered some information about the lakes. For each lake <I>i</I>, the number of fish expected to be caught in the initial 5 minutes, denoted <I>f<sub>i</sub></I> (<I>f<sub>i</sub></I> &gt;= 0), is known. Each 5 minues of fishing decreases the number of fish expected to be caught in the next 5-minute interval by a constant rate of <I>d<sub>i</sub></I> (<I>d<sub>i</sub></I> &gt;= 0). If the number of fish expected to be caught in the next 5-minute interval by a constant rate of <I>d<sub>i</sub></I> (<I>d<sub>i</sub></I> &gt;= 0). If the number of fish expected to be caught in an interval is less than or equal to <I>d<sub>i</sub></I>, there will be no more fish left in the lake in the next interval. To simplify the planning, John assumes that no one else will be fishing at the lakes to affect the number of fish he expects to catch.<br>
+Write a program to help John plan his fishing trip to maximize the number of fish expected to be caught. The number of minutes spent at each lake must be a multiple of 5.
+<h2>Input</h2>
+You will be given a number of cases in the input. Each case starts with a line containing n. This is followed by a line containing <I>h</I>. Next, there is line of <I>n</I> integers specifying <I>f<sub>i</sub></I> (1 &lt;= <I>i</I> &lt;= &lt;= <i>n</I>), then a line of <i>n</I> integers <I>d<sub>i</sub></I> ( 1 &lt;= <i>i</i> &lt;= <i>n</i>), and finally a line of <i>n</i> - 1 integers <i>t<sub>i</sub></i> (1 &lt;= <i>i</i> &lt;= <i>n</I> - 1). Input is terminated by ac case in which <i>n</i> = 0. 
+<h2>Output</h2>
+For each test case, print the number of minutes spent at each lake, separated by commas, for the plan achieving the maximum number of fish expected to be caught (you should print the entire plan on one line even if it exceeds 80 characters). This is followed by a line containing the number of fish expected. If multiple plans exist, choose the one that spends as long as possible at lake 1, even if no fish are expected to be caught in some intervals. If there is still a tie, choose the one that spends as long as possible at lake 2, and so on. Insert a blank line between cases.
+<h2>Sample Input</h2>
+2<br>
+1<br>
+10 1<br>
+2 5<br>
+2<br>
+4<br>
+4<br>
+10 15 20 17<br>
+0 3 4 3<br>
+1 2 3<br>
+4<br>
+4<br>
+10 15 50 30<br>
+0 3 4 3<br>
+1 2 3<br>
+0<br>
+<h2>Sample Output</h2>
+45, 5<br>
+Number of fish expected: 31<br><br>
+240, 0, 0, 0<br>
+Number of fish expected: 480<br><br>
+115, 10, 50, 35<br>
+Number of fish expected: 724<br><br>
+</body>
+</html>
