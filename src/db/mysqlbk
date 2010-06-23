@@ -1,20 +1,22 @@
 #!/bin/sh
 user="soj"
 pass="soj-001-soj"
-host="211.87.227.89"
+host="localhost"
 dir="./sojbackup"
+cd $dir
 db="soj"
 time="$(date +"%Y-%m-%d %H:%M:%S")"
 cycle=30
-test ! -d "$dir/0/" && mkdir "$dir/0"
-mysqldump -u$user -h$host -p$pass $db |gzip >"$dir/0/$time.$db.gz"
-test -d "$dir/$cycle/" &&rm -rf "$dir/$cycle"
+mysqldump -u$user -h$host -p$pass $db |gzip >"0/$time.$db.gz"
+svn add "0/$time.$db.gz"
+test -d "$cycle/" &&svn rm $cycle/*.gz
 for iint in $(seq $cycle)
 do 
 	int=`expr $cycle - $iint`
-	if(test -d "$dir/$int")
+	if(test -d "$int")
 	then
 		next_int=`expr $int + 1`
-		mv "$dir/$int" "$dir/$next_int"
+		svn mv $int/*.gz $next_int/
 	fi
 done
+svn commit -m 'backup db'
