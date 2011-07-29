@@ -9,7 +9,7 @@ if($DEBUG)
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>SDU Online Judge</title>
+<title>Small Online Judge</title>
 <script type="text/javascript" src="checkers.js"></script>
 </head>
 <body>

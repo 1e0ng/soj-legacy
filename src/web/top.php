@@ -1,48 +1,29 @@
 <?php
-if(!isset($MAGICAL))
+if(!isset($MAGICAL)) {
 	include("index.php");
-else
-{?>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="soj.css" rel="stylesheet" type="text/css" />
-<center><img src="banner.jpg" width="980" height="90" /></center>
-<?
-echo "<div align = \"right\">";
-
-//if not logged in, display the login and register link
-if(!isset($_SESSION['uid']))
-{
-?>
-<font face="sans-serif">
-	<a href=login.php>Login</a>
-	&nbsp;&nbsp;
-	<a href=register.php>Register</a>
-</font>
-<?php
 }
-//else display the user link
-else
-{
-	$nickname = $_SESSION['nickname'];
-	echo "<a href=\"user.php?uid=".$_SESSION['uid']."\">$nickname</a>";
-	if(!isset($_POST['submit']))
-	echo "&nbsp;&nbsp;";
-	echo "<a href=\"logout.php\">Logout</a>";
-}
-echo "</div>\n";
-?>
-<table width="100%" 
-border="1" bordercolor="#ffffff" style="BORDER-COLLAPSE: collapse">
-  <tbody>
-    <tr valign="top" align="middle" bgcolor="#6589d1">
-      <th bgcolor="#6589d1" class="h"><a href="home.php"><font color="#FFFFFF">Home</font></a></th>
-      <th bgcolor="#6589d1" class="h"><a href="problemlist.php"><font color="#FFFFFF">Problems</font></a></th>
-      <th bgcolor="#6589d1" class="h"><a href="submitproblem.php"><font color="#FFFFFF">Submit</font></a></th>
-      <th bgcolor="#6589d1" class="h"><a href="status.php"><font color="#FFFFFF">Status</font></a></th>
-      <th bgcolor="#6589d1" class="h"><a href="rank.php"><font color="#FFFFFF">Rank</font></a></th>
-    </tr>
-  </tbody>
-</table>
-<?php
+else {
+    echo '<table>'; 
+    echo '<tr>';
+    echo '<td class="h"><a href="home.php">Home</a></td>';
+    echo '<td class="h"><a href="problemlist.php">Problems</a></td>';
+    echo '<td class="h"><a href="submitproblem.php">Submit</a></td>';
+    echo '<td class="h"><a href="status.php">Status</a></td>';
+    echo '<td class="h"><a href="rank.php">Rank</a></td>';
+    //if not logged in, display the login and register link
+    if(!isset($_SESSION['uid'])) {
+        echo '<td class="h"><a href="login.php">Login</a></td>';
+        echo '<td class="h"><a href="register.php">Register</a></td>';
+    }
+    //else display the user link
+    else {
+        $nickname = $_SESSION['nickname'];
+        echo '<td class="h"><a href=\"user.php?uid=".$_SESSION["uid"]."\">$nickname</a></td>';
+        if(!isset($_POST['submit'])) {
+            echo '<td class="h"><a href=\"logout.php\">Logout</a></td>';
+        }
+    }
+    echo '</tr>';
+    echo '</table>';
 }
 ?>
