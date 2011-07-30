@@ -8,13 +8,11 @@ else
 {
 include("conn.php");
 include("common.php");
-?>
-<link href="soj.css" rel="stylesheet" type="text/css" />
-<?
+
 //generate section titles such like discription, InputCase, etc
 function gen_section($title, $content)
 {
-	echo "<div align = \"left\"><h3><font color=\"#0000FF\">$title</font></h3></div>\n";
+	echo "<div>$title</div>\n";
 	$change_array=array('\n'=>'<br>');
 	$content=strtr($content,$change_array);
 	//echo "<div style=\"word-break:break-all\">$content</div>\n";
@@ -48,7 +46,7 @@ else
 }
 //title area
 
-echo "<center><h2>$problem->problemName</h2></center>\n";
+echo "<h2>$problem->problemName</h2>\n";
 //limitations and statistics area
 ?>
 <table width="100%" border="0" background="table_back.jpg">

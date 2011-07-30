@@ -16,16 +16,16 @@ if(isset($_GET['top']) && $_GET['top'] > 0)
 	$top = $_GET['top'];
 
 ?>
-<div align = "center">
+<div>
 <?
 $page_string = paged_disp($conn, "user", null, $top, $pagesize, "rank.php");
 echo $page_string;
 ?>
-<table border="1" bordercolor="#ffffff" style="BORDER-COLLAPSE: collapse">
+<table>
 	<tr>
-	<th width = "80" bgcolor="#6589d1" class="h"><font color="#FFFFFF">Rank</font></th>
-	<th width = "400" bgcolor="#6589d1" class="h"><font color="#FFFFFF">NickName</font></th>
-	<th width = "100" bgcolor="#6589d1" class="h"><font color="#FFFFFF">AC Ration</font></th>
+	<th>Rank</th>
+	<th>Nick Name</th>
+	<th>AC Ration</th>
 	</tr>
 <?php
 $top--;
@@ -37,13 +37,7 @@ if($result = $conn->query($sql))
 	$i = 0;
 	while($user = $result->fetch_object())
 	{
-		if ($user->uid%2==0){
-			echo "<tr bgcolor=\"#A2B9E6\">\n";
-		}
-		else {
-			echo "<tr bgcolor=\"#B7C8EA\">\n";
-		}
-		
+        echo "<tr>\n";
 		gen_cell($top + $i++);
 		gen_cell("<a href=\"user.php?uid=$user->uid\">$user->nickname</a>");
 		echo "<td>";
@@ -51,7 +45,7 @@ if($result = $conn->query($sql))
 			$ratio = ($user->accepted / $user->submitted) * 100;
 		else
 			$ratio = 0;
-		printf("%.2f%%", $ratio);
+		printf("%03.2f%%", $ratio);
 		echo "($user->accepted/$user->submitted)</td>\n";
 	}
 	if($i == 0)
