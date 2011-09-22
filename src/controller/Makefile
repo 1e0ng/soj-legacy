@@ -1,10 +1,10 @@
 CC=g++
-CFLAGS=-g -Wall -m32 -DNDEBUG -DTRACE_SYSCALL -D_CONTROLLER -pipe -fPIC \
+CFLAGS=-g -Wall -DNDEBUG -DTRACE_SYSCALL -D_CONTROLLER -pipe -fPIC \
 	   -fno-strict-aliasing   -DUNIV_LINUX -DUNIV_LINUX
 CXXFLAGS=$(CFLAGS)
-INCPATHS=-I/usr/include/mysql
-LIBPATHS=-L/usr/lib/mysql
-LIBS=-Wl,--hash-style=gnu -Wl,--as-needed -rdynamic -static -lmysqlclient -lpthread -lz -lcrypt -lnsl -lm
+INCPATHS=-I/usr/include/mysql/
+LIBPATHS=-L/usr/lib64/mysql/
+LIBS=-Wl,--hash-style=gnu -Wl,--as-needed -rdynamic  -lmysqlclient -lpthread -lz -lcrypt -lnsl -lm
 SOURCES:=$(wildcard *.cpp) $(wildcard ../common/*.cpp) $(wildcard ../common/Packet/*.cpp)
 OBJS:=$(patsubst %.cpp, %.o, $(SOURCES))
 BINPATH=../bin/

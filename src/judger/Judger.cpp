@@ -19,6 +19,7 @@
 #include <errno.h>
 #include <string.h>
 #include <sys/select.h>
+#include <stdio.h>
 
 using namespace std;
 using namespace Network;
