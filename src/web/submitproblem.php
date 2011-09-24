@@ -144,7 +144,7 @@ else
 ?>
 <form name = "formSubmitProblem" method = "post" action = "submitproblem.php"
 onsubmit = "return checkSubmitProblemItems()">
-<table align = "center"><tr>
+<table border="1"><tr>
 <td>ProblemID</td>
 <td><input type = "text" maxlength = "8" size = "20" name = "pid" 
 <?php 
@@ -169,7 +169,7 @@ gen_options($LANGUAGE, null, $preferred_lan);
 <tr><td colspan = "4">
 <textarea name = "source" cols = "80" rows = "20"></textarea>
 </td></tr>
-<tr><td colspan = "4" align = "center">
+<tr><td colspan = "4">
 <input type = "submit" name = "submit" value = "submit"/>
 </td></tr>
 </table>

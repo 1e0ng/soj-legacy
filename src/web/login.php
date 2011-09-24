@@ -51,7 +51,6 @@ if(isset($_POST['username']) && isset($_POST['password']))
 else
 {
 ?>
-<div align = "center">
 <form name = "formLogin" action = "
 <?php 
 	echo "login.php?noalert=1";
@@ -61,32 +60,26 @@ else
 	}
 ?> 
 		" method = "post" onsubmit = "return checkLoginItems()">
-	<table background="table_back.jpg">
+	<table border="1">
 		<tr>
-			<td align = "right">Username&nbsp;&nbsp;</td>
-			<td align = "left"><input type="text" name="username" size="25" maxlength="32"></td>
+			<td>Username&nbsp;&nbsp;</td>
+			<td><input type="text" name="username" size="25" maxlength="32"></td>
 		</tr>
 		<tr>
-			<td align = "right">Password&nbsp;&nbsp;</td>
-			<td align = "left"><input type="password" name="password" size="25" length ="32"></td>
+			<td>Password&nbsp;&nbsp;</td>
+			<td><input type="password" name="password" size="25" length ="32"></td>
 		</tr>
 		<tr>
-			<td align = "center" colspan="2">
-				<input type="submit"name=submit value="Submit">
-				&nbsp;&nbsp;&nbsp;&nbsp;
+			<td>
+				<input type="submit" name="submit" value="Submit">
+                                          </td><td>
 				<input type="reset" value="Reset">
 			</td>
 		</tr>
-		<tr><td></td><td></td></tr>
-		<tr>
-			<td align = "center" colspan = "2"><a href="register.php">
-				<i>Not registerred yet?Click here to register immediately!</i></a></td>
-		</tr>
 	</table>
 </form>
-<div>
 <?php
 }
-echo "<center>Login Successful.</center>";
+//echo "Login Successful.";
 }
 ?>

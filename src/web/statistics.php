@@ -7,15 +7,15 @@ if(!isset($MAGICAL))
 else
 {
 ?>
-<table align = "center">
-<tr><td colspan = "6" align = "center"><font size = "6"><b>Heroes List</b></font></td></tr>
+<table border="1">
+<tr><td colspan = "6">Heroes List</td></tr>
 <tr>
-<th width = "80">Rank</th>
-<th width = "160">Username</th>
-<th width = "80">Language</th>
-<th width = "100">Time</th>
-<th width = "100">Memory</th>
-<th width = "200">Submit Time</th>
+<th>Rank</th>
+<th>Username</th>
+<th>Language</th>
+<th>Time</th>
+<th>Memory</th>
+<th>Submit Time</th>
 </tr>
 <?php
 	include("conn.php");
@@ -52,8 +52,8 @@ else
 ?>
 </table>
 <br/><br/><br/><br/>
-<table align = "center">
-<tr><td colspan = "7" align = "center"><font size = "6"><b>Statistic Data</b></font></td></tr>
+<table border="1">
+<tr><td colspan = "7">Statistic Data</td></tr>
 <tr><th width = "100"></th>
 <?php
 		$sql = "select judgeStatus, count(*) as total from status where pid = {$_GET['pid']} "
@@ -76,20 +76,20 @@ else
 				}
 			}
 			for($i = 3; $i <= 7; $i++)
-				echo "<th width = \"100\">{$JUDGE_STATUS[$i]}</th>\n";
-			echo "<th width = \"100\">Sum</th>\n";
+				echo "<th>{$JUDGE_STATUS[$i]}</th>\n";
+			echo "<th>Sum</th>\n";
 			echo "</tr>\n";
-			echo "<tr><td align = \"center\">Total</td>\n";
+			echo "<tr><td>Total</td>\n";
 			foreach($total as $t)
 			{
 				gen_cell($t);
 			}
 			gen_cell($sum);
 			echo "</tr>";
-			echo "<tr><td align = \"center\">Percentage</td>\n";
+			echo "<tr><td>Percentage</td>\n";
 			foreach($total as $t)
 			{
-				printf("<td align = \"center\">%.2f%%</td>\n", $t * 100 / $sum);
+				printf("<td>%.2f%%</td>\n", 0 == $sum ? 0 : $t * 100 / $sum);
 			}
 			gen_cell("100%");
 			echo "</tr>";

@@ -7,9 +7,7 @@ if(!isset($MAGICAL))
 else
 {
 ?>
-<div align = "center">
-<font face="Courier">
-<table width = "600"><tr><td>
+<table border="1"><tr><td><pre><code>
 <?php
 	include("conn.php");
 	include("common.php");
@@ -61,9 +59,8 @@ else
 	}
 }
 ?>
+</code></pre>
 </td></tr></table>
-</font>
-</div>
 <?php
 }
 ?>

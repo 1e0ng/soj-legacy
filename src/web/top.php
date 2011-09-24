@@ -18,9 +18,9 @@ else {
     //else display the user link
     else {
         $nickname = $_SESSION['nickname'];
-        echo '<td><a href=\"user.php?uid=".$_SESSION["uid"]."\">$nickname</a></td>';
+        echo "<td><a href=\"user.php?uid=".$_SESSION["uid"]."\">$nickname</a></td>";
         if(!isset($_POST['submit'])) {
-            echo '<td><a href=\"logout.php\">Logout</a></td>';
+            echo "<td><a href=\"logout.php\">Logout</a></td>";
         }
     }
     echo '</tr>';

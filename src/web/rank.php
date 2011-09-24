@@ -17,11 +17,11 @@ if(isset($_GET['top']) && $_GET['top'] > 0)
 
 ?>
 <div>
-<?
+<?php
 $page_string = paged_disp($conn, "user", null, $top, $pagesize, "rank.php");
 echo $page_string;
 ?>
-<table>
+<table border="1">
 	<tr>
 	<th>Rank</th>
 	<th>Nick Name</th>

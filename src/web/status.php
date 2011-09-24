@@ -71,7 +71,6 @@ if($conds)
 $page_string = paged_disp($conn, $table, $condition, $top, $pagesize, 
 	"status.php".($querys? "?".join("&", $querys) : ""), true);
 ?>
-<div align = "center">
 <form action = "status.php" method = "get">
 	<p>
 	ProblemID
@@ -97,16 +96,16 @@ $page_string = paged_disp($conn, $table, $condition, $top, $pagesize,
 
 echo $page_string;
 ?>
-	<table border="1" bordercolor="#ffffff" style="BORDER-COLLAPSE: collapse">
+	<table border="1">
 		<tr>
-			<th width = "80" align = "center" bgcolor="#6589d1"><font color="#FFFFFF">RunID</font></th>
-			<th width = "80" align = "center" bgcolor="#6589d1"><font color="#FFFFFF">ProblemID</font></th>
-			<th width = "160" align = "center" bgcolor="#6589d1"><font color="#FFFFFF">Username</font></th>
-			<th width = "160" align = "center" bgcolor="#6589d1"><font color="#FFFFFF">Judge Status</font></th>
-			<th width = "80" align = "center" bgcolor="#6589d1"><font color="#FFFFFF">Language</font></th>
-			<th width = "100" align = "center" bgcolor="#6589d1"><font color="#FFFFFF">Time</font></th>
-			<th width = "100" align = "center" bgcolor="#6589d1"><font color="#FFFFFF">Memory</font></th>
-			<th width = "200" align = "center" bgcolor="#6589d1"><font color="#FFFFFF">Submitted Time</font></th>
+			<th>RunID</th>
+			<th>ProblemID</th>
+			<th>Username</th>
+			<th>Judge Status</th>
+			<th>Language</th>
+			<th>Time</th>
+			<th>Memory</th>
+			<th>Submitted Time</th>
 		</tr>
 <?php
 //in mysql minimum top value is 0, so we need dec it by 1 and restore it later
@@ -120,15 +119,8 @@ if($result = $conn->query($sql))
 {
 	if($result->num_rows > 0)
 	{
-		while($status = $result->fetch_object())
-		{
-			if ($status->rid%2==0){
-				echo "<tr bgcolor=\"#B7C8EA\">";
-			}
-			else {
-				echo "<tr bgcolor=\"#A2B9E6\">";
-			}
-
+		while ($status = $result->fetch_object()) {
+            echo "<tr>";
 			gen_cell($status->rid);
 
 			gen_cell("<a href=\"problem.php?pid=$status->pid\">$status->pid</a>");
@@ -174,5 +166,4 @@ else
 <?php
 echo $page_string;
 ?>
-</div>
 <?php } ?>

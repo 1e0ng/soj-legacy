@@ -148,45 +148,50 @@ else
 	{
 ?>
 <form name = "formRegister" method = "post" action = "register.php" onsubmit = "return checkRegisterItems()">
-<div align = "center">
-<table cellpadding = "20" background="table_back.jpg">
+
+<table border="1">
 <tr>
-<td width = "300"><font color = "red">*</font>Username.Valid characters are alphabet, digits and underscore(_).</td>
-<td width = "200"><input type = "text" name = "username" value = "" maxlength = "32" size = "25"/></td>
+<td>User Name(*):</td>
+<td><input type = "text" name = "username" value = "" maxlength = "32" size = "25"/></td>
+<td>Alphabet, digits and underscore.</td>
 </tr>
 <tr>
-<td><font color = "red">*</font>Nickname.Punctuations other than underscore(_) are invalid.</td>
+<td>Display Name(*):</td>
 <td><input type = "text" name = "nickname" value = "" maxlength = "64" size = "25"/></td>
+<td>Alphabet, digits and underscore.</td>
 </tr>
 <tr>
-<td><font color = "red">*</font>Password.Length should be between 6 and 16.</td>
+<td>Password(*):</td>
 <td><input type = "password" name = "password1" value = "" maxlength = "16" size = "25"/></td>
+<td>Length should be between 6 and 16.</td>
 </tr>
 <tr>
-<td><font color = "red">*</font>Confirm your password</td>
+<td>Confirm password(*):</td>
 <td><input type = "password" name = "password2" value=""  maxlength = "16" size = "25"/></td>
+<td></td>
 </tr>
 <tr>
-<td>Gender</td>
+<td>Gender:</td>
 <td><select name="gender" size = "1">
 <option value = "2">--</option>
 <option value = "1">Male</option>
-<option value = "0"/>Female</option>
+<option value = "0">Female</option>
 </select></td>
+<td></td>
 </tr>
 <tr>
 <td>Email</td>
 <td><input type = "text" name = "email" value = "" maxlength = "128" size = "25"/></td>
+<td></td>
 </tr>
 <tr>
 <td>School</td>
 <td><input type = "text" name = "school" value = "" maxlength = "32" size = "25"/></td>
+<td></td>
 </tr>
-<tr><td colspan = "2" align = "center"><i>Items marked with a '*' are necessary.</i></td></tr>
-<tr><td colspan = "2" align = "center" >
+<tr><td colspan = "3" align = "center" >
 <input type = "submit" name = "submit" value = "submit" /></td></tr>
 </table>
-</div>
 </form>
 <?php
 	}
