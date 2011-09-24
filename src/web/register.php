@@ -14,85 +14,94 @@ else
 	//just let him go
 	function verify_username($username)
 	{
-		if($username == "")
-		{
+        $ans = false;
+		if (empty($username)) {
 			alert_and_go_back("Username can't be empty!");
-			return false;
 		}
-		if(strlen($username) > 32)
-		{
+		else if (strlen($username) > 32) {
 			alert_and_go_back("Username is too long!");
-			return false;
 		}
-		//invalid character check?
-		//is username duplicated?
-		return true;
+        else {
+            $ans = true;
+        }
+		return $ans;
 	}
+
 	function verify_nickname($nickname)
 	{
-		if($nickname == "")
-		{
-			alert_and_go_back("Nickname can't be empty!");
-			return false;
+        $ans = false;
+		if (empty($nickname)) {
+			alert_and_go_back("Display name can't be empty!");
 		}
-		if(strlen($nickname) > 64)
-		{
-			alert_and_go_back("Nickname is too long!");
-			return false;
+		else if (strlen($nickname) > 64) {
+			alert_and_go_back("Display name is too long!");
 		}
-		//invalid character check?
-		//is nickname duplicated?
-		return true;
+        else {
+            $ans = true;
+        }
+		return $ans;
 	}
+
 	function verify_password($pwd1, $pwd2)
 	{
-		if($pwd1 != $pwd2)
-		{
+        $ans = false;
+		if ($pwd1 != $pwd2) {
 			alert_and_go_back("Passwords are not the same!");
-			return false;
 		}
-		if($pwd1 == "" || $pwd2 == "")
-		{
+		else if (empty($pwd1) or empty($pwd2)) {
 			alert_and_go_back("Password can't be empty!");
-			return false;
 		}
-		return true;
+        else {
+            $ans = true;
+        }
+		return $ans;
 	}
+
 	function verify_gender($gender)
 	{
-		if(!($gender >=0 && $gender <=2))
-		{
+        $ans = false;
+		if (!($gender >=0 && $gender <=2)) {
 			alert_and_go_back("Gender id invalid!");
-			return false;
 		}
-		return true;
+        else {
+            $ans = true;
+        }
+		return $ans;
 	}
+
 	function verify_email($email)
 	{
-		if($email != "")
-		{
-			if(strlen($email <= 128))
-				return true;
-			else
-			{
-				alert_and_go_back("Email is too long!");
-			}
+        $ans = false;
+        if (empty($email)) {
+            $ans = true;
+        }
+        else if(strlen($email <= 128) and 
+                preg_match("/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i", $email)) {
+            $ans = true;
 		}
-		return true;
+        else {
+            alert_and_go_back("Email is invalid.");
+        }
+		return $ans;
 	}
+
 	function verify_school($school)
 	{
-		if($school != "")
-		{
-			if(strlen($school > 32))
-			{
+        $ans = false;
+        if (empty($school)) {
+            $ans = true;
+        }
+        else {
+			if(strlen($school > 32)) {
 				alert_and_go_back("School name is too long!");
-				return false;
 			}
-			return true;
+            else {
+                $ans = true;
+            }
 		}
-		return true;
+		return $ans;
 	}
+
 	if(isset($_POST['submit']))
 	{
 		//we assume all these items except the two passwords are trimed before sent here

@@ -70,7 +70,8 @@ function my_htmlentities($string)
 function paged_disp($conn, $tables, $condition, $top, $pagesize, $href,  $bNextPrevOnly = false)
 {
 	$page_string = "";
-	$sql = "select count(*) from $tables " . ($condition? "where $condition": "");
+	$sql = "select count(*) from $tables " . ($condition? " where $condition ": "");
+    //var_dump($sql);
 	$sep = strpos($href, '?') === false ? '?' : '&';
 	if($result = $conn->query($sql))
 	{

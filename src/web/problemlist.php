@@ -33,16 +33,18 @@ else
 
 	$href_prefix = "problemlist.php";
 	$sql_condition = "";
-	if(isset($pid)) {
+	if(!empty($pid)) {
 		$href_prefix .= "?pid=$pid";
-		$sql_condition = "pid=$pid";
+		$sql_condition = "pid=" . mysql_real_escape_string($pid);
 	}
-	else if($title != "")
-	{
+	if(!empty($title)) {
 		$href_prefix .= "?title=".urlencode($title);
-		$sql_condition = "title like '%".$conn->escape_string($title)."%'";
+        if (!empty($sql_condition)) {
+            $sql_condition .= " and ";
+        }
+		$sql_condition .= " problemName like '%" . $conn->escape_string($title)."%'";
 	}
-
+    
 	if(isset($_GET['top']) && $_GET['top'] > 0)
 		$top = (int)$_GET['top'];
 	
@@ -61,7 +63,7 @@ else
          $top--;
     $sql = "select pid, problemName, accepted, submitted from problem "
         .($sql_condition ? "where $sql_condition ": "")."order by pid"." limit $top, $pagesize";
-    var_dump($sql);
+    //var_dump($sql);
     $top++;
 
     if($result = $conn->query($sql))
@@ -71,12 +73,7 @@ else
             //here generates the content of table
             while($problem = $result->fetch_object())
             {
-                if ($problem->pid%2==0){
-                    echo "<tr>";
-                }
-                else {
-                    echo "<tr>";
-                }
+                echo "<tr>";
                 echo "<td>$problem->pid</td>";
                 echo "<td>
 				<a href=\"problem.php?pid=$problem->pid\">
@@ -105,4 +102,4 @@ else
     echo "</table>";
     echo $page_string;
 }
-    ?>
+?>
