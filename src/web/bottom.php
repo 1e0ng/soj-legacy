@@ -1,4 +1,4 @@
-<?php
+<?php 
 if(!isset($MAGICAL)) {
 	include("index.php");
 }
