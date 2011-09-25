@@ -16,6 +16,13 @@
 
 using namespace std;
 
+#if defined (__x86_64__) || defined(__x86_64) || defined(__amd64) || defined(__amd64__)
+#define ORIG_AX orig_rax
+#else
+#define ORIG_AX orig_eax
+#endif
+
+
 NativeSandbox::NativeSandbox()
 {
 	pid = 0;
@@ -73,14 +80,14 @@ void NativeSandbox::Watch()
 			}
 			struct user_regs_struct regs;
 			ptrace(PTRACE_GETREGS, pid, 0, &regs);
-			if(regs.orig_rax == SYS_exit || regs.orig_rax == SYS_exit_group)
+			if(regs.ORIG_AX == SYS_exit || regs.ORIG_AX == SYS_exit_group)
 			{
 				//log(Log::INFO)<<"exit or exit_group called"<<endl;
 			}
-			if(regs.orig_rax == SYS_open ||regs.orig_rax == SYS_close){
+			if(regs.ORIG_AX == SYS_open ||regs.ORIG_AX == SYS_close){
 				ptrace(PTRACE_SYSCALL,pid,0,0);
 			}
-			else if(!firstCall&&!watcher.IsSyscallAllowed(regs.orig_rax, &regs))
+			else if(!firstCall&&!watcher.IsSyscallAllowed(regs.ORIG_AX, &regs))
 			{
 				bNormalExit = false;
 				bRunning = false;
