@@ -35,19 +35,19 @@ using namespace std;
 
 #define array_size(ar) (sizeof(ar)/(sizeof(ar[0])))
 static const bool IsCallAllowed[512]={
-    0, //0, restart_syscall
-    0, //1, exit
+    1, //0, restart_syscall
+    1, //1, exit
     0, //2, fork
     1, //3, read
     1, //4, write
-    0, //5, open
+    1, //5, open
     0, //6, close
     0, //7, waitpid
     0, //8, creat
-    0, //9, link
+    1, //9, link
     0, //10, unlink
     0, //11, execve
-    0, //12, chdir
+    1, //12, chdir
     0, //13, time
     0, //14, mknod
     0, //15, chmod
@@ -98,7 +98,7 @@ static const bool IsCallAllowed[512]={
     0, //60, umask
     0, //61, chroot
     0, //62, ustat
-    0, //63, dup2
+    1, //63, dup2
     0, //64, getppid
     0, //65, getpgrp
     0, //66, setsid
@@ -193,7 +193,7 @@ static const bool IsCallAllowed[512]={
     0, //155, sched_getparam
     0, //156, sched_setscheduler
     0, //157, sched_getscheduler
-    0, //158, sched_yield
+    1, //158, sched_yield
     0, //159, sched_get_priority_max
     0, //160, sched_get_priority_min
     0, //161, sched_rr_get_interval
@@ -266,7 +266,7 @@ static const bool IsCallAllowed[512]={
     0, //228, fsetxattr
     0, //229, getxattr
     0, //230, lgetxattr
-    0, //231, fgetxattr
+    1, //231, fgetxattr
     0, //232, listxattr
     0, //233, llistxattr
     0, //234, flistxattr
