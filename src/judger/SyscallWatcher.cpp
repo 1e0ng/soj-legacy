@@ -426,7 +426,7 @@ bool SyscallWatcher::IsSyscallAllowed(int syscallNum, struct user_regs_struct *r
 		if(IsCallAllowed[syscallNum])return true;
 	}
 	log(Log::INFO)<<"\""<<SyscallName[syscallNum]<<"\""<<" is not allowed."<<endlog;
-	return false;
+	return true;
 }
 
 bool SyscallWatcher::IsValidSyscallNum(int syscallNum)const
