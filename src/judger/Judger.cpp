@@ -81,14 +81,14 @@ void Judger::CleanUp()
     stream.Close();
 }
 void Judger::CleanTmpFiles(){
-	string src=Configuration::GetInstance().GetSrcFilePath();
-	string dest=Configuration::GetInstance().GetDestFilePath();
+  	string src=Configuration::GetInstance().GetSrcFilePath();
+  	string dest=Configuration::GetInstance().GetDestFilePath();
 	string pout=Configuration::GetInstance().GetProgramOutputPath();
 	char tmp[512];
 	snprintf(tmp,sizeof(tmp),"rm -rf %s/* %s/* %s/*",src.c_str(),dest.c_str(),pout.c_str());
-	if(system(tmp)!=0){
-		log(Log::ERROR)<<"Remove tmp files error"<<endlog;
-	}
+	//	if(system(tmp)!=0){
+	//	log(Log::ERROR)<<"Remove tmp files error"<<endlog;
+	//	}
 }
 int Judger::DoJudge(Cake &ck)
 {
