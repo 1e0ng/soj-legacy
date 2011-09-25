@@ -1,0 +1,18 @@
+2011-09-25 09:49:01 [INFO] C compiler gcc loaded successfully.
+2011-09-25 09:49:01 [INFO] C++ compiler g++ loaded successfully.
+2011-09-25 09:49:01 [INFO] Java compiler g++ failed to load.
+2011-09-25 09:49:01 [INFO] Pascal compiler fpc failed to load.
+2011-09-25 09:49:01 [INFO] Connecting to server...
+2011-09-25 09:49:01 [INFO] Connected to server.Begin init from server...
+2011-09-25 09:49:01 [INFO] Judger::SendPacket Sent packet (type = 0) successfully.
+2011-09-25 09:49:01 [INFO] Judger::ReceivePacket Packet (type = 1) received successfully.
+2011-09-25 09:49:01 [INFO] CJConnectReply::Execute Get Judger id = 2
+2011-09-25 09:49:01 [INFO] Initialization complete.My judger id is 2
+2011-09-25 09:49:01 [INFO] Idle loop...
+2011-09-25 09:51:27 [INFO] Judger::ReceivePacket Packet (type = 2) received successfully.
+2011-09-25 09:51:27 [INFO] A new packet received.PacketType=2
+2011-09-25 09:51:27 [INFO] CJJudgeThis::Execute judging cake with rid = 21
+2011-09-25 09:51:27 [INFO] Begin processing run 21 
+2011-09-25 09:51:27 [INFO] Judger::SendPacket Sent packet (type = 3) successfully.
+2011-09-25 09:51:27 [INFO] Run 21: compilation error.
+2011-09-25 09:51:27 [INFO] Idle loop...

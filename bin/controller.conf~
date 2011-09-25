@@ -1,0 +1,9 @@
+[Controller]
+DBHost=211.87.227.89
+DBUsername=soj
+DBPassword=soj-001-soj
+DBSchema=soj
+
+LogFile=./controller.log
+
+ServerPort=15432
