@@ -3,7 +3,7 @@ CFLAGS=-g -Wall -DNDEBUG -DTRACE_SYSCALL -D_JUDGER
 CXXFLAGS=$(CFLAGS)
 SOURCES:=$(wildcard *.cpp) $(wildcard ../common/*.cpp) $(wildcard ../common/Packet/*.cpp)
 OBJS:=$(patsubst %.cpp, %.o, $(SOURCES))
-BINPATH=../bin/
+BINPATH=../../bin/
 #DEPS:=$(patsubst %.o, %.d, $(OBJS))
 
 all:judger

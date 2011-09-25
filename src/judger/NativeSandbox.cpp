@@ -73,14 +73,14 @@ void NativeSandbox::Watch()
 			}
 			struct user_regs_struct regs;
 			ptrace(PTRACE_GETREGS, pid, 0, &regs);
-			if(regs.rax == SYS_exit || regs.rax == SYS_exit_group)
+			if(regs.orig_eax == SYS_exit || regs.orig_eax == SYS_exit_group)
 			{
 				//log(Log::INFO)<<"exit or exit_group called"<<endl;
 			}
-			if(regs.rax == SYS_open ||regs.rax == SYS_close){
+			if(regs.orig_eax == SYS_open ||regs.orig_eax == SYS_close){
 				ptrace(PTRACE_SYSCALL,pid,0,0);
 			}
-			else if(!firstCall&&!watcher.IsSyscallAllowed(regs.rax, &regs))
+			else if(!firstCall&&!watcher.IsSyscallAllowed(regs.orig_eax, &regs))
 			{
 				bNormalExit = false;
 				bRunning = false;

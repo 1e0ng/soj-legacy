@@ -7,7 +7,7 @@ LIBPATHS=-L/usr/lib64/mysql/
 LIBS=-Wl,--hash-style=gnu -Wl,--as-needed -rdynamic  -lmysqlclient -lpthread -lz -lcrypt -lnsl -lm
 SOURCES:=$(wildcard *.cpp) $(wildcard ../common/*.cpp) $(wildcard ../common/Packet/*.cpp)
 OBJS:=$(patsubst %.cpp, %.o, $(SOURCES))
-BINPATH=../bin/
+BINPATH=../../bin/
 #DEPS:=$(patsubst %.o, %.d, $(OBJS))
 
 all:controller

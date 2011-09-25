@@ -9,4 +9,4 @@ judger/judger:
 	$(MAKE) -C judger
 
 clean:
-	rm -rf *.o controller/*.o judger/*.o common/*.o common/Packet/*.o bin/controller bin/judger
+	rm -rf *.o controller/*.o judger/*.o common/*.o common/Packet/*.o ../bin/controller ../bin/judger
