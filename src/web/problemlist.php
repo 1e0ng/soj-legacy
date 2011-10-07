@@ -7,7 +7,7 @@ if(!isset($MAGICAL))
 else
 {
 	$title = "";
-	if(isset($_POST['pid']) && $_POST['pid']) {
+	if(isset($_POST['pid'])) {
 		$pid = (int)$_POST['pid'];
     }
 	if(isset($_POST['title'])) {
@@ -19,7 +19,7 @@ else
     <form name = "formSearchProblem" action = "problemlist.php" 
          method = "post" onsubmit = "return checkSearchProblemItems()">
          ID
-         <input type="text" name="pid" value="<?php echo $pid == 0? "": $pid; ?>" size="8" maxlength="8">
+         <input type="text" name="pid" value="<?php echo isset($pid) ? $pid : ""; ?>" size="8" maxlength="8">
          Title
          <input type="text" name="title" value="<?php echo $title; ?>" size="20" maxlength="50">
          <input type = "submit" name = "submit" value = "Go">
