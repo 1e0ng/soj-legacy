@@ -1,0 +1,31 @@
+1.Install Apahce, PHP, Mysql
+
+yum -y install httpd php mysql mysql-server php-mysql
+yum -y install phpmyadmin
+yum -y install httpd-manual mod_ssl mod_perl mod_auth_mysql
+yum install php-gd
+yum -y install php-gd php-xml php-mbstring php-ldap php-pear php-xmlrpc
+yum -y installmysql-connector-odbcmysql-devel libdbi-dbd-mysql
+
+2.Configure servers to make them auto-start on boot
+
+/sbin/chkconfig httpd on
+/sbin/chkconfig --add mysqld
+/sbin/chkconfig mysqld on
+
+3.Start servers
+
+/sbin/service httpd start
+/sbin/service mysqld start
+
+4.Set password for mysql
+
+mysqladmin -u root password 'newpassword'
+
+5.Make mysql more safe(Optional)
+
+mysql -u root -p
+mysql> DROP DATABASE test;
+mysql> DELETE FROM mysql.user WHERE user = '';
+mysql> FLUSH PRIVILEGES;
+
