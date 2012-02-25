@@ -71,6 +71,7 @@ if($conds)
 $page_string = paged_disp($conn, $table, $condition, $top, $pagesize, 
 	"status.php".($querys? "?".join("&", $querys) : ""), true);
 ?>
+<div id="status">
 <form action = "status.php" method = "get">
 	<p>
 	ProblemID
@@ -102,6 +103,7 @@ echo $page_string;
 			<th>Problem</th>
 			<th>User</th>
 			<th>Judge Status</th>
+            <th>Language</th>
 			<th>Consumed Time</th>
 			<th>Consumed Memory</th>
 			<th>Submitted Time</th>
@@ -129,10 +131,10 @@ if($result = $conn->query($sql))
 
 			gen_cell($JUDGE_STATUS[$status->judgeStatus]);
 
-			//if(isset($_SESSION['uid']) && ($_SESSION['uid'] == $status->uid or $_SESSION['uid'] == 3))
-			//	gen_cell("<a href=\"viewsource.php?sid={$status->rid}\">{$LANGUAGE[$status->language]}</a>");
-			//else
-			//	gen_cell($LANGUAGE[$status->language]);
+			if(isset($_SESSION['uid']) && ($_SESSION['uid'] == $status->uid or $_SESSION['uid'] == 3))
+				gen_cell("<a href=\"viewsource.php?sid={$status->rid}\">{$LANGUAGE[$status->language]}</a>");
+			else
+				gen_cell($LANGUAGE[$status->language]);
 
 			if($status->rtime == null)
 				$rtime = "--";
@@ -164,5 +166,5 @@ else
 	</table>
 <?php
 echo $page_string;
-?>
-<?php } ?>
+} ?>
+</div>

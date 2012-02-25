@@ -9,10 +9,23 @@ else {
 <ul><li><a href="problemlist.php">View Problems</a></li><li><a href="problemlist.php">Find Problems</a></li></ul>
 </li>
 <li class="bar"><a href="login.php">Accounts</a>
-<ul><li><a href="login.php">Login</a></li><li><a href="register.php">Register</a></li><li><a href="#">My Profile</a></li><li><a href="logout.php">Logout</a></li></ul>
+<ul>
+
+<?php
+    if (!isset($_SESSION['uid'])) {
+        echo '<li><a href="login.php">Login</a></li>';
+        echo '<li><a href="register.php">Register</a></li>';
+    }
+    else {
+        echo '<li><a href="user.php?uid=' . $_SESSION["uid"] . '">My Profile</a></li>';
+        echo '<li><a href="logout.php">Logout</a></li>';
+    }
+?>
+
+</ul>
 </li>
 <li class="bar"><a href="status.php">Statistics</a>
-<ul><li><a href="rank.php">Rank List</a></li><li><a href="status.php">Explore</a></li></ul>
+<ul><li><a href="rank.php">Rank List</a></li><li><a href="status.php">Realtime Status</a></li></ul>
 </li>
 <li class="bar"><a href="#">Help</a>
 <ul><li><a href="help.php">The Tour</a></li><li><a href="fqa.php">FQA</a></li><li><a href="about.php">About</a></li></ul>
@@ -20,10 +33,6 @@ else {
 
 
 <!--
-<td><a href="problemlist.php">Problems</a></td>
-<td><a href="submitproblem.php">Submit</a></td>
-<td><a href="status.php">Status</a></td>
-<td><a href="rank.php">Rank</a></td>
 <?php
     //if not logged in, display the login and register link
     if(!isset($_SESSION['uid'])) {

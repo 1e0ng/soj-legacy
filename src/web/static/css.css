@@ -2,10 +2,13 @@
 *{
     margin:0;
     padding:0;
+    font-size:14px;
+}
+table{
+    margin-left:auto;
+    margin-right:auto;
 }
 body{
-    margin-top:0px;
-    margin-bottom:0px;
     margin-left:auto;
     margin-right:auto;
     text-align:center;
@@ -19,6 +22,7 @@ hr{
 }
 a{
     text-decoration:none;
+    text-align:left;
     font-weight:bold;
     color:#25450d;
 }
@@ -52,22 +56,20 @@ ul,li{
 .bar ul{
     display:none;
     position:absolute;
+    float:none;
 }
 .bar ul li{
     float:none;
-    display:block;
 }
 .bar a{
     padding-top:5px;
+    padding-left:10px;
     height:35px;
     font-size:20px;
-    color:#25450d;
     display:block;
-    vertical-align:middle;
 }
 .bar ul li a{
     font-size:17px;
-    color:#25450d;
     float:none;
     padding-top:8px;
 }
@@ -75,6 +77,7 @@ ul,li{
     width:600px;
     margin-top:0px;
     padding-top:0px;
+    font-size:14px;
     background-image:url(bg.png);
     background-repeat:repeat-y;
     background-position:top center;
@@ -89,4 +92,7 @@ ul,li{
 }
 #bottom{
     font-size:12px;
+}
+#status{
+    font-size:14px;
 }

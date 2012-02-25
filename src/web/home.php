@@ -8,7 +8,7 @@ else {
 
 Hi,
 
-Welcome to Small Online Judge!
+Welcome to <a href="home.php">Small Online Judge!</a>
 
 Small Online Judge is a place where you can
 practise programming with algorithm and
@@ -18,15 +18,14 @@ mathematics knowledge.
 To start using SOJ, just
 
 0.Register an account
-1.Click Problems
-2.Find a problem which interests you
-3.Solve the problem with your code
-4.Submit your code to SOJ
-5.SOJ will tell you whether your code is
-right or needs to be improved
+1.Find a <a href="problemlist.php">Problem</a> which interests you
+2.Write code to solve the problem
+3.<a href="submit.php">Submit</a> your code to SOJ
+4.SOJ will tell you whether your code is
+right or needs to be improved <a href="status.php">here</a>
 
 
-You may also view Help or FQA to get more
+You may also view <a href="help.php">The Tour</a> or <a href="fqa.php">FQA</a> to get more
 information about how to use SOJ.
 
 Have fun!
