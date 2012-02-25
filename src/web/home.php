@@ -17,7 +17,7 @@ mathematics knowledge.
 
 To start using SOJ, just
 
-0.Register an account
+0.<a href="register.php">Register</a> an account
 1.Find a <a href="problemlist.php">Problem</a> which interests you
 2.Write code to solve the problem
 3.<a href="submit.php">Submit</a> your code to SOJ

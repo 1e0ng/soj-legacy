@@ -10,7 +10,7 @@ else {
     function verify_user($conn, $username, $password)
     {
         $ans = false;
-        $query = "select uid, username, nickname, password from user where username = '" . mysql_real_escape_string($username) . "'";
+        $query = "select uid, username, nickname, password from user where username = '" . $conn->real_escape_string($username) . "'";
         //var_dump($query);
         if (($result = $conn->query($query)) and $result->num_rows > 0) {
             $user = $result->fetch_object();

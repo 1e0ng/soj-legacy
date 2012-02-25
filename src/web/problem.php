@@ -70,7 +70,7 @@ gen_section("OUTPUT CASE", my_htmlentities($problem->outputCase));
 $infile="problem/{$problem->pid}.htm";
 include $infile;
 
-echo "<a href=\"submitproblem.php?pid=$pid\">Submit</a>";
+echo "<a href=\"submitcode.php?pid=$pid\">Submit</a>";
 
 echo "<a href=\"statistics.php?pid=$pid\">Statistics</a>";
 

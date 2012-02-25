@@ -1,7 +1,7 @@
 <?php
 if(!isset($MAGICAL))
 {
-	$view = "submitproblem.php";
+	$view = "submitcode.php";
 	include_once("index.php");
 }
 else
@@ -142,7 +142,7 @@ else
 	else
 	{
 ?>
-<form name = "formSubmitProblem" method = "post" action = "submitproblem.php"
+<form name = "formSubmitProblem" method = "post" action = "submitcode.php"
 onsubmit = "return checkSubmitProblemItems()">
 <table border="1"><tr>
 <td>ProblemID</td>

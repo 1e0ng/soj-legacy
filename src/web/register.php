@@ -105,7 +105,7 @@ else
 	if(isset($_POST['submit']))
 	{
 		//we assume all these items except the two passwords are trimed before sent here
-		//under normal condition mysql_real_escape_string won't affect anything
+		//under normal condition real_escape_string won't affect anything
 		$username = $_POST['username'];
 		$nickname = $_POST['nickname'];
 		$pswd1 = $_POST['password1'];//reserve blank characters
@@ -117,10 +117,10 @@ else
 			&& verify_password($pswd1, $pswd2) && verify_gender($gender)
 			&& verify_school($school) && verify_email($email))
 		{
-			$username = $conn->escape_string($username);
-			$nickname = $conn->escape_string($nickname);
-			$school = $conn->escape_string($school);
-			$email = $conn->escape_string($email);
+			$username = $conn->real_escape_string($username);
+			$nickname = $conn->real_escape_string($nickname);
+			$school = $conn->real_escape_string($school);
+			$email = $conn->real_escape_string($email);
 			date_default_timezone_set("Asia/Shanghai");
 			$tm = date('Y-m-d H:i:s');
 			$pswd = md5($pswd1);

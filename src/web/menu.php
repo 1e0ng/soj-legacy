@@ -6,7 +6,7 @@ else {
 ?>
 <ul id="menu">
 <li class="bar"><a href="problemlist.php">Problems</a>
-<ul><li><a href="problemlist.php">View Problems</a></li><li><a href="problemlist.php">Find Problems</a></li></ul>
+<ul><li><a href="problemlist.php">View Problems</a></li><li><a href="problemlist.php">Find Problems</a></li><li><a href="submitcode.php">Submit Code</a></li></ul>
 </li>
 <li class="bar"><a href="login.php">Accounts</a>
 <ul>

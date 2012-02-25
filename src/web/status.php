@@ -19,13 +19,13 @@ $conds = array();
 if(isset($_GET['pid']) && ($pid = trim($_GET['pid'])) != "")
 {
 	$querys[] = "pid=$pid";
-	$pid = $conn->escape_string($pid);
+	$pid = $conn->real_escape_string($pid);
 	$conds[] = "pid=$pid";
 }
 if(isset($_GET['username']) && ($username = trim($_GET['pid'])) != "")
 {
 	$querys[] = "username=".urlencode($username);
-	$username = $conn->escape_string($username);
+	$username = $conn->real_escape_string($username);
 	$conds[] = "nickname=$username";
 }
 if(isset($_GET['judgeStatus']) && $_GET['judgeStatus'] != "")

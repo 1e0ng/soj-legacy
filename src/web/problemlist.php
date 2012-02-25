@@ -35,14 +35,14 @@ else
 	$sql_condition = "";
 	if(!empty($pid)) {
 		$href_prefix .= "?pid=$pid";
-		$sql_condition = "pid=" . mysql_real_escape_string($pid);
+		$sql_condition = "pid=" . $conn->real_escape_string($pid);
 	}
 	if(!empty($title)) {
 		$href_prefix .= "?title=".urlencode($title);
         if (!empty($sql_condition)) {
             $sql_condition .= " and ";
         }
-		$sql_condition .= " problemName like '%" . $conn->escape_string($title)."%'";
+		$sql_condition .= " problemName like '%" . $conn->real_escape_string($title)."%'";
 	}
     
 	if(isset($_GET['top']) && $_GET['top'] > 0)
