@@ -11,7 +11,8 @@ if($DEBUG)
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Small Online Judge</title>
 <link rel="stylesheet" href="static/css.css" type="text/css" />
-<script type="text/javascript" src="static/checkers.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="static/js.js"></script>
 </head>
 <body>
 

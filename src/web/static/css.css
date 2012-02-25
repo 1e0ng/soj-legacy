@@ -1,5 +1,8 @@
 @charset "utf-8";
-
+*{
+    margin:0;
+    padding:0;
+}
 body{
     margin-top:0px;
     margin-bottom:0px;
@@ -7,7 +10,6 @@ body{
     margin-right:auto;
     text-align:center;
     width:600px;
-    height:800px;
     vertical-align:middle;
     font-family:'Microsoft YaHei';
     color:#25450d;
@@ -17,6 +19,7 @@ hr{
 }
 a{
     text-decoration:none;
+    font-weight:bold;
     color:#25450d;
 }
 ul,li{
@@ -33,25 +36,43 @@ ul,li{
     height:90px;
 }
 #menu{
-    margin-top:5px;
-    margin-bottom:5px;
     width:600px;
     height:40px;
 }
-.bar{
-    width:100px;
-    height:30px;
+.bar, .bar ul li{
+    width:150px;
+    height:40px;
     float:left;
-    padding-top:5px;
     background-image:url(bar.jpg);
+    vertical-align:middle;
+}
+.bar:hover, .bar ul li:hover{
+    background-image:url(selected_bar.jpg);
+}
+.bar ul{
+    display:none;
+    position:absolute;
+}
+.bar ul li{
+    float:none;
+    display:block;
 }
 .bar a{
+    padding-top:5px;
+    height:35px;
     font-size:20px;
     color:#25450d;
+    display:block;
+    vertical-align:middle;
+}
+.bar ul li a{
+    font-size:17px;
+    color:#25450d;
+    float:none;
+    padding-top:8px;
 }
 #main{
     width:600px;
-    height:600px;
     margin-top:0px;
     padding-top:0px;
     background-image:url(bg.png);
@@ -60,9 +81,12 @@ ul,li{
 }
 .content{
     width:580px;
-    height:600px;
+    height:580px;
     margin-left:20px;
     margin-top:0px;
     font-size:20px;
     text-align:left;
+}
+#bottom{
+    font-size:12px;
 }

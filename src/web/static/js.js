@@ -212,3 +212,13 @@ function checkSubmitProblemItems()
 	}
 	return true;
 }
+
+$(function() {
+    $("#menu li ul").css("display","none");
+    $("#menu li").mouseover(function(){
+        $(this).children("ul").css("display","block");
+    }).mouseout(function(){
+        $(this).children("ul").css("display","none");
+    });
+});
+

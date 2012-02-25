@@ -4,6 +4,6 @@ if(!isset($MAGICAL)) {
 }
 else {
 ?>
-<div id="top"><img src="static/title.jpg" /></div>
+<div id="top"><a href="home.php"><img src="static/title.jpg" /></a></div>
 <?php
 }
