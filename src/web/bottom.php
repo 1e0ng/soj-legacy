@@ -7,6 +7,7 @@ else {
 
 <div id="bottom">
 <img src="static/bottom.jpg" />
+<br />
 SOJ is designed and developed by <a href="mailto:powerx1202@gmail.com">Wilbur Ding</a> and <a href="http://liangsun.org">Liang Sun</a>.  
 &copy;All Rights Reserved 2009-2012.
 </div>
