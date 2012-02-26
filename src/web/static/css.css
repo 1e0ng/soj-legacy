@@ -16,7 +16,7 @@ body{
     margin-right:auto;
     text-align:center;
     width:600px;
-    font-family:Verdana,Helvetica,Arial,sans-serif;
+    font-family:'Microsoft YaHei',Arial,sans-serif;
     color:#25450d;
 }
 hr{
@@ -71,7 +71,7 @@ ul,li{
     display:block;
 }
 .bar ul li a{
-    font-size:17px;
+    font-size:16px;
     float:none;
     padding-top:8px;
 }
