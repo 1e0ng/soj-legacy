@@ -6,6 +6,7 @@ $DEBUG = true;
 if($DEBUG)
     error_reporting(E_ERROR|E_NOTICE|E_STRICT);
 ?>
+<!doctype html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
