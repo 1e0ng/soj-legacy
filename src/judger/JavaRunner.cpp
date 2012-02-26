@@ -323,7 +323,7 @@ bool JavaRunner::SetupChild(int pid, int rid, const string &lang)
     if(setresuid(3417,3417,3417)!=0){
         log(Log::WARNING)<<"setresuid failed."<<endlog;
     }
-    ret= execlp("java","java","-Xmx128m","Loader",NULL);
+    ret= execlp("java", "java", "-client", "-Xint", "-Xfuture", "-Xincgc", "-Xss1m", "-Xms2m", "-Xmx128m", "Loader", NULL);
     if(ret < 0)
     {
         log(Log::WARNING)<<"JavaRunner: Failed to execl child."<<endlog;
