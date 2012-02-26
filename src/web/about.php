@@ -17,7 +17,7 @@ The SOJ project is an open source project, under
 the <a href="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html">GNU GPL v2</a> license. Anyone can download
 the source code of SOJ from <a href="http://soj.googlecode.com">Google Code</a>.
 
-If you find a bug or have advise for SOJ, please
+If you find bugs or have advices for SOJ, please
 submit it <a href="http://code.google.com/p/soj/issues/list">here</a>.
 
 </pre>
