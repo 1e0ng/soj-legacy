@@ -39,6 +39,9 @@ int OutputChecker::Check(int pid, int rid)const
             ret = WA;
             break;
         }
+        if (send == EOF) {
+            break;
+        }
     }
     /*
     bool send = false, pend = false, OKready = true;
