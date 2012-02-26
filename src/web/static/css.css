@@ -14,7 +14,7 @@ table{
 body{
     margin-left:auto;
     margin-right:auto;
-    text-align:center;
+    text-align:left;
     width:600px;
     font-family:'Microsoft YaHei',Arial,sans-serif;
     color:#25450d;
@@ -24,7 +24,6 @@ hr{
 }
 a{
     text-decoration:none;
-    text-align:left;
     font-weight:bold;
     color:#25450d;
 }
@@ -87,7 +86,6 @@ ul,li{
 .content{
     margin-left:20px;
     font-size:16px;
-    text-align:left;
 }
 .content a{
     font-size:16px;
