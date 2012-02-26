@@ -47,11 +47,13 @@ ul,li{
     width:150px;
     height:40px;
     float:left;
-    background-image:url(bar.jpg);
+    background-image:url(bars.jpg);
+    background-position:0px 0px;
     vertical-align:middle;
 }
 .bar:hover, .bar ul li:hover{
-    background-image:url(selected_bar.jpg);
+    background-image:url(bars.jpg);
+    background-position:-150px 0px;
 }
 .bar ul{
     display:none;
