@@ -45,7 +45,7 @@ int OutputChecker::Check(int pid, int rid)const
 			if(OKready)
 				ret = OK;
 			else
-				ret = PE;
+				ret = OK;
 			break;
 		}
 		if(s != p)
