@@ -20,8 +20,8 @@ To start using SOJ, just
 1.Find a <a href="problemlist.php">Problem</a> which interests you
 2.Write code to solve the problem
 3.<a href="submit.php">Submit</a> your code to SOJ
-4.SOJ will tell you whether your code is right or needs to
-  be improved at <a href="status.php">Realtime Status</a>.
+4.SOJ will tell you whether your code is right or needs
+  to be improved at <a href="status.php">Realtime Status</a>.
 
 
 You may also view <a href="help.php">The Tour</a> or <a href="fqa.php">FQA</a> to get more information
