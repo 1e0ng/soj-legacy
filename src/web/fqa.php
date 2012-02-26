@@ -6,7 +6,7 @@ if (!isset($MAGICAL)) {
 else {
 ?>
 
-<pre id="fqa">
+<pre class="content">
 
 <a href="fqa.php">FQA (Frequently Asked Questions)</a>
 

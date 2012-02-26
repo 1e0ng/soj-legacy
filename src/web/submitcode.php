@@ -167,7 +167,7 @@ gen_options($LANGUAGE, null, $preferred_lan);
 ?>
 </td></tr>
 <tr><td colspan = "4">
-<textarea name = "source" cols = "80" rows = "20"></textarea>
+<textarea name = "source" cols = "70" rows = "20"></textarea>
 </td></tr>
 <tr><td colspan = "4">
 <input type = "submit" name = "submit" value = "submit"/>

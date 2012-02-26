@@ -67,6 +67,5 @@ else {
             </form>
             <?php
             }
-    echo "Login Successful.";
 }
 ?>

@@ -19,6 +19,7 @@ the source code of SOJ from <a href="http://soj.googlecode.com">Google Code</a>.
 
 If you find a bug or have advise for SOJ, please
 submit it <a href="http://code.google.com/p/soj/issues/list">here</a>.
+
 </pre>
 <?php
 }

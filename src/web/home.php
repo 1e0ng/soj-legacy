@@ -30,11 +30,6 @@ information about how to use SOJ.
 
 Have fun!
 
-
-
-
-
-
 </pre>
 <?php
 }
