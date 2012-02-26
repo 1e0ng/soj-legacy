@@ -4,7 +4,7 @@
     padding:0;
     font-size:14px;
 }
-div{
+a,div,img{
     border:none;
 }
 table{
@@ -59,7 +59,6 @@ ul,li{
 .bar ul{
     display:none;
     position:absolute;
-    float:none;
 }
 .bar ul li{
     float:none;

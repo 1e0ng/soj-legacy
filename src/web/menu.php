@@ -5,10 +5,10 @@ if(!isset($MAGICAL)) {
 else {
 ?>
 <ul id="menu">
-<li class="bar"><a href="problemlist.php">Problems</a>
+<li class="bar"><a>Problems</a>
 <ul><li><a href="problemlist.php">View Problems</a></li><li><a href="problemlist.php">Find Problems</a></li><li><a href="submitcode.php">Submit Code</a></li></ul>
 </li>
-<li class="bar"><a href="login.php">Accounts</a>
+<li class="bar"><a>Accounts</a>
 <ul>
 
 <?php
@@ -24,10 +24,10 @@ else {
 
 </ul>
 </li>
-<li class="bar"><a href="status.php">Statistics</a>
+<li class="bar"><a>Statistics</a>
 <ul><li><a href="rank.php">Rank List</a></li><li><a href="status.php">Realtime Status</a></li></ul>
 </li>
-<li class="bar"><a href="#">Help</a>
+<li class="bar"><a>Help</a>
 <ul><li><a href="help.php">The Tour</a></li><li><a href="fqa.php">FQA</a></li><li><a href="about.php">About</a></li></ul>
 </li>
 

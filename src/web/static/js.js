@@ -14,7 +14,7 @@ String.prototype.isNumeric = function()
 	return true;
 }
 
-const invalidChars = "`~!@#$%^&*()-=+\|'\";:/?.>,<";
+invalidChars = "`~!@#$%^&*()-=+\|'\";:/?.>,<";
 
 function hasInvalidChars(str)
 {
@@ -214,11 +214,9 @@ function checkSubmitProblemItems()
 }
 
 $(function() {
-    $("#menu li ul").css("display","none");
     $("#menu li").mouseover(function(){
         $(this).children("ul").css("display","block");
     }).mouseout(function(){
         $(this).children("ul").css("display","none");
     });
 });
-
