@@ -23,7 +23,6 @@ hr{
     color:#25450d;
 }
 a{
-    text-decoration:none;
     font-weight:bold;
     color:#25450d;
 }
@@ -76,8 +75,9 @@ ul,li{
 }
 #main{
     width:600px;
+    overflow:auto;
     margin-top:0px;
-    padding-top:0px;
+    padding-top:10px;
     font-size:14px;
     background-image:url(bg.jpg);
     background-repeat:repeat-y;
@@ -96,4 +96,19 @@ ul,li{
 }
 #bottom img{
     vertical-align:top;
+}
+.pagination{
+    width:120px;
+    margin:5px auto;
+}
+.pagination a{
+    display:block;
+    width:60px;
+    float:left;
+}
+.left{
+    float:left;
+}
+.clear{
+    clear:both;
 }

@@ -69,7 +69,7 @@ else
      */
     function paged_disp($conn, $tables, $condition, $top, $pagesize, $href,  $bNextPrevOnly = false)
     {
-        $page_string = "";
+        $page_string = '<div class="pagination">';
         $sql = "select count(*) from $tables " . ($condition? " where $condition ": "");
         //var_dump($sql);
         $sep = strpos($href, '?') === false ? '?' : '&';
@@ -106,6 +106,7 @@ else
             error_log($conn->error." File:".__FILE__."; Line: ".__LINE__."; Sql string: $sql");
             die("Database Error.");
         }
+        $page_string .= '<div class="clear"></div></div>';
         return $page_string;
     }
 }

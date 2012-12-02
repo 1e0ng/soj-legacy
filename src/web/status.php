@@ -72,6 +72,7 @@ $page_string = paged_disp($conn, $table, $condition, $top, $pagesize,
 	"status.php".($querys? "?".join("&", $querys) : ""), true);
 ?>
 <div id="status">
+<!--
 <form action = "status.php" method = "get">
 	<p>
 	ProblemID
@@ -93,6 +94,7 @@ $page_string = paged_disp($conn, $table, $condition, $top, $pagesize,
 	<input type = "submit" name = "submit" value = "Go"/>
 	</p>
 </form>
+-->
 <?php
 
 echo $page_string;
